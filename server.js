@@ -6,14 +6,14 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
-const utils = require('./server-utils/utils');
 
 var app = express();
 app.use(favicon(path.join(__dirname, 'imgs', 'favicon.ico')));
 app.use(express.static(__dirname + './public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
 
 const config = require('./webpack.config.js');
 
@@ -35,6 +35,17 @@ app.use(
 app.use(require('webpack-hot-middleware')(compiler));
 
 
+io.on('connection', function(socket){
+    console.log('a user connected');
+    socket.on('disconnect', function(){
+        console.log('user disconnected');
+    });
+
+    socket.on('chat message', function(msg){
+        console.log('message: ' + msg);
+        io.emit('chat message', msg);
+    });
+});
 
 app.get('/', (req, res, next) => {
     var filename = path.join(compiler.outputPath,'index');
@@ -49,8 +60,8 @@ app.get('/', (req, res, next) => {
     });
 });
 
-app.listen(5000, 'localhost', () => {
-    console.log('dev server listening on port 5000');
+http.listen(5000, function(){
+    console.log('listening on *:5000');
 });
 
 process.on('SIGINT', _ => {

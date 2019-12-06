@@ -22,3 +22,25 @@ section.view {
         display: inherit;
     }
 }
+
+form {
+    font: {
+        family: 'Open Sans', sans-serif;
+        size: 100%;
+    }
+    position: fixed;
+    box-sizing: border-box;
+    margin: 10px;
+    border-radius: 8px;
+    
+    bottom: 20px;
+    right: 10px;
+    background: whitesmoke;
+    border: none;
+    button {
+        background: white;
+        border: none;
+        box-sizing: border-box;
+        padding: 10px;
+    }
+}

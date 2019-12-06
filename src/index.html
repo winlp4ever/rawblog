@@ -13,10 +13,13 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
         <script src="https://kit.fontawesome.com/47e233193a.js" crossorigin="anonymous"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        
     </head>
     <body>
-        <section id='menu'></section>
-        <section id="main"></section>
-        <section id='chat'></section>
+        <ul id="messages"></ul>
+        <form action="">
+            <input id="m" autocomplete="off" /><button>Send</button>
+        </form>
     </body>
 </html>
