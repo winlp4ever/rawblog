@@ -6,8 +6,9 @@ import "./_common.scss";
 import $ from 'jquery';
 
 import Comment from './components/comment/comment';
+import Post from './components/post/post';
 
-ReactDOM.render(<Comment postId={0}/>, document.getElementById('comment'));
+ReactDOM.render(<Post postId={0}/>, document.getElementById('comment'));
 
 if (module.hot) {
     module.hot.accept();

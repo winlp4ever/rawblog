@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MdRender from '../md-render/md-render';
+//import MdRender from '../md-render/md-render';
 import Comment from '../comment/comment';
 import $ from 'jquery';
 import './_post.scss';
@@ -34,23 +34,23 @@ export default class Post extends Component {
                 <button className='del-post' onClick={_ => this.props.onClick()}>
                     <i className="fas fa-times"></i>
                 </button>
-                <button onClick={_ => this.props.viewPost(this.props.post)}>
+                <button>
                     <i className="fas fa-external-link-alt"></i>
                 </button>
                 
                 <div>
-                    <MdRender source={this.props.post.content} />
+                    {this.state.post_content.text}
                 </div>
                 <div
                     className='post-interact'
                 >
                     <div>
                         <span 
-                            onClick={_ => this.props.onLike()}
+                            
                         >
                             <i className="fab fa-gratipay"></i>
                         </span>
-                        <span>{this.props.post.likes}</span>
+                        <span>likes</span>
                     </div>
                     <div>
                         <span>

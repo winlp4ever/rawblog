@@ -89,7 +89,7 @@ app.get('/', (req, res, next) => {
 
 app.post('/get-post', (req, res) => {
     let postId = req.query.postId;
-    console.log()
+    res.json(posts[postId].content);
 })
 
 http.listen(5000, function(){
