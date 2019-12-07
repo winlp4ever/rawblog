@@ -63,17 +63,14 @@ io.on('connection', function(socket){
     socket.on('comment history', postId => {
         console.log('request history ...');
         console.log(posts[postId].comments);
-        socket.emit('comment history', {
-            postId: postId,
-            comments: posts[postId].comments
-        });
+        socket.emit(`comment history postId=${postId}`, posts[postId].comments);
     })
     
 
     socket.on('submit comment', function(msg){
         posts[msg.postId].comments.push(msg.comment);
         console.log('message: ' + msg.comment);
-        io.emit('new comment', msg);
+        io.emit(`new comment postId=${msg.postId}`, msg.comment);
     });
 });
 

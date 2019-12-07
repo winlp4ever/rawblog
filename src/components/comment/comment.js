@@ -18,20 +18,14 @@ class Comment extends Component {
     async componentDidMount() {
         await this.state.socket.emit('comment history', this.props.postId);
         var initcount = 0;
-        this.state.socket.on(`comment history`, msg => {
+        this.state.socket.on(`comment history postId=${this.props.postId}`, comments => {
             initcount ++;
-            if (msg.postId == this.props.postId) {
-                this.setState({comments: msg.comments});
-            }
-            
+            this.setState({comments: comments});
         });
-        this.state.socket.on('new comment', msg => {
+        this.state.socket.on(`new comment postId=${this.props.postId}`, msg => {
             let comments = this.state.comments.slice();
-            console.log('old comments', this.state.comments);
-            if (msg.postId == this.props.postId) {
-                comments.push(msg.comment);
-                this.setState({comments: comments});
-            }
+            comments.push(msg);
+            this.setState({comments: comments});
             
         });
         this.submitComment();
