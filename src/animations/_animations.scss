@@ -1,0 +1,17 @@
+@keyframes blap {
+    0%, 100% {
+        color: #ff5252;
+    }
+    50% {
+        transform: rotate(20deg) scale(1.2);
+    }
+}
+
+@keyframes click-save {
+    50% {
+        background: #ef5350;
+        box-shadow: none;
+    }
+}
+
+$funny: green;

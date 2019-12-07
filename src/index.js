@@ -7,7 +7,7 @@ import $ from 'jquery';
 
 import Comment from './components/comment/comment';
 
-ReactDOM.render(<Comment />, document.getElementById('comment'));
+ReactDOM.render(<Comment postId={0}/>, document.getElementById('comment'));
 
 if (module.hot) {
     module.hot.accept();

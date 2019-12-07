@@ -28,8 +28,23 @@ const compiler = webpack(config);
 //const server = new webpackDevServer(compiler, options);
 //compiler.outputFileSystem = fs;
 
-var comments = ['this is a chatbot'];
+var posts = {
+    0: {
+        id: 0,
+        content: {
+            title: 'an example',
+            text: 'this is an example'
+        },
+        likes: 0,
+        comments: [
+            'Hey yo',
+            'this is an example'
+        ]
+    }
+}
 var count = 0;
+
+comments = ['oofoof']
 
 app.use(
     middleware(compiler, options)
@@ -45,15 +60,19 @@ io.on('connection', function(socket){
         count --;
         console.log(`1 user disconnected, rest ${count}`);
     });
-    socket.on('comment history', _ => {
+    socket.on('comment history', postId => {
         console.log('request history ...');
-        socket.emit('comment history', comments);
+        console.log(posts[postId].comments);
+        socket.emit('comment history', {
+            postId: postId,
+            comments: posts[postId].comments
+        });
     })
     
 
     socket.on('submit comment', function(msg){
-        comments.push(msg)
-        console.log('message: ' + msg);
+        posts[msg.postId].comments.push(msg.comment);
+        console.log('message: ' + msg.comment);
         io.emit('new comment', msg);
     });
 });
@@ -70,6 +89,11 @@ app.get('/', (req, res, next) => {
         res.end();
     });
 });
+
+app.post('/get-post', (req, res) => {
+    let postId = req.query.postId;
+    console.log()
+})
 
 http.listen(5000, function(){
     console.log('listening on *:5000');

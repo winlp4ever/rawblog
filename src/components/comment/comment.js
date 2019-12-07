@@ -16,17 +16,30 @@ class Comment extends Component {
     }
 
     async componentDidMount() {
-        await this.state.socket.emit('comment history', 0);
-        this.state.socket.on('comment history', comments => {
-            this.setState({comments: comments})
+        await this.state.socket.emit('comment history', this.props.postId);
+        var initcount = 0;
+        this.state.socket.on(`comment history`, msg => {
+            initcount ++;
+            if (msg.postId == this.props.postId) {
+                this.setState({comments: msg.comments});
+            }
+            
         });
         this.state.socket.on('new comment', msg => {
             let comments = this.state.comments.slice();
-            comments.push(msg)
-            this.setState({comments: comments})
+            console.log('old comments', this.state.comments);
+            if (msg.postId == this.props.postId) {
+                comments.push(msg.comment);
+                this.setState({comments: comments});
+            }
+            
         });
         this.submitComment();
         //autoResize();
+    }
+
+    async componentWillUnmount() {
+        this.state.socket.disconnect();
     }
 
     handleChange(e) {
@@ -39,8 +52,15 @@ class Comment extends Component {
             if (keycode != 13) return;
             
             e.preventDefault(); // prevents page reloading
-            this.state.socket.emit('submit comment', $('.enter-comment textarea').val());
-            $('.enter-comment textarea').val('');                    
+            console.log('current target', $(e.currentTarget).val());
+            this.state.socket.emit('submit comment', 
+                {
+                    comment: $(e.currentTarget).val(), 
+                    postId: this.props.postId
+                }
+            );
+            $(e.currentTarget).val('');  
+            this.setState({newComment: ''});
             return false;
 
         })
@@ -50,6 +70,7 @@ class Comment extends Component {
     render() {
         let spans = [];
         for(const [i, comm] of Object.entries(this.state.comments)) {
+            //console.log(`wth: ${i} -- ${comm}`);
             spans.push(<div key={i}><span>{comm}</span></div>);
         }
         return (
