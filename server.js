@@ -28,6 +28,9 @@ const compiler = webpack(config);
 //const server = new webpackDevServer(compiler, options);
 //compiler.outputFileSystem = fs;
 
+var comments = ['this is a chatbot'];
+var count = 0;
+
 app.use(
     middleware(compiler, options)
 );
@@ -36,14 +39,22 @@ app.use(require('webpack-hot-middleware')(compiler));
 
 
 io.on('connection', function(socket){
-    console.log('a user connected');
+    count ++;
+    console.log(`${count} user connected with id: ${socket.id}`);
     socket.on('disconnect', function(){
-        console.log('user disconnected');
+        count --;
+        console.log(`1 user disconnected, rest ${count}`);
     });
+    socket.on('comment history', _ => {
+        console.log('request history ...');
+        socket.emit('comment history', comments);
+    })
+    
 
-    socket.on('chat message', function(msg){
+    socket.on('submit comment', function(msg){
+        comments.push(msg)
         console.log('message: ' + msg);
-        io.emit('chat message', msg);
+        io.emit('new comment', msg);
     });
 });
 

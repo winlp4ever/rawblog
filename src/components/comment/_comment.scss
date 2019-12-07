@@ -1,0 +1,89 @@
+//@import '../../animations/_animations';
+
+.comment {
+    position: relative;    
+    >div{
+        border-radius: 10px;
+        height: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        width: 100%;
+        outline: none;
+        background: rgb(248, 248, 248);
+        display: block;
+        border: none;
+        box-sizing: border-box;
+        padding: 10px 10px;
+        margin:10px auto;
+        float: left;
+        transition: all 0.2s;
+        font: {
+            family: 'Open Sans', sans-serif;
+            size: 100%;
+        }     
+    }
+    .enter-comment {
+        box-sizing: border-box;
+        border-radius: 0px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        font-family: 'Open Sans', sans-serif;
+        position: relative;
+        border-bottom: 2px solid lightgrey;
+        textarea {
+            font: {
+                size: 100%;
+                family: 'Open Sans', sans-serif;
+            }
+            box-sizing: border-box;
+            padding: 0;
+            margin: auto;
+            resize: none;
+            border: none;
+            outline: none;
+            overflow: hidden;
+            width: 100%;
+            background: none;
+            &::-webkit-scrollbar {
+                width: 0 !important;
+            }  
+        
+        }
+        span.label {
+            background: none;
+            z-index: 100;
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            transform-origin: 0 0;
+            transition: all 0.2s;
+        }
+        span.border {
+            position: absolute;
+            z-index: 100;
+            bottom: -2px;
+            left: 0;
+            height: 2px;
+            transition: all 0.3s ease;
+            background: rgb(138, 138, 138);
+        }
+
+        &:hover {
+            background: rgb(250, 250, 250);
+        }
+
+        &:focus {
+            background: white;
+        }
+
+        textarea:focus + span, textarea:not(:placeholder-shown) + span.label {
+            transform: translateY(-150%) scale(0.75);
+            font-weight: 700;
+            background: white;
+            + span.border {
+                width: 100%;
+            }
+        }
+    }
+}
