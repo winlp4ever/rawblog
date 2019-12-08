@@ -29,6 +29,7 @@ export default class Post extends Component {
         this.setState({ post_content: data.content, likes: data.likes });
     }
 
+    
     async componentWillUnmount() {
         this.state.socket.disconnect();
     }
@@ -37,6 +38,7 @@ export default class Post extends Component {
         this.setState({ likes: this.state.likes + 1 });
         this.state.socket.emit(`likes`, this.props.postId);
     }
+
 
     render() {
         return (

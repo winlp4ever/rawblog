@@ -6,14 +6,14 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
+const http = require('http');
 
 var app = express();
 app.use(favicon(path.join(__dirname, 'imgs', 'favicon.ico')));
 app.use(express.static(__dirname + './public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+
 
 const config = require('./webpack.config.js');
 
@@ -27,6 +27,15 @@ const options = {
 const compiler = webpack(config);
 //const server = new webpackDevServer(compiler, options);
 //compiler.outputFileSystem = fs;
+
+const server = new http.Server(app);
+const io = require('socket.io')(server);
+
+const PORT = process.env.PORT || 8000;
+
+server.listen(PORT, () => {
+    console.log(`listening to port ${PORT}`)
+});
 
 var posts = {
     0: {
@@ -95,10 +104,6 @@ app.post('/get-post', (req, res) => {
     let postId = req.query.postId;
     res.json({ content: posts[postId].content, likes: posts[postId].likes });
 })
-
-http.listen(8000, function(){
-    console.log('listening on *:8000');
-});
 
 process.on('SIGINT', _ => {
     console.log('now you quit!');
