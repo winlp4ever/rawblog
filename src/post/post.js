@@ -5,6 +5,7 @@ import LinkPreview from '../link-preview/link-preview';
 import $ from 'jquery';
 import './_post.scss';
 import io from 'socket.io-client';
+import { hot } from 'react-hot-loader';
 
 function disableDoubleClick() {
     $('.post .post-interact i').on('mousedown', e => {
@@ -82,4 +83,8 @@ export default class Post extends Component {
             </div>
         );
     }
+}
+
+if (hot.module) {
+    hot.module.accept();
 }
