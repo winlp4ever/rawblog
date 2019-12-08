@@ -18,9 +18,10 @@ app.use(bodyParser.json());
 const config = require('./webpack.config.js');
 
 const options = {
-    contentBase: './public',
-    hot: true,
-    host: 'localhost'
+    //contentBase: './public',
+    //hot: true,
+    //host: 'localhost',
+    proxy: { '*': 'http://localhost:5000' }
 };
 
 // webpackDevServer.addDevServerEntrypoints(config, options);
@@ -107,7 +108,5 @@ app.post('/get-post', (req, res) => {
 
 process.on('SIGINT', _ => {
     console.log('now you quit!');
-    fs.writeFileSync(path.join(__dirname, 'posts.json'), JSON.stringify(posts));
-    fs.writeFileSync(path.join(__dirname, 'comments.json'), JSON.stringify(comments));
     process.exit();
 })

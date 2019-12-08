@@ -4,6 +4,7 @@ import Comment from '../comment/comment';
 import LinkPreview from '../link-preview/link-preview';
 import $ from 'jquery';
 import './_post.scss';
+import io from 'socket.io-client';
 
 function disableDoubleClick() {
     $('.post .post-interact i').on('mousedown', e => {

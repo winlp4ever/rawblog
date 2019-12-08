@@ -35,7 +35,8 @@ module.exports = {
         hot: true,
         host: 'localhost',
         port: 5000,
-        compress: true
+        compress: true,
+        inline: true
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(), //@frontend
