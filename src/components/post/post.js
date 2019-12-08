@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import MdRender from '../markdown-render/markdown-render';
 import Comment from '../comment/comment';
+import LinkPreview from '../link-preview/link-preview';
 import $ from 'jquery';
 import './_post.scss';
 
-// write soth
 function disableDoubleClick() {
     $('.post .post-interact i').on('mousedown', e => {
         e.preventDefault();
@@ -52,7 +52,9 @@ export default class Post extends Component {
                 
                 <div>
                     <MdRender source={this.state.post_content.text}></MdRender>
+                    <LinkPreview url='https://instagram.com/p/Bu1-PpyHmCn/'/>
                 </div>
+
                 <div
                     className='post-interact'
                 >

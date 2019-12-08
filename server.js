@@ -96,8 +96,8 @@ app.post('/get-post', (req, res) => {
     res.json({ content: posts[postId].content, likes: posts[postId].likes });
 })
 
-http.listen(3000, function(){
-    console.log('listening on *:3000');
+http.listen(8000, function(){
+    console.log('listening on *:8000');
 });
 
 process.on('SIGINT', _ => {

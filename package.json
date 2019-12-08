@@ -33,6 +33,7 @@
   "description": "",
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@microlink/react": "^4.4.7",
     "@nteract/mathjax": "^4.0.1",
     "@types/react": "^16.9.15",
     "axios": "^0.19.0",
@@ -55,6 +56,7 @@
     "request": "^2.88.0",
     "serve-favicon": "^2.5.0",
     "socket.io": "^2.3.0",
+    "styled-components": "^4.4.1",
     "url-loader": "^2.2.0"
   }
 }
