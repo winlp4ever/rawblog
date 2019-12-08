@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-//import MdRender from '../md-render/md-render';
+import MdRender from '../markdown-render/markdown-render';
 import Comment from '../comment/comment';
 import $ from 'jquery';
 import './_post.scss';
 
-
+// write soth
 function disableDoubleClick() {
     $('.post .post-interact i').on('mousedown', e => {
         e.preventDefault();
@@ -39,7 +39,7 @@ export default class Post extends Component {
                 </button>
                 
                 <div>
-                    {this.state.post_content.text}
+                    <MdRender source={this.state.post_content.text}></MdRender>
                 </div>
                 <div
                     className='post-interact'
@@ -59,7 +59,9 @@ export default class Post extends Component {
                     </div>
 
                 </div>
-                <Comment postId={this.props.postId} />
+                <div className='comment-section'>
+                    <Comment postId={this.props.postId} />
+                </div>
             </div>
         );
     }

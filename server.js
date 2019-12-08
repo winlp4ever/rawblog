@@ -33,7 +33,7 @@ var posts = {
         id: 0,
         content: {
             title: 'an example',
-            text: 'this is an example'
+            text: '<h1>example</h1>\n<p>this is an example</p> \n ```python \n print("for fun") \n```'
         },
         likes: 0,
         comments: [
