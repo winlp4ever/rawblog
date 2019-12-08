@@ -15,15 +15,23 @@ export default class Post extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            post_content: {} 
+            post_content: {} ,
+            likes: '',
+            socket: io()
         }
+        this.like = this.like.bind(this);
     }
     async componentDidMount() {
         // behaviors
         disableDoubleClick();
         let response = await fetch(`/get-post?postId=${this.props.postId}`, {method: 'POST'});
         let data = await response.json();
-        this.setState({ post_content: data});
+        this.setState({ post_content: data.content, likes: data.likes });
+    }
+
+    like() {
+        this.setState({ likes: this.state.likes + 1 });
+        this.state.socket.emit(`likes`, this.props.postId);
     }
 
     render() {
@@ -46,11 +54,11 @@ export default class Post extends Component {
                 >
                     <div>
                         <span 
-                            
+                            onClick={this.like}
                         >
                             <i className="fab fa-gratipay"></i>
                         </span>
-                        <span>likes</span>
+                        <span>{this.state.likes}</span>
                     </div>
                     <div>
                         <span>
