@@ -56,7 +56,7 @@ export default class Post extends Component {
                 
                 <div>
                     <MdRender source={this.state.post_content.text}></MdRender>
-                    <LinkPreview url='https://instagram.com/p/Bu1-PpyHmCn/'/>
+                    <LinkPreview url='https://www.reddit.com/r/javascript/comments/4bxsi6/webpack_hmr_express_socketio_one_does_not_simply/'/>
                 </div>
 
                 <div
