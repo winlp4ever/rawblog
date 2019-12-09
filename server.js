@@ -21,7 +21,7 @@ const options = {
     //contentBase: './public',
     //hot: true,
     //host: 'localhost',
-    proxy: { '*': 'http://localhost:5000' }
+    //proxy: { '*': 'http://localhost:5000' }
 };
 
 // webpackDevServer.addDevServerEntrypoints(config, options);
@@ -32,7 +32,7 @@ const compiler = webpack(config);
 const server = new http.Server(app);
 const io = require('socket.io')(server);
 
-const PORT = process.env.PORT || 8000;
+const PORT = 5000;
 
 server.listen(PORT, () => {
     console.log(`listening to port ${PORT}`)
