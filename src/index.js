@@ -6,9 +6,13 @@ import "./_common.scss";
 import $ from 'jquery';
 import Post from './post/post';
 import './comment/_comment.scss';
+import io from 'socket.io-client';
+
+
+var socket = io();
 
 function renderWeb() {
-    ReactDOM.render(<Post postId={0}/>, document.getElementById('main'));
+    ReactDOM.render(<Post postId={0} socket={socket}/>, document.getElementById('main'));
 }
 renderWeb();
 

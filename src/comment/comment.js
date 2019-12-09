@@ -9,7 +9,6 @@ class Comment extends Component {
         this.state = {
             comments: [],
             newComment: '',
-            socket: io()
             
         }
         this.handleChange = this.handleChange.bind(this);
@@ -17,13 +16,13 @@ class Comment extends Component {
     }
 
     async componentDidMount() {
-        await this.state.socket.emit('comment history', this.props.postId);
+        await this.props.socket.emit('comment history', this.props.postId);
         var initcount = 0;
-        this.state.socket.on(`comment history postId=${this.props.postId}`, comments => {
+        this.props.socket.on(`comment history postId=${this.props.postId}`, comments => {
             initcount ++;
             this.setState({comments: comments});
         });
-        this.state.socket.on(`new comment postId=${this.props.postId}`, msg => {
+        this.props.socket.on(`new comment postId=${this.props.postId}`, msg => {
             let comments = this.state.comments.slice();
             comments.push(msg);
             this.setState({comments: comments});
@@ -34,7 +33,7 @@ class Comment extends Component {
     }
 
     async componentWillUnmount() {
-        this.state.socket.disconnect();
+        //this.state.socket.disconnect();
     }
 
     handleChange(e) {
@@ -48,7 +47,7 @@ class Comment extends Component {
             
             e.preventDefault(); // prevents page reloading
             console.log('current target', $(e.currentTarget).val());
-            this.state.socket.emit('submit comment', 
+            this.props.socket.emit('submit comment', 
                 {
                     comment: $(e.currentTarget).val(), 
                     postId: this.props.postId

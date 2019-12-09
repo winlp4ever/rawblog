@@ -19,7 +19,6 @@ export default class Post extends Component {
         this.state = {
             post_content: {} ,
             likes: '',
-            socket: io()
         }
         this.like = this.like.bind(this);
     }
@@ -33,12 +32,12 @@ export default class Post extends Component {
 
     
     async componentWillUnmount() {
-        this.state.socket.disconnect();
+        //this.props.socket.disconnect();
     }
 
     like() {
         this.setState({ likes: this.state.likes + 1 });
-        this.state.socket.emit(`likes`, this.props.postId);
+        this.props.socket.emit(`likes`, this.props.postId);
     }
 
 
@@ -78,7 +77,7 @@ export default class Post extends Component {
 
                 </div>
                 <div className='comment-section'>
-                    <Comment postId={this.props.postId} />
+                    <Comment postId={this.props.postId} socket={this.props.socket}/>
                 </div>
             </div>
         );
