@@ -3,11 +3,15 @@ import './_link-preview.scss';
 import React, { Component } from 'react';
 
 const LinkPreview = ({url}) => {
-    return (
-        <div className='link-preview'>
-            <Microlink url={url} />
-        </div>
-    )
+    if (url) {
+        try {
+            return (<div className='link-preview'><Microlink url={url} /></div>);
+        } catch (err) {
+            return (<div></div>)
+        }
+    } 
+    return (<div></div>)
+    
 }
 
 export default LinkPreview;

@@ -46,7 +46,7 @@ export default class Post extends Component {
             <div 
                 className='post'
             >
-                <button className='del-post' onClick={_ => this.props.onClick()}>
+                <button className='del-post' onClick={_ => this.props.del()}>
                     <i className="fas fa-times"></i>
                 </button>
                 <button>
@@ -55,7 +55,7 @@ export default class Post extends Component {
                 
                 <div>
                     <MdRender source={this.state.post_content.text}></MdRender>
-                    <LinkPreview url='https://www.reddit.com/r/javascript/comments/4bxsi6/webpack_hmr_express_socketio_one_does_not_simply/'/>
+                    <LinkPreview url={this.state.post_content.shared_link}/>
                 </div>
 
                 <div

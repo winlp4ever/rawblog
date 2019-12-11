@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { autoResize } from './utils';
 import './_comment.scss';
-import io from 'socket.io-client';
 
 class Comment extends Component {
     constructor(props) {

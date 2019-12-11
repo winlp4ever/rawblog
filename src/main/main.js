@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Post from '../post/post';
+import Socio from '../socio/socio';
 import io from 'socket.io-client';
 
 class Main extends Component {
@@ -16,7 +16,7 @@ class Main extends Component {
     render() {
         return (
             <div>
-                <Post postId={0} socket={this.state.socket} />
+                <Socio socket={this.state.socket} />
             </div>
         )
     }

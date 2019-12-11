@@ -43,12 +43,25 @@ var posts = {
         id: 0,
         content: {
             title: 'an example',
-            text: '<h1>example</h1>\n<p>this is an example</p>'
+            text: '<h1>example</h1>\n<p>this is an example</p>',
+            shared_link: 'https://www.reddit.com/r/javascript/comments/4bxsi6/webpack_hmr_express_socketio_one_does_not_simply/'
         },
         likes: 0,
         comments: [
             'Hey yo',
             'this is an example'
+        ]
+    },
+    1: {
+        id: 1,
+        content: {
+            title: 'oofsi',
+            text: '<h1>second ex</h1> \n<p>where anything goes wrong</p>',
+            shared_link: ''
+        },
+        likes: 1,
+        comments: [
+            'hmm'
         ]
     }
 }
@@ -104,6 +117,12 @@ app.get('/', (req, res, next) => {
 app.post('/get-post', (req, res) => {
     let postId = req.query.postId;
     res.json({ content: posts[postId].content, likes: posts[postId].likes });
+})
+
+app.post('/postIds', (req, res) => {
+    let keys = new Set(Object.keys(posts));
+    console.log(keys);
+    res.json({postIds: Object.keys(posts)});
 })
 
 process.on('SIGINT', _ => {
