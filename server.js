@@ -67,7 +67,6 @@ var posts = {
 }
 var count = 0;
 
-comments = ['oofoof']
 
 app.use(
     middleware(compiler, options)
@@ -88,8 +87,6 @@ io.on('connection', function(socket){
         console.log(posts[postId].comments);
         socket.emit(`comment history postId=${postId}`, posts[postId].comments);
     })
-    
-
     socket.on('submit comment', msg => {
         posts[msg.postId].comments.push(msg.comment);
         console.log('message: ' + msg.comment);
@@ -100,6 +97,7 @@ io.on('connection', function(socket){
         console.log(posts[id]);
     })
 });
+
 
 app.get('/', (req, res, next) => {
     var filename = path.join(compiler.outputPath,'index');

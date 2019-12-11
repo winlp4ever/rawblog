@@ -27,7 +27,7 @@ class Comment extends Component {
             this.setState({comments: comments});
             
         });
-        this.submitComment();
+        //this.submitComment();
         //autoResize();
     }
 
@@ -39,13 +39,12 @@ class Comment extends Component {
         this.setState({newComment: e.target.value})
     }
 
-    async submitComment() {
-        $('.comment').on('keydown', 'textarea', e => {
-            let keycode = e.keyCode | e.which;
-            if (keycode != 13) return;
-            
-            e.preventDefault(); // prevents page reloading
-            console.log('current target', $(e.currentTarget).val());
+    async submitComment(e) {
+        let keycode = e.keyCode | e.which;
+        if (keycode != 13) return;
+        
+        e.preventDefault(); // prevents page reloading
+        if ($(e.currentTarget).val()) {
             this.props.socket.emit('submit comment', 
                 {
                     comment: $(e.currentTarget).val(), 
@@ -54,10 +53,9 @@ class Comment extends Component {
             );
             $(e.currentTarget).val('');  
             this.setState({newComment: ''});
-            return false;
-
-        })
+        }
         
+        return false;
     } 
 
     render() {
@@ -75,6 +73,7 @@ class Comment extends Component {
                         rows={1}
                         placeholder='&nbsp;'
                         onChange={this.handleChange}
+                        onKeyPress={this.submitComment}
                     ></textarea>
                     <span className='label'>
                         Your comment
