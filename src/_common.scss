@@ -12,6 +12,14 @@ body, html {
     background-color: #fff;
 }
 
+.display {
+    display: inherit;
+}
+
+.not-display {
+    display: none;
+}
+
 #main {
     margin: 100px auto 0;
 }

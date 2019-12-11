@@ -4,15 +4,15 @@ import ReactDOM from "react-dom";
 //import io from 'socket.io';
 import "./_common.scss";
 import $ from 'jquery';
-import Post from './post/post';
-import './comment/_comment.scss';
+import ConnectionError from './connection-error/connection-error';
+import Main from './main/main';
 import io from 'socket.io-client';
+import './behaviors';
 
-
-var socket = io();
 
 function renderWeb() {
-    ReactDOM.render(<Post postId={0} socket={socket}/>, document.getElementById('main'));
+    ReactDOM.render(<Main />, document.getElementById('main'));
+    ReactDOM.render(<ConnectionError />, document.getElementById('notifs'));
 }
 renderWeb();
 
@@ -21,7 +21,7 @@ if (module.hot) {
     console.log('what fuct');
     module.hot.accept(
         [
-            './post/post', 
+            './main/main', 
         ], () => {
             console.log('what merde');
             renderWeb();
