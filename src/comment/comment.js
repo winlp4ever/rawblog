@@ -3,6 +3,7 @@ import { autoResize } from './utils';
 import './_comment.scss';
 
 class Comment extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -15,17 +16,17 @@ class Comment extends Component {
     }
 
     async componentDidMount() {
+        this._isMounted = true;
         await this.props.socket.emit('comment history', this.props.postId);
-        var initcount = 0;
         this.props.socket.on(`comment history postId=${this.props.postId}`, comments => {
-            initcount ++;
-            this.setState({comments: comments});
+            if (this._isMounted) this.setState({comments: comments});
         });
         this.props.socket.on(`new comment postId=${this.props.postId}`, msg => {
-            let comments = this.state.comments.slice();
-            comments.push(msg);
-            this.setState({comments: comments});
-            
+            if (this._isMounted) {
+                let comments = this.state.comments.slice();
+                comments.push(msg);
+                this.setState({comments: comments});
+            }     
         });
         //this.submitComment();
         //autoResize();
@@ -33,6 +34,7 @@ class Comment extends Component {
 
     async componentWillUnmount() {
         //this.state.socket.disconnect();
+        this._isMounted = false;
     }
 
     handleChange(e) {

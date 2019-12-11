@@ -26,7 +26,12 @@ class Socio extends Component {
     render() {
         let posts = [];
         for (let id of this.state.postIds) {
-            posts.push(<Post key={id} postId={id} del={_ => this.delPost(id)} socket={this.props.socket}/>)
+            posts.push(<Post 
+                key={id} 
+                postId={id} del={_ => this.delPost(id)} 
+                socket={this.props.socket} 
+                viewFullPost={this.props.viewFullPost}
+            />);
         }
         return (
             <div>

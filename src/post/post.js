@@ -50,7 +50,8 @@ export default class Post extends Component {
                     <i className="fas fa-times"></i>
                 </button>
                 <button>
-                    <i className="fas fa-external-link-alt"></i>
+                    <i className="fas fa-external-link-alt" 
+                        onClick={_ => this.props.viewFullPost(this.props.postId)}></i>
                 </button>
                 
                 <div>
