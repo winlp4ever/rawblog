@@ -52,6 +52,7 @@ class Main extends Component {
     }
 
     render() {
+        console.log(this.state.user.name)
         let auth = '';
         if (!this.state.user.name) auth=(<Auth updateUser={this.updateUser} />);
 

@@ -7,12 +7,24 @@ export default class Auth extends Component {
         this.state = {
             name: '',
             email: '',
+            pass: ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handlePass = this.handlePass.bind(this);
     }
 
-    handleSubmit() {
+    async handleSubmit() {
+        if (this.state.name == 'admin') {
+            let response = await fetch('/admin-verify', {
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({pass: this.state.pass})
+            });
+            let data = await response.json();
+            if (data.answer != 'y') return;
+            this.setState({name: 'AII'});
+        }
         this.props.updateUser({name: this.state.name, email: this.state.email});
     }
 
@@ -22,11 +34,20 @@ export default class Auth extends Component {
         })
     }
 
+    handlePass(e) {
+        this.setState({
+            pass: e.target.value
+        })
+    }
+
     render() {
+        let input_adminpass = '';
+        if (this.state.name == 'admin') input_adminpass = <input onChange={this.handlePass} />
         return (
             <div className='auth'>
                 <span>How do you want to be called?</span>
                 <input onChange={this.handleChange} placeholder='Enter your username'/>
+                {input_adminpass}
                 <button onClick={this.handleSubmit}>Let's go!</button>
             </div>
         )
