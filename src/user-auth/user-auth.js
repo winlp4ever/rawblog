@@ -15,7 +15,7 @@ export default class Auth extends Component {
     }
 
     async handleSubmit() {
-        if (this.state.name == 'admin') {
+        if (this.state.name == 'AII') {
             let response = await fetch('/admin-verify', {
                 method: 'POST', 
                 headers: { 'Content-Type': 'application/json' },
@@ -42,7 +42,7 @@ export default class Auth extends Component {
 
     render() {
         let input_adminpass = '';
-        if (this.state.name == 'admin') input_adminpass = <input onChange={this.handlePass} />
+        if (this.state.name == 'AII') input_adminpass = <input onChange={this.handlePass} />
         return (
             <div className='auth'>
                 <span>How do you want to be called?</span>

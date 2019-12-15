@@ -16,10 +16,10 @@ class Socio extends Component {
         let response = await fetch('/postIds', {method: 'POST'});
         let data = await response.json();
         this.setState({ postIds: new Set(data.postIds) });
-        console.log(data);
     }
 
     async delPost(i) {
+        if (this.props.user.name != 'AII') return;
         let ids = new Set(this.state.postIds);
         ids.delete(i);
         this.setState({ postIds: ids });
@@ -39,7 +39,7 @@ class Socio extends Component {
                 </div>
             
                 <Post 
-                    postId={id} del={_ => this.delPost(id)} 
+                    postId={id}
                     socket={this.props.socket} 
                     user={this.props.user}
                 />
