@@ -1,4 +1,4 @@
-div.post {
+div.full-post {
     position: relative;
     color: rgb(65, 65, 65);
     margin: auto;
@@ -7,8 +7,12 @@ div.post {
         size: 75%;
     }
     h1 {
+        color:#d32f2f;
+        width: 100%;
+        display: block;
+        border-bottom: 1px solid lightgrey;
         font: {
-            size: 180%;
+            size: 200%;
             family: 'Open Sans', sans-serif;
             weight: 300;
         }
@@ -73,21 +77,6 @@ div.post {
         >div {
             padding: 10px 5%;
         }
-    }
-
-    div.post-text {
-        div {
-            overflow-y: hidden;
-            text-overflow: ellipsis;
-            max-height: 500px;
-            white-space: nowrap;
-
-            -ms-overflow-style: none;
-            &::-webkit-scrollbar {
-                display: none;
-            }
-        }
-        
     }
 
     div.comment {

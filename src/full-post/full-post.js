@@ -3,27 +3,27 @@ import MdRender from '../markdown-render/markdown-render';
 import Comment from '../comment/comment';
 import LinkPreview from '../link-preview/link-preview';
 import $ from 'jquery';
-import './_post.scss';
+import './_full-post.scss';
 import io from 'socket.io-client';
 import { hot } from 'react-hot-loader';
 
 function disableDoubleClick() {
-    $('.post .post-interact i').on('mousedown', e => {
+    $('.full-post .post-interact i').on('mousedown', e => {
         e.preventDefault();
     });
 }
 
-export default class Post extends Component {
+export default class FullPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
             post_content: {} ,
             likes: '',
-            view_comments: false
+            view_comments: true
         }
         this.like = this.like.bind(this);
-        this.viewComments = this.viewComments.bind(this);
     }
+    
     async componentDidMount() {
         // behaviors
         disableDoubleClick();
@@ -42,10 +42,6 @@ export default class Post extends Component {
         this.props.socket.emit(`likes`, this.props.postId);
     }
 
-    viewComments() {
-        this.setState({view_comments: !this.state.view_comments});
-    }
-
 
     render() {
         let comments_section = '';
@@ -62,12 +58,12 @@ export default class Post extends Component {
         }
         return (
             <div 
-                className='post'
+                className='full-post'
             >
-                <div className='post-text'>
+                <div>
                     <MdRender source={this.state.post_content.text} />
+                    <LinkPreview url={this.state.post_content.shared_link}/>
                 </div>
-                <LinkPreview url={this.state.post_content.shared_link}/>
 
                 <div
                     className='post-interact'
@@ -79,13 +75,6 @@ export default class Post extends Component {
                             <i className="fab fa-gratipay"></i>
                         </span>
                         <span>{this.state.likes}</span>
-                    </div>
-                    <div>
-                        <span
-                            onClick={this.viewComments}
-                        >
-                            <i className="fas fa-comment-dots"></i>
-                        </span>
                     </div>
 
                 </div>

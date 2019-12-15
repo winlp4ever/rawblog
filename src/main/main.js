@@ -1,7 +1,7 @@
 import React, { Component, useReducer } from 'react';
 import Socio from '../socio/socio';
 import ConnectionError from '../connection-error/connection-error';
-import Post from '../post/post';
+import FullPost from '../full-post/full-post';
 import Auth from '../user-auth/user-auth';
 import io from 'socket.io-client';
 
@@ -65,7 +65,7 @@ class Main extends Component {
         }
             
         if (this.state.activeTab == 1) {
-            main = <Post postId={this.state.postId} 
+            main = <FullPost postId={this.state.postId} 
                 socket={this.state.socket} 
                 user={this.state.user}
             />;
