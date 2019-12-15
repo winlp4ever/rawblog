@@ -55,7 +55,7 @@ export default class Post extends Component {
                 </button>
                 
                 <div>
-                    <MdRender source={this.state.post_content.text}></MdRender>
+                    <MdRender source={this.state.post_content.text} />
                     <LinkPreview url={this.state.post_content.shared_link}/>
                 </div>
 
