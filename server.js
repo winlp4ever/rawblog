@@ -48,8 +48,8 @@ var posts = {
         },
         likes: 0,
         comments: [
-            'Hey yo',
-            'this is an example'
+            {username: 'AII', content: 'Hey yo'},
+            {username: 'AII', content: 'this is an example'}
         ]
     },
     1: {
@@ -61,7 +61,7 @@ var posts = {
         },
         likes: 1,
         comments: [
-            'hmm'
+            {username: 'AII', content: 'Ooof'}
         ]
     }
 }
@@ -88,9 +88,9 @@ io.on('connection', function(socket){
         socket.emit(`comment history postId=${postId}`, posts[postId].comments);
     })
     socket.on('submit comment', msg => {
-        posts[msg.postId].comments.push(msg.comment);
+        posts[msg.postId].comments.push({username: msg.username, content: msg.comment});
         console.log('message: ' + msg.comment);
-        io.emit(`new comment postId=${msg.postId}`, msg.comment);
+        io.emit(`new comment postId=${msg.postId}`, {username: msg.username, content: msg.comment});
     });
     socket.on('likes', id => {
         posts[id].likes ++;
@@ -141,6 +141,13 @@ app.post('/save-post', (req, res) => {
     res.json({
         answer: 'y',
     });
+})
+
+app.post('/admin-verify', (req, res) => {
+    if (req.body.pass != '2311') res.json({answer: 'n'});
+    res.json({
+        answer: 'y'
+    })
 })
 
 process.on('SIGINT', _ => {

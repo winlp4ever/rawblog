@@ -31,6 +31,7 @@ class Socio extends Component {
                 postId={id} del={_ => this.delPost(id)} 
                 socket={this.props.socket} 
                 viewFullPost={this.props.viewFullPost}
+                user={this.props.user}
             />);
         }
         return (

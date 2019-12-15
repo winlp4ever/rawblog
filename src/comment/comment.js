@@ -49,6 +49,7 @@ class Comment extends Component {
         if ($(e.currentTarget).val()) {
             this.props.socket.emit('submit comment', 
                 {
+                    username: this.props.user.name || 'anonymous',
                     comment: $(e.currentTarget).val(), 
                     postId: this.props.postId
                 }
@@ -64,7 +65,7 @@ class Comment extends Component {
         let spans = [];
         for(const [i, comm] of Object.entries(this.state.comments)) {
             //console.log(`wth: ${i} -- ${comm}`);
-            spans.push(<div key={i}><span>{comm}</span></div>);
+            spans.push(<div key={i}><span className='username'>{comm.username}:</span><span>{comm.content}</span></div>);
         }
         return (
             <div 

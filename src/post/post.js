@@ -78,7 +78,11 @@ export default class Post extends Component {
 
                 </div>
                 <div className='comment-section'>
-                    <Comment postId={this.props.postId} socket={this.props.socket}/>
+                    <Comment 
+                        postId={this.props.postId} 
+                        socket={this.props.socket} 
+                        user={this.props.user} 
+                    />
                 </div>
             </div>
         );
