@@ -44,7 +44,10 @@ export default class Auth extends Component {
         let input_adminpass = '';
         if (this.state.name == 'AII') input_adminpass = <input onChange={this.handlePass} />
         return (
-            <div className='auth'>
+            <div className='auth' onKeyPress={e => {
+                let keycode = e.keyCode || e.which;
+                if (keycode == 13) this.handleSubmit();
+            }}>
                 <span>How do you want to be called?</span>
                 <input onChange={this.handleChange} placeholder='Enter your username'/>
                 {input_adminpass}

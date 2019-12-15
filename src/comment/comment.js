@@ -42,7 +42,7 @@ class Comment extends Component {
     }
 
     async submitComment(e) {
-        let keycode = e.keyCode | e.which;
+        let keycode = e.keyCode || e.which;
         if (keycode != 13) return;
         
         e.preventDefault(); // prevents page reloading
