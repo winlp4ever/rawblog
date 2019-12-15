@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Post from '../post/post';
 import LinkPreview from '../link-preview/link-preview';
+import './_socio.scss';
+
 class Socio extends Component {
     constructor(props) {
         super(props);
@@ -26,16 +28,25 @@ class Socio extends Component {
     render() {
         let posts = [];
         for (let id of this.state.postIds) {
-            posts.push(<Post 
-                key={id} 
-                postId={id} del={_ => this.delPost(id)} 
-                socket={this.props.socket} 
-                viewFullPost={this.props.viewFullPost}
-                user={this.props.user}
-            />);
+            posts.push(<div key={id}>
+                <div className='head-icons'>
+                    <button className='del-post' onClick={_ => this.delPost(id)}>
+                        <i className="fas fa-times"></i>
+                    </button>
+                    <button onClick={_ => this.props.viewFullPost(id)}>
+                        <i className="fas fa-external-link-alt" ></i>
+                    </button>
+                </div>
+            
+                <Post 
+                    postId={id} del={_ => this.delPost(id)} 
+                    socket={this.props.socket} 
+                    user={this.props.user}
+                />
+                </div>);
         }
         return (
-            <div>
+            <div className='socio'>
                 {posts}
             </div>
         )

@@ -46,14 +46,6 @@ export default class Post extends Component {
             <div 
                 className='post'
             >
-                <button className='del-post' onClick={_ => this.props.del()}>
-                    <i className="fas fa-times"></i>
-                </button>
-                <button>
-                    <i className="fas fa-external-link-alt" 
-                        onClick={_ => this.props.viewFullPost(this.props.postId)}></i>
-                </button>
-                
                 <div>
                     <MdRender source={this.state.post_content.text} />
                     <LinkPreview url={this.state.post_content.shared_link}/>
