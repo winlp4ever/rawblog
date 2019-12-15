@@ -123,6 +123,26 @@ app.post('/postIds', (req, res) => {
     res.json({postIds: Object.keys(posts)});
 })
 
+app.post('/save-post', (req, res) => {
+    if (req.body.password != '2311') return;
+    let idx = Math.max(...Object.keys(posts))+1;
+    console.log(idx);
+    posts[idx] = {
+        id: idx,
+        content: {
+            title: req.body.title, 
+            text: req.body.content, 
+            shared_link: req.body.shared_link
+        },
+        likes: 0,
+        comments: []
+    };
+    console.log(posts);
+    res.json({
+        answer: 'y',
+    });
+})
+
 process.on('SIGINT', _ => {
     console.log('now you quit!');
     process.exit();
