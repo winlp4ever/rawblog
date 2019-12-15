@@ -4,6 +4,7 @@ import ConnectionError from '../connection-error/connection-error';
 import FullPost from '../full-post/full-post';
 import Auth from '../user-auth/user-auth';
 import io from 'socket.io-client';
+import Menu from '../menu/menu';
 
 
 class Main extends Component {
@@ -52,6 +53,8 @@ class Main extends Component {
     }
 
     render() {
+        let menuOptions = [{name: 'Home', url: '/'}, {name: 'Posts', url: '/'}]
+        if (this.state.user.name == 'AII') menuOptions.push({name: 'Editor', url: '/edit'});
         console.log(this.state.user.name)
         let auth = '';
         if (!this.state.user.name) auth=(<Auth updateUser={this.updateUser} />);
@@ -72,6 +75,7 @@ class Main extends Component {
         } 
         return (
             <section>
+                <Menu links={menuOptions}/>
                 {main}
                 <ConnectionError />
                 {auth}
