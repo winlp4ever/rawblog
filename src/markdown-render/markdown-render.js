@@ -12,7 +12,10 @@ const MdRender = props => {
         }
     };
     return (
-        <ReactMarkdown {...newProps}/>
+        <div>
+            <ReactMarkdown {...newProps}/>
+        </div>
+        
     );
 }
 // this is new

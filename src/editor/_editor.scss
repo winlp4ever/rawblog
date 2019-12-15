@@ -40,6 +40,7 @@ div.editor {
         }
     }
     textarea, .hiddenDiv {
+        box-sizing: border-box;
         margin: auto;
         padding: 1.2rem 1rem;
         display: block;
@@ -65,6 +66,14 @@ div.editor {
         &::-webkit-scrollbar {
             width: 0 !important;
         }  
+    }
+    input {
+        border: none;
+        color: #444444;
+
+        font: {
+            size: 100%;
+        }
     }
     
     div.markdown-render {

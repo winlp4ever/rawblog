@@ -21,6 +21,5 @@ if (module.hot) {
             renderWeb();
         }
     );
-    
     module.hot.accept();
 }

@@ -9,6 +9,7 @@ class Editor extends Component {
         super(props);
         this.savePost = this.savePost.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleLink = this.handleLink.bind(this);
         this.state = {
             newPost: {
                 content: '',
@@ -25,9 +26,16 @@ class Editor extends Component {
 
     handleChange(e) {
         this.setState({newPost: {
-            content: e.target.value
+            content: e.target.value,
+            shared_link: this.state.newPost.shared_link
         }});
-        window.newPost = e.target.value;
+    }
+
+    handleLink(e) {
+        this.setState({newPost: {
+            content: this.state.newPost.content,
+            shared_link: e.target.value
+        }})
     }
 
     async savePost() {
@@ -39,6 +47,7 @@ class Editor extends Component {
             let content = this.state.newPost.content;
             if (!content) return;
             let h1array = content.match(/#\s.*\n/g);
+            let title = '...';
             if (!h1array) title = content.substr(0, 10) + '...';
             else {
                 let title = h1array[0];
@@ -65,7 +74,8 @@ class Editor extends Component {
                         content: '',
                     }
                 });
-                $('.md-editor textarea').val('');
+                $('.editor textarea').val('');
+                $('.shared-link input').val('');
             }
             
         } catch(err) {
@@ -94,6 +104,13 @@ class Editor extends Component {
                 >
                     Save
                 </button>
+            </div>
+
+            <div className='shared-link'>
+                <div>
+                    <span>Shared link: </span>
+                    <input onChange={this.handleLink}></input>
+                </div>
             </div>
 
             <div >
