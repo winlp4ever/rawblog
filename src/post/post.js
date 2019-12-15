@@ -19,8 +19,10 @@ export default class Post extends Component {
         this.state = {
             post_content: {} ,
             likes: '',
+            view_comments: false
         }
         this.like = this.like.bind(this);
+        this.viewComments = this.viewComments.bind(this);
     }
     async componentDidMount() {
         // behaviors
@@ -40,8 +42,24 @@ export default class Post extends Component {
         this.props.socket.emit(`likes`, this.props.postId);
     }
 
+    viewComments() {
+        this.setState({view_comments: !this.state.view_comments});
+    }
+
 
     render() {
+        let comments_section = '';
+        if (this.state.view_comments) {
+            comments_section = (
+                <div className='comment-section'>
+                    <Comment 
+                        postId={this.props.postId} 
+                        socket={this.props.socket} 
+                        user={this.props.user} 
+                    />
+                </div>
+            );
+        }
         return (
             <div 
                 className='post'
@@ -63,19 +81,15 @@ export default class Post extends Component {
                         <span>{this.state.likes}</span>
                     </div>
                     <div>
-                        <span>
+                        <span
+                            onClick={this.viewComments}
+                        >
                             <i className="fas fa-comment-dots"></i>
                         </span>
                     </div>
 
                 </div>
-                <div className='comment-section'>
-                    <Comment 
-                        postId={this.props.postId} 
-                        socket={this.props.socket} 
-                        user={this.props.user} 
-                    />
-                </div>
+                {comments_section}
             </div>
         );
     }
