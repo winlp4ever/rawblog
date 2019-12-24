@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "webpack",
-    "watch": "webpack-dev-server --mode=development --open"
+    "start": "nodemon --ignore 'node_modules/*' --ignore 'public/*' --ignore 'src/*'  server.js --watch server.js --ignore 'src/*'"
   },
   "keywords": [],
   "author": "leh (le ha-quang)",
