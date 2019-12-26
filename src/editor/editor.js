@@ -88,13 +88,14 @@ class Editor extends Component {
          * This function render the Editor inside Posts section
          */
         return (
-        <div className="editor">     
+        <div className="editor">   
             <div className='md-window'>
+                <h4>Write Post</h4>    
                 <textarea
                     className='md-input'
                     rows={1}
                     id="enter-content"
-                    placeholder="Write your post's content"
+                    placeholder="Write down your thoughts"
                     onChange={this.handleChange}
                     defaultValue={window.newPost}
                 />
@@ -102,7 +103,7 @@ class Editor extends Component {
                     id='save-post'
                     onClick={this.savePost}
                 >
-                    Save
+                    Post
                 </button>
             </div>
 
