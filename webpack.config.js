@@ -11,7 +11,7 @@ const public = path.resolve(__dirname, 'public');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const pages = ['index', 'edit'].map(name => {
+const pages = ['index'].map(name => {
     return new HtmlWebpackPlugin({
         inject: true,
         chunks: [name],
@@ -24,7 +24,6 @@ module.exports = {
     mode: 'development',
     entry: {
         'index': ['webpack-hot-middleware/client', '@babel/polyfill', './src/index.js'],
-        'edit': ['webpack-hot-middleware/client', '@babel/polyfill', './src/edit.js'],
     },
     output: {
         filename: '[name].js',
