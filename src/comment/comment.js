@@ -65,7 +65,13 @@ class Comment extends Component {
         let spans = [];
         for(const [i, comm] of Object.entries(this.state.comments)) {
             //console.log(`wth: ${i} -- ${comm}`);
-            spans.push(<div key={i}><span className='username'>{comm.username}:</span><span>{comm.content}</span></div>);
+            spans.push(
+                <div key={i}>
+                    <span className='username'>{comm.username}:</span>
+                    <span>{comm.content}</span>
+                    <button className='del'><i className="fas fa-times"></i></button>
+                </div>
+            );
         }
         return (
             <div 

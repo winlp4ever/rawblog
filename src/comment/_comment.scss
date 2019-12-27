@@ -3,6 +3,7 @@
 .comment {
     position: relative;    
     >div{
+        position: relative;
         border-radius: 10px;
         height: auto;
         white-space: pre-wrap;
@@ -26,6 +27,22 @@
             box-sizing: border-box;
             padding: 5px;
             color: #1565c0;
+        }
+        button.del {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            margin-top: -10px;
+            border: none;
+            background: none;
+            outline: none;
+            font {
+                size: 80%;
+            }
+            color: lightgrey;
+            &:hover {
+                color: grey;
+            }
         }
     }
     .enter-comment {
@@ -57,7 +74,7 @@
         }
         span.label {
             background: none;
-            z-index: 5;
+            z-index: 2;
             position: absolute;
             top: 50%;
             left: 10px;
@@ -67,7 +84,7 @@
         }
         span.border {
             position: absolute;
-            z-index: 5;
+            z-index: 2;
             bottom: -2px;
             left: 0;
             height: 2px;

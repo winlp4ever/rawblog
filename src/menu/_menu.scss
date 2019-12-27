@@ -4,12 +4,13 @@ div.menu {
     justify-content: center;
     height: 100px;
     position: fixed;
-    z-index: 2;
+    z-index: 3;
     width: 100%;
     top: 0px;
     left: 0px;
     padding: 0px;
     background-color: white;
+    border-bottom: 1px solid lightgrey;
 
     button.option {
         position: relative;
