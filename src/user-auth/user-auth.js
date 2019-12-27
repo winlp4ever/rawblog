@@ -49,7 +49,7 @@ export default class Auth extends Component {
                 if (keycode == 13) this.handleSubmit();
             }}>
                 <span>How do you want to be called?</span>
-                <input onChange={this.handleChange} placeholder='Enter your username'/>
+                <input onChange={this.handleChange} placeholder='Enter your name'/>
                 {input_adminpass}
                 <button onClick={this.handleSubmit}>Let's go!</button>
             </div>
