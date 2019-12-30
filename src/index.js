@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import "./_common.scss";
-import Main from './main/main';
+import App from './app/app';
 import './behaviors';
 
 
 function renderWeb() {
-    ReactDOM.render(<Main />, document.getElementById('main'));
+    ReactDOM.render(<App />, document.getElementById('main'));
 }
 renderWeb();
 
@@ -15,7 +15,7 @@ if (module.hot) {
     console.log('what fuct');
     module.hot.accept(
         [
-            './main/main', 
+            './app/app', 
         ], () => {
             console.log('what merde');
             renderWeb();
