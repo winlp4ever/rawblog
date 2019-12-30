@@ -47,7 +47,6 @@ const Auth = props => {
                             <button onClick={handleSubmit}>Let's go!</button>
                         </div>
                     )
-                    
                 }
             }
             
