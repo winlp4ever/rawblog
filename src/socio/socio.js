@@ -41,7 +41,6 @@ class Socio extends Component {
                 <Post 
                     postId={id}
                     socket={this.props.socket} 
-                    user={this.props.user}
                 />
                 </div>);
         }
