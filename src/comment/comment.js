@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useContext } from 'react';
 import { autoResize } from './utils';
 import './_comment.scss';
 import { userContext } from '../user-context/user-context';
@@ -10,46 +10,41 @@ const NewComment = (props) => {
         setNewComment(e.target.value);
     }
 
-    return (
-        <userContext.Consumer>
-            {
-                ({user, updateUser}) => {
-                    const submit = async (e) => {
-                        let keycode = e.keyCode || e.which;
-                        if (keycode != 13) return;
-                        
-                        e.preventDefault(); // prevents page reloading
-                        if ($(e.currentTarget).val()) {
-                            props.socket.emit('submit comment', 
-                                {
-                                    username: user.name || 'anonymous',
-                                    comment: newComment, 
-                                    postId: props.postId
-                                }
-                            );
-                            $(e.currentTarget).val('');  
-                            setNewComment('');
-                        }  
-                        return false;
-                    } 
-                    return (
-                        <div className='enter-comment'>
-                            <textarea
-                                rows={1}
-                                placeholder='&nbsp;'
-                                onChange={handleChange}
-                                onKeyPress={submit}
-                            ></textarea>
-                            <span className='label'>
-                                Your comment
-                            </span>
-                            <span className='border'>
-                            </span>
-                        </div>
-                    )
+    const value = useContext(userContext);
+
+    const submit = async (e) => {
+        let keycode = e.keyCode || e.which;
+        if (keycode != 13) return;
+        
+        e.preventDefault(); // prevents page reloading
+        if ($(e.currentTarget).val()) {
+            props.socket.emit('submit comment', 
+                {
+                    username: value.user.name || 'anonymous',
+                    comment: newComment, 
+                    postId: props.postId
                 }
-            }
-        </userContext.Consumer>
+            );
+            $(e.currentTarget).val('');  
+            setNewComment('');
+        }  
+        return false;
+    } 
+
+    return (
+        <div className='enter-comment'>
+            <textarea
+                rows={1}
+                placeholder='&nbsp;'
+                onChange={handleChange}
+                onKeyPress={submit}
+            ></textarea>
+            <span className='label'>
+                Your comment
+            </span>
+            <span className='border'>
+            </span>
+        </div>
     )
 }
 
