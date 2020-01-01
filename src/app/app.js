@@ -8,6 +8,8 @@ import Menu from '../menu/menu';
 import Editor from '../editor/editor';
 import { userContext } from '../user-context/user-context';
 
+import Cookies from 'js-cookie';
+
 class App extends Component {
     state = {
         user: {
@@ -19,13 +21,25 @@ class App extends Component {
         socket: io(),
     }
 
+    componentDidMount() {
+        console.log(Cookies.get('user'));
+
+        let userdata = JSON.parse(Cookies.get('user'));
+
+        if (userdata) {
+            this.setState({user: userdata});   
+        }
+        
+    }
+
     componentWillUnmount = () => {
         this.state.socket.disconnect();
     }
 
     updateUser =  async (info) => {
         if (info.name) {
-            this.setState({user: {name: info.name, email: info.email}});
+            await this.setState({user: {name: info.name, email: info.email}});
+            Cookies.set('user', this.state.user, {expires: 1});
         }
     }
 
