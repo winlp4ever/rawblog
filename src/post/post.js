@@ -14,16 +14,15 @@ function disableDoubleClick() {
 }
 
 export default class Post extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            post_content: {} ,
-            likes: '',
-            view_comments: false
-        }
-        this.like = this.like.bind(this);
-        this.viewComments = this.viewComments.bind(this);
+    
+    state = {
+        post_content: {} ,
+        likes: '',
+        view_comments: false
     }
+    like = this.like.bind(this);
+    viewComments = this.viewComments.bind(this);
+    
     async componentDidMount() {
         // behaviors
         disableDoubleClick();
@@ -32,7 +31,6 @@ export default class Post extends Component {
         this.setState({ post_content: data.content, likes: data.likes });
     }
 
-    
     async componentWillUnmount() {
         //this.props.socket.disconnect();
     }
@@ -48,6 +46,8 @@ export default class Post extends Component {
 
 
     render() {
+        console.log('re-render');
+
         let comments_section = '';
         if (this.state.view_comments) {
             comments_section = (

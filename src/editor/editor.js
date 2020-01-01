@@ -5,40 +5,33 @@ import { autoResize, keysBehaviours } from './utils';
 import MdRender from '../markdown-render/markdown-render';
 
 class Editor extends Component {
-    constructor(props) {
-        super(props);
-        this.savePost = this.savePost.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleLink = this.handleLink.bind(this);
-        this.state = {
-            newPost: {
-                content: '',
-                shared_link: ''
-            }
-        };        
+    state = {
+        newPost: {
+            content: '',
+            shared_link: ''
+        }
+    };        
         
-    }
-
-    async componentDidMount() {
+    componentDidMount = async () => {
         autoResize();
         keysBehaviours();
     }
 
-    handleChange(e) {
+    handleChange = (e) => {
         this.setState({newPost: {
             content: e.target.value,
             shared_link: this.state.newPost.shared_link
         }});
     }
 
-    handleLink(e) {
+    handleLink = (e) => {
         this.setState({newPost: {
             content: this.state.newPost.content,
             shared_link: e.target.value
         }})
     }
 
-    async savePost() {
+    savePost = async () => {
         /**
          * save new post, send it to the server to update posts, then wait
          * for server response and generate new posts
@@ -83,7 +76,7 @@ class Editor extends Component {
         }
     }
 
-    render() {
+    render = () => {
         /**
          * This function render the Editor inside Posts section
          */

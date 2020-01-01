@@ -14,16 +14,14 @@ function disableDoubleClick() {
 }
 
 export default class FullPost extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            post_content: {} ,
-            likes: '',
-            view_comments: true
-        }
-        this.like = this.like.bind(this);
+    state = {
+        post_content: {} ,
+        likes: '',
+        view_comments: true
     }
-    
+
+    like = this.like.bind(this)
+        
     async componentDidMount() {
         // behaviors
         disableDoubleClick();

@@ -15,7 +15,7 @@ const Auth = () => {
         setPass(e.target.value);
     }
 
-    const value = useContext(userContext);
+    const userdata = useContext(userContext);
 
     const handleSubmit = async () => {
         if (name == 'AII') {
@@ -28,7 +28,7 @@ const Auth = () => {
             if (data.answer != 'y') return;
             setName('AII');
         }
-        value.updateUser({name: name, email: email});
+        userdata.updateUser({name: name, email: email});
     } 
 
     let input_adminpass = '';

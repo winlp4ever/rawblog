@@ -4,13 +4,11 @@ import LinkPreview from '../link-preview/link-preview';
 import './_socio.scss';
 
 class Socio extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            postIds: new Set(), 
-        }
-        this.delPost = this.delPost.bind(this);
+    state = {
+        postIds: new Set(), 
     }
+    delPost = this.delPost.bind(this);
+    
 
     async componentDidMount() {
         let response = await fetch('/postIds', {method: 'POST'});
