@@ -24,10 +24,10 @@ class App extends Component {
     componentDidMount() {
         console.log(Cookies.get('user'));
 
-        let userdata = JSON.parse(Cookies.get('user'));
+        let userdata = Cookies.get('user');
 
         if (userdata) {
-            this.setState({user: userdata});   
+            this.setState({user: JSON.parse(userdata)});   
         }
         
     }
