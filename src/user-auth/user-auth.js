@@ -18,7 +18,7 @@ const Auth = () => {
     const userdata = useContext(userContext);
 
     const handleSubmit = async () => {
-        if (name == 'AII') {
+        if (name == 'Wall-Q') {
             let response = await fetch('/admin-verify', {
                 method: 'POST', 
                 headers: { 'Content-Type': 'application/json' },
@@ -26,13 +26,13 @@ const Auth = () => {
             });
             let data = await response.json();
             if (data.answer != 'y') return;
-            setName('AII');
+            setName('Wall-Q');
         }
         userdata.updateUser({name: name, email: email});
     } 
 
     let input_adminpass = '';
-    if (name == 'AII') input_adminpass = <input onChange={handlePass} />
+    if (name == 'Wall-Q') input_adminpass = <input onChange={handlePass} />
     return (   
         <div className='auth' onKeyPress={e => {
             let keycode = e.keyCode || e.which;

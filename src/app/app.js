@@ -7,6 +7,7 @@ import io from 'socket.io-client';
 import Menu from '../menu/menu';
 import Editor from '../editor/editor';
 import { userContext } from '../user-context/user-context';
+import Home from '../home/home';
 
 import Cookies from 'js-cookie';
 
@@ -55,9 +56,13 @@ class App extends Component {
         this.setState({activeTab: 1, postId: -1});
     }
 
+    viewHome = () => {
+        this.setState({activeTab: 0, postId: -1});
+    }
+
     render = () => {
         let menuOptions = [
-            {name: 'Home', onClick: _ => { window.location.href = 'https://theaiinstitute.ai'; }}, 
+            {name: 'Home', onClick: this.viewHome}, 
             {name: 'Wall', onClick: this.viewSocio}
         ];
         if (this.state.user.name == 'AII') menuOptions.push({name: 'Editor', onClick: this.viewEditor});
@@ -66,7 +71,11 @@ class App extends Component {
         if (!this.state.user.name) auth=(<Auth updateUser={this.updateUser} />);
 
         let main = (<div>Oof! Error, page not found!</div>> -1);
-        if (this.state.activeTab == 1 && this.state.postId == -1) {
+        if (this.state.activeTab == 0) {
+            main = (<Home />);
+        }
+
+        else if (this.state.activeTab == 1 && this.state.postId == -1) {
             main = (<Socio socket={this.state.socket} 
                 viewFullPost={this.viewFullPost} 
             />);

@@ -17,7 +17,7 @@ class Socio extends Component {
     }
 
     async delPost(i) {
-        if (this.props.user.name != 'AII') return;
+        if (this.props.user.name != 'Wall-Q') return;
         let ids = new Set(this.state.postIds);
         ids.delete(i);
         this.setState({ postIds: ids });

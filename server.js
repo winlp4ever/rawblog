@@ -44,7 +44,7 @@ var posts = {
         content: {
             title: 'an example',
             text: '<h1>example</h1>\n<p>this is an example</p>',
-            shared_link: 'https://www.reddit.com/r/javascript/comments/4bxsi6/webpack_hmr_express_socketio_one_does_not_simply/'
+            shared_link: ''
         },
         likes: 0,
         comments: [
