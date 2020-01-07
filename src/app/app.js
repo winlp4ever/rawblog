@@ -8,6 +8,7 @@ import Menu from '../menu/menu';
 import Editor from '../editor/editor';
 import { userContext } from '../user-context/user-context';
 import Home from '../home/home';
+import LinkTray from '../link-tray/link-tray';
 
 import Cookies from 'js-cookie';
 
@@ -97,6 +98,7 @@ class App extends Component {
 
         return (
             <userContext.Provider value={value}>
+                <LinkTray />
                 <Menu links={menuOptions} activeTab={this.state.activeTab}/>
                 {main}
                 <ConnectionError />
