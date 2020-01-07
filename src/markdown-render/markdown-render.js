@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactMarkdown from "react-markdown";
 import CodeBlock from '../syntax-highlight/syntax-highlight';
+import './_markdown-render.scss';
 
 const MdRender = props => {
     const newProps = {
@@ -12,7 +13,7 @@ const MdRender = props => {
         }
     };
     return (
-        <div>
+        <div className='markdown-render'>
             <ReactMarkdown {...newProps}/>
         </div>
         

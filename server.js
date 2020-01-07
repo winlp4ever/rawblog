@@ -38,33 +38,33 @@ server.listen(PORT, () => {
     console.log(`listening to port ${PORT}`)
 });
 
-var posts = {
-    0: {
-        id: 0,
-        content: {
-            title: 'an example',
-            text: '<h1>example</h1>\n<p>this is an example</p>',
-            shared_link: ''
-        },
-        likes: 0,
-        comments: [
-            {username: 'AII', content: 'Hey yo'},
-            {username: 'AII', content: 'this is an example'}
-        ]
-    },
-    1: {
-        id: 1,
-        content: {
-            title: 'oofsi',
-            text: '<h1>second ex</h1> \n<p>where anything goes wrong</p>',
-            shared_link: ''
-        },
-        likes: 1,
-        comments: [
-            {username: 'AII', content: 'Ooof'}
-        ]
+var posts = {};
+var articlesPath = './articles';
+fs.readdir(articlesPath, function (err, files) {
+    if (err) {
+        console.error("Could not list the directory.", err);
+        process.exit(1);
     }
-}
+  
+    files.forEach((file, index) => {
+        try {
+            const data = fs.readFileSync(path.join(articlesPath, file), 'utf8');
+            posts[index] = {
+                content: {
+                    title: path.basename(file),
+                    text: data,
+                    shared_link: ''
+                },
+                likes: 0,
+                comments: []
+            }
+        } catch (err) {
+            console.error(err)
+        }
+    })
+});
+
+
 var count = 0;
 
 

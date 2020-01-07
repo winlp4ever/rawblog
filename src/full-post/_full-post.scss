@@ -1,20 +1,24 @@
 div.full-post {
     position: relative;
-    color: rgb(65, 65, 65);
+    color: rgb(80, 80, 80);
     margin: auto;
     width: 60%;
+    line-height: 1.8;
     font: {
+        family: 'Raleway', sans-serif;
         size: 75%;
     }
     h1 {
-        color:#d32f2f;
+        color: black;
         width: 100%;
         display: block;
-        border-bottom: 1px solid lightgrey;
+        box-sizing: border-box;
+        padding: 20px 10px;
+        border-bottom: 1px solid rgb(230, 230, 230);
         font: {
             size: 200%;
-            family: 'Open Sans', sans-serif;
-            weight: 300;
+            family: 'Merriweather', sans-serif;
+            weight: 700;
         }
     }
     > button {
@@ -33,10 +37,29 @@ div.full-post {
         &:hover {
             color: #757575;
             background-color: whitesmoke;
-        }
-        
+        }  
     }
+
+    p {
+        display: block;
+        box-sizing: border-box;
+        padding: 10px;
+        border-left: 4px solid white;
+        transition: all 0.2s;
+        > code {
+            background-color: whitesmoke;
+            display: inline-block;
+            border-radius: 5px;
+            box-sizing: border-box;
+            padding: 1px 2px;
+        }
+        &:hover {
+            border-left: 4px solid lightgrey;
+        }
+    }
+
     pre {
+        display: block;
         position: relative;
         font: {
             size: 80%;
@@ -70,7 +93,7 @@ div.full-post {
         }
     }
     > div {
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.08);        
+        //box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.08);        
         margin: 10px auto;
         box-sizing: border-box;
         border-radius: 5px;
@@ -86,10 +109,13 @@ div.full-post {
         padding: 10px;
     }
     div.post-interact {
+        position: fixed;
+        top: 150px;
+        left: 10%;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
-        padding: 10px 20px;
+        padding: 0px 5px;
         background: whitesmoke;
         >div {
             padding: 10px 0px;
@@ -109,7 +135,7 @@ div.full-post {
             margin: auto 5px;
         }
         font: {
-            size: 90%;
+            size: 100%;
         }
     }
     div.comment-section {

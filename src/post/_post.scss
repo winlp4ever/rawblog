@@ -1,20 +1,21 @@
 div.post {
     position: relative;
-    color: rgb(65, 65, 65);
+    color: rgb(80, 80, 80);
     //margin: auto;
     width: 60%;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.08);        
     margin: 10px auto;
     box-sizing: border-box;
     border-radius: 5px;
+    line-height: 1.5;
     font: {
+        family: 'Raleway', sans-serif;
         size: 75%;
     }
     h1 {
         font: {
             size: 180%;
-            family: 'Open Sans', sans-serif;
-            weight: 300;
+            family: 'Trocchi';
         }
     }
     > button {
@@ -34,7 +35,14 @@ div.post {
             color: #757575;
             background-color: whitesmoke;
         }
-        
+    }
+   
+    p > code {
+        background-color: whitesmoke;
+        display: inline-block;
+        border-radius: 5px;
+        box-sizing: border-box;
+        padding: 1px 2px;
     }
     pre {
         position: relative;
@@ -77,18 +85,48 @@ div.post {
     }
 
     div.post-text {
+        position: relative;
+        transition: 0.2s all;
         div {
+            word-wrap: break-word;
             overflow-y: hidden;
-            text-overflow: ellipsis;
-            max-height: 500px;
-            white-space: nowrap;
+            //text-overflow: ellipsis;
+            max-height: 200px;
+            //white-space: nowrap;
 
-            -ms-overflow-style: none;
+            //-ms-overflow-style: none;
             &::-webkit-scrollbar {
                 display: none;
             }
         }
-        
+        button.read-more {
+            position: absolute;
+            color: rgb(185, 185, 185);
+            font: {
+                size: 80%;
+                family: 'Open Sans', sans-serif;
+            }
+            width: 100px;
+            margin-left: -50px;
+            left: 50%;
+            bottom: 0px;
+            border: none;
+            background: none;
+            outline: none;
+            box-sizing: border-box;
+            padding: 2px 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            transition: all 0.3s;
+            &:hover {
+                border: 1px solid lightgrey;
+                color: gray;
+            }
+        }
+
+        &:hover {
+            background: linear-gradient(to top, rgb(230, 230, 230) 0%, white 20%);
+        }
     }
 
     div.comment {
