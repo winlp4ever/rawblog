@@ -29,6 +29,7 @@ export default class FullPost extends Component {
         let response = await fetch(`/get-post?postId=${this.props.postId}`, {method: 'POST'});
         let data = await response.json();
         this.setState({ post_content: data.content, likes: data.likes });
+        $('.full-post h1').after(`<div class='himmi'><img src='${Img}'/></div>`);
     }
 
     
@@ -60,9 +61,6 @@ export default class FullPost extends Component {
             <div 
                 className='full-post'
             >
-                <div className='himmi'>
-                    <img src={Img} />
-                </div>
                 <div>
                     <MdRender source={this.state.post_content.text} />
                     <LinkPreview url={this.state.post_content.shared_link}/>
