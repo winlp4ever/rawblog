@@ -12,6 +12,7 @@ const MdRender = props => {
             code: CodeBlock
         }
     };
+    
     return (
         <div className='markdown-render'>
             <ReactMarkdown {...newProps}/>

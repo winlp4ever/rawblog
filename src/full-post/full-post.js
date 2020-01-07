@@ -6,6 +6,7 @@ import $ from 'jquery';
 import './_full-post.scss';
 import io from 'socket.io-client';
 import { hot } from 'react-hot-loader';
+import Img from '../../imgs/cs-bg.svg';
 
 function disableDoubleClick() {
     $('.full-post .post-interact i').on('mousedown', e => {
@@ -59,6 +60,9 @@ export default class FullPost extends Component {
             <div 
                 className='full-post'
             >
+                <div className='himmi'>
+                    <img src={Img} />
+                </div>
                 <div>
                     <MdRender source={this.state.post_content.text} />
                     <LinkPreview url={this.state.post_content.shared_link}/>
