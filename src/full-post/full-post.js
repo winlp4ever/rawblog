@@ -46,6 +46,7 @@ export default class FullPost extends Component {
         if (this.state.view_comments) {
             comments_section = (
                 <div className='comment-section'>
+                    <h3 className='channel'>#general</h3>
                     <Comment 
                         postId={this.props.postId} 
                         socket={this.props.socket} 
@@ -76,6 +77,7 @@ export default class FullPost extends Component {
                     </div>
 
                 </div>
+
                 {comments_section}
             </div>
         );

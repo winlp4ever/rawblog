@@ -9,15 +9,16 @@ div.full-post {
         size: 75%;
     }
     h1 {
-        color: black;
+        text-align: center;
+        color: #202121;
         width: 100%;
         display: block;
         box-sizing: border-box;
         padding: 20px 10px;
         border-bottom: 1px solid rgb(230, 230, 230);
         font: {
-            size: 200%;
-            family: 'Merriweather', sans-serif;
+            size: 250%;
+            family: 'Poppins', sans-serif;
             weight: 700;
         }
     }
@@ -78,7 +79,7 @@ div.full-post {
             top: 10px;
             left: 10px;
             background: #ff5f56;
-            z-index: 100;
+            z-index: 2;
         }
         &:before {
             content: ' ';
@@ -86,10 +87,10 @@ div.full-post {
             width: 10px;
             border-radius: 5px;
             position: absolute;
-            top: 9px;
+            top: 10px;
             left: 25px;
             background: #27c93f;
-            z-index: 100;
+            z-index: 2;
         }
     }
     > div {
@@ -102,13 +103,15 @@ div.full-post {
         }
     }
 
-    div.comment {
+    div.comment-section {
+        position: relative;
         font: {
             size: 80%;
         }
-        padding: 10px;
+        padding: 0px;
+        transition: all 0.2s;
         &:hover {
-            //box-shadow:0px 6px 12px rgba(0, 0, 0, 0.08);   
+            box-shadow:0px 6px 12px rgba(0, 0, 0, 0.08);   
         }
         height: auto;
     }
@@ -120,32 +123,42 @@ div.full-post {
         flex-direction: column;
         justify-content: space-between;
         padding: 0px 5px;
-        background: whitesmoke;
         >div {
-            padding: 10px 0px;
-        }
-        
-        i.fab, i.fas {
-            transition: all 0.2s;
-            &:hover {
-                color: #2196f3;
+            padding: 5px;
+            border-radius: 10px;
+            border: 1px solid grey;
+            i.fab, i.fas {
+                transition: all 0.2s;
+                &:hover {
+                    color: #2196f3;
+                }
+                &:active {
+                    animation: blap 0.2s normal forwards ease-in-out;
+                    //color: $funny;
+                }
             }
-            &:active {
-                animation: blap 0.2s normal forwards ease-in-out;
-                //color: $funny;
+            span {
+                display: inline-block;
+                box-sizing: border-box;
+                padding: 0px;
+                margin: auto 5px;
+                line-height: 1.0;
+                vertical-align: middle;
             }
-        }
-        span {
-            margin: auto 5px;
-        }
-        font: {
-            size: 100%;
+            font: {
+                size: 80%;
+            }
         }
     }
     div.comment-section {
         overflow: hidden;
         box-sizing: border-box;
-        padding: 10px 20px
+        padding: 10px 20px;
+        h3.channel {
+            display: block;
+            box-sizing: border-box;
+            padding: 0 40px;
+        }
     }
 }
 
