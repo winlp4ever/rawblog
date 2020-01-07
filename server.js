@@ -47,19 +47,31 @@ fs.readdir(articlesPath, function (err, files) {
     }
   
     files.forEach((file, index) => {
+        let p = path.join(articlesPath, file);
+        let name = path.parse(file).name;
+        if (fs.lstatSync(p).isDirectory()) {
+            return;
+        }
+        let info = {likes: 0, comments: []};
+        try {
+            info = JSON.parse(fs.readFileSync(path.join(articlesPath, 'logs', name + '.json')))
+            console.log(info);
+        } catch (err) {
+            console.error(err);
+        }
         try {
             const data = fs.readFileSync(path.join(articlesPath, file), 'utf8');
             posts[index] = {
                 content: {
-                    title: path.basename(file),
+                    title: name,
                     text: data,
                     shared_link: ''
                 },
-                likes: 0,
-                comments: []
+                likes: info.likes,
+                comments: info.comments
             }
         } catch (err) {
-            console.error(err)
+            console.log(err);
         }
     })
 });
@@ -152,5 +164,12 @@ app.post('/admin-verify', (req, res) => {
 
 process.on('SIGINT', _ => {
     console.log('now you quit!');
+    for (const id in posts) {
+        let name = posts[id].content.title;
+        let info = {likes: posts[id].likes, comments: posts[id].comments};
+        fs.writeFileSync(path.join(articlesPath, 'logs', name + '.json'), JSON.stringify(info));
+        console.log(path.join(articlesPath, 'logs', name + '.json'));
+    }
+    
     process.exit();
 })
