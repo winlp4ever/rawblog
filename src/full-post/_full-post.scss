@@ -9,9 +9,11 @@ div.full-post {
         size: 75%;
     }
     h1 {
+        position: absolute;
+        top: 0;
         text-align: center;
         color: #202121;
-        width: 100%;
+        width: 90%;
         display: block;
         box-sizing: border-box;
         padding: 20px 10px;
@@ -42,6 +44,7 @@ div.full-post {
     }
 
     p {
+        position: relative;
         display: block;
         box-sizing: border-box;
         padding: 10px;
@@ -104,6 +107,8 @@ div.full-post {
     }
 
     .himmi {
+        position: relative;
+        top: 100px;
         width: 100%;
         img {
             display: block;
