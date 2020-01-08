@@ -65,9 +65,6 @@ export default class Post extends Component {
             >
                 <div className='post-text'>
                     <MdRender source={this.state.post_content.text} />
-                    <button className='read-more' onClick={_ => this.props.viewFullPost(this.props.postId)}>
-                        Read more
-                    </button>
                 </div>
                 <LinkPreview url={this.state.post_content.shared_link}/>
                 <div
@@ -80,6 +77,7 @@ export default class Post extends Component {
                             <i className="fab fa-gratipay"></i>
                         </span>
                         <span>{this.state.likes}</span>
+                        
                     </div>
                     <div>
                         <span
@@ -88,7 +86,9 @@ export default class Post extends Component {
                             <i className="fas fa-comment-dots"></i>
                         </span>
                     </div>
-
+                    <button className='read-more' onClick={_ => this.props.viewFullPost(this.props.postId)}>
+                        Read more
+                    </button>
                 </div>
                 {comments_section}
             </div>

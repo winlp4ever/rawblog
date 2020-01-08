@@ -3,19 +3,19 @@ div.post {
     color: rgb(80, 80, 80);
     //margin: auto;
     width: 60%;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.08);        
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.06);        
     margin: 10px auto;
     box-sizing: border-box;
-    border-radius: 5px;
-    line-height: 1.5;
+    line-height: 1.2;
     font: {
         family: 'Raleway', sans-serif;
-        size: 75%;
+        size: 70%;
     }
     h1 {
+        color: #212121;
         font: {
-            size: 180%;
-            family: 'Josefin Sans', sans-serif;
+            size: 200%;
+            family: 'Josefin Sans', sans-serif
         }
     }
     > button {
@@ -79,53 +79,28 @@ div.post {
         }
     }
     > div {
-        
         >div {
-            padding: 10px 5%;
+            box-sizing: border-box;
+            padding: 20px 5%;
         }
     }
 
     div.post-text {
         position: relative;
-        transition: 0.2s all;
-        div {
-            word-wrap: break-word;
-            overflow-y: hidden;
-            //text-overflow: ellipsis;
-            max-height: 200px;
-            //white-space: nowrap;
-
-            //-ms-overflow-style: none;
-            &::-webkit-scrollbar {
-                display: none;
+        transition: all 0.2s;
+        div.markdown-render {
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            p {
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
-        button.read-more {
-            position: absolute;
-            color: rgb(185, 185, 185);
-            font: {
-                size: 80%;
-            }
-            width: 100px;
-            margin-left: -50px;
-            left: 50%;
-            bottom: 0px;
-            border: none;
-            background: none;
-            outline: none;
-            box-sizing: border-box;
-            padding: 2px 5px;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-            transition: all 0.3s;
-            &:hover {
-                border: 1px solid lightgrey;
-                color: gray;
-            }
-        }
+        
 
         &:hover {
-            background: linear-gradient(to top, rgb(230, 230, 230) 0%, white 20%);
+            background: linear-gradient(to top, rgb(245, 245, 245) 0%, white 20%);
         }
     }
 
@@ -136,11 +111,15 @@ div.post {
         padding: 10px;
     }
     div.post-interact {
+        position: absolute;
+        top: 0;
+        right: 0;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         padding: 10px 20px;
-        background: whitesmoke;
+        background: rgb(255, 248, 248);
+        border-top: 1px solid lightgrey;
         >div {
             padding: 10px 0px;
         }
@@ -160,6 +139,19 @@ div.post {
         }
         font: {
             size: 90%;
+        }
+        button.read-more {
+            color: #2962FF;
+            width: 100px;
+            bottom: 0px;
+            border: none;
+            background: none;
+            outline: none;
+            box-sizing: border-box;
+            padding: 2px 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            transition: all 0.3s;
         }
     }
     div.comment-section {
