@@ -7,7 +7,8 @@ import Img from '../../imgs/discuss.svg';
 export default class B0t extends Component {
     state = {
         chats: [],
-        newchat: ''
+        newchat: '',
+        hide: true
     }
 
     async componentDidMount() {
@@ -21,6 +22,15 @@ export default class B0t extends Component {
         })
     }
 
+    hideUnhide = (e) => {
+        if (this.state.hide) {
+            $(e.currentTarget).parent().parent().children('.chat-section').css({'max-width': '400px', 'opacity': '1'});
+        } else {
+            $(e.currentTarget).parent().parent().children('.chat-section').css({'max-width': '0', 'opacity': '0'});
+        }
+        this.setState({hide: !this.state.hide});
+    }
+
     onChange = (e) => {
         this.setState({newchat: e.target.value});
     }
@@ -31,7 +41,6 @@ export default class B0t extends Component {
         
         e.preventDefault(); // prevents page reloading
         if (!this.state.newchat) return;
-        console.log(this.state.chats)
         const userdata = {name: 'me', email: ''};
         this.props.socket.emit('user-msg', this.state.newchat);
         let copy = this.state.chats.slice();
@@ -44,7 +53,7 @@ export default class B0t extends Component {
         return (
             <div className='b0t'>
                 <div className='icon'>
-                    <img src={Img} />
+                    <img onClick={this.hideUnhide} src={Img} />
                 </div>
                 <div className='chat-section'>
                     {this.state.chats.map((c, id) => {

@@ -23,6 +23,7 @@
             width: 0 !important
           }
     .chat-section {
+        max-width: 0px;
         position: relative;
         max-height: 400px;
         display: flex;
@@ -31,7 +32,8 @@
         overflow-y: scroll;
         overflow-x: hidden;
         transform: perspective(400px) rotateX(8deg);
-        
+        opacity: 0;
+        transition: all 0.2s;
         div {
             display: flex;
             flex-direction: row;
