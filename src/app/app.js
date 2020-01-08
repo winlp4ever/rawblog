@@ -9,6 +9,7 @@ import Editor from '../editor/editor';
 import { userContext } from '../user-context/user-context';
 import Home from '../home/home';
 import LinkTray from '../link-tray/link-tray';
+import B0t from '../b0t/b0t';
 
 import Cookies from 'js-cookie';
 
@@ -98,6 +99,7 @@ class App extends Component {
 
         return (
             <userContext.Provider value={value}>
+                <B0t socket={this.state.socket} />
                 <LinkTray />
                 <Menu links={menuOptions} activeTab={this.state.activeTab}/>
                 {main}

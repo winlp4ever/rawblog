@@ -1,0 +1,91 @@
+.b0t {
+    z-index: 5;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+    div {
+        margin: 10px 5px;
+    }
+    .icon {
+        position: relative;
+        width: 50px;
+        img {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            transform: rotate(15deg);
+        }
+    }
+
+    .chat-section::-webkit-scrollbar {
+            width: 0 !important
+          }
+    .chat-section {
+        position: relative;
+        max-height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        
+        div {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            margin: 5px;
+            i {
+                display: block;
+                margin: auto;
+                transform: rotate(-12deg);
+            }
+            .msg {
+                max-width: 300px;
+                word-wrap: break-word;
+                background: white;
+                box-sizing: border-box;
+                padding: 10px 15px;
+                border-radius: 8px;
+                box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.12);
+                span {
+                    text-align: right;
+                    display: inline-block;
+                    margin: auto 5px;
+                    color: #222222;
+                    font: {
+                        size: 70%;
+                    }
+                }
+                .user {
+                    color: rgb(28, 100, 182);
+                    margin: 0
+                }
+            } 
+        }
+        .newchat {
+            box-sizing: border-box;
+            padding: 10px 15px;
+            border-bottom: 2px solid lightgrey;
+            background: linear-gradient(-45deg, white 0%, rgba(0, 0, 0, 0) 60%);
+            textarea {
+                background: none;
+                width: 100%;
+                box-sizing: border-box;
+                display: block;
+                margin: auto 0;
+                resize: none;
+                border: none;
+                outline: none;
+                    font: {
+                    family: 'Raleway', sans-serif;
+                    size: 70%;
+                }
+                float: right;
+                text-align: right;
+            }
+            
+        }
+    }
+}
