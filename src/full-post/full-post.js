@@ -57,11 +57,20 @@ export default class FullPost extends Component {
                 </div>
             );
         }
+        let hashtags = '';
+        if (this.state.post_content.hashtags) {
+            hashtags = (<div className='hashtags'>
+                {this.state.post_content.hashtags.map((e, id) => (
+                    <span key={id}>#{e}</span>
+                ))}
+            </div>)
+        }
         return (
             <div 
                 className='full-post'
             >
                 <div>
+                    {hashtags}
                     <MdRender source={this.state.post_content.text} />
                     <LinkPreview url={this.state.post_content.shared_link}/>
                 </div>

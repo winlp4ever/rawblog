@@ -52,7 +52,7 @@ fs.readdir(articlesPath, function (err, files) {
         if (fs.lstatSync(p).isDirectory()) {
             return;
         }
-        let info = {likes: 0, comments: []};
+        let info = {likes: 0, comments: [], hashtags: []};
         try {
             info = JSON.parse(fs.readFileSync(path.join(articlesPath, 'logs', name + '.json')))
             console.log(info);
@@ -65,7 +65,8 @@ fs.readdir(articlesPath, function (err, files) {
                 content: {
                     title: name,
                     text: data,
-                    shared_link: ''
+                    shared_link: '',
+                    hashtags: info.hashtags
                 },
                 likes: info.likes,
                 comments: info.comments
@@ -144,7 +145,8 @@ app.post('/save-post', (req, res) => {
         content: {
             title: req.body.title, 
             text: req.body.content, 
-            shared_link: req.body.shared_link
+            shared_link: req.body.shared_link,
+            hashtags: []
         },
         likes: 0,
         comments: []
@@ -166,8 +168,8 @@ process.on('SIGINT', _ => {
     console.log('now you quit!');
     for (const id in posts) {
         let name = posts[id].content.title;
-        let info = {likes: posts[id].likes, comments: posts[id].comments};
-        fs.writeFileSync(path.join(articlesPath, 'logs', name + '.json'), JSON.stringify(info));
+        let info = {likes: posts[id].likes, comments: posts[id].comments, hashtags: posts[id].content.hashtags};
+        fs.writeFileSync(path.join(articlesPath, 'logs', name + '.json'), JSON.stringify(info, undefined, 4));
         console.log(path.join(articlesPath, 'logs', name + '.json'));
     }
     

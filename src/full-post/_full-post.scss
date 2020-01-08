@@ -124,6 +124,21 @@ div.full-post {
         }
     }
 
+    div.hashtags {
+        span {
+            display: inline-block;
+            box-sizing: border-box;
+            padding: 5px 10px;
+            border-radius: 15px;
+            text-align: center;
+            background: whitesmoke;
+            margin: auto 5px;
+            font: {
+                
+            }
+        }
+    }
+
     div.comment-section {
         position: relative;
         font: {
