@@ -14,6 +14,17 @@ function disableDoubleClick() {
     });
 }
 
+function genOutline() {
+    let outline = $(`<div class='outline'><h2>Outline</h2></div>`);
+    let count = 0;
+    $('.full-post .markdown-render').children('h2').each(function() {
+        outline.append(`<span><a href='#post-sec-${count}'>${$(this).html()}</a></span>`);
+        $(this).attr('id', `post-sec-${count}`);
+        count ++;
+    })
+    $('.full-post').append(outline);
+}
+
 export default class FullPost extends Component {
     state = {
         post_content: {} ,
@@ -30,6 +41,7 @@ export default class FullPost extends Component {
         let data = await response.json();
         this.setState({ post_content: data.content, likes: data.likes });
         $('.full-post h1').after(`<div class='himmi'><img src='${Img}'/></div>`);
+        genOutline();
     }
 
     

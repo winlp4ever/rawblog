@@ -148,6 +148,46 @@ div.full-post {
         }
     }
 
+    div.outline {
+        position: fixed;
+        top: 100px;
+        left: 10px;
+        width: 12%;
+        h2 {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px 10px;
+            font: {
+                family: 'Raleway', sans-serif;
+                size: 120%;
+            }
+        }
+        span {
+            display: block;
+            width: 100%;
+            padding: 5px 10px;
+            margin: 0;
+            text-overflow: ellipsis;
+            overflow: hidden; 
+            white-space: nowrap;
+            font: {
+                size: 80%;
+                weight: 700;
+            }
+            a {
+                color: #757575;
+            }
+            text-align: left;
+            box-sizing: border-box;
+            border-bottom: 1px solid lightgrey;
+            transition: 0.2s all;
+            &:hover {
+                background: whitesmoke;
+            }
+        }
+    }
+
     div.comment-section {
         position: relative;
         font: {
