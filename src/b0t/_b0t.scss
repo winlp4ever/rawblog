@@ -20,6 +20,24 @@
     div {
         margin: 10px 5px;
     }
+
+    .disclaimer {
+        position: absolute;
+        top: -75px;
+        margin-right: 0;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid rgba(240, 128, 128, 0.473);
+        font: {
+            size: 70%;
+        }
+        color: #777777;
+        text-align: left;
+        box-sizing: border-box;
+        padding: 10px;
+        width: 100%;
+    }
+
     .icon {
         position: relative;
         width: 50px;
@@ -35,7 +53,6 @@
             width: 0 !important
           }
     .chat-section {
-        max-width: 0px;
         position: relative;
         max-height: 400px;
         display: flex;
@@ -44,7 +61,6 @@
         overflow-y: scroll;
         overflow-x: hidden;
         transform: perspective(400px) rotateX(8deg);
-        opacity: 0;
         transition: all 0.2s;
         div {
             display: flex;
@@ -55,6 +71,7 @@
                 display: block;
                 margin: auto;
                 transform: rotate(-12deg);
+                color: #222222;
             }
             .msg {
                 max-width: 300px;
@@ -62,7 +79,7 @@
                 background: white;
                 box-sizing: border-box;
                 padding: 10px 15px;
-                border-radius: 8px;
+                border-radius: 20px;
                 box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.12);
                 span {
                     display: inline-block;
@@ -71,7 +88,7 @@
                     }
                     text-align: right;
                     color: #222222;
-                    margin: 0 auto 0 5px;
+                    margin: 0 5px;
                 }
                 .user {
                     color: rgb(28, 100, 182);
@@ -79,13 +96,14 @@
                 }
             } 
             .msg.bot {
-                background: #1976D2;
-                span {
-                    color: whitesmoke;
+                background: lightgrey;
+                span:not(.user) {
+                    color: #222222;
+                    font-weight: 700;
                 }
 
                 .user {
-                    color: #FF8A80;
+                    color: grey;
                 }
             }
         }
