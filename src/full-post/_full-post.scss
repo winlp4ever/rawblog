@@ -18,8 +18,14 @@ div.full-post {
         border-bottom: 1px solid rgb(230, 230, 230);
         font: {
             size: 250%;
-            family: 'Poppins', sans-serif;
+            family: 'Josefin Sans', sans-serif;
             weight: 700;
+        }
+    }
+    h2 {
+        font: {
+            size: 180%;
+            family: 'Lora', serif;
         }
     }
     > button {
@@ -134,8 +140,11 @@ div.full-post {
             background: whitesmoke;
             margin: auto 5px;
             font: {
-                
+                size: 80%;
+                weight: 700;
             }
+            letter-spacing: 1px;
+
         }
     }
 

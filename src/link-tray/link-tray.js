@@ -15,7 +15,7 @@ export default class LinkTray extends Component {
             <div className='link-tray'>
                 <div className='link'>
                     {this.state.links.map((e, id) => (
-                        <a href={e.url} target='_blank'>{e.a_tag}</a>
+                        <a href={e.url} target='_blank' key={id}>{e.a_tag}</a>
                     ))}
                 </div>
                 <div className='tray'></div>
