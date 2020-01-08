@@ -30,6 +30,7 @@
         justify-content: flex-start;
         overflow-y: scroll;
         overflow-x: hidden;
+        transform: perspective(400px) rotateX(8deg);
         
         div {
             display: flex;
@@ -63,7 +64,19 @@
                     margin: 0
                 }
             } 
+            .msg.bot {
+                background: #1976D2;
+                span {
+                    color: whitesmoke;
+                }
+
+                .user {
+                    color: #FF8A80;
+                }
+            }
         }
+        
+            
         .newchat {
             box-sizing: border-box;
             padding: 10px 15px;

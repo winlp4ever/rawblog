@@ -4,9 +4,9 @@ import './_link-tray.scss';
 export default class LinkTray extends Component {
     state = {
         links: [
-            {name: 'facebook', url: 'https://facebook.com', a_tag: <i class="fab fa-facebook-f fa-fw"></i>},
-            {name: 'linkedin', url: 'https://linkedin.com', a_tag: <i class="fab fa-linkedin-in fa-fw"></i>},
-            {name: 'instagram', url: 'https://instagram.com', a_tag: <i class="fab fa-instagram fa-fw"></i>}
+            {name: 'facebook', url: 'https://facebook.com', a_tag: <i className="fab fa-facebook-f fa-fw"></i>},
+            {name: 'linkedin', url: 'https://linkedin.com', a_tag: <i className="fab fa-linkedin-in fa-fw"></i>},
+            {name: 'instagram', url: 'https://instagram.com', a_tag: <i className="fab fa-instagram fa-fw"></i>}
         ]
     }
 

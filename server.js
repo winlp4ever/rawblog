@@ -109,6 +109,16 @@ io.on('connection', function(socket){
         posts[id].likes ++;
         console.log(posts[id]);
     })
+
+    //chat bot
+    socket.on('bot-msg', msg => {
+        io.emit('bot-msg', msg);
+        console.log('bot: ' + msg);
+    })
+    socket.on('user-msg', msg => {
+        io.emit('user-msg', msg);
+        console.log('user: ' + msg);
+    })
 });
 
 

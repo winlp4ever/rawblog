@@ -14,6 +14,11 @@ export default class B0t extends Component {
         let copy = this.state.chats.slice();
         copy.push({user: 'b0t', msg: 'Knock Knock Neo...'});
         this.setState({chats: copy});
+        this.props.socket.on('bot-msg', msg => {
+            let copy = this.state.chats.slice();
+            copy.push({user: 'b0t', msg: msg});
+            this.setState({chats: copy})
+        })
     }
 
     onChange = (e) => {
@@ -28,7 +33,7 @@ export default class B0t extends Component {
         if (!this.state.newchat) return;
         console.log(this.state.chats)
         const userdata = {name: 'me', email: ''};
-        //this.props.socket.io('bot-msg', this.state.newchat);
+        this.props.socket.emit('user-msg', this.state.newchat);
         let copy = this.state.chats.slice();
         copy.push({user: userdata.name, msg: this.state.newchat});
         this.setState({chats: copy, newchat: ''});
@@ -44,12 +49,14 @@ export default class B0t extends Component {
                 <div className='chat-section'>
                     {this.state.chats.map((c, id) => {
                         let b0ticon = '';
+                        let cl = 'msg';
                         if (c.user == 'b0t') {
-                            b0ticon = <div><i className="fas fa-robot"></i></div>
+                            b0ticon = <div><i className="fas fa-robot"></i></div>;
+                            cl += ' bot';
                         }
                         return (
                             <div key={id}>
-                                <div className='msg'>
+                                <div className={cl}>
                                     <span>{c.msg}</span>
                                     <span className='user'>:{c.user}</span>
                                 </div>
