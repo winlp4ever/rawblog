@@ -18,7 +18,6 @@ export default class LinkTray extends Component {
                         <a href={e.url} target='_blank' key={id}>{e.a_tag}</a>
                     ))}
                 </div>
-                <div className='tray'></div>
             </div>
         )
     }
