@@ -154,6 +154,7 @@ div.full-post {
         left: 10px;
         width: 12%;
         h2 {
+            background: whitesmoke;
             display: block;
             width: 100%;
             box-sizing: border-box;
@@ -162,6 +163,7 @@ div.full-post {
                 family: 'Raleway', sans-serif;
                 size: 120%;
             }
+            text-align: center;
         }
         span {
             display: block;
@@ -202,7 +204,7 @@ div.full-post {
     }
     div.post-interact {
         position: fixed;
-        top: 100px;
+        top: 90px;
         left: 50%;
         margin-left: -50px;
         width: 100px;
@@ -210,18 +212,14 @@ div.full-post {
         flex-direction: column;
         justify-content: space-between;
         padding: 0px 5px;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-        border: 1px solid grey;
+        border-radius: 0px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
         display: flex;
         flex-direction: row;
         justify-content: center;
-        background: white;
-        opacity: 0.6;
+        background: whitesmoke;
         transition: all 0.2s;
-        &:hover {
-            opacity: 1;
-        }
         >div {
             padding: 0px;
             
