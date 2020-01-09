@@ -65,7 +65,10 @@ const B0t = props => {
     return (
         <div className='b0t'>
             <div className='chat-list'>
-                {dests.map((d, id) => <span key={id} onClick={_ => chooseDest(id)}>{d}</span>)}
+                {dests.map((d, id) => {
+                    if (id == currDest) return <span key={id} data-iscurr onClick={_ => chooseDest(id)}>{d}</span>;
+                    return <span key={id} onClick={_ => chooseDest(id)}>{d}</span>;
+                })}
             </div>
             <div className='chat-section'>
                 <div className='oldchats'>
