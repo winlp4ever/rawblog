@@ -44,10 +44,7 @@ export default class Post extends Component {
         this.setState({view_comments: !this.state.view_comments});
     }
 
-
     render() {
-        console.log('re-render');
-
         let comments_section = '';
         if (this.state.view_comments) {
             comments_section = (
@@ -86,10 +83,11 @@ export default class Post extends Component {
                             <i className="fas fa-comment-dots"></i>
                         </span>
                     </div>
-                    <button className='read-more' onClick={_ => this.props.viewFullPost(this.props.postId)}>
-                        Read more
-                    </button>
+                    
                 </div>
+                <button className='read-more' onClick={_ => this.props.viewFullPost(this.props.postId)}>
+                    Read more ...
+                </button>
                 {comments_section}
             </div>
         );

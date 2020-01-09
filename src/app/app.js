@@ -67,7 +67,7 @@ class App extends Component {
             {name: 'Home', onClick: this.viewHome}, 
             {name: 'Wall', onClick: this.viewSocio}
         ];
-        if (this.state.user.name == 'AII') menuOptions.push({name: 'Editor', onClick: this.viewEditor});
+        if (this.state.user.name == 'Wall-Q') menuOptions.push({name: 'Editor', onClick: this.viewEditor});
 
         let auth = '';
         if (!this.state.user.name) auth=(<Auth updateUser={this.updateUser} />);
