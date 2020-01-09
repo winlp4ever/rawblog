@@ -24,6 +24,10 @@ const B0t = props => {
         })
     }, [])
 
+    const showHide = () => {
+        setHide(!hide);
+    }
+
     const onChange = (e) => {
         setNewchat(e.target.value);
     }
