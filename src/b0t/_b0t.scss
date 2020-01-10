@@ -6,8 +6,8 @@
   
 /* The typewriter cursor effect */
 @keyframes blink-caret {
-    from, to { border-right-color: transparent }
-    50% { border-right-color: grey; }
+    from, to { color: transparent }
+    50% { color: grey; }
 }
 
 .showhide-ter {
@@ -144,12 +144,14 @@
                         font-weight: 700;
                         
                     }
-    
+                    .blink {
+                        font-size: 120%;
+                        font-weight: 700;
+                        animation: blink-caret 0.75s infinite;
+                        margin-left: -2px;
+                    }
                     .user {
                         color: grey;
-                    }
-                    &.last-msg {
-                        
                     }
                 }
 
