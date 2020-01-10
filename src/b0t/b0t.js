@@ -117,7 +117,7 @@ class B0t extends Component {
                             return (
                                 <div key={id}>
                                     <div className={cl}>
-                            <span>{c.msg}{(id == this.state.chats.length-1) ? <span className='blink'>|</span>: ''}</span>
+                            <span>{c.msg}{(id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'>|</span>: ''}</span>
                                         <span className='user'>{c.sender}:</span>
                                     </div>
                                     {b0ticon}
