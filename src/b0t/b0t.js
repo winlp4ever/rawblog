@@ -35,7 +35,13 @@ class B0t extends Component {
         this.props.socket.on('new chat', msg => this.updateChat(msg));
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.chats.length != this.state.chats.length) {
+            if ($('.oldchats').outerHeight() + $('.oldchats').scrollTop() != $('.oldchats')[0].scrollHeight) {
+                $('.oldchats').scrollTop($('.oldchats')[0].scrollHeight);
+            }
+        } 
+        
         if (this.props.username != prevProps.username) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
         {
             this.props.socket.emit('submit chat', {sender: 'bot', dest: this.props.username, msg: 'Knock Knock Neo ...'});
@@ -96,6 +102,7 @@ class B0t extends Component {
                                 </div>
                             )
                         })}
+                        <script></script>
                     </div>
                     <div className='newchat'>
                         <textarea 
