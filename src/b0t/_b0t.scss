@@ -6,8 +6,36 @@
   
 /* The typewriter cursor effect */
 @keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: orange; }
+    from, to { border-right-color: transparent }
+    50% { border-right-color: grey; }
+}
+
+.showhide-ter {
+    left: 0;
+    outline: none;
+    z-index: 10;
+    display: block;
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    top: 0;
+    color: rgb(156, 156, 156);
+    background: none;
+    border: none;
+    font: {
+        family: 'Josefin Sans', sans-serif;
+        size: 60%;
+        weight: 700;
+    }
+}
+
+.hide-b0t {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    height: 25px;
+    background: whitesmoke;
 }
 
 .b0t {
@@ -114,12 +142,21 @@
                     span:not(.user) {
                         color: #222222;
                         font-weight: 700;
+                        
                     }
     
                     .user {
                         color: grey;
                     }
+                    &.last-msg {
+                        span:not(.user) {
+                            border-right: 2px solid grey;
+                            animation: blink-caret .75s step-end infinite;
+                        }
+                    }
                 }
+
+                
 
                 .msg.others {
                     background: rgb(255, 255, 234);

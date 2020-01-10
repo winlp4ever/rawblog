@@ -4,6 +4,7 @@ import { userContext } from '../user-context/user-context';
 import $ from 'jquery';
 
 class B0t extends Component {
+    _isMounted = false;
     state = {
         chats: [],
         newchat: '',
@@ -31,22 +32,33 @@ class B0t extends Component {
     }
 
     async componentDidMount() {
-        this.props.socket.emit('submit chat', {sender: 'bot', dest: this.props.username, msg: 'Knock Knock Neo ...'});
+        //this.props.socket.emit('submit chat', {sender: 'bot', dest: this.props.username, msg: 'Knock Knock Neo ...'});
+        this._isMounted = true;
+        let first_msg = 'Knock Knock... Neo! Wake up!';
+        for (let i = 0; i <= first_msg.length; i++) {
+            if (i == 1 || i == 15) await new Promise(res => setTimeout(() => res(), 2000));
+            else await new Promise(res => setTimeout(() => res(), 100));
+            this.setState({chats: [{sender: 'bot', dest: this.props.username, msg: first_msg.substr(0, i)}]})
+        }
         this.props.socket.on('new chat', msg => this.updateChat(msg));
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.chats.length != this.state.chats.length) {
             if ($('.oldchats').outerHeight() + $('.oldchats').scrollTop() != $('.oldchats')[0].scrollHeight) {
-                $('.oldchats').scrollTop($('.oldchats')[0].scrollHeight);
+                $('.oldchats').animate({scrollTop: $('.oldchats')[0].scrollHeight});
             }
         } 
         
         if (this.props.username != prevProps.username) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
         {
-            this.props.socket.emit('submit chat', {sender: 'bot', dest: this.props.username, msg: 'Knock Knock Neo ...'});
+            //this.props.socket.emit('submit chat', {sender: 'bot', dest: this.props.username, msg: 'Knock Knock Neo ...'});
         }
-    } 
+    }
+    
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
 
     onChange = (e) => {
         this.setState({newchat: e.target.value});
@@ -69,9 +81,19 @@ class B0t extends Component {
         this.setState({currDest:id});
     }
 
+    showhide = () => {
+        this.setState({hide: !this.state.hide});
+    }
+
     render() {
+        if (this.state.hide) return (
+            <div className='hide-b0t'>
+                <button className='showhide-ter' onClick={_ => this.showhide()}>Open Terminal</button>
+            </div>
+        )
         return (
             <div className='b0t'>
+                <button className='showhide-ter' onClick={_ => this.showhide()}>Hide Terminal</button>
                 <div className='chat-list'>
                     {this.state.dests.map((d, id) => {
                         if (id == this.state.currDest) 
@@ -92,6 +114,7 @@ class B0t extends Component {
                             } else if (c.sender != this.props.username) {
                                 cl += ' others';
                             }
+                            if (id == this.state.chats.length-1) cl += ' last-msg';
                             return (
                                 <div key={id}>
                                     <div className={cl}>
