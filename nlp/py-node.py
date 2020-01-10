@@ -160,18 +160,17 @@ def run():
     @sio.on('user-msg')
     def on_message(msg):
         global history
-        print('user: ' + msg)
-        if msg.lower() in QAs:
-            res = QAs[msg.lower()]
+        q = msg['msg']
+        if q.lower() in QAs:
+            res = QAs[q.lower()]
         else:
-            history.append(tokenizer.encode(msg))
+            history.append(tokenizer.encode(q))
             with torch.no_grad():
                 out_ids = sample_sequence(personality, history, tokenizer, model, args)
             history.append(out_ids)
             history = history[-(2*args.max_history+1):]
             res = tokenizer.decode(out_ids, skip_special_tokens=True)
-        sio.emit('bot-msg', res)
-        print('bot: ' + res)
+        sio.emit('bot-msg', {'sender': 'bot', 'dest': msg['sender'], 'msg': res})
         
     @sio.on('new-context')
     def on_message(contexts):

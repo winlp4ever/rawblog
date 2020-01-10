@@ -124,7 +124,7 @@ io.on('connection', function(socket){
         io.emit('new chat', msg);
         if (msg.dest == 'bot') {
             if (msg.msg != 'what is bert2?') {
-                io.emit('user-msg', msg.msg);
+                io.emit('user-msg', msg);
             } else {
                 io.emit('new chat', {sender: 'bot', dest: 'Wall-Q', msg: "I'm not qualified to answer this!"});
                 io.emit('new chat', {sender: 'bot', dest: 'Wall-Q', msg: "I'll deliver this question to someone capable!"});
