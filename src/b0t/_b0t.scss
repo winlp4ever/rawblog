@@ -30,6 +30,9 @@
             position: relative;
             padding: 10px 25px;
             display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             font: {
                 size: 75%;
                 weight: 400;
@@ -98,7 +101,11 @@
                     }
                     .user {
                         color: rgb(28, 100, 182);
-                        margin: 0
+                        margin: 0;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        max-width: 100px;
                     }
                 } 
                 .msg.bot {
