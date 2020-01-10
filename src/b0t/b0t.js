@@ -21,13 +21,11 @@ class B0t extends Component {
                 let cp_list = this.state.dests.slice();
                 cp_list.push(msg.sender);
                 this.setState({dests: cp_list});
-                console.log(this.state.dests);
             }
             else if (msg.dest != this.props.username && this.state.dests.indexOf(msg.dest) < 0) {
                 let cp_list = this.state.dests.slice();
                 cp_list.push(msg.dest);
                 this.setState({dests: cp_list});
-                console.log(this.state.dests);
             }
         }
     }
@@ -66,7 +64,6 @@ class B0t extends Component {
     }
 
     render() {
-        console.log('render');
         return (
             <div className='b0t'>
                 <div className='chat-list'>
