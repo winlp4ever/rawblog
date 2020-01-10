@@ -149,10 +149,7 @@
                         color: grey;
                     }
                     &.last-msg {
-                        span:not(.user) {
-                            border-right: 2px solid grey;
-                            animation: blink-caret .75s step-end infinite;
-                        }
+                        
                     }
                 }
 
