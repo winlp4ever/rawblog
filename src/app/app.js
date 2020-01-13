@@ -1,6 +1,5 @@
 import React, { Component, useReducer } from 'react';
 import Socio from '../socio/socio';
-import ConnectionError from '../connection-error/connection-error';
 import FullPost from '../full-post/full-post';
 import Auth from '../user-auth/user-auth';
 import io from 'socket.io-client';
@@ -103,7 +102,6 @@ class App extends Component {
                 <LinkTray />
                 <Menu links={menuOptions} activeTab={this.state.activeTab}/>
                 {main}
-                <ConnectionError />
                 {auth}
             </userContext.Provider>
         )

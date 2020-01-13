@@ -3,11 +3,41 @@ import React, { Component, useState, useContext, useEffect } from 'react';
 import { userContext } from '../user-context/user-context';
 import $ from 'jquery';
 
+const Newchat = (props) => {
+    const [newchat, setNewchat] = useState('');
+    const user = useContext(userContext).user;
+    const onChange = (e) => {
+        setNewchat(e.target.value);
+    }
+    const submit = async (e) => {
+        let keycode = e.keyCode || e.which;
+        if (keycode != 13) return;
+        
+        e.preventDefault(); // prevents page reloading
+        if (!newchat) return;
+        props.socket.emit('submit chat', 
+            {sender: user.name, dest: props.dest, msg: newchat});
+        setNewchat(newchat);
+        
+        $(e.currentTarget).val('');     
+    }
+
+    return (
+        <div className='newchat'>
+            <textarea 
+                rows={1}
+                placeholder='chat something'
+                onChange={onChange}
+                onKeyPress={submit}
+            />
+        </div>
+    )
+}
+
 class B0t extends Component {
     _isMounted = false;
     state = {
         chats: [],
-        newchat: '',
         hide: false,
         dests: ['bot'],
         currDest: 0
@@ -60,23 +90,6 @@ class B0t extends Component {
         this._isMounted = false;
     }
 
-    onChange = (e) => {
-        this.setState({newchat: e.target.value});
-    }
-
-    submit = async (e) => {
-        let keycode = e.keyCode || e.which;
-        if (keycode != 13) return;
-        
-        e.preventDefault(); // prevents page reloading
-        if (!this.state.newchat) return;
-        this.props.socket.emit('submit chat', 
-            {sender: this.props.username, dest: this.state.dests[this.state.currDest], msg: this.state.newchat});
-        this.setState({newchat: ''});
-        
-        $(e.currentTarget).val('');     
-    }
-
     chooseDest = (id) => {
         this.setState({currDest:id});
     }
@@ -86,6 +99,7 @@ class B0t extends Component {
     }
 
     render() {
+        console.log(this.props.username);
         if (this.state.hide) return (
             <div className='hide-b0t'>
                 <button className='showhide-ter' onClick={_ => this.showhide()}>Open Terminal</button>
@@ -117,7 +131,7 @@ class B0t extends Component {
                             return (
                                 <div key={id}>
                                     <div className={cl}>
-                            <span>{c.msg}{(id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'>|</span>: ''}</span>
+                                        <span>{c.msg}{(id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'>|</span>: ''}</span>
                                         <span className='user'>{c.sender}:</span>
                                     </div>
                                     {b0ticon}
@@ -126,17 +140,8 @@ class B0t extends Component {
                         })}
                         <script></script>
                     </div>
-                    <div className='newchat'>
-                        <textarea 
-                            rows={1}
-                            placeholder='chat something'
-                            onChange={this.onChange}
-                            onKeyPress={this.submit}
-                        />
-                    </div>
+                    <Newchat socket={this.props.socket} dest={this.state.dests[this.state.currDest]} />
                 </div>
-                
-                
             </div>
         )
     }

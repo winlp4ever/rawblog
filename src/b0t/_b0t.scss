@@ -11,12 +11,13 @@
 }
 
 .showhide-ter {
-    left: 0;
+    left: 50%;
+    margin-left: -75px;
     outline: none;
     z-index: 10;
     display: block;
     position: absolute;
-    width: 100%;
+    width: 150px;
     box-sizing: border-box;
     padding: 10px;
     top: 0;
@@ -57,7 +58,7 @@
         width: 20%;
         span {
             position: relative;
-            padding: 10px 25px;
+            padding: 10px 25px 5px;
             display: block;
             white-space: nowrap;
             overflow: hidden;
