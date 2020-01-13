@@ -55,6 +55,7 @@ const Newchat = (props) => {
     return (
         <div className='newchat'>
             <div className='hints'>
+                {hints.length > 0 ? <div className='help-hint'><span>see if your question is here ...</span></div>: null}
                 {hints.map((h, i) => (<div className={'hint' + ((focus == i)? ' focus': '')} key={i}>
                         <span>{h.hint}</span>
                         <span className='confid'>{h.confidence}</span>
