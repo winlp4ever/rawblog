@@ -4,32 +4,69 @@ import { userContext } from '../user-context/user-context';
 import $ from 'jquery';
 import Notif, { NotifContext } from '../notif/notif';
 
+const hints_1 = [{hint: 'what is machine learning?', confidence: '89%'},
+    {hint: 'what is deep learning?', confidence: '84%'}];
+const hints_2 = [{hint: 'what is machine learning?', confidence: '97%'}]
+
 const Newchat = (props) => {
     const [newchat, setNewchat] = useState('');
+    const [focus, setFocus] = useState(-1);
+    const [hints, setHints] = useState([]);
     const user = useContext(userContext).user;
-    const onChange = (e) => {
+    const onChange = async(e) => {
         setNewchat(e.target.value);
+        if (newchat && newchat.indexOf('what is mach') > -1) setHints(hints_2);
+        else if (newchat && newchat.indexOf('what is') > -1) setHints(hints_1);
+        else setHints([]);
     }
     const submit = async (e) => {
         let keycode = e.keyCode || e.which;
-        if (keycode != 13) return;
+        console.log(newchat);
+        if (keycode == 13) {
+            e.preventDefault();
+            if (!newchat) return;
+            props.socket.emit('submit chat', 
+                {sender: user.name, dest: props.dest, msg: newchat});
+            setNewchat('');
+            setHints([]);
+            setFocus(-1);
+            $(e.currentTarget).val('');     
+        }
         
-        e.preventDefault(); // prevents page reloading
-        if (!newchat) return;
-        props.socket.emit('submit chat', 
-            {sender: user.name, dest: props.dest, msg: newchat});
-        setNewchat(newchat);
-        
-        $(e.currentTarget).val('');     
+    }
+
+    const keyBehave = async (e) => {
+        // apply 'hint' when press 'tab', escape hints when press 'esc'
+        let keycode = e.keyCode || e.which;
+        if (keycode == 9) {
+            e.preventDefault();
+            if (hints.length > 0) {
+                if (focus < hints.length-1) {
+                    setNewchat(hints[focus+1].hint);
+                    $(e.currentTarget).val(hints[focus+1].hint);
+                }  
+                setFocus((focus < hints.length - 1) ? focus+1: -1);
+            }
+        } else if (e.key == 'Escape') {
+            e.preventDefault();
+            setHints([]);
+        }
     }
 
     return (
         <div className='newchat'>
+            <div className='hints'>
+                {hints.map((h, i) => (<div className={'hint' + ((focus == i)? ' focus': '')} key={i}>
+                        <span>{h.hint}</span>
+                        <span className='confid'>{h.confidence}</span>
+                    </div>))}
+            </div>
             <textarea 
                 rows={1}
                 placeholder='chat something'
                 onChange={onChange}
                 onKeyPress={submit}
+                onKeyDown={keyBehave}
             />
         </div>
     )
@@ -42,9 +79,8 @@ class B0t extends Component {
         hide: false,
         dests: ['bot'],
         currDest: 0,
-        notifs: []
+        notifs: [],
     }
-    addNotif = this.addNotif.bind(this);
 
     updateNotifs = async () => {
         let l = this.state.notifs.length;
@@ -53,7 +89,7 @@ class B0t extends Component {
         }
     }
 
-    async addNotif (newnotif) {
+    addNotif = (newnotif) => {
         let copy = this.state.notifs.slice();
         copy.push(newnotif);
         this.setState({notifs: copy});
