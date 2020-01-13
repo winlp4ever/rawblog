@@ -134,8 +134,8 @@ def run():
 
     logger.info("Sample a personality")
     origin = ['my name is bob.', "i'm a french boy.", 'i love pop music.', 'i like reading and playing football.',
-        'machine learning is a method',
-        'machine learning allows machine to learn by itself']
+        'machine learning is an AI branch',
+        'machine learning permits cognitive programming']
     default_contexts = ["i live in paris.", "i work for a start-up.", "i'm a virtual assistant.", "i teach sometimes."]
     def tokenize(obj):
             if isinstance(obj, str):
