@@ -21,7 +21,6 @@ const Newchat = (props) => {
     }
     const submit = async (e) => {
         let keycode = e.keyCode || e.which;
-        console.log(newchat);
         if (keycode == 13) {
             e.preventDefault();
             if (!newchat) return;
