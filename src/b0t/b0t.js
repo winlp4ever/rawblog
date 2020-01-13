@@ -42,7 +42,7 @@ class B0t extends Component {
         hide: false,
         dests: ['bot'],
         currDest: 0,
-        notifs: ['first notif', 'second notif']
+        notifs: []
     }
     addNotif = this.addNotif.bind(this);
 

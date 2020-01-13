@@ -175,7 +175,8 @@
                         
                     }
                     .blink {
-                        font-size: 120%;
+                        transform: scale(2.5);
+                        transform-origin: 0% 70%;
                         font-weight: 700;
                         animation: blink-caret 0.75s infinite;
                         margin-left: -2px;
@@ -184,8 +185,6 @@
                         color: grey;
                     }
                 }
-
-                
 
                 .msg.others {
                     background: rgb(255, 255, 234);
