@@ -15,6 +15,11 @@
     to { opacity: 0 }
 }
 
+@keyframes vibrate {
+    from, to { margin-right: 0}
+    50% {margin-right: 10px}
+}
+
 .showhide-ter {
     left: 50%;
     margin-left: -75px;
@@ -61,9 +66,7 @@
         box-sizing: border-box;
         padding: 5px 10px;
         border-radius: 8px;
-        animation-name: fading;
-        animation-duration: 20s;
-        animation-iteration-count: 1;
+        animation: fading 10s 1, vibrate 0.1s 3;
         background: rgb(255, 255, 255);
     }
 }
