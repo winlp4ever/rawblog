@@ -2,6 +2,7 @@ import './_b0t.scss';
 import React, { Component, useState, useContext, useEffect } from 'react';
 import { userContext } from '../user-context/user-context';
 import $ from 'jquery';
+import Notif, { NotifContext } from '../notif/notif';
 
 const Newchat = (props) => {
     const [newchat, setNewchat] = useState('');
@@ -40,7 +41,21 @@ class B0t extends Component {
         chats: [],
         hide: false,
         dests: ['bot'],
-        currDest: 0
+        currDest: 0,
+        notifs: ['first notif']
+    }
+
+    updateNotifs = () => {
+        let l = this.state.notifs.length;
+        if (this.state.notifs.length > 0) {
+            this.setState({notifs: this.state.notifs.splice(1, l-1)});
+        }
+    }
+
+    addNotif = (newnotif) => {
+        let copy = this.state.notifs.splice();
+        copy.push(newnotif);
+        this.setState({notifs: copy});
     }
 
     updateChat = (msg) => {
@@ -52,11 +67,13 @@ class B0t extends Component {
                 let cp_list = this.state.dests.slice();
                 cp_list.push(msg.sender);
                 this.setState({dests: cp_list});
+                this.addNotif(`new person added to chat list: ${msg.sender}`);
             }
             else if (msg.dest != this.props.username && this.state.dests.indexOf(msg.dest) < 0) {
                 let cp_list = this.state.dests.slice();
                 cp_list.push(msg.dest);
                 this.setState({dests: cp_list});
+                this.addNotif(`new person added to chat list: ${msg.dest}`);
             }
         }
     }
@@ -99,13 +116,16 @@ class B0t extends Component {
     }
 
     render() {
-        console.log(this.props.username);
         if (this.state.hide) return (
             <div className='hide-b0t'>
                 <button className='showhide-ter' onClick={_ => this.showhide()}>Open Terminal</button>
             </div>
         )
+
+        const Nos = {notifs: this.state.notifs, updateNotifs: this.updateNotifs};
+
         return (
+            <NotifContext.Provider value={Nos}>
             <div className='b0t'>
                 <button className='showhide-ter' onClick={_ => this.showhide()}>Hide Terminal</button>
                 <div className='chat-list'>
@@ -142,7 +162,9 @@ class B0t extends Component {
                     </div>
                     <Newchat socket={this.props.socket} dest={this.state.dests[this.state.currDest]} />
                 </div>
+                <Notif />
             </div>
+            </NotifContext.Provider>
         )
     }
 }

@@ -40,6 +40,26 @@
     background: whitesmoke;
 }
 
+.notifs {
+    z-index: 6;
+    background: rgb(255, 255, 255);
+    position: absolute;
+    top: 25px;
+    right: 0px;
+    span {
+        display: block;
+        font: {
+            family: 'Josefin Sans', sans-serif;
+            size: 70%;
+        }
+        color: grey;
+        box-shadow: 2px 2px 6px rgba(0,0,0, 0.08);
+        box-sizing: border-box;
+        padding: 5px 10px;
+        border-radius: 8px;
+    }
+}
+
 .b0t {
     z-index: 5;
     position: fixed;
