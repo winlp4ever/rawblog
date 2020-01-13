@@ -42,23 +42,24 @@ class B0t extends Component {
         hide: false,
         dests: ['bot'],
         currDest: 0,
-        notifs: ['first notif']
+        notifs: ['first notif', 'second notif']
     }
+    addNotif = this.addNotif.bind(this);
 
-    updateNotifs = () => {
+    updateNotifs = async () => {
         let l = this.state.notifs.length;
         if (this.state.notifs.length > 0) {
             this.setState({notifs: this.state.notifs.splice(1, l-1)});
         }
     }
 
-    addNotif = (newnotif) => {
-        let copy = this.state.notifs.splice();
+    async addNotif (newnotif) {
+        let copy = this.state.notifs.slice();
         copy.push(newnotif);
         this.setState({notifs: copy});
     }
 
-    updateChat = (msg) => {
+    updateChat = async (msg) => {
         if (msg.sender == this.props.username || msg.dest == this.props.username) {
             let copy = this.state.chats.slice();
             copy.push({sender: msg.sender, dest: msg.dest, msg: msg.msg});
