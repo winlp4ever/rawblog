@@ -165,7 +165,8 @@ def run():
             res = QAs[q.lower()]
             phrases = res.split('.')
             for p in phrases:
-                sio.emit('bot-msg', {'sender': 'bot', 'dest': msg['sender'], 'msg': p})
+                if p:
+                    sio.emit('bot-msg', {'sender': 'bot', 'dest': msg['sender'], 'msg': p})
         else:
             history.append(tokenizer.encode(q))
             with torch.no_grad():
