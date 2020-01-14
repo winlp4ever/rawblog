@@ -15,6 +15,8 @@ const hints_5 = [{hint: "<a className='p-tag'>@Alexis</a>"},
     {hint: "<a className='p-tag'>@Max</a>"}, 
     {hint: "<a className='p-tag'>@Evelie</a>"}];
 
+const hints_6 = [{hint: 'what is the algorithm behind neural network?', confidence: '93%'}]
+
 const Newchat = (props) => {
     const [newchat, setNewchat] = useState('');
     const [focus, setFocus] = useState(-1);
@@ -23,6 +25,8 @@ const Newchat = (props) => {
     const onChange = async(e) => {
         setNewchat(e.target.value);
         if (newchat && newchat.indexOf('what is mach') > -1) setHints(hints_2);
+        else if (newchat && (newchat.indexOf('the algorithm behind') > -1 || newchat.indexOf('what is the algo') > -1)) 
+            setHints(hints_6);
         else if (newchat && newchat.indexOf('what is') > -1) setHints(hints_1);
         else if (newchat && newchat.indexOf('what does machi') > -1) setHints(hints_3);
         else if (props.dest == 'bot' && newchat && newchat.indexOf('i want to talk to @') > -1) setHints(hints_5);
