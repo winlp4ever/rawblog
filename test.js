@@ -13,3 +13,7 @@ u['d'] = 2
 console.log(u)
 u['c'] = 5
 console.log(u)
+
+a = [1, 2]
+b = [3, 4]
+console.log([...a, ...b]);

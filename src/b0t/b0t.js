@@ -6,7 +6,10 @@ import Notif, { NotifContext } from '../notif/notif';
 
 const hints_1 = [{hint: 'what is machine learning?', confidence: '89%'},
     {hint: 'what is deep learning?', confidence: '84%'}];
-const hints_2 = [{hint: 'what is machine learning?', confidence: '97%'}]
+const hints_2 = [{hint: 'what is machine learning?', confidence: '97%'},
+    {hint: 'what does machine learning do?', confidence: '78%'}];
+const hints_3 = [{hint: 'what does machine learning do?', confidence: '96%'},
+    {hint: 'what is machine learning?', confidence: '85%'}]
 
 const Newchat = (props) => {
     const [newchat, setNewchat] = useState('');
@@ -17,6 +20,7 @@ const Newchat = (props) => {
         setNewchat(e.target.value);
         if (newchat && newchat.indexOf('what is mach') > -1) setHints(hints_2);
         else if (newchat && newchat.indexOf('what is') > -1) setHints(hints_1);
+        else if (newchat && newchat.indexOf('what does machi') > -1) setHints(hints_3);
         else setHints([]);
     }
     const submit = async (e) => {
@@ -31,7 +35,6 @@ const Newchat = (props) => {
             setFocus(-1);
             $(e.currentTarget).val('');     
         }
-        
     }
 
     const keyBehave = async (e) => {

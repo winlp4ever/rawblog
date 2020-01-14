@@ -163,6 +163,9 @@ def run():
         q = msg['msg']
         if q.lower() in QAs:
             res = QAs[q.lower()]
+            phrases = res.split('.')
+            for p in phrases:
+                sio.emit('bot-msg', {'sender': 'bot', 'dest': msg['sender'], 'msg': p})
         else:
             history.append(tokenizer.encode(q))
             with torch.no_grad():
@@ -170,7 +173,7 @@ def run():
             history.append(out_ids)
             history = history[-(2*args.max_history+1):]
             res = tokenizer.decode(out_ids, skip_special_tokens=True)
-        sio.emit('bot-msg', {'sender': 'bot', 'dest': msg['sender'], 'msg': res})
+            sio.emit('bot-msg', {'sender': 'bot', 'dest': msg['sender'], 'msg': res})
         
     @sio.on('new-context')
     def on_message(contexts):
