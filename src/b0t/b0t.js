@@ -8,8 +8,12 @@ const hints_1 = [{hint: 'what is machine learning?', confidence: '89%'},
     {hint: 'what is deep learning?', confidence: '84%'}];
 const hints_2 = [{hint: 'what is machine learning?', confidence: '97%'},
     {hint: 'what does machine learning do?', confidence: '78%'}];
-const hints_3 = [{hint: 'what does machine learning do?', confidence: '96%'},
-    {hint: 'what is machine learning?', confidence: '85%'}]
+const hints_3 = [{hint: 'what does machine learning do?', confidence: '96%'}]
+ //   {hint: 'what is machine learning?', confidence: '85%'}]
+const hints_4 = [{hint: 'i want to talk to', confidence: '100%'}];
+const hints_5 = [{hint: "<a className='p-tag'>@Alexis</a>"}, 
+    {hint: "<a className='p-tag'>@Max</a>"}, 
+    {hint: "<a className='p-tag'>@Evelie</a>"}];
 
 const Newchat = (props) => {
     const [newchat, setNewchat] = useState('');
@@ -21,6 +25,8 @@ const Newchat = (props) => {
         if (newchat && newchat.indexOf('what is mach') > -1) setHints(hints_2);
         else if (newchat && newchat.indexOf('what is') > -1) setHints(hints_1);
         else if (newchat && newchat.indexOf('what does machi') > -1) setHints(hints_3);
+        else if (props.dest == 'bot' && newchat && newchat.indexOf('i want to talk to @') > -1) setHints(hints_5);
+        else if (props.dest == 'bot' && newchat && newchat.indexOf('i want to ta') > -1) setHints(hints_4);
         else setHints([]);
     }
     const submit = async (e) => {
@@ -28,7 +34,11 @@ const Newchat = (props) => {
         if (keycode == 13) {
             e.preventDefault();
             if (!newchat) return;
-            props.socket.emit('submit chat', 
+            if (newchat.indexOf('@') == 0 && props.dest == 'bot') {
+                props.socket.emit('submit chat',
+                    {sender: user.name, dest: newchat.substr(1, newchat.length-1), msg: 'Hi'})
+            }
+            else props.socket.emit('submit chat', 
                 {sender: user.name, dest: props.dest, msg: newchat});
             setNewchat('');
             setHints([]);
@@ -44,8 +54,10 @@ const Newchat = (props) => {
             e.preventDefault();
             if (hints.length > 0) {
                 if (focus < hints.length-1) {
-                    setNewchat(hints[focus+1].hint);
-                    $(e.currentTarget).val(hints[focus+1].hint);
+                    let s = hints[focus+1].hint;
+                    try {s = $(hints[focus+1].hint).html()} catch (e) {};
+                    setNewchat(s);
+                    $(e.currentTarget).val(s);
                 }  
                 setFocus((focus < hints.length - 1) ? focus+1: -1);
             }
@@ -60,7 +72,7 @@ const Newchat = (props) => {
             <div className='hints'>
                 {hints.length > 0 ? <div className='help-hint'><span>see if your question is here ...</span></div>: null}
                 {hints.map((h, i) => (<div className={'hint' + ((focus == i)? ' focus': '')} key={i}>
-                        <span>{h.hint}</span>
+                        <span dangerouslySetInnerHTML={{__html: h.hint}} />
                         <span className='confid'>{h.confidence}</span>
                     </div>))}
             </div>
@@ -216,7 +228,7 @@ class B0t extends Component {
                         })}
                         {this.state.fullanswer ? <div className='fullanswer'>
                             <span>{this.state.fullanswer}</span>
-                            <button className='cancel' onClick={this.cancelFullAnswer}><i class="fas fa-times-circle"></i></button>
+                            <button className='cancel' onClick={this.cancelFullAnswer}><i className="fas fa-times-circle"></i></button>
                         </div>: null}
                     </div>
                     <Newchat socket={this.props.socket} dest={this.state.dests[this.state.currDest]} />
