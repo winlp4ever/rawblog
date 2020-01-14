@@ -103,6 +103,9 @@ class B0t extends Component {
         if (msg.sender == this.props.username || msg.dest == this.props.username) {
             let copy = this.state.chats.slice();
             copy.push(msg);
+            if (msg.fullanswer) {
+                this.viewFullAnswer(msg.fullanswer);
+            }
             this.setState({chats: copy});
             if (msg.sender != this.props.username && this.state.dests.indexOf(msg.sender) < 0) {
                 let cp_list = this.state.dests.slice();
