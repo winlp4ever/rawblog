@@ -8,6 +8,7 @@
     "what does machine learning do?":
     "after my understanding, machine learning is an application of artificial intelligence (AI) that provides systems the ability to automatically learn and improve from experience without being explicitly programmed.",
     "what is the algorithm behind neural network?":
-    "1st order gradient descent"
-
+    "1st order gradient descent",
+    "how does neural network work?":
+    ""
 }
