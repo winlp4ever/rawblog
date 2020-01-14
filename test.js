@@ -17,3 +17,5 @@ console.log(u)
 a = [1, 2]
 b = [3, 4]
 console.log([...a, ...b]);
+
+console.log('indexof'.indexOf('indexof'));

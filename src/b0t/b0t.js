@@ -29,8 +29,8 @@ const Newchat = (props) => {
             setHints(hints_6);
         else if (newchat && newchat.indexOf('what is') > -1) setHints(hints_1);
         else if (newchat && newchat.indexOf('what does machi') > -1) setHints(hints_3);
-        else if (props.dest == 'bot' && newchat && newchat.indexOf('i want to talk to @') > -1) setHints(hints_5);
-        else if (props.dest == 'bot' && newchat && newchat.indexOf('i want to ta') > -1) setHints(hints_4);
+        else if (props.dest == 'bot' && newchat && newchat.indexOf('i want to talk to') > -1) setHints(hints_5);
+        else if (props.dest == 'bot' && newchat && newchat.indexOf('i want to') > -1) setHints(hints_4);
         else setHints([]);
     }
     const submit = async (e) => {
@@ -60,6 +60,9 @@ const Newchat = (props) => {
                 if (focus < hints.length-1) {
                     let s = hints[focus+1].hint;
                     try {s = $(hints[focus+1].hint).html()} catch (e) {};
+                    if (!s) s = hints[focus+1].hint;
+                    console.log(s);
+                    console.log(focus+1);
                     setNewchat(s);
                     $(e.currentTarget).val(s);
                 }  
