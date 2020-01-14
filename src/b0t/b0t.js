@@ -61,8 +61,6 @@ const Newchat = (props) => {
                     let s = hints[focus+1].hint;
                     try {s = $(hints[focus+1].hint).html()} catch (e) {};
                     if (!s) s = hints[focus+1].hint;
-                    console.log(s);
-                    console.log(focus+1);
                     setNewchat(s);
                     $(e.currentTarget).val(s);
                 }  
