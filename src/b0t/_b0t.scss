@@ -157,6 +157,13 @@
                     box-sizing: border-box;
                     padding: 5px 10px;
                     border-radius: 20px;
+                    a {
+                        display: inline-block;
+                        padding: 0 10px;
+                        border-radius: 5px;
+                        background: white;
+                        color: rgb(145, 145, 145);
+                    }
                     span {
                         display: inline-block;
                         font: {
@@ -197,6 +204,35 @@
 
                 .msg.others {
                     background: rgb(255, 255, 234);
+                }
+            }
+            .fullanswer {
+                position: absolute;
+                top: 0;
+                height: 100%;
+                right: 0;
+                width: 50%;
+                background: none;
+                margin: 10px;
+                box-sizing: border-box;
+                padding: 25px 20px;
+                color: #5a5a5a;
+                border-left: 1px solid rgb(228, 228, 228);
+                font: {
+                    size: 70%;
+                    family: 'Josefin Sans';
+                }
+                .cancel {
+                    background: none;
+                    outline: none;
+                    border: none;
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    i {
+                        color: rgb(202, 202, 202);
+                    }
+                    font-size: 90%;
                 }
             }
         }

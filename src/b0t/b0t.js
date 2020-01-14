@@ -83,6 +83,7 @@ class B0t extends Component {
         dests: ['bot'],
         currDest: 0,
         notifs: [],
+        fullanswer:''
     }
 
     updateNotifs = async () => {
@@ -101,7 +102,7 @@ class B0t extends Component {
     updateChat = async (msg) => {
         if (msg.sender == this.props.username || msg.dest == this.props.username) {
             let copy = this.state.chats.slice();
-            copy.push({sender: msg.sender, dest: msg.dest, msg: msg.msg});
+            copy.push(msg);
             this.setState({chats: copy});
             if (msg.sender != this.props.username && this.state.dests.indexOf(msg.sender) < 0) {
                 let cp_list = this.state.dests.slice();
@@ -155,6 +156,16 @@ class B0t extends Component {
         this.setState({hide: !this.state.hide});
     }
 
+    viewFullAnswer = (ans) => {
+        if (ans) {
+            this.setState({fullanswer: ans})
+        }
+    }
+
+    cancelFullAnswer = () => {
+        this.setState({fullanswer: ''})
+    }
+
     render() {
         if (this.state.hide) return (
             <div className='hide-b0t'>
@@ -178,6 +189,8 @@ class B0t extends Component {
                 <div className='chat-section'>
                     <div className='oldchats'>
                         {this.state.chats.map((c, id) => {
+                            let seefull = c.fullanswer ? <a onClick={_ => this.viewFullAnswer(c.fullanswer)}>here</a>: null;
+
                             if (c.sender != this.state.dests[this.state.currDest] && 
                                 c.dest != this.state.dests[this.state.currDest]) return;
                             let b0ticon = '';
@@ -191,14 +204,17 @@ class B0t extends Component {
                             return (
                                 <div key={id}>
                                     <div className={cl}>
-                                        <span>{c.msg}{(id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'>|</span>: ''}</span>
+                                        <span>{c.msg}{seefull}{(id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'>|</span>: ''}</span>
                                         <span className='user'>{c.sender}:</span>
                                     </div>
                                     {b0ticon}
                                 </div>
                             )
                         })}
-                        <script></script>
+                        {this.state.fullanswer ? <div className='fullanswer'>
+                            <span>{this.state.fullanswer}</span>
+                            <button className='cancel' onClick={this.cancelFullAnswer}><i class="fas fa-times-circle"></i></button>
+                        </div>: null}
                     </div>
                     <Newchat socket={this.props.socket} dest={this.state.dests[this.state.currDest]} />
                 </div>
