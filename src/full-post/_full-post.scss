@@ -28,6 +28,24 @@ div.full-post {
             family: 'Lora', serif;
         }
     }
+    .google-slides-container{
+        position: relative;
+        width: 100%;
+        padding-top: 60%;
+        overflow: hidden;
+        box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.12);
+        background: none;
+    }
+    
+    .google-slides-container iframe{
+        position: absolute;
+        top: -2px;
+        left: -1px;
+        right: -1px;
+        transform: scale(1.01);
+        width: 100%;
+        height: 100%;
+    }
     > button {
         height: 30px;
         width: 30px;
@@ -66,7 +84,7 @@ div.full-post {
     }
     
 
-    p:first-of-type::first-letter {
+    .markdown-render > p:first-of-type::first-letter {
         color: #202121;
         float: left;
         font-size: 75px;
