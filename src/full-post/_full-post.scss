@@ -33,8 +33,13 @@ div.full-post {
         width: 100%;
         padding-top: 60%;
         overflow: hidden;
-        box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.12);
+        box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.12);
         background: none;
+        border-radius: 5px;
+        transition: all 0.5s;
+        &:hover {
+            box-shadow: 0px 0px 21px rgba(0, 0, 0, 0.18);
+        }
     }
     
     .google-slides-container iframe{
