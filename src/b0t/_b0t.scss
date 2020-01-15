@@ -234,6 +234,12 @@
                     font: {
                         size: 60%;
                     }
+                    &.show {
+                        display: auto;
+                    }
+                    &.hide {
+                        display: none;
+                    }
                 }
             }
             

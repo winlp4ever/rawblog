@@ -174,8 +174,9 @@ class B0t extends Component {
     }
 
     toogleFullAnswer = e => {
-        let s = $(e.currentTarget).parent().parent().parent().children('.fullanswer').html();
-        console.log(s);
+        let s = $(e.currentTarget).parent().parent().parent().parent().children('.fullanswer')
+        if (s.attr('class') == 'fullanswer show') s.attr('class', 'fullanswer hide');
+        else {s.attr('class', 'fullanswer show')}
     }
 
     render() {
@@ -226,7 +227,7 @@ class B0t extends Component {
                                         </div>
                                     </div>
                                     
-                                    {c.fullanswer ? <div className='fullanswer'>{c.fullanswer}</div>: null}
+                                    {c.fullanswer ? <div className='fullanswer hide'>{c.fullanswer}</div>: null}
                                 </div>
                             )
                         })}
