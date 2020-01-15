@@ -4,6 +4,8 @@ import { userContext } from '../user-context/user-context';
 import $ from 'jquery';
 import Notif, { NotifContext } from '../notif/notif';
 import { Resizable } from 're-resizable';
+import bot from '../../imgs/support.svg';
+import qa from '../../imgs/qa.svg';
 
 const hints_1 = [{hint: 'what is machine learning?', confidence: '89%'},
     {hint: 'what is deep learning?', confidence: '84%'}];
@@ -210,7 +212,7 @@ class B0t extends Component {
 
                             if (c.sender != this.state.dests[this.state.currDest] && 
                                 c.dest != this.state.dests[this.state.currDest]) return;
-                            let b0ticon = (c.sender == 'bot') ? <span><i className="fas fa-robot"></i></span>: null;
+                            let b0ticon = (c.sender == 'bot') ? <span><img src={bot} /></span>: null;
                             let cl = 'msg';
                             if (c.sender == 'bot') {
                                 cl += ' bot';
@@ -227,7 +229,12 @@ class B0t extends Component {
                                         </div>
                                     </div>
                                     
-                                    {c.fullanswer ? <div className='fullanswer hide'>{c.fullanswer}</div>: null}
+                                    {c.fullanswer ? <div className='fullanswer hide'>
+                                            {c.fullanswer}
+                                            <div className='title-icon'><img src={qa}/></div>
+                                            <div className='good'><i className="fas fa-check"></i></div>
+                                            <div className='bad'><i className="fas fa-times"></i></div>
+                                        </div>: null}
                                 </div>
                             )
                         })}
