@@ -215,7 +215,7 @@ class B0t extends Component {
                                 c.dest != this.state.dests[this.state.currDest]) return;
                             let b0ticon = (c.sender == 'bot') ? <span className='ava'><img src={bot} /></span>: 
                                 <span className='ava'><img src={mStud}/></span>;
-                            let identifier = (c.sender == this.props.username) ? 'me-chat': 'other-chat'
+                            let identifier = (c.sender == this.props.username) ? 'iden me-chat': 'iden other-chat'
                             let cl = 'msg';
                             if (c.sender == 'bot') {
                                 cl += ' bot';
@@ -233,11 +233,11 @@ class B0t extends Component {
                                     </div>
                                     
                                     {c.fullanswer ? <div className='fullanswer hide'>
-                                            {c.fullanswer}
-                                            <div className='title-icon'><img src={qa}/></div>
-                                            <div className='good'><i className="fas fa-check"></i></div>
-                                            <div className='bad'><i className="fas fa-times"></i></div>
-                                        </div>: null}
+                                        {c.fullanswer}
+                                        <div className='title-icon'><img src={qa}/></div>
+                                        <div className='good'><i className="fas fa-check fa-fw"></i></div>
+                                        <div className='bad'><i className="fas fa-times fa-fw"></i></div>
+                                    </div>: null}
                                 </div>
                             )
                         })}
