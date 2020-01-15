@@ -20,6 +20,11 @@
     50% {margin-right: 10px}
 }
 
+@keyframes rotating {
+    from {transform: rotate(0deg)}
+    to {transform: rotate(360deg)}
+}
+
 @keyframes snapin {
     from {margin-right: -50px}
     to {margin-right: 0}
@@ -293,6 +298,7 @@
                         }
                     }
                     .good, .bad {
+                        overflow: visible;
                         position: absolute;
                         bottom: 15px;
                         font-size: 140%;
@@ -300,6 +306,10 @@
                         width: 1.6em;
                         height: 1.6em;
                         text-align: center;
+                        border: 1px solid transparent;
+                        box-sizing: border-box;
+                        border-radius: 50%;
+
                         i {
                             position: absolute;
                             bottom: 50%;
@@ -315,6 +325,23 @@
                         &.bad {
                             right: 40px
                         }
+                        &:before {
+                            position: absolute;
+                            z-index: 0;
+                            content: '';
+                            height: 1.6em;
+                            width: 1.6em;
+                            bottom: -1px;
+                            right: -1px;
+                            box-sizing: border-box;
+                            border-radius: 50%;
+                            border: 1px solid transparent;
+                        }
+                        &:hover:before {
+                            border: 1px dashed grey;
+                            animation: rotating 1.5s infinite linear;
+                        }
+
                     }
                 }
             }
