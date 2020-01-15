@@ -79,7 +79,7 @@
 
 .b0t {
     z-index: 5;
-    position: fixed;
+    position: fixed !important;
     height: 500px;
     width: 100%;
     display: flex;

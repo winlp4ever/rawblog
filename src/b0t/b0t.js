@@ -3,6 +3,7 @@ import React, { Component, useState, useContext, useEffect } from 'react';
 import { userContext } from '../user-context/user-context';
 import $ from 'jquery';
 import Notif, { NotifContext } from '../notif/notif';
+import { Resizable } from 're-resizable';
 
 const hints_1 = [{hint: 'what is machine learning?', confidence: '89%'},
     {hint: 'what is deep learning?', confidence: '84%'}];
@@ -194,10 +195,14 @@ class B0t extends Component {
         )
 
         const Nos = {notifs: this.state.notifs, updateNotifs: this.updateNotifs};
-
+        const reprops = {
+            defaultSize: {
+                width:'100%',
+                height:300,
+            }, minWidth: '100%', minHeight: 300, maxWidth: '100%', maxHeight: 600, position: 'absolute'}
         return (
             <NotifContext.Provider value={Nos}>
-            <div className='b0t'>
+            <Resizable {...reprops} className='b0t'>
                 <button className='showhide-ter' onClick={_ => this.showhide()}>Hide Terminal</button>
                 <div className='chat-list'>
                     {this.state.dests.map((d, id) => {
@@ -239,7 +244,7 @@ class B0t extends Component {
                     <Newchat socket={this.props.socket} dest={this.state.dests[this.state.currDest]} />
                 </div>
                 <Notif />
-            </div>
+            </Resizable>
             </NotifContext.Provider>
         )
     }
