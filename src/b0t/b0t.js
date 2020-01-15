@@ -193,8 +193,8 @@ class B0t extends Component {
         const reprops = {
             defaultSize: {
                 width:'100%',
-                height:300,
-            }, minWidth: '100%', minHeight: 300, maxWidth: '100%', maxHeight: 600, position: 'absolute'}
+                height:200,
+            }, minWidth: '100%', minHeight: 200, maxWidth: '100%', maxHeight: 600, position: 'absolute'}
         return (
             <NotifContext.Provider value={Nos}>
             <Resizable {...reprops} className='b0t'>

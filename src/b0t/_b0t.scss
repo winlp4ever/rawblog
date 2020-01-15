@@ -27,6 +27,7 @@
 }
 
 .showhide-ter {
+    color: #5a5a5a;
     left: 50%;
     margin-left: -75px;
     outline: none;
@@ -37,9 +38,10 @@
     box-sizing: border-box;
     padding: 10px;
     top: 0;
-    color: rgb(156, 156, 156);
     background: none;
     border: none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
     font: {
         family: 'Josefin Sans', sans-serif;
         size: 60%;
@@ -87,6 +89,13 @@
     bottom: 0px;
     right: 0px;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.21);
+    .showhide-ter {
+        margin-top: -1.8em;
+        background: whitesmoke;
+        height: 1.8em;
+        box-shadow: 2px -4px 6px rgba(0,0,0, 0.08);
+        color: #5a5a5a;
+    }
 
     .chat-list {
         position: relative;
