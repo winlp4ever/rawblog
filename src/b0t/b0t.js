@@ -209,22 +209,23 @@ class B0t extends Component {
 
                             if (c.sender != this.state.dests[this.state.currDest] && 
                                 c.dest != this.state.dests[this.state.currDest]) return;
-                            let b0ticon = '';
+                            let b0ticon = (c.sender == 'bot') ? <span><i className="fas fa-robot"></i></span>: null;
                             let cl = 'msg';
                             if (c.sender == 'bot') {
-                                b0ticon = <span><i className="fas fa-robot"></i></span>;
                                 cl += ' bot';
                             } else if (c.sender != this.props.username) {
                                 cl += ' others';
                             }
                             return (
                                 <div key={id} className='chat'>
-                                    
-                                    <div className={cl}>
+                                    <div>
                                         {b0ticon}
-                                        <span className='user'>{c.sender}:</span>
-                                        <span>{c.msg}{seefull}{(id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'>|</span>: ''}</span>
+                                        <div className={cl}>
+                                            <span className='user'>{c.sender}:</span>
+                                            <span>{c.msg}{seefull}{(id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'>|</span>: ''}</span>
+                                        </div>
                                     </div>
+                                    
                                     {c.fullanswer ? <div className='fullanswer'>{c.fullanswer}</div>: null}
                                 </div>
                             )

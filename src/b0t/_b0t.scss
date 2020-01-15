@@ -140,7 +140,21 @@
             transition: all 0.2s;
             margin-bottom: 50px;
             .chat {
-                
+                div {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    margin: 5px;
+                    span {
+                        margin: 5px;
+                        vertical-align: middle;
+                        display: inline-block;  
+                        i {
+                            vertical-align: middle;
+                            margin: auto;
+                        }
+                    }
+                }
                 //margin: 5px;
                 i {
                     display: block;
@@ -218,8 +232,7 @@
                     color: #5a5a5a;
                     border-radius: 5px;
                     font: {
-                        size: 70%;
-                        family: 'Josefin Sans';
+                        size: 60%;
                     }
                 }
             }
