@@ -6,6 +6,7 @@ import Notif, { NotifContext } from '../notif/notif';
 import { Resizable } from 're-resizable';
 import bot from '../../imgs/support.svg';
 import qa from '../../imgs/qa.svg';
+import mStud from '../../imgs/m-stud.svg';
 
 const hints_1 = [{hint: 'what is machine learning?', confidence: '89%'},
     {hint: 'what is deep learning?', confidence: '84%'}];
@@ -212,16 +213,18 @@ class B0t extends Component {
 
                             if (c.sender != this.state.dests[this.state.currDest] && 
                                 c.dest != this.state.dests[this.state.currDest]) return;
-                            let b0ticon = (c.sender == 'bot') ? <span><img src={bot} /></span>: null;
+                            let b0ticon = (c.sender == 'bot') ? <span className='ava'><img src={bot} /></span>: 
+                                <span className='ava'><img src={mStud}/></span>;
+                            let identifier = (c.sender == this.props.username) ? 'me-chat': 'other-chat'
                             let cl = 'msg';
                             if (c.sender == 'bot') {
                                 cl += ' bot';
                             } else if (c.sender != this.props.username) {
                                 cl += ' others';
-                            }
+                            } else {cl += ' me'}
                             return (
                                 <div key={id} className='chat'>
-                                    <div>
+                                    <div className={identifier}>
                                         {b0ticon}
                                         <div className={cl}>
                                             <span className='user'>{c.sender}:</span>
