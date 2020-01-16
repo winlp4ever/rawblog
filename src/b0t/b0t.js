@@ -48,8 +48,11 @@ const Newchat = (props) => {
                 props.socket.emit('submit chat',
                     {sender: user.name, dest: newchat.substr(1, newchat.length-1), msg: 'Hi'})
             }
-            else props.socket.emit('submit chat', 
-                {sender: user.name, dest: props.dest, msg: newchat});
+            else {
+                if (props.referral) 
+                    props.socket.emit('submit chat', {sender: user.name, dest: props.dest, msg: newchat, referral: props.referral});
+                else props.socket.emit('submit chat', {sender: user.name, dest: props.dest, msg: newchat});
+            }
             setNewchat('');
             setHints([]);
             setFocus(-1);
@@ -106,6 +109,7 @@ class B0t extends Component {
         dests: ['bot'],
         currDest: 0,
         notifs: [],
+        referral: ''
     }
 
     updateNotifs = async () => {
@@ -123,6 +127,7 @@ class B0t extends Component {
 
     updateChat = async (msg) => {
         if (msg.sender == this.props.username || msg.dest == this.props.username) {
+            if (msg.referral) this.setState({referral: msg.referral});
             let copy = this.state.chats.slice();
             copy.push(msg);
             this.setState({chats: copy});
@@ -222,6 +227,7 @@ class B0t extends Component {
                             
                             if (c.sender != this.state.dests[this.state.currDest] && 
                                 c.dest != this.state.dests[this.state.currDest]) return;
+                                
                             let b0ticon = (c.sender == 'bot') ? <span className='ava'><img src={bot} /></span>: 
                                 <span className='ava'><img src={mStud}/></span>;
                             let identifier = (c.sender == this.props.username) ? 'iden me-chat': 'iden other-chat'
@@ -251,7 +257,11 @@ class B0t extends Component {
                             )
                         })}
                     </div>
-                    <Newchat socket={this.props.socket} dest={this.state.dests[this.state.currDest]} />
+                    <Newchat 
+                        socket={this.props.socket} 
+                        dest={this.state.dests[this.state.currDest]} 
+                        referral={this.state.referral}
+                    />
                 </div>
                 <Notif />
                 <div className='supp-info'>
