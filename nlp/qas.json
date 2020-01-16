@@ -10,5 +10,7 @@
     "what is the algorithm behind neural network?":
     "1st order gradient descent",
     "how does neural network work?":
-    ""
+    "",
+    "how to import pytorch?":
+    "normally, you should do this by: \n ```python\nimport torch, torchvision\nimport torch.nn as nn\nimport torch.nn.functional as F\n"
 }

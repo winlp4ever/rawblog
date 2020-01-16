@@ -275,6 +275,7 @@
                     //box-shadow: 0px 1px 6px rgba(0,0,0, 0.16);
                     color: #5a5a5a;
                     border-radius: 5px;
+                    transition: 0.2s all;
                     font: {
                         size: 60%;
                     }
@@ -283,6 +284,20 @@
                     }
                     &.hide {
                         display: none;
+                    }
+                    &[data-like="1"] {
+                        background: #e8f5e9;
+                        .good {
+                            background: white;
+                        }
+                        .bad {background: none;}
+                    }
+                    &[data-like="0"] {
+                        background: #fbe9e7;
+                        .bad {
+                            background: white;
+                        }
+                        .good {background: none;}
                     }
                     .title-icon {
                         width: 3.0em;

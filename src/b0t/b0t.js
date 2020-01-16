@@ -4,6 +4,7 @@ import { userContext } from '../user-context/user-context';
 import $ from 'jquery';
 import Notif, { NotifContext } from '../notif/notif';
 import { Resizable } from 're-resizable';
+import MdRender from '../markdown-render/markdown-render';
 import bot from '../../imgs/support.svg';
 import qa from '../../imgs/qa.svg';
 import mStud from '../../imgs/m-stud.svg';
@@ -183,6 +184,13 @@ class B0t extends Component {
         else {s.attr('class', 'fullanswer show')}
     }
 
+    likeAnswer = e => {
+        $(e.currentTarget).parent().attr('data-like', '1');
+    }
+    dislikeAnswer = e => {
+        $(e.currentTarget).parent().attr('data-like', '0');
+    }
+
     render() {
         if (this.state.hide) return (
             <div className='hide-b0t'>
@@ -211,7 +219,7 @@ class B0t extends Component {
                     <div className='oldchats'>
                         {this.state.chats.map((c, id) => {
                             let seefull = c.fullanswer ? <a onClick={this.toogleFullAnswer}>here</a>: null;
-
+                            
                             if (c.sender != this.state.dests[this.state.currDest] && 
                                 c.dest != this.state.dests[this.state.currDest]) return;
                             let b0ticon = (c.sender == 'bot') ? <span className='ava'><img src={bot} /></span>: 
@@ -234,10 +242,10 @@ class B0t extends Component {
                                     </div>
                                     
                                     {c.fullanswer ? <div className='fullanswer hide'>
-                                        {c.fullanswer}
+                                        <MdRender source={c.fullanswer} />
                                         <div className='title-icon'><img src={qa}/></div>
-                                        <div className='good'><i className="fas fa-check fa-fw"></i></div>
-                                        <div className='bad'><i className="fas fa-times fa-fw"></i></div>
+                                        <div className='good' onClick={this.likeAnswer}><i className="fas fa-check fa-fw"></i></div>
+                                        <div className='bad' onClick={this.dislikeAnswer}><i className="fas fa-times fa-fw"></i></div>
                                     </div>: null}
                                 </div>
                             )
