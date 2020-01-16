@@ -7,6 +7,7 @@ import { Resizable } from 're-resizable';
 import bot from '../../imgs/support.svg';
 import qa from '../../imgs/qa.svg';
 import mStud from '../../imgs/m-stud.svg';
+import idea from '../../imgs/idea.svg';
 
 const hints_1 = [{hint: 'what is machine learning?', confidence: '89%'},
     {hint: 'what is deep learning?', confidence: '84%'}];
@@ -245,6 +246,9 @@ class B0t extends Component {
                     <Newchat socket={this.props.socket} dest={this.state.dests[this.state.currDest]} />
                 </div>
                 <Notif />
+                <div className='supp-info'>
+                    <span className='title-icon'><img src={idea} /></span>
+                </div>
             </Resizable>
             </NotifContext.Provider>
         )
