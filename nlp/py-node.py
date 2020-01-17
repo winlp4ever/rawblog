@@ -158,15 +158,25 @@ def run():
         if msg['dest'] != 'bot':
             return
         if 'referral' in msg:
-            sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 'msg': "Prof's reply: %s" %msg['msg']})
+            if len(msg['msg']) > 50:
+                sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 
+                    'msg': '(long answer) ',
+                    'fullanswer': "Prof's reply: %s" %msg['msg']})
+                return
+            sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 'msg': "__Prof's reply:__ %s" %msg['msg']})
             return
 
         q = msg['msg']
         if q.lower() in QAs:
-            res = QAs[q.lower()]
-            if 'courses' in res:
-                sio.emit('new chat', {'sender': 'bot', 'dest': msg['sender'], 'msg': '(long answer) ', 'fullanswer': res['answer'], 'courses': res['courses']})
-            sio.emit('new chat', {'sender': 'bot', 'dest': msg['sender'], 'msg': '(long answer) ', 'fullanswer': res['answer']})
+            match = QAs[q.lower()]
+            answer = match['answer']
+            if len(answer) > 100:
+                res = {'sender': 'bot', 'dest': msg['sender'], 'msg': '(long answer) ', 'fullanswer': answer}
+            else:
+                res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer}
+            if 'courses' in match:
+                res['courses'] = match['courses']
+            sio.emit('new chat', res)
         elif q.endswith('?'):
             excuses = ["I'm not qualified to answer this!",
                 "I'll deliver this question to someone capable!"]

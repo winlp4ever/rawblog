@@ -224,6 +224,8 @@
                         vertical-align: middle;
                         color: #222222;
                         margin: 0 5px;
+                        word-wrap: break-all;
+                        overflow-wrap: break-word;
                     }
                     .user {
                         color: rgb(28, 100, 182);
