@@ -80,7 +80,7 @@ const Newchat = (props) => {
                 {props.hints.length > 0 ? <div className='help-hint'><span>see if your question is here ...</span></div>: null}
                 {props.hints.map((h, i) => (<div className={'hint' + ((focus == i)? ' focus': '')} key={i}>
                         <span dangerouslySetInnerHTML={{__html: h.hint}} />
-                        <span className='confid'>{h.confidence}</span>
+                        <span className='confid'>{parseFloat(h.confidence)*100}%</span>
                     </div>))}
             </div>
             {props.referral? <span className='referral'>
@@ -277,7 +277,8 @@ class B0t extends Component {
                                         <div className={cl}>
                                             <span className='user'>{c.sender}:</span>
                                             <span>{c.msg}{seefull}{(id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'>|</span>: ''}</span>
-                                            {c.referral ? <span className='reply-to' onClick={_ => this.setReferral(c.referral)}>
+                                            {c.referral ? 
+                                                <span className='reply-to' onClick={_ => this.setReferral(c.referral)}>
                                                     <i className="fas fa-reply"></i> {c.referral}
                                                 </span>: null}
                                         </div>
