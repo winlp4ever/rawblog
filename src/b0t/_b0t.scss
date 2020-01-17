@@ -7,7 +7,7 @@
 /* The typewriter cursor effect */
 @keyframes blink-caret {
     from, to { color: transparent }
-    50% { color: grey; }
+    50% { color: #4caf50 ; }
 }
 
 @keyframes fading {
@@ -295,6 +295,18 @@
                     box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.17);
                     .reply-to {
                         left: 10px;
+                    }
+                }
+                .msg.bot.answer {
+                    background: #2979ff;
+                    span{
+                        color: whitesmoke;
+                    }
+                    .user {
+                        color: whitesmoke;
+                    }
+                    .blink{
+                        color: #fff3e0;
                     }
                 }
                 .fullanswer {

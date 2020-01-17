@@ -52,7 +52,7 @@ def run():
                     'msg': msg['msg'][:20] + '...',
                     'fullanswer': "Prof's reply: %s" %msg['msg']})
                 return
-            sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 'msg': "Prof's reply:%s" %msg['msg']})
+            sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 'msg': "Prof's reply:%s" %msg['msg'], 'type': 'answer'})
             return
 
         q = msg['msg']
@@ -60,9 +60,9 @@ def run():
             match = QAs[q.lower()]
             answer = match['answer']
             if len(answer) > 100:
-                res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer[:20] + '...', 'fullanswer': answer}
+                res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer[:20] + '...', 'fullanswer': answer, 'type': 'answer'}
             else:
-                res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer}
+                res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer, 'type': 'answer'}
             if 'courses' in match:
                 res['courses'] = match['courses']
             sio.emit('new chat', res)

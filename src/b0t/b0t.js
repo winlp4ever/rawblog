@@ -270,6 +270,7 @@ class B0t extends Component {
                             } else if (c.sender != this.props.username) {
                                 cl += ' others';
                             } else {cl += ' me'}
+                            if (c.type && c.type == 'answer') cl += ' answer';
                             return (
                                 <div key={id} className='chat'>
                                     <div className={identifier}>
