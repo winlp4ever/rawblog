@@ -17,10 +17,13 @@
     "how to import pytorch?": {
         "answer": "normally, you should do this by: \n ```python\nimport torch, torchvision\nimport torch.nn as nn\nimport torch.nn.functional as F\n"
     },
-    "what is neural network": {
+    "what is neural network?": {
         "answer" : "perceptrons and layers"
     },
     "what is convolutional neural network?": {
         "answer": "based on convolutions"
+    },
+    "what is recurrent neural network?": {
+        "answer": "circular loop"
     }
 }
