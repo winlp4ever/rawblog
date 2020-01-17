@@ -113,7 +113,7 @@ class B0t extends Component {
         currDest: 0,
         notifs: [],
         referral: '',
-        supp_info: {}
+        supp_info: {},
     }
 
     updateNotifs = async () => {
