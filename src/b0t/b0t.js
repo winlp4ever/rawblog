@@ -27,18 +27,10 @@ const hints_6 = [{hint: 'what is the algorithm behind neural network?', confiden
 const Newchat = (props) => {
     const [newchat, setNewchat] = useState('');
     const [focus, setFocus] = useState(-1);
-    const [hints, setHints] = useState([]);
     const user = useContext(userContext).user;
     const onChange = async(e) => {
         setNewchat(e.target.value);
-        if (newchat && newchat.indexOf('what is mach') > -1) setHints(hints_2);
-        else if (newchat && (newchat.indexOf('the algorithm behind') > -1 || newchat.indexOf('what is the algo') > -1)) 
-            setHints(hints_6);
-        else if (newchat && newchat.indexOf('what is') > -1) setHints(hints_1);
-        else if (newchat && newchat.indexOf('what does machi') > -1) setHints(hints_3);
-        else if (props.dest == 'bot' && newchat && newchat.indexOf('i want to talk to') > -1) setHints(hints_5);
-        else if (props.dest == 'bot' && newchat && newchat.indexOf('i want to') > -1) setHints(hints_4);
-        else setHints([]);
+        props.socket.emit('ask for hints', {sender: user.name, msg: e.target.value});
     }
     const submit = async (e) => {
         let keycode = e.keyCode || e.which;
@@ -55,8 +47,8 @@ const Newchat = (props) => {
                 else props.socket.emit('submit chat', {sender: user.name, dest: props.dest, msg: newchat});
             }
             setNewchat('');
-            setHints([]);
             setFocus(-1);
+            props.resetHints();
             $(e.currentTarget).val('');     
         }
     }
@@ -66,27 +58,26 @@ const Newchat = (props) => {
         let keycode = e.keyCode || e.which;
         if (keycode == 9) {
             e.preventDefault();
-            if (hints.length > 0) {
-                if (focus < hints.length-1) {
-                    let s = hints[focus+1].hint;
-                    try {s = $(hints[focus+1].hint).html()} catch (e) {};
-                    if (!s) s = hints[focus+1].hint;
+            if (props.hints.length > 0) {
+                if (focus < props.hints.length-1) {
+                    let s = props.hints[focus+1].hint;
+                    try {s = $(props.hints[focus+1].hint).html()} catch (e) {};
+                    if (!s) s = props.hints[focus+1].hint;
                     setNewchat(s);
                     $(e.currentTarget).val(s);
                 }  
-                setFocus((focus < hints.length - 1) ? focus+1: -1);
+                setFocus((focus < props.hints.length - 1) ? focus+1: -1);
             }
         } else if (e.key == 'Escape') {
             e.preventDefault();
-            setHints([]);
+            props.resetHints();
         }
     }
-
     return (
         <div className='newchat'>
             <div className='hints'>
-                {hints.length > 0 ? <div className='help-hint'><span>see if your question is here ...</span></div>: null}
-                {hints.map((h, i) => (<div className={'hint' + ((focus == i)? ' focus': '')} key={i}>
+                {props.hints.length > 0 ? <div className='help-hint'><span>see if your question is here ...</span></div>: null}
+                {props.hints.map((h, i) => (<div className={'hint' + ((focus == i)? ' focus': '')} key={i}>
                         <span dangerouslySetInnerHTML={{__html: h.hint}} />
                         <span className='confid'>{h.confidence}</span>
                     </div>))}
@@ -114,6 +105,7 @@ class B0t extends Component {
         notifs: [],
         referral: '',
         supp_info: {},
+        hints: []
     }
 
     updateNotifs = async () => {
@@ -159,6 +151,11 @@ class B0t extends Component {
             this.setState({chats: [{sender: 'bot', dest: this.props.username, msg: first_msg.substr(0, i)}]})
         }
         this.props.socket.on('new chat', msg => this.updateChat(msg));
+        this.props.socket.on('hints', msg => {
+            if (msg.dest == this.props.username) {
+                this.setState({hints: msg.hints})
+            }
+        })
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -222,6 +219,10 @@ class B0t extends Component {
 
     unsetReferral = _ => {
         this.setState({referral: ''})
+    }
+
+    resetHints = _=> {
+        this.setState({hints: []});
     }
 
     render() {
@@ -294,6 +295,8 @@ class B0t extends Component {
                         dest={this.state.dests[this.state.currDest]} 
                         referral={this.state.referral}
                         unsetReferral={this.unsetReferral}
+                        hints={this.state.hints}
+                        resetHints={this.resetHints}
                     />
                 </div>
                 <Notif />

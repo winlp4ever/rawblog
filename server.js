@@ -123,6 +123,16 @@ io.on('connection', function(socket){
         io.emit('new chat', msg);
     })
 
+    socket.on('ask for hints', msg => {
+        io.emit('ask for hints', msg);
+        console.log(msg);
+    })
+
+    socket.on('hints', msg => {
+        io.emit('hints', msg);
+        console.log(msg);
+    })
+
 });
 
 
