@@ -502,14 +502,30 @@
         a {
             font-weight: 700;
         }
-        .relevant-course {
+        .relevant-course, .toread {
+            a {
+                display: inline-block;
+                padding: 0 5px;
+                background: white;
+                border-radius: 5px;
+                color: #2979ff;
+                font: {
+                    family: 'Sans Josefin', sans-serif;
+                    weight: 700;
+                    size: 90%;
+                }
+            }
             span {
                 display: inline-block;
                 margin: 5px;
                 img {
                     height: 1.5em;
-                    vertical-align: middle;;
+                    vertical-align: bottom;;
                 }
+            }
+            li {
+                list-style-type: circle;
+                line-height: 1.5em;
             }
         }
         

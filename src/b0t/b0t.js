@@ -9,7 +9,8 @@ import bot from '../../imgs/support.svg';
 import qa from '../../imgs/qa.svg';
 import mStud from '../../imgs/m-stud.svg';
 import idea from '../../imgs/idea.svg';
-import lesson from '../../imgs/lesson.svg'
+import lesson from '../../imgs/lesson.svg';
+import toread from '../../imgs/toread.svg';
 
 const hints_1 = [{hint: 'what is machine learning?', confidence: '89%'},
     {hint: 'what is deep learning?', confidence: '84%'}];
@@ -197,7 +198,9 @@ class B0t extends Component {
             if (id > -1) {
                 let response = await fetch(`/get-post-title?postId=${id}`, {method: 'POST'});
                 let data = await response.json();
-                this.setState({ supp_info:  {course: {title: data.title, id: id}}});
+                this.setState({ supp_info:  
+                    {course: {title: data.title, id: id},
+                    toread: ['//google.com', '//facebook.com']}});
             } else {
                 if (this.state.supp_info) {
                     this.setState({ supp_info:  {}});
@@ -309,6 +312,16 @@ class B0t extends Component {
                                 {this.state.supp_info.course.title}</a>
                             </span>    
                         </div> : null }
+                    {this.state.supp_info.toread?
+                        <div className='toread'>
+                            <span><img src={toread} /></span>
+                            <span>To read more on this topic:</span>
+                            <ul>
+                            {this.state.supp_info.toread.map((t, j) => 
+                                <li key={j}><a href={t} target='_blank'>{t}</a></li>)}
+                            </ul>
+                        </div>:null
+                    }
                 </div>
             </Resizable>
             </NotifContext.Provider>
