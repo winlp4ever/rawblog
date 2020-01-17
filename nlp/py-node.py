@@ -37,7 +37,7 @@ def run():
         hints = []
         for q in QAs:
             e = model.embed_sentence(q)
-            confid = 1.01-cosine(e, emb)
+            confid = 1.0-cosine(e, emb)
             if confid > 0.7:
                 hints.append({'hint': q, 'confidence': '%.2f'%confid})
         hints.sort(key= lambda u: u['confidence'], reverse=True)
