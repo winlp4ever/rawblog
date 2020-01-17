@@ -139,6 +139,12 @@ app.get('/', (req, res, next) => {
     });
 });
 
+app.post('/get-post-title', (req, res) => {
+    let postId = req.query.postId;
+    res.json({ title: posts[postId].content.title });
+    console.log(posts[postId].content.title );
+})
+
 app.post('/get-post', (req, res) => {
     let postId = req.query.postId;
     res.json({ content: posts[postId].content, likes: posts[postId].likes });

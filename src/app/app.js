@@ -98,7 +98,7 @@ class App extends Component {
 
         return (
             <userContext.Provider value={value}>
-                <B0t socket={this.state.socket} username={this.state.user.name}/>
+                <B0t socket={this.state.socket} username={this.state.user.name} viewFullPost={this.viewFullPost}/>
                 <LinkTray />
                 <Menu links={menuOptions} activeTab={this.state.activeTab}/>
                 {main}

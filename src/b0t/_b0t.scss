@@ -444,7 +444,26 @@
         bottom: 60px;
         width: 30%;
         right: 25px;
+        box-sizing: border-box;
+        padding: 40px 20px 20px;
+        font: {
+            size: 0.7em;
+        }
         border-left: 1px solid lightgrey;  
+        a {
+            font-weight: 700;
+        }
+        .relevant-course {
+            span {
+                display: inline-block;
+                margin: 5px;
+                img {
+                    height: 1.5em;
+                    vertical-align: middle;;
+                }
+            }
+        }
+        
         .title-icon {
             position: absolute;
             top: -5px;

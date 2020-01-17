@@ -163,7 +163,7 @@ def run():
                     'msg': '(long answer) ',
                     'fullanswer': "Prof's reply: %s" %msg['msg']})
                 return
-            sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 'msg': "__Prof's reply:__ %s" %msg['msg']})
+            sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 'msg': "`__Prof's reply`:__ _%s_" %msg['msg']})
             return
 
         q = msg['msg']

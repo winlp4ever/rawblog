@@ -9,6 +9,7 @@ import bot from '../../imgs/support.svg';
 import qa from '../../imgs/qa.svg';
 import mStud from '../../imgs/m-stud.svg';
 import idea from '../../imgs/idea.svg';
+import lesson from '../../imgs/lesson.svg'
 
 const hints_1 = [{hint: 'what is machine learning?', confidence: '89%'},
     {hint: 'what is deep learning?', confidence: '84%'}];
@@ -110,7 +111,7 @@ class B0t extends Component {
         currDest: 0,
         notifs: [],
         referral: '',
-        supp_info: []
+        supp_info: {}
     }
 
     updateNotifs = async () => {
@@ -184,10 +185,27 @@ class B0t extends Component {
         this.setState({hide: !this.state.hide});
     }
 
-    toogleFullAnswer = e => {
+    toogleFullAnswer = async (id, e) => {
+        console.log(id);
         let s = $(e.currentTarget).parent().parent().parent().parent().children('.fullanswer')
-        if (s.attr('class') == 'fullanswer show') s.attr('class', 'fullanswer hide');
-        else {s.attr('class', 'fullanswer show')}
+        if (s.attr('class') == 'fullanswer show') {
+            s.attr('class', 'fullanswer hide');
+            if (this.state.supp_info) {
+                this.setState({ supp_info:  {}});
+            }
+        }
+        else {
+            s.attr('class', 'fullanswer show');
+            if (id > -1) {
+                let response = await fetch(`/get-post-title?postId=${id}`, {method: 'POST'});
+                let data = await response.json();
+                this.setState({ supp_info:  {course: {title: data.title, id: id}}});
+            } else {
+                if (this.state.supp_info) {
+                    this.setState({ supp_info:  {}});
+                }
+            }
+        };
     }
 
     likeAnswer = e => {
@@ -224,7 +242,8 @@ class B0t extends Component {
                 <div className='chat-section'>
                     <div className='oldchats'>
                         {this.state.chats.map((c, id) => {
-                            let seefull = c.fullanswer ? <a onClick={this.toogleFullAnswer}>here</a>: null;
+                            let course_id = c.courses || -1;
+                            let seefull = c.fullanswer ? <a onClick={e => this.toogleFullAnswer(course_id, e)}>here</a>: null;
                             
                             if (c.sender != this.state.dests[this.state.currDest] && 
                                 c.dest != this.state.dests[this.state.currDest]) return;
@@ -267,6 +286,13 @@ class B0t extends Component {
                 <Notif />
                 <div className='supp-info'>
                     <span className='title-icon'><img src={idea} /></span>
+                    {this.state.supp_info.course? 
+                        <div className='relevant-course'>
+                            <span><img src={lesson} /></span>
+                            <span>Relevant Course: <a onClick={_ => this.props.viewFullPost(this.state.supp_info.course.id)}>
+                                {this.state.supp_info.course.title}</a>
+                            </span>    
+                        </div> : null }
                 </div>
             </Resizable>
             </NotifContext.Provider>
