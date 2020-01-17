@@ -153,25 +153,37 @@ def run():
     def connect():
         print('connection established')
 
-    @sio.event
-    def my_message(data):
-        sio.emit('bot-msg', data)
-
-    @sio.on('user-msg')
+    @sio.on('new chat')
     def on_message(msg):
-        global history
+        if msg['dest'] != 'bot':
+            return
+        if 'referral' in msg:
+            sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 'msg': "Prof's reply: %s" %msg['msg']})
+            return
+
         q = msg['msg']
         if q.lower() in QAs:
             res = QAs[q.lower()]
-            sio.emit('bot-msg', {'sender': 'bot', 'dest': msg['sender'], 'msg': 'please see the answer ', 'fullanswer': res})
+            if 'courses' in res:
+                sio.emit('new chat', {'sender': 'bot', 'dest': msg['sender'], 'msg': '(long answer) ', 'fullanswer': res['answer'], 'courses': res['courses']})
+            sio.emit('new chat', {'sender': 'bot', 'dest': msg['sender'], 'msg': '(long answer) ', 'fullanswer': res['answer']})
+        elif q.endswith('?'):
+            excuses = ["I'm not qualified to answer this!",
+                "I'll deliver this question to someone capable!"]
+            for s in excuses:
+                sio.emit('new chat', {'sender': 'bot', 'dest': msg['sender'], 'msg': s})
+            sio.emit('new chat', {'sender': 'bot', 'dest': 'Prof. Alpha', 'msg': 'A student has the following question: %s' %msg['msg'], 'referral': msg['sender']})
+
+        '''
         else:
+            global history
             history.append(tokenizer.encode(q))
             with torch.no_grad():
                 out_ids = sample_sequence(personality, history, tokenizer, model, args)
             history.append(out_ids)
             history = history[-(2*args.max_history+1):]
             res = tokenizer.decode(out_ids, skip_special_tokens=True)
-            sio.emit('bot-msg', {'sender': 'bot', 'dest': msg['sender'], 'msg': res})
+            sio.emit('bot-msg', {'sender': 'bot', 'dest': msg['sender'], 'msg': res})'''
         
     @sio.on('new-context')
     def on_message(contexts):

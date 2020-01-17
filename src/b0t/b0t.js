@@ -109,7 +109,8 @@ class B0t extends Component {
         dests: ['bot'],
         currDest: 0,
         notifs: [],
-        referral: ''
+        referral: '',
+        supp_info: []
     }
 
     updateNotifs = async () => {
@@ -227,7 +228,7 @@ class B0t extends Component {
                             
                             if (c.sender != this.state.dests[this.state.currDest] && 
                                 c.dest != this.state.dests[this.state.currDest]) return;
-                                
+
                             let b0ticon = (c.sender == 'bot') ? <span className='ava'><img src={bot} /></span>: 
                                 <span className='ava'><img src={mStud}/></span>;
                             let identifier = (c.sender == this.props.username) ? 'iden me-chat': 'iden other-chat'

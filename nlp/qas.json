@@ -1,16 +1,18 @@
 {
-    "what is deep learning?": 
-    "Well, deep learning (also known as deep structured learning or hierarchical learning) is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised.",
-    "what is machine learning?":
-    "uhm, machine learning is an application of artificial intelligence (AI) that provides systems the ability to automatically learn and improve from experience without being explicitly programmed.",
-    "what is bert?":
-    "I'm afraid I'm not qualified to answer that.",
-    "what does machine learning do?":
-    "after my understanding, machine learning is an application of artificial intelligence (AI) that provides systems the ability to automatically learn and improve from experience without being explicitly programmed.",
-    "what is the algorithm behind neural network?":
-    "1st order gradient descent",
-    "how does neural network work?":
-    "",
-    "how to import pytorch?":
-    "normally, you should do this by: \n ```python\nimport torch, torchvision\nimport torch.nn as nn\nimport torch.nn.functional as F\n"
+    "what is deep learning?": {
+        "answer": "Well, deep learning (also known as deep structured learning or hierarchical learning) is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised."
+    },
+    
+    "what is machine learning?": {
+        "answer": "uhm, machine learning is an application of artificial intelligence (AI) that provides systems the ability to automatically learn and improve from experience without being explicitly programmed."
+    },
+    "what does machine learning do?": {
+        "answer": "after my understanding, machine learning is an application of artificial intelligence (AI) that provides systems the ability to automatically learn and improve from experience without being explicitly programmed."
+    },
+    "how does neural network work?": {
+        "answer": "gradient descent + optimization"
+    },
+    "how to import pytorch?": {
+        "answer": "normally, you should do this by: \n ```python\nimport torch, torchvision\nimport torch.nn as nn\nimport torch.nn.functional as F\n"
+    }
 }

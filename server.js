@@ -113,25 +113,14 @@ io.on('connection', function(socket){
     })
 
     //chat bot
-    socket.on('bot-msg', msg => {
+    socket.on('new chat', msg => {
         io.emit('new chat', msg);
-        console.log('bot: ' + msg);
-
+        console.log(msg);
     })
 
     socket.on('submit chat', msg => {
         console.log(msg);
         io.emit('new chat', msg);
-        if (msg.dest == 'bot') {
-            if (msg.msg != 'what is bert2?') {
-                io.emit('user-msg', msg);
-            } else {
-                io.emit('new chat', {sender: 'bot', dest: msg.sender, msg: "I'm not qualified to answer this!"});
-                io.emit('new chat', {sender: 'bot', dest: msg.sender, msg: "I'll deliver this question to someone capable!"});
-                io.emit('new chat', {sender: 'Prof. Alpha', dest: msg.sender, msg: 'Hi, please ask me..'});
-                return;
-            }
-        }
     })
 
 });
