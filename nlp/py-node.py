@@ -71,7 +71,7 @@ def run():
                 "I'll deliver this question to someone capable!"]
             for s in excuses:
                 sio.emit('new chat', {'sender': 'bot', 'dest': msg['sender'], 'msg': s})
-            sio.emit('new chat', {'sender': 'bot', 'dest': 'Prof. Alpha', 'msg': 'A student has the following question: %s' %msg['msg'], 'referral': msg['sender']})
+            sio.emit('new chat', {'sender': 'bot', 'dest': 'Prof. Alpha', 'msg': 'A student (%s) has the following question: %s' %(msg['sender'], msg['msg']), 'referral': msg['sender']})
 
     @sio.event
     def disconnect():

@@ -1,6 +1,8 @@
 {
     "what is deep learning?": {
-        "answer": "Well, deep learning (also known as deep structured learning or hierarchical learning) is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised."
+        "answer": "Well, deep learning (also known as deep structured learning or hierarchical learning) is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised.",
+        "courses": "0",
+        "toread": ["//facebook.com", "//google.com"]
     },
     
     "what is machine learning?": {
