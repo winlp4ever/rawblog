@@ -91,6 +91,8 @@ const Newchat = (props) => {
                         <span className='confid'>{h.confidence}</span>
                     </div>))}
             </div>
+            {props.referral? <span className='referral'>
+                to {props.referral} <i onClick={props.unsetReferral} className="fas fa-times"></i></span>: null}
             <textarea 
                 rows={1}
                 placeholder='chat something'
@@ -129,7 +131,6 @@ class B0t extends Component {
 
     updateChat = async (msg) => {
         if (msg.sender == this.props.username || msg.dest == this.props.username) {
-            if (msg.referral) this.setState({referral: msg.referral});
             let copy = this.state.chats.slice();
             copy.push(msg);
             this.setState({chats: copy});
@@ -215,6 +216,14 @@ class B0t extends Component {
         $(e.currentTarget).parent().attr('data-like', '0');
     }
 
+    setReferral = name => {
+        this.setState({referral: name})
+    }
+
+    unsetReferral = _ => {
+        this.setState({referral: ''})
+    }
+
     render() {
         if (this.state.hide) return (
             <div className='hide-b0t'>
@@ -243,7 +252,7 @@ class B0t extends Component {
                     <div className='oldchats'>
                         {this.state.chats.map((c, id) => {
                             let course_id = c.courses || -1;
-                            let seefull = c.fullanswer ? <a onClick={e => this.toogleFullAnswer(course_id, e)}>here</a>: null;
+                            let seefull = c.fullanswer ? <a onClick={e => this.toogleFullAnswer(course_id, e)}>see more</a>: null;
                             
                             if (c.sender != this.state.dests[this.state.currDest] && 
                                 c.dest != this.state.dests[this.state.currDest]) return;
@@ -264,6 +273,9 @@ class B0t extends Component {
                                         <div className={cl}>
                                             <span className='user'>{c.sender}:</span>
                                             <span>{c.msg}{seefull}{(id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'>|</span>: ''}</span>
+                                            {c.referral ? <span className='reply-to' onClick={_ => this.setReferral(c.referral)}>
+                                                    <i className="fas fa-reply"></i> {c.referral}
+                                                </span>: null}
                                         </div>
                                     </div>
                                     
@@ -281,6 +293,7 @@ class B0t extends Component {
                         socket={this.props.socket} 
                         dest={this.state.dests[this.state.currDest]} 
                         referral={this.state.referral}
+                        unsetReferral={this.unsetReferral}
                     />
                 </div>
                 <Notif />
