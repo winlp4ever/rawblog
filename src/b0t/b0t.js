@@ -12,19 +12,6 @@ import idea from '../../imgs/idea.svg';
 import lesson from '../../imgs/lesson.svg';
 import toread from '../../imgs/toread.svg';
 
-const hints_1 = [{hint: 'what is machine learning?', confidence: '89%'},
-    {hint: 'what is deep learning?', confidence: '84%'}];
-const hints_2 = [{hint: 'what is machine learning?', confidence: '97%'},
-    {hint: 'what does machine learning do?', confidence: '78%'}];
-const hints_3 = [{hint: 'what does machine learning do?', confidence: '96%'}]
- //   {hint: 'what is machine learning?', confidence: '85%'}]
-const hints_4 = [{hint: 'i want to talk to', confidence: '100%'}];
-const hints_5 = [{hint: "<a className='p-tag'>@Alexis</a>"}, 
-    {hint: "<a className='p-tag'>@Max</a>"}, 
-    {hint: "<a className='p-tag'>@Evelie</a>"}];
-
-const hints_6 = [{hint: 'what is the algorithm behind neural network?', confidence: '93%'}]
-
 const Newchat = (props) => {
     const [newchat, setNewchat] = useState('');
     const [focus, setFocus] = useState(-1);
@@ -184,30 +171,31 @@ class B0t extends Component {
         this.setState({hide: !this.state.hide});
     }
 
-    toogleFullAnswer = async (id, e) => {
-        console.log(id);
-        let s = $(e.currentTarget).parent().parent().parent().parent().children('.fullanswer')
-        if (s.attr('class') == 'fullanswer show') {
-            s.attr('class', 'fullanswer hide');
+    // view full answer
+    seemore = async (id, e) => {
+        $(e.currentTarget).parent().parent().children('.seeless').css('display', 'block');
+        $(e.currentTarget).parent().css('display', 'none');
+        if (id > -1) {
+            let response = await fetch(`/get-post-title?postId=${id}`, {method: 'POST'});
+            let data = await response.json();
+            this.setState({ supp_info:  
+                {course: {title: data.title, id: id},
+                toread: ['//google.com', '//facebook.com']}});
+        } else {
             if (this.state.supp_info) {
                 this.setState({ supp_info:  {}});
             }
         }
-        else {
-            s.attr('class', 'fullanswer show');
-            if (id > -1) {
-                let response = await fetch(`/get-post-title?postId=${id}`, {method: 'POST'});
-                let data = await response.json();
-                this.setState({ supp_info:  
-                    {course: {title: data.title, id: id},
-                    toread: ['//google.com', '//facebook.com']}});
-            } else {
-                if (this.state.supp_info) {
-                    this.setState({ supp_info:  {}});
-                }
-            }
-        };
     }
+
+    seeless = async (id, e) => {
+        $(e.currentTarget).parent().parent().children('.seemore').css('display', '');
+        $(e.currentTarget).parent().css('display', '');
+        if (this.state.supp_info) {
+            this.setState({ supp_info:  {}});
+        }
+    }
+    
 
     likeAnswer = e => {
         $(e.currentTarget).parent().attr('data-like', '1');
@@ -256,8 +244,10 @@ class B0t extends Component {
                     <div className='oldchats'>
                         {this.state.chats.map((c, id) => {
                             let course_id = c.courses || -1;
-                            let seefull = c.fullanswer ? <a onClick={e => this.toogleFullAnswer(course_id, e)}>see more</a>: null;
-                            
+                            let seemore = c.fullanswer ? <a onClick={e => this.seemore(course_id, e)}>see more</a>: null;
+                            let seeless = c.fullanswer ? <a onClick={e => this.seeless(course_id, e)}>see less</a>: null;
+                            let blink = (id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'>|</span>: null;
+
                             if (c.sender != this.state.dests[this.state.currDest] && 
                                 c.dest != this.state.dests[this.state.currDest]) return;
 
@@ -277,20 +267,21 @@ class B0t extends Component {
                                         {b0ticon}
                                         <div className={cl}>
                                             <span className='user'>{c.sender}:</span>
-                                            <span>{c.msg}{seefull}{(id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'>|</span>: ''}</span>
+                                            <span className='seemore'>
+                                                {c.msg}{seemore}{blink}
+                                            </span>
+                                            {c.fullanswer ?
+                                            <span className='seeless'>
+                                                <MdRender source={c.fullanswer} />{seeless}
+                                                {blink}
+                                            </span>: null
+                                            }
                                             {c.referral ? 
-                                                <span className='reply-to' onClick={_ => this.setReferral(c.referral)}>
-                                                    <i className="fas fa-reply"></i> {c.referral}
-                                                </span>: null}
+                                            <span className='reply-to' onClick={_ => this.setReferral(c.referral)}>
+                                                <i className="fas fa-reply"></i> {c.referral}
+                                            </span>: null}
                                         </div>
                                     </div>
-                                    
-                                    {c.fullanswer ? <div className='fullanswer hide'>
-                                        <MdRender source={c.fullanswer} />
-                                        <div className='title-icon'><img src={qa}/></div>
-                                        <div className='good' onClick={this.likeAnswer}><i className="fas fa-check fa-fw"></i></div>
-                                        <div className='bad' onClick={this.dislikeAnswer}><i className="fas fa-times fa-fw"></i></div>
-                                    </div>: null}
                                 </div>
                             )
                         })}

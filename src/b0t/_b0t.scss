@@ -261,6 +261,17 @@
                             transform: none;
                         }
                     }
+                    .seemore {
+                        display: auto;
+                    }
+                    .seeless {
+                        display: none;
+                        .markdown-render {
+                            p {
+                                margin: 0 auto;
+                            }
+                        }
+                    }
                 } 
                 .msg.bot {
                     background: lightgrey;
