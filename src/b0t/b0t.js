@@ -172,23 +172,22 @@ class B0t extends Component {
     }
 
     // view full answer
-    seemore = async (id, e) => {
+    seemore = async (toread, id, e) => {
         $(e.currentTarget).parent().parent().children('.seeless').css('display', 'block');
         $(e.currentTarget).parent().css('display', 'none');
+        let suppinfo = {}
         if (id > -1) {
             let response = await fetch(`/get-post-title?postId=${id}`, {method: 'POST'});
             let data = await response.json();
-            this.setState({ supp_info:  
-                {course: {title: data.title, id: id},
-                toread: ['//google.com', '//facebook.com']}});
-        } else {
-            if (this.state.supp_info) {
-                this.setState({ supp_info:  {}});
-            }
+            suppinfo.course = {title: data.title, id: id}
+        } 
+        if (toread) {
+            suppinfo.toread = toread;
         }
+        this.setState({supp_info: suppinfo})
     }
 
-    seeless = async (id, e) => {
+    seeless = async (e) => {
         $(e.currentTarget).parent().parent().children('.seemore').css('display', '');
         $(e.currentTarget).parent().css('display', '');
         if (this.state.supp_info) {
@@ -246,8 +245,8 @@ class B0t extends Component {
                     <div className='oldchats'>
                         {this.state.chats.map((c, id) => {
                             let course_id = c.courses || -1;
-                            let seemore = c.fullanswer ? <a onClick={e => this.seemore(course_id, e)}>see more</a>: null;
-                            let seeless = c.fullanswer ? <a onClick={e => this.seeless(course_id, e)}>see less</a>: null;
+                            let seemore = c.fullanswer ? <a onClick={e => this.seemore(c.toread, course_id, e)}>see more</a>: null;
+                            let seeless = c.fullanswer ? <a onClick={e => this.seeless(e)}>see less</a>: null;
                             let blink = (id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'>|</span>: null;
 
                             if (c.sender != this.state.dests[this.state.currDest] && 

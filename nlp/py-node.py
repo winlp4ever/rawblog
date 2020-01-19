@@ -66,6 +66,8 @@ def run():
                 res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer, 'type': 'answer'}
             if 'courses' in match:
                 res['courses'] = match['courses']
+            if 'toread' in match:
+                res['toread'] = match['toread']
             sio.emit('new chat', res)
         elif q.endswith('?'):
             excuses = ["I'm not qualified to answer this!",
