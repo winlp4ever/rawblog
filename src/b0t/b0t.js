@@ -198,10 +198,12 @@ class B0t extends Component {
     
 
     likeAnswer = e => {
-        $(e.currentTarget).parent().attr('data-like', '1');
+        $(e.currentTarget).attr('clicked', '1');
+        $(e.currentTarget).parent().children('.bad').removeAttr('clicked');
     }
     dislikeAnswer = e => {
-        $(e.currentTarget).parent().attr('data-like', '0');
+        $(e.currentTarget).attr('clicked', '1');
+        $(e.currentTarget).parent().children('.good').removeAttr('clicked');
     }
 
     setReferral = name => {
@@ -274,6 +276,8 @@ class B0t extends Component {
                                             <span className='seeless'>
                                                 <MdRender source={c.fullanswer} />{seeless}
                                                 {blink}
+                                                <div className='good' onClick={this.likeAnswer}><i className="fas fa-check fa-fw"></i></div>
+                                                <div className='bad' onClick={this.dislikeAnswer}><i className="fas fa-times fa-fw"></i></div>
                                             </span>: null
                                             }
                                             {c.referral ? 
