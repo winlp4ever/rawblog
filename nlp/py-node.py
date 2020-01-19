@@ -50,7 +50,8 @@ def run():
             if len(msg['msg']) > 50:
                 sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 
                     'msg': msg['msg'][:20] + '...',
-                    'fullanswer': "Prof's reply: %s" %msg['msg']})
+                    'fullanswer': "Prof's reply: %s" %msg['msg'],
+                    'type': 'answer'})
                 return
             sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 'msg': "Prof's reply:%s" %msg['msg'], 'type': 'answer'})
             return
