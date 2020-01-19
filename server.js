@@ -71,12 +71,13 @@ fs.readdir(articlesPath, function (err, files) {
                 likes: info.likes,
                 comments: info.comments
             }
+            console.log(posts);
         } catch (err) {
             console.log(err);
         }
     })
 });
-
+console.log(posts);
 
 var count = 0;
 

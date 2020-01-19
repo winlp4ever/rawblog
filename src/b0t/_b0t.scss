@@ -7,7 +7,7 @@
 /* The typewriter cursor effect */
 @keyframes blink-caret {
     from, to { color: transparent }
-    50% { color: #4caf50 ; }
+    50% { color: #ffffff ; }
 }
 
 @keyframes fading {
@@ -198,6 +198,7 @@
                 }                    
 
                 .msg {
+                    max-width: 75%;
                     position: relative;
                     display: flex;
                     flex-direction: row;
@@ -351,7 +352,7 @@
                         text-align: right;
                     }
                     .blink {
-                        transform: scale(2.5);
+                        transform: scale(4);
                         transform-origin: 0% 70%;
                         font-weight: 700;
                         animation: blink-caret 0.75s infinite;

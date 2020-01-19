@@ -7,7 +7,7 @@
     
     "what is machine learning?": {
         "answer": "Machine learning is an application of artificial intelligence (AI) that provides systems the ability to automatically learn and improve from experience without being explicitly programmed.",
-        "courses": "0",
+        "courses": "2",
         "toread":["https://medium.com/machine-learning-for-humans/how-to-learn-machine-learning-24d53bb64aa1"]
     },
     "what does machine learning do?": {
@@ -24,7 +24,7 @@
     },
     "what is convolutional neural network?": {
         "answer": "The name “convolutional neural network” indicates that the network employs a mathematical operation called convolution. Convolution is a specialized kind of linear operation. Convolutional networks are simply neural networks that use convolution in place of general matrix multiplication in at least one of their layers.",
-        "courses": 1,
+        "courses": "0",
         "toread": ["https://medium.com/@RaghavPrabhu/understanding-of-convolutional-neural-network-cnn-deep-learning-99760835f148",
             "https://medium.com/@purnasaigudikandula/a-beginner-intro-to-convolutional-neural-networks-684c5620c2ce"]
     },

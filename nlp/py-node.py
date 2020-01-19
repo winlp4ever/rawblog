@@ -38,7 +38,7 @@ def run():
         for q in QAs:
             e = model.embed_sentence(q)
             confid = 1.0-cosine(e, emb)
-            if confid > 0.7:
+            if confid > 0.6:
                 hints.append({'hint': q, 'confidence': '%.2f'%confid})
         hints.sort(key= lambda u: u['confidence'], reverse=True)
         sio.emit('hints', {'dest': typed['sender'], 'hints': hints})
@@ -47,9 +47,9 @@ def run():
         if msg['dest'] != 'bot':
             return
         if 'referral' in msg:
-            if len(msg['msg']) > 150:
+            if len(msg['msg']) > 100:
                 sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 
-                    'msg': msg['msg'][:20] + '...',
+                    'msg': msg['msg'][:100] + '...',
                     'fullanswer': "Prof's reply: %s" %msg['msg'],
                     'type': 'answer'})
                 return
@@ -60,8 +60,8 @@ def run():
         if q.lower() in QAs:
             match = QAs[q.lower()]
             answer = match['answer']
-            if len(answer) > 150:
-                res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer[:20] + '...', 'fullanswer': answer, 'type': 'answer'}
+            if len(answer) > 100:
+                res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer[:100] + '...', 'fullanswer': answer, 'type': 'answer'}
             else:
                 res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer, 'type': 'answer'}
             if 'courses' in match:
