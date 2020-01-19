@@ -216,7 +216,7 @@
                         background: white;
                         color: rgb(145, 145, 145);
                     }
-                    span {
+                    > span {
                         display: inline-block;
                         font: {
                             size: 60%;
@@ -269,7 +269,9 @@
                         box-sizing: border-box;
                         padding-bottom: 40px;
                         .markdown-render {
-                            
+                            pre {
+                                padding: 10px !important;
+                            }
                             p {
                                 margin: 0 auto;
                             }
