@@ -24,7 +24,7 @@ from scipy.spatial.distance import cosine
 def run():
     
     model = sent2vec.Sent2vecModel()
-    model.load_model('/home/redlcamille/workspace/sent2vec/torontobooks_unigrams.bin')
+    model.load_model('/home/ubuntu/data/torontobooks_unigrams.bin')
     QAs = json.load(open('nlp/qas.json'))
     sio = socketio.Client()
     @sio.event
