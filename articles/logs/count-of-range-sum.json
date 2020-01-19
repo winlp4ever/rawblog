@@ -1,0 +1,25 @@
+{
+    "likes": 16,
+    "comments": [
+        {
+            "username": "anonymous",
+            "content": "It's in fact a very interesting question"
+        },
+        {
+            "username": "anakin",
+            "content": "Hi"
+        },
+        {
+            "username": "Wall-Q",
+            "content": "hello! first comment"
+        },
+        {
+            "username": "Wall-Q",
+            "content": "i like this"
+        }
+    ],
+    "hashtags": [
+        "algorithm",
+        "python"
+    ]
+}
