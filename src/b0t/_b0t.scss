@@ -344,9 +344,11 @@
                 } 
                 .msg.bot {
                     background: lightgrey;
+                    text-align: right;
                     span:not(.user) {
                         color: #222222;
                         font-weight: 700;
+                        text-align: right;
                     }
                     .blink {
                         transform: scale(2.5);
@@ -364,6 +366,9 @@
                 }
 
                 .msg.others {
+                    span:not(.user) {
+                        text-align: right;
+                    }
                     background: rgb(255, 255, 234);
                     border: 1px solid lightgrey;
                     .reply-to {
