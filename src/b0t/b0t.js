@@ -221,7 +221,7 @@ class B0t extends Component {
     render() {
         if (this.state.hide) return (
             <div className='hide-b0t'>
-                <button className='showhide-ter' onClick={_ => this.showhide()}>Open Terminal</button>
+                <button className='showhide-ter' onClick={_ => this.showhide()}>Ask me!</button>
             </div>
         )
 
@@ -234,7 +234,7 @@ class B0t extends Component {
         return (
             <NotifContext.Provider value={Nos}>
             <Resizable {...reprops} className='b0t'>
-                <button className='showhide-ter' onClick={_ => this.showhide()}>Hide Terminal</button>
+                <button className='showhide-ter' onClick={_ => this.showhide()}>Hide me!</button>
                 <div className='chat-list'>
                     {this.state.dests.map((d, id) => {
                         if (id == this.state.currDest) 
