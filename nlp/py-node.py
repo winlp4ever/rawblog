@@ -47,7 +47,7 @@ def run():
         if msg['dest'] != 'bot':
             return
         if 'referral' in msg:
-            if len(msg['msg']) > 50:
+            if len(msg['msg']) > 150:
                 sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 
                     'msg': msg['msg'][:20] + '...',
                     'fullanswer': "Prof's reply: %s" %msg['msg'],
@@ -60,7 +60,7 @@ def run():
         if q.lower() in QAs:
             match = QAs[q.lower()]
             answer = match['answer']
-            if len(answer) > 100:
+            if len(answer) > 150:
                 res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer[:20] + '...', 'fullanswer': answer, 'type': 'answer'}
             else:
                 res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer, 'type': 'answer'}

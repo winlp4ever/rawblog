@@ -1,31 +1,34 @@
 {
     "what is deep learning?": {
-        "answer": "Well, deep learning (also known as deep structured learning or hierarchical learning) is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised.",
+        "answer": "Deep learning (also known as deep structured learning or hierarchical learning) is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised.",
         "courses": "0",
-        "toread": ["//facebook.com", "//google.com"]
+        "toread": ["http://neuralnetworksanddeeplearning.com/chap1.html"]
     },
     
     "what is machine learning?": {
-        "answer": "uhm, machine learning is an application of artificial intelligence (AI) that provides systems the ability to automatically learn and improve from experience without being explicitly programmed.",
+        "answer": "Machine learning is an application of artificial intelligence (AI) that provides systems the ability to automatically learn and improve from experience without being explicitly programmed.",
         "courses": "0",
-        "toread":["//google.com", "//facebook.com"]
+        "toread":["https://medium.com/machine-learning-for-humans/how-to-learn-machine-learning-24d53bb64aa1"]
     },
     "what does machine learning do?": {
         "answer": "after my understanding, machine learning is an application of artificial intelligence (AI) that provides systems the ability to automatically learn and improve from experience without being explicitly programmed."
     },
     "how does neural network work?": {
-        "answer": "gradient descent + optimization"
+        "answer": "Artificial neural networks use different layers of mathematical processing to make sense of the information it’s fed. Typically, an artificial neural network has anywhere from dozens to millions of artificial neurons—called units—arranged in a series of layers. The input layer receives various forms of information from the outside world. This is the data that the network aims to process or learn about. From the input unit, the data goes through one or more hidden units. The hidden unit’s job is to transform the input into something the output unit can use."
     },
     "how to import pytorch?": {
         "answer": "normally, you should do this by: \n ```python\nimport torch, torchvision\nimport torch.nn as nn\nimport torch.nn.functional as F\n"
     },
     "what is neural network?": {
-        "answer" : "perceptrons and layers"
+        "answer" : "Neural networks are a set of algorithms, modeled loosely after the human brain, that are designed to recognize patterns. They interpret sensory data through a kind of machine perception, labeling or clustering raw input. The patterns they recognize are numerical, contained in vectors, into which all real-world data, be it images, sound, text or time series, must be translated."
     },
     "what is convolutional neural network?": {
-        "answer": "based on convolutions"
+        "answer": "The name “convolutional neural network” indicates that the network employs a mathematical operation called convolution. Convolution is a specialized kind of linear operation. Convolutional networks are simply neural networks that use convolution in place of general matrix multiplication in at least one of their layers.",
+        "courses": 1,
+        "toread": ["https://medium.com/@RaghavPrabhu/understanding-of-convolutional-neural-network-cnn-deep-learning-99760835f148",
+            "https://medium.com/@purnasaigudikandula/a-beginner-intro-to-convolutional-neural-networks-684c5620c2ce"]
     },
     "what is recurrent neural network?": {
-        "answer": "circular loop"
+        "answer": "A recurrent neural network (RNN) is a class of artificial neural networks where connections between nodes form a directed graph along a temporal sequence. This allows it to exhibit temporal dynamic behavior."
     }
 }
