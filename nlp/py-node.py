@@ -68,7 +68,7 @@ def run():
     def disconnect():
         print('disconnected from server')
 
-    sio.connect('http://localhost:80')
+    sio.connect('http://localhost:5000')
     sio.wait()
 
 

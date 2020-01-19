@@ -32,7 +32,7 @@ const compiler = webpack(config);
 const server = new http.Server(app);
 const io = require('socket.io')(server);
 
-const PORT = 80;
+const PORT = 5000;
 
 server.listen(PORT, () => {
     console.log(`listening to port ${PORT}`)
