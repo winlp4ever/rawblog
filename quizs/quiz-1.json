@@ -1,0 +1,18 @@
+{
+    "title": "Quiz 1",
+    "questions": [
+        {
+            "Q": "what is alpha?", 
+            "A": [
+                {
+                    "value": "alpha is alpha",
+                    "rightAnswer": true
+                },
+                {
+                    "value": "alpha is beta",
+                    "rightAnswer": false
+                }
+            ]
+        }
+    ]
+}
