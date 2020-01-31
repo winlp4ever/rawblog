@@ -153,7 +153,8 @@ class B0t extends Component {
             }
         } 
         
-        if (this.props.username != prevProps.username) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
+        if (this.props.username != prevProps.username) // Check if it's a new user, you can also use some unique property, 
+        //like the ID  (this.props.user.id !== prevProps.user.id)
         {
             //this.props.socket.emit('submit chat', {sender: 'bot', dest: this.props.username, msg: 'Knock Knock Neo ...'});
         }
