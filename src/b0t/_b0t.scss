@@ -246,7 +246,7 @@
                     padding: 10px 10px;
                     border-top-left-radius: 20px;
                     border-top-right-radius: 20px;
-                    
+                    max-width: 80%;
                     a {
                         display: inline-block;
                         padding: 0 10px;
@@ -297,7 +297,6 @@
                     .seeless {
                         display: none;
                         box-sizing: border-box;
-                        padding-bottom: 40px;
                         .markdown-render {
                             pre {
                                 padding: 10px !important;
@@ -306,70 +305,16 @@
                                 margin: 0 auto;
                             }
                         }
-                        .good, .bad {
-                            overflow: visible;
-                            position: absolute;
-                            bottom: 10px;
-                            font-size: 140%;
-                            width: 1.6em;
-                            height: 1.6em;
-                            text-align: center;
-                            border: 1px solid transparent;
-                            box-sizing: border-box;
-                            border-radius: 50%;
-    
-                            i {
-                                color: whitesmoke;
-                                position: absolute;
-                                bottom: 50%;
-                                margin-bottom: -0.5em;
-                                width: 1em;
-                                left: 50%;
-                                margin-left: -0.5em;
-                                transform: none;
-                            }
-                            &.good {
-                                left: 40px;
-                                &[clicked] {
-                                    i {
-                                        color: #222222;
-                                    }
-                                    background: #b9f6ca;
-                                    &:hover:before {
-                                        border-color: #222222;
-                                    }
-                                }
-                            }
-                            &.bad {
-                                right: 40px;
-                                &[clicked] {
-                                    i {
-                                        color: #222222;
-                                    }
-                                    background: #ff8a80;
-                                    &:hover:before {
-                                        border-color: #222222;
-                                    }
-                                }
-                            }
-                            &:before {
-                                position: absolute;
-                                z-index: 0;
-                                content: '';
-                                height: 1.6em;
-                                width: 1.6em;
-                                bottom: -1px;
-                                right: -1px;
-                                box-sizing: border-box;
-                                border-radius: 50%;
-                                border: 1px solid transparent;
-                            }
-                            &:hover:before {
-                                border: 1px dashed whitesmoke;
-                                animation: rotating 1.5s infinite linear;
-                            }
-    
-                        }
+                    }
+                    .like-dislike {
+                        position: absolute;
+                        z-index: 11;
+                        left: -20px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-evenly;
+                        top: 0;
+                        height: 100%;
                     }
                 } 
                 .msg.bot {

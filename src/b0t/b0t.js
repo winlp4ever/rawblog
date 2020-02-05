@@ -255,7 +255,11 @@ class B0t extends Component {
 
                             let b0ticon = (c.sender == 'bot') ? <span className='ava'><img src={bot} /></span>: 
                                 <span className='ava'><img src={mStud}/></span>;
-                            let identifier = (c.sender == this.props.username) ? 'iden me-chat': 'iden other-chat'
+                            let identifier = (c.sender == this.props.username) ? 'iden me-chat': 'iden other-chat';
+                            let likedislike = (c.sender == 'bot' && c.type && c.type == 'answer')?<div className='like-dislike' >
+                                <i className="fas fa-check fa-fw like" onClick={this.likeAnswer}></i>                                           
+                                <i className="fas fa-times fa-fw dislike" onClick={this.dislikeAnswer}></i>
+                            </div>: null;
                             let cl = 'msg';
                             if (c.sender == 'bot') {
                                 cl += ' bot';
@@ -276,18 +280,12 @@ class B0t extends Component {
                                         <div className={cl}>
                                             
                                             <span className='seemore'>
-                                                {c.msg}{seemore}{blink}
+                                                {c.msg}{seemore}{blink}{likedislike}
                                             </span>
                                             {c.fullanswer ?
                                             <span className='seeless'>
                                                 <MdRender source={c.fullanswer} />{seeless}
-                                                {blink}
-                                                <div className='good' onClick={this.likeAnswer}>
-                                                    <i className="fas fa-check fa-fw"></i>
-                                                </div>
-                                                <div className='bad' onClick={this.dislikeAnswer}>
-                                                    <i className="fas fa-times fa-fw"></i>
-                                                </div>
+                                                {blink}{likedislike}
                                             </span>: null
                                             }
                                             {c.referral ? 
