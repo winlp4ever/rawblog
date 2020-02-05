@@ -47,6 +47,10 @@ fs.readdir(articlesPath, function (err, files) {
     }
   
     files.forEach((file, index) => {
+        /**
+         * for each file (a post) in a (predefined) dir, load the content to the dict and also
+         * load the supp. info from JSON file of same name in logs folder if already existed, otherwise create one
+         */
         let p = path.join(articlesPath, file);
         let name = path.parse(file).name;
         if (fs.lstatSync(p).isDirectory()) {

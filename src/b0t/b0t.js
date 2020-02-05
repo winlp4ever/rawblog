@@ -276,8 +276,12 @@ class B0t extends Component {
                                             <span className='seeless'>
                                                 <MdRender source={c.fullanswer} />{seeless}
                                                 {blink}
-                                                <div className='good' onClick={this.likeAnswer}><i className="fas fa-check fa-fw"></i></div>
-                                                <div className='bad' onClick={this.dislikeAnswer}><i className="fas fa-times fa-fw"></i></div>
+                                                <div className='good' onClick={this.likeAnswer}>
+                                                    <i className="fas fa-check fa-fw"></i>
+                                                </div>
+                                                <div className='bad' onClick={this.dislikeAnswer}>
+                                                    <i className="fas fa-times fa-fw"></i>
+                                                </div>
                                             </span>: null
                                             }
                                             {c.referral ? 
