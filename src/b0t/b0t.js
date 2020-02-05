@@ -266,9 +266,15 @@ class B0t extends Component {
                             return (
                                 <div key={id} className='chat'>
                                     <div className={identifier}>
-                                        {b0ticon}
+                                        {(id == this.state.chats.length-1 || this.state.chats[id+1].sender != c.sender) ? 
+                                            <div className='user-and-date'>
+                                                {b0ticon}
+                                                <span className='user'>{c.sender}:</span>
+                                            </div>: <div className='user-and-date' />
+                                        }
+                                        
                                         <div className={cl}>
-                                            <span className='user'>{c.sender}:</span>
+                                            
                                             <span className='seemore'>
                                                 {c.msg}{seemore}{blink}
                                             </span>
