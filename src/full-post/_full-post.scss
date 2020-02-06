@@ -101,33 +101,36 @@ div.full-post {
     pre {
         display: block;
         position: relative;
+        margin: 0 2.5em;
         font: {
-            size: 80%;
+            size: 100%;
         };
         box-sizing: border-box;
         border: none;
+        border-radius: 3px;
+        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
         code {
             overflow-x: scroll;
         }
         &:after {
             content: ' ';
-            height: 10px;
-            width: 10px;
-            border-radius: 5px;
+            height: 1em;
+            width: 1em;
+            border-radius: 0.5em;
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 0.75em;
+            left: 1em;
             background: #ff5f56;
             z-index: 2;
         }
         &:before {
             content: ' ';
-            height: 10px;
-            width: 10px;
-            border-radius: 5px;
+            height: 1em;
+            width: 1em;
+            border-radius: 0.5em;
             position: absolute;
-            top: 10px;
-            left: 25px;
+            top: 0.75em;
+            left: 2.5em;
             background: #27c93f;
             z-index: 2;
         }
