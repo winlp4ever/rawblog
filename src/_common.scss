@@ -30,3 +30,12 @@ section.view {
         display: inherit;
     }
 }
+
+@keyframes appear {
+    0% {transform: scale(1.4); opacity: 0}
+    100% {transform: none; opacity: 1}
+}
+
+.appear {
+    animation: appear 0.3s ease-in;
+}

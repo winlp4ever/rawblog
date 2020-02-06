@@ -260,7 +260,7 @@ class B0t extends Component {
                                 <i className="fas fa-check fa-fw like" onClick={this.likeAnswer}></i>                                           
                                 <i className="fas fa-times fa-fw dislike" onClick={this.dislikeAnswer}></i>
                             </div>: null;
-                            let cl = 'msg';
+                            let cl = 'appear msg';
                             if (c.sender == 'bot') {
                                 cl += ' bot';
                             } else if (c.sender != this.props.username) {
