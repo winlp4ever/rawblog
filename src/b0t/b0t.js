@@ -264,7 +264,8 @@ class B0t extends Component {
                             let cl = 'msg';
                             if (id == this.state.chats.length-1) cl = 'appear ' + cl;
                             if (id == 0 || this.state.chats[id-1].sender != c.sender) cl = 'first ' + cl;
-                            
+                            if (id == this.state.chats.length-1 || this.state.chats[id+1].sender != c.sender)
+                                cl = 'last ' + cl;
                             if (c.sender == 'bot') {
                                 cl += ' bot';
                             } else if (c.sender != this.props.username) {
