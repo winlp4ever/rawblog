@@ -29,6 +29,11 @@ def run():
     QAs = json.load(open('nlp/qas.json'))
     sio = socketio.Client()
 
+    def send_msg(event, msg):
+        sio.emit('is typing', {'sender': msg['sender'], 'dest': msg['dest']})
+        sleep(1)
+        sio.emit(event, msg)
+
     @sio.event
     def connect():
         print('connection established')
@@ -52,21 +57,15 @@ def run():
         if msg['dest'] != 'bot':
             return
         if 'referral' in msg:
-            sio.emit('is typing', {'sender': 'bot', 'dest': msg['referral']})
-            sleep(1)
             if len(msg['msg']) > 150:
-                sio.emit('is typing', {'sender': 'bot', 'dest': msg['referral']})
-                sleep(1)
-                sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 
+                send_msg('new chat', {'sender': 'bot', 'dest': msg['referral'], 
                     'msg': msg['msg'][:150] + '...',
                     'fullanswer': "Prof's reply: %s" %msg['msg'],
                     'type': 'answer'})
                 return
-            sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 'msg': "Prof's reply:%s" %msg['msg'], 'type': 'answer'})
+            send_msg('new chat', {'sender': 'bot', 'dest': msg['referral'], 'msg': "Prof's reply:%s" %msg['msg'], 'type': 'answer'})
             return
 
-        sio.emit('is typing', {'sender': 'bot', 'dest': msg['sender']})
-        sleep(1)
         q = msg['msg']
         if q.lower() in QAs:
             match = QAs[q.lower()]
@@ -79,17 +78,13 @@ def run():
                 res['courses'] = match['courses']
             if 'toread' in match:
                 res['toread'] = match['toread']
-            sio.emit('new chat', res)
+            send_msg('new chat', res)
         elif q.endswith('?'):
             excuses = ["I'm not qualified to answer this!",
                 "I'll deliver this question to someone capable!"]
             for s in excuses:
-                sio.emit('is typing', {'sender': 'bot', 'dest': msg['sender']})
-                sleep(1)
-                sio.emit('new chat', {'sender': 'bot', 'dest': msg['sender'], 'msg': s})
-            sio.emit('is typing', {'sender': 'bot', 'dest': 'Prof. Alpha'})
-            sleep(1)
-            sio.emit('new chat', {'sender': 'bot', 'dest': 'Prof. Alpha', 'msg': 'A student (%s) has the following question: %s' %(msg['sender'], msg['msg']), 'referral': msg['sender']})
+                send_msg('new chat', {'sender': 'bot', 'dest': msg['sender'], 'msg': s})
+            send_msg('new chat', {'sender': 'bot', 'dest': 'Prof. Alpha', 'msg': 'A student (%s) has the following question: %s' %(msg['sender'], msg['msg']), 'referral': msg['sender']})
 
     @sio.event
     def disconnect():

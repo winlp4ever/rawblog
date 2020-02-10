@@ -12,6 +12,7 @@ import idea from '../../imgs/idea.svg';
 import lesson from '../../imgs/lesson.svg';
 import toread from '../../imgs/toread.svg';
 import 'three-dots';
+import Send from '../../imgs/send.svg';
 
 const Newchat = (props) => {
     const [newchat, setNewchat] = useState('');
@@ -21,25 +22,33 @@ const Newchat = (props) => {
         setNewchat(e.target.value);
         props.socket.emit('ask for hints', {sender: user.name, msg: e.target.value});
     }
+    const sendNewChat = () => {
+        if (!newchat) return;
+        if (newchat.indexOf('@') == 0 && props.dest == 'bot') {
+            props.socket.emit('submit chat',
+                {sender: user.name, dest: newchat.substr(1, newchat.length-1), msg: 'Hi'})
+        }
+        else {
+            if (props.referral) 
+                props.socket.emit('submit chat', {sender: user.name, dest: props.dest, msg: newchat, referral: props.referral});
+            else props.socket.emit('submit chat', {sender: user.name, dest: props.dest, msg: newchat});
+        }
+        setNewchat('');
+        setFocus(-1);
+        props.resetHints();
+    }
     const submit = async (e) => {
         let keycode = e.keyCode || e.which;
         if (keycode == 13) {
             e.preventDefault();
-            if (!newchat) return;
-            if (newchat.indexOf('@') == 0 && props.dest == 'bot') {
-                props.socket.emit('submit chat',
-                    {sender: user.name, dest: newchat.substr(1, newchat.length-1), msg: 'Hi'})
-            }
-            else {
-                if (props.referral) 
-                    props.socket.emit('submit chat', {sender: user.name, dest: props.dest, msg: newchat, referral: props.referral});
-                else props.socket.emit('submit chat', {sender: user.name, dest: props.dest, msg: newchat});
-            }
-            setNewchat('');
-            setFocus(-1);
-            props.resetHints();
+            sendNewChat();
             $(e.currentTarget).val('');     
         }
+    }
+
+    const clickSend = async (e) => {
+        sendNewChat();
+        $(e.currentTarget).parent().children('textarea').val('');
     }
 
     const keyBehave = async (e) => {
@@ -62,8 +71,10 @@ const Newchat = (props) => {
             props.resetHints();
         }
     }
+    let cl = 'newchat';
+    if (newchat) cl = 'newchat typing';
     return (
-        <div className='newchat'>
+        <div className={cl}>
             <div className='hints'>
                 {props.hints.length > 0 ? <div className='help-hint'><span>see if your question is here ...</span></div>: null}
                 {props.hints.map((h, i) => (<div className={'hint' + ((focus == i)? ' focus': '')} key={i}>
@@ -71,6 +82,7 @@ const Newchat = (props) => {
                         <span className='confid'>{parseFloat(h.confidence)*100}%</span>
                     </div>))}
             </div>
+            <div className='send'onClick={clickSend}><img src={Send} /></div>
             {props.referral? <span className='referral'>
                 to {props.referral} <i onClick={props.unsetReferral} className="fas fa-times"></i></span>: null}
             <textarea 
