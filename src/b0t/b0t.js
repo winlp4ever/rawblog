@@ -11,6 +11,7 @@ import mStud from '../../imgs/m-stud.svg';
 import idea from '../../imgs/idea.svg';
 import lesson from '../../imgs/lesson.svg';
 import toread from '../../imgs/toread.svg';
+import 'three-dots';
 
 const Newchat = (props) => {
     const [newchat, setNewchat] = useState('');
@@ -93,7 +94,8 @@ class B0t extends Component {
         notifs: [],
         referral: '',
         supp_info: {},
-        hints: []
+        hints: [],
+        is_typing: false
     }
 
     updateNotifs = async () => {
@@ -113,7 +115,7 @@ class B0t extends Component {
         if (msg.sender == this.props.username || msg.dest == this.props.username) {
             let copy = this.state.chats.slice();
             copy.push(msg);
-            this.setState({chats: copy});
+            this.setState({chats: copy, is_typing: false});
             if (msg.sender != this.props.username && this.state.dests.indexOf(msg.sender) < 0) {
                 let cp_list = this.state.dests.slice();
                 cp_list.push(msg.sender);
@@ -142,6 +144,11 @@ class B0t extends Component {
         this.props.socket.on('hints', msg => {
             if (msg.dest == this.props.username) {
                 this.setState({hints: msg.hints})
+            }
+        })
+        this.props.socket.on('is typing', msg => {
+            if (msg.dest == this.props.username) {
+                this.setState({is_typing: true})
             }
         })
     }
@@ -295,6 +302,9 @@ class B0t extends Component {
                                 </div>
                             )
                         })}
+                        {this.state.is_typing? <div className='is-typing'>
+                            <div /><div /><div /><div />
+                        </div>: null}
                     </div>
                     <Newchat 
                         socket={this.props.socket} 

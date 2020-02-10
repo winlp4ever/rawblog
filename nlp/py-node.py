@@ -14,6 +14,7 @@ from utils import get_dataset, download_pretrained_model
 
 import json
 
+from time import sleep
 
 
 import socketio
@@ -44,24 +45,29 @@ def run():
         sio.emit('hints', {'dest': typed['sender'], 'hints': hints})
     @sio.on('new chat')
     def on_message(msg):
+        
         if msg['dest'] != 'bot':
             return
         if 'referral' in msg:
             if len(msg['msg']) > 150:
+                sio.emit('is typing', {'sender': 'bot', 'dest': msg['referral']})
+                sleep(1)
                 sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 
-                    'msg': msg['msg'][:20] + '...',
+                    'msg': msg['msg'][:150] + '...',
                     'fullanswer': "Prof's reply: %s" %msg['msg'],
                     'type': 'answer'})
                 return
             sio.emit('new chat', {'sender': 'bot', 'dest': msg['referral'], 'msg': "Prof's reply:%s" %msg['msg'], 'type': 'answer'})
             return
 
+        sio.emit('is typing', {'sender': 'bot', 'dest': msg['sender']})
+        sleep(1)
         q = msg['msg']
         if q.lower() in QAs:
             match = QAs[q.lower()]
             answer = match['answer']
             if len(answer) > 150:
-                res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer[:20] + '...', 'fullanswer': answer, 'type': 'answer'}
+                res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer[:150] + '...', 'fullanswer': answer, 'type': 'answer'}
             else:
                 res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer, 'type': 'answer'}
             if 'courses' in match:

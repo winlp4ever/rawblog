@@ -127,6 +127,10 @@ io.on('connection', function(socket){
         io.emit('new chat', msg);
     })
 
+    socket.on('is typing', msg => {
+        io.emit('is typing', msg);
+    })
+
     socket.on('ask for hints', msg => {
         io.emit('ask for hints', msg);
         console.log(msg);
