@@ -6,8 +6,8 @@
   
 /* The typewriter cursor effect */
 @keyframes blink-caret {
-    from, to { color: transparent }
-    50% { color: #4caf50 ; }
+    from, to { background: transparent }
+    50% { background: #ffffff ; }
 }
 
 @keyframes fading {
@@ -57,10 +57,13 @@
 .hide-b0t {
     z-index: 5;
     width: 100%;
-    position: fixed;
+    position: fixed !important;
     bottom: 0;
     height: 25px;
     background: whitesmoke;
+    div {
+        visibility: hidden;
+    }
 }
 
 .notifs {
@@ -327,10 +330,14 @@
                         text-align: right;
                     }
                     .blink {
-                        transform: scale(2.5);
-                        transform-origin: 0% 70%;
-                        font-weight: 700;
-                        animation: blink-caret 0.75s infinite;
+                        position: absolute;
+
+                        display: inline-block;
+                        height: 1em;
+                        width: 2px;
+                        transform: scale(1.2);
+                        //transform-origin: 0% 70%;
+                        animation: blink-caret 0.9s infinite;
                         margin-left: -2px;
                     }
                     .reply-to {

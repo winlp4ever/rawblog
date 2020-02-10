@@ -219,22 +219,18 @@ class B0t extends Component {
     }
 
     render() {
-        if (this.state.hide) return (
-            <div className='hide-b0t'>
-                <button className='showhide-ter' onClick={_ => this.showhide()}>Ask me!</button>
-            </div>
-        )
-
         const Nos = {notifs: this.state.notifs, updateNotifs: this.updateNotifs};
         const reprops = {
             defaultSize: {
                 width:'100%',
-                height:350,
-            }, minWidth: '100%', minHeight: 200, maxWidth: '100%', maxHeight: 600, position: 'absolute'}
+                height: this.state.hide ? 25: 350,
+            }, minWidth: '100%', minHeight: this.state.hide ? 25: 200, maxWidth: '100%', maxHeight: this.state.hide ? 25: 600, position: 'absolute'}
         return (
             <NotifContext.Provider value={Nos}>
-            <Resizable {...reprops} className='b0t'>
-                <button className='showhide-ter' onClick={_ => this.showhide()}>Hide me!</button>
+            <Resizable {...reprops} className={this.state.hide? 'hide-b0t': 'b0t'}>
+                <button className='showhide-ter' onClick={_ => this.showhide()}>
+                    {this.state.hide? 'Ask me!': 'Hide me!'}
+                </button>
                 <div className='chat-list'>
                     {this.state.dests.map((d, id) => {
                         if (id == this.state.currDest) 
@@ -248,7 +244,7 @@ class B0t extends Component {
                             let course_id = c.courses || -1;
                             let seemore = c.fullanswer ? <a onClick={e => this.seemore(c.toread, course_id, e)}>see more</a>: null;
                             let seeless = c.fullanswer ? <a onClick={e => this.seeless(e)}>see less</a>: null;
-                            let blink = (id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'>|</span>: null;
+                            let blink = (id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'></span>: null;
 
                             if (c.sender != this.state.dests[this.state.currDest] && 
                                 c.dest != this.state.dests[this.state.currDest]) return;
@@ -260,7 +256,9 @@ class B0t extends Component {
                                 <i className="fas fa-check fa-fw like" onClick={this.likeAnswer}></i>                                           
                                 <i className="fas fa-times fa-fw dislike" onClick={this.dislikeAnswer}></i>
                             </div>: null;
-                            let cl = 'appear msg';
+                            let cl = 'msg';
+                            if (id == this.state.chats.length-1) cl = 'appear ' + cl;
+                            
                             if (c.sender == 'bot') {
                                 cl += ' bot';
                             } else if (c.sender != this.props.username) {
