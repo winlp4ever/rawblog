@@ -96,7 +96,7 @@
         margin-top: -1.8em;
         background: whitesmoke;
         height: 1.8em;
-        box-shadow: 2px -4px 6px rgba(0,0,0, 0.08);
+        box-shadow: 0px -6px 6px rgba(0,0,0, 0.18);
         color: #5a5a5a;
     }
 
@@ -243,8 +243,7 @@
                     background: white;
                     box-sizing: border-box;
                     padding: 10px 10px;
-                    border-top-left-radius: 20px;
-                    border-top-right-radius: 20px;
+                    
                     max-width: 80%;
                     a {
                         display: inline-block;
@@ -317,6 +316,10 @@
                     }
                 } 
                 .msg.bot {
+                    border-top-left-radius: 20px;
+                    &.first {
+                        border-top-right-radius: 20px;
+                    }
                     border-bottom-left-radius: 20px;
                     background: lightgrey;
                     text-align: right;
@@ -348,6 +351,10 @@
                     background: rgb(255, 255, 234);
                     border: 1px solid lightgrey;
                     border-bottom-left-radius: 20px;
+                    border-top-left-radius: 20px;
+                    &.first {
+                        border-top-right-radius: 20px;
+                    }
                     .reply-to {
                         right: 10px;
                     }
@@ -355,6 +362,10 @@
 
                 .msg.me {
                     border-bottom-right-radius: 20px;
+                    border-top-right-radius: 20px;
+                    &.first {
+                        border-top-left-radius: 20px;
+                    }
                     box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.08);
                     .reply-to {
                         left: 10px;

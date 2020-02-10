@@ -263,6 +263,7 @@ class B0t extends Component {
                             let identifier = (c.sender == this.props.username) ? 'iden me-chat': 'iden other-chat';
                             let cl = 'msg';
                             if (id == this.state.chats.length-1) cl = 'appear ' + cl;
+                            if (id == 0 || this.state.chats[id-1].sender != c.sender) cl = 'first ' + cl;
                             
                             if (c.sender == 'bot') {
                                 cl += ' bot';
