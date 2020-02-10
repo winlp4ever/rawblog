@@ -332,9 +332,9 @@
                         height: 1em;
                         width: 2px;
                         transform: scale(1.2);
-                        //transform-origin: 0% 70%;
+                        transform-origin: 0% 50%;
                         animation: blink-caret 0.9s infinite;
-                        margin-left: -2px;
+                        margin-left: 0px;
                     }
                     .reply-to {
                         right: 10px;

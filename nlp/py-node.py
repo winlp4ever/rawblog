@@ -28,12 +28,14 @@ def run():
     model.load_model('/home/redlcamille/workspace/sent2vec/torontobooks_unigrams.bin')
     QAs = json.load(open('nlp/qas.json'))
     sio = socketio.Client()
+
     @sio.event
     def connect():
         print('connection established')
+
+    
     @sio.on('ask for hints')
     def on_message(typed):
-
         emb = model.embed_sentence(typed['msg']) 
         hints = []
         for q in QAs:
@@ -43,12 +45,15 @@ def run():
                 hints.append({'hint': q, 'confidence': '%.2f'%confid})
         hints.sort(key= lambda u: u['confidence'], reverse=True)
         sio.emit('hints', {'dest': typed['sender'], 'hints': hints})
+
+
     @sio.on('new chat')
     def on_message(msg):
-        
         if msg['dest'] != 'bot':
             return
         if 'referral' in msg:
+            sio.emit('is typing', {'sender': 'bot', 'dest': msg['referral']})
+            sleep(1)
             if len(msg['msg']) > 150:
                 sio.emit('is typing', {'sender': 'bot', 'dest': msg['referral']})
                 sleep(1)
@@ -79,7 +84,11 @@ def run():
             excuses = ["I'm not qualified to answer this!",
                 "I'll deliver this question to someone capable!"]
             for s in excuses:
+                sio.emit('is typing', {'sender': 'bot', 'dest': msg['sender']})
+                sleep(1)
                 sio.emit('new chat', {'sender': 'bot', 'dest': msg['sender'], 'msg': s})
+            sio.emit('is typing', {'sender': 'bot', 'dest': 'Prof. Alpha'})
+            sleep(1)
             sio.emit('new chat', {'sender': 'bot', 'dest': 'Prof. Alpha', 'msg': 'A student (%s) has the following question: %s' %(msg['sender'], msg['msg']), 'referral': msg['sender']})
 
     @sio.event

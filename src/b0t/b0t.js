@@ -134,11 +134,11 @@ class B0t extends Component {
     async componentDidMount() {
         //this.props.socket.emit('submit chat', {sender: 'bot', dest: this.props.username, msg: 'Knock Knock Neo ...'});
         this._isMounted = true;
-        let first_msg = 'Knock Knock... Neo! Wake up!';
-        for (let i = 0; i <= first_msg.length; i++) {
+        let first_msg = ' Knock Knock... Neo! Wake up!';
+        for (let i = 1; i <= first_msg.length; i++) {
             if (i == 1 || i == 15) await new Promise(res => setTimeout(() => res(), 2000));
             else await new Promise(res => setTimeout(() => res(), 100));
-            this.setState({chats: [{sender: 'bot', dest: this.props.username, msg: first_msg.substr(0, i)}]})
+            this.setState({chats: [{sender: 'bot', dest: this.props.username, msg: first_msg.substr(0, i) || 'K'}]})
         }
         this.props.socket.on('new chat', msg => this.updateChat(msg));
         this.props.socket.on('hints', msg => {
@@ -202,16 +202,6 @@ class B0t extends Component {
             this.setState({ supp_info:  {}});
         }
     }
-    
-
-    likeAnswer = e => {
-        $(e.currentTarget).attr('clicked', '1');
-        $(e.currentTarget).parent().children('.bad').removeAttr('clicked');
-    }
-    dislikeAnswer = e => {
-        $(e.currentTarget).attr('clicked', '1');
-        $(e.currentTarget).parent().children('.good').removeAttr('clicked');
-    }
 
     setReferral = name => {
         this.setState({referral: name})
@@ -259,10 +249,6 @@ class B0t extends Component {
                             let b0ticon = (c.sender == 'bot') ? <span className='ava'><img src={bot} /></span>: 
                                 <span className='ava'><img src={mStud}/></span>;
                             let identifier = (c.sender == this.props.username) ? 'iden me-chat': 'iden other-chat';
-                            let likedislike = (c.sender == 'bot' && c.type && c.type == 'answer')?<div className='like-dislike' >
-                                <i className="fas fa-check fa-fw like" onClick={this.likeAnswer}></i>                                           
-                                <i className="fas fa-times fa-fw dislike" onClick={this.dislikeAnswer}></i>
-                            </div>: null;
                             let cl = 'msg';
                             if (id == this.state.chats.length-1) cl = 'appear ' + cl;
                             
@@ -285,12 +271,12 @@ class B0t extends Component {
                                         <div className={cl}>
                                             
                                             <span className='seemore'>
-                                                {c.msg}{seemore}{blink}{likedislike}
+                                                {c.msg}{seemore}{blink}
                                             </span>
                                             {c.fullanswer ?
                                             <span className='seeless'>
                                                 <MdRender source={c.fullanswer} />{seeless}
-                                                {blink}{likedislike}
+                                                {blink}
                                             </span>: null
                                             }
                                             {c.referral ? 
