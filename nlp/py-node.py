@@ -20,6 +20,7 @@ from time import sleep
 import socketio
 import sent2vec
 from scipy.spatial.distance import cosine
+from tokenizer import Token
 
 
 def run():
@@ -28,6 +29,12 @@ def run():
     model.load_model('/home/redlcamille/workspace/sent2vec/torontobooks_unigrams.bin')
     QAs = json.load(open('nlp/qas.json'))
     sio = socketio.Client()
+
+    questions = [q for q in QAs]
+    tk = Token()
+    toks = tk.tokenize(questions)
+    embeds = [model.embed_sentence(q) for q in toks]
+    print(toks)
 
     def send_msg(event, msg):
         sio.emit('is typing', {'sender': msg['sender'], 'dest': msg['dest']})
@@ -43,9 +50,8 @@ def run():
     def on_message(typed):
         emb = model.embed_sentence(typed['msg']) 
         hints = []
-        for q in QAs:
-            e = model.embed_sentence(q)
-            confid = 1.0-cosine(e, emb)
+        for i, q in enumerate(QAs):
+            confid = 1.0-cosine(embeds[i], emb)
             if confid > 0.7:
                 hints.append({'hint': q, 'confidence': '%.2f'%confid})
         hints.sort(key= lambda u: u['confidence'], reverse=True)
