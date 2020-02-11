@@ -105,6 +105,7 @@
         box-sizing: border-box;
         background: whitesmoke;
         width: 20%;
+        border-right: 1px solid rgb(221, 221, 221);
         span {
             position: relative;
             padding: 10px 25px 5px;
@@ -381,7 +382,7 @@
                     }
                 }
                 .msg.bot.answer {
-                    background: linear-gradient(-23deg, #1565c0 0%, #0277bd 100%);
+                    background: #fb8c00 ;
                     span{
                         color: whitesmoke;
                     }
@@ -514,9 +515,6 @@
         right: 25px;
         box-sizing: border-box;
         padding: 3em 0.6em 0.6em;
-        border-radius: 8px;
-        border-top-left-radius: 0.75em;
-        border-top-right-radius: 0.75em;
         overflow: hidden;
         margin: 0.5em;
         transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -594,13 +592,18 @@
             left: 0;
             width: 100%;
             display: block;
-            background: linear-gradient(23deg, #e53935 0%, #e64a19 100%);
+            background: #ff5252;
             
             img {
                 display: block;
                 width: 1.5em;
                 height: auto;
                 margin: 0.4em auto;
+                animation: light-up 0.5s 5 cubic-bezier(0.6, -0.28, 0.735, 0.045);
+                @keyframes light-up {
+                    0% {transform: scale(1.5); opacity: 0.6}
+                    100% {transform: scale(1); opacity: 1}
+                }
             }
         }      
     }
