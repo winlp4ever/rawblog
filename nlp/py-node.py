@@ -23,6 +23,10 @@ from scipy.spatial.distance import cosine
 from tokenizer import Token
 
 
+import spacy
+nlp = spacy.load('en')
+
+
 def run():
     
     model = sent2vec.Sent2vecModel()
@@ -63,6 +67,7 @@ def run():
         if msg['dest'] != 'bot':
             return
         if 'referral' in msg:
+            
             if len(msg['msg']) > 150:
                 send_msg('new chat', {'sender': 'bot', 'dest': msg['referral'], 
                     'msg': msg['msg'][:150] + '...',
@@ -76,15 +81,16 @@ def run():
         if q.lower() in QAs:
             match = QAs[q.lower()]
             answer = match['answer']
-            if len(answer) > 150:
-                res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer[:150] + '...', 'fullanswer': answer, 'type': 'answer'}
-            else:
-                res = {'sender': 'bot', 'dest': msg['sender'], 'msg': answer, 'type': 'answer'}
-            if 'courses' in match:
-                res['courses'] = match['courses']
-            if 'toread' in match:
-                res['toread'] = match['toread']
-            send_msg('new chat', res)
+            for sent in nlp(answer).sents:
+                send_msg('new chat', {'sender': 'bot', 'dest': msg['sender'], 'msg': sent.text, 'type': 'answer'})
+
+            if 'courses' in match or 'toread' in match:
+                res = {'sender': 'bot', 'dest': msg['sender'], 'msg': 'more insights'}
+                if 'courses' in match:
+                    res['courses'] = match['courses']
+                if 'toread' in match:
+                    res['toread'] = match['toread']
+                send_msg('new chat', res)
         elif q.endswith('?'):
             excuses = ["I'm not qualified to answer this!",
                 "I'll deliver this question to someone capable!"]

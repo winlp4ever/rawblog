@@ -240,20 +240,21 @@
                     justify-content: flex-start;
                     margin: 5px 5px;
                     //max-width: 300px;
-                    word-wrap: break-word;
+                    word-break: break-word;
                     background: white;
                     box-sizing: border-box;
                     padding: 10px 10px;
                     
                     max-width: 65%;
                     a {
-                        display: inline-block;
-                        padding: 0 10px;
-                        border-radius: 5px;
-                        background: white;
-                        color: rgb(145, 145, 145);
+                        color: #2196f3;
+                        transition: all 0.2s linear;
+                        &:hover {
+                            text-decoration: underline;
+                        }
                     }
                     > span {
+                        flex: auto;
                         display: inline-block;
                         font: {
                             size: 60%;
@@ -262,7 +263,6 @@
                         vertical-align: middle;
                         color: #222222;
                         margin: 0 5px;
-                        word-wrap: break-all;
                         overflow-wrap: break-word;
                     }
                     
@@ -288,21 +288,6 @@
                             color: grey;
                             display: inline;
                             transform: none;
-                        }
-                    }
-                    .seemore {
-                        display: auto;
-                    }
-                    .seeless {
-                        display: none;
-                        box-sizing: border-box;
-                        .markdown-render {
-                            pre {
-                                padding: 10px !important;
-                            }
-                            p {
-                                margin: 0 auto;
-                            }
                         }
                     }
                     .like-dislike {
@@ -539,6 +524,27 @@
         }
         &:hover {
             box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.12);
+        }
+        .close {
+
+            vertical-align: center;
+            text-align: center;
+            width: 1.6em;
+            height: 1.6em;
+            background: none;
+            outline: none;
+            border: none;
+            border-radius: 50%;
+            position: absolute;
+            font-size: 1em;
+            top: 0.2em;
+            right: 0.5em;
+            z-index: 11;
+            color: lightgrey;
+            transition: 0.2s all linear;
+            &:hover {
+                background: whitesmoke;
+            }
         }
         .relevant-course, .toread {
             a {

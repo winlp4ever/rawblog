@@ -192,27 +192,21 @@ class B0t extends Component {
     }
 
     // view full answer
-    seemore = async (toread, id, e) => {
-        $(e.currentTarget).parent().parent().children('.seeless').css('display', 'block');
-        $(e.currentTarget).parent().css('display', 'none');
-        let suppinfo = {}
+    viewInsights = async (toread, id, e) => {
+        let insights = {}
         if (id > -1) {
             let response = await fetch(`/get-post-title?postId=${id}`, {method: 'POST'});
             let data = await response.json();
-            suppinfo.course = {title: data.title, id: id}
+            insights.course = {title: data.title, id: id}
         } 
         if (toread) {
-            suppinfo.toread = toread;
+            insights.toread = toread;
         }
-        this.setState({supp_info: suppinfo})
+        this.setState({supp_info: insights})
     }
 
-    seeless = async (e) => {
-        $(e.currentTarget).parent().parent().children('.seemore').css('display', '');
-        $(e.currentTarget).parent().css('display', '');
-        if (this.state.supp_info) {
-            this.setState({ supp_info:  {}});
-        }
+    closeInsights = async () => {
+        this.setState({supp_info: {}});
     }
 
     setReferral = name => {
@@ -251,8 +245,9 @@ class B0t extends Component {
                     <div className='oldchats'>
                         {this.state.chats.map((c, id) => {
                             let course_id = c.courses || -1;
-                            let seemore = c.fullanswer ? <a onClick={e => this.seemore(c.toread, course_id, e)}>see more</a>: null;
-                            let seeless = c.fullanswer ? <a onClick={e => this.seeless(e)}>see less</a>: null;
+                            let viewinsights = (c.toread | course_id >= 0)? 
+                                <a onClick={e => this.viewInsights(c.toread, course_id, e)}>see here</a>: null
+    
                             let blink = (id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'></span>: null;
 
                             if (c.sender != this.state.dests[this.state.currDest] && 
@@ -283,16 +278,10 @@ class B0t extends Component {
                                         }
                                         
                                         <div className={cl}>
-                                            
                                             <span className='seemore'>
-                                                {c.msg}{seemore}{blink}
-                                            </span>
-                                            {c.fullanswer ?
-                                            <span className='seeless'>
-                                                <MdRender source={c.fullanswer} />{seeless}
+                                                {c.msg + ' '}{viewinsights}
                                                 {blink}
-                                            </span>: null
-                                            }
+                                            </span>
                                             {c.referral ? 
                                             <span className='reply-to' onClick={_ => this.setReferral(c.referral)}>
                                                 <i className="fas fa-reply"></i> {c.referral}
@@ -324,6 +313,7 @@ class B0t extends Component {
                     unmountOnExit
                 >
                 <div className='supp-info'>
+                    <button className='close' onClick={this.closeInsights}><i className="fas fa-times"></i></button>
                     <span className='title-icon'><img src={idea} /></span>
                     {this.state.supp_info.course? 
                         <div className='relevant-course'>
