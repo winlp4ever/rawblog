@@ -316,7 +316,7 @@ class B0t extends Component {
                     />
                 </div>
                 <Notif />
-                <div className='supp-info'>
+                {this.state.supp_info.course? <div className='supp-info'>
                     <span className='title-icon'><img src={idea} /></span>
                     {this.state.supp_info.course? 
                         <div className='relevant-course'>
@@ -335,7 +335,7 @@ class B0t extends Component {
                             </ul>
                         </div>:null
                     }
-                </div>
+                </div>: null}
             </Resizable>
             </NotifContext.Provider>
         )
