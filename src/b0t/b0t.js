@@ -11,8 +11,8 @@ import mStud from '../../imgs/m-stud.svg';
 import idea from '../../imgs/idea.svg';
 import lesson from '../../imgs/lesson.svg';
 import toread from '../../imgs/toread.svg';
-import 'three-dots';
 import Send from '../../imgs/send.svg';
+import {CSSTransition} from 'react-transition-group';
 
 const Newchat = (props) => {
     const [newchat, setNewchat] = useState('');
@@ -316,7 +316,14 @@ class B0t extends Component {
                     />
                 </div>
                 <Notif />
-                {this.state.supp_info.course? <div className='supp-info'>
+                
+                <CSSTransition
+                    in={this.state.supp_info.course? true: false}
+                    timeout={100}
+                    classNames="display"
+                    unmountOnExit
+                >
+                <div className='supp-info'>
                     <span className='title-icon'><img src={idea} /></span>
                     {this.state.supp_info.course? 
                         <div className='relevant-course'>
@@ -335,7 +342,8 @@ class B0t extends Component {
                             </ul>
                         </div>:null
                     }
-                </div>: null}
+                </div>
+                </CSSTransition>
             </Resizable>
             </NotifContext.Provider>
         )
