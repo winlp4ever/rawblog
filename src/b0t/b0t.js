@@ -335,7 +335,7 @@ class B0t extends Component {
                 
                 <CSSTransition
                     in={this.state.insights.course? true: false}
-                    timeout={100}
+                    timeout={200}
                     classNames="display"
                     unmountOnExit
                 >
