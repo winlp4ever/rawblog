@@ -52,7 +52,7 @@ const Newchat = (props) => {
     }
 
     const keyBehave = async (e) => {
-        // apply 'hint' when press 'tab', escape hints when press 'esc'
+        // apply 'hint' when press 'tab', escape hints when pressing 'esc'
         let keycode = e.keyCode || e.which;
         if (keycode == 9) {
             e.preventDefault();
