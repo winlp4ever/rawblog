@@ -17,6 +17,7 @@ import {CSSTransition} from 'react-transition-group';
 const Newchat = (props) => {
     const [newchat, setNewchat] = useState('');
     const [focus, setFocus] = useState(-1);
+    const [cursorOn, setCursorOn] = useState(false);
     const user = useContext(userContext).user;
     const onChange = async(e) => {
         setNewchat(e.target.value);
@@ -51,6 +52,14 @@ const Newchat = (props) => {
         $(e.currentTarget).parent().children('textarea').val('');
     }
 
+    const checkCursorOn = async () => {
+        setCursorOn(true);
+    }
+
+    const checkCursorOff = async () => {
+        setCursorOn(false)
+    }
+
     const keyBehave = async (e) => {
         // apply 'hint' when press 'tab', escape hints when pressing 'esc'
         let keycode = e.keyCode || e.which;
@@ -72,7 +81,7 @@ const Newchat = (props) => {
         }
     }
     let cl = 'newchat';
-    if (newchat) cl = 'newchat typing';
+    if (cursorOn) cl = 'newchat typing';
     return (
         <div className={cl}>
             <div className='hints'>
@@ -91,6 +100,8 @@ const Newchat = (props) => {
                 onChange={onChange}
                 onKeyPress={submit}
                 onKeyDown={keyBehave}
+                onFocus={checkCursorOn}
+                onBlur={checkCursorOff}
             />
         </div>
     )

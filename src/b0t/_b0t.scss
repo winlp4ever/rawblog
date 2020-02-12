@@ -56,8 +56,9 @@
     bottom: 0;
     height: 25px;
     background: whitesmoke;
-    div {
-        visibility: hidden;
+    overflow: hidden;
+    *:not(.showhide-ter) {
+        display: none;
     }
 }
 
@@ -91,12 +92,14 @@
     flex-direction: row;
     bottom: 0px;
     right: 0px;
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.21);
+    border-top: 1px solid lightgrey;
     .showhide-ter {
         margin-top: -1.8em;
         background: whitesmoke;
         height: 1.8em;
-        box-shadow: 0px -6px 6px rgba(0,0,0, 0.18);
+        border-top: 1px solid lightgrey;
+        border-right: 1px solid lightgrey;
+        border-left: 1px solid lightgrey;
         color: #5a5a5a;
     }
 
@@ -367,20 +370,20 @@
                     }
                 }
                 .msg.bot.answer {
-                    background: #fb8c00 ;
+                    background: linear-gradient(23deg, #8c9eff 50%, #82b1ff 100%);
                     span{
-                        color: whitesmoke;
+                        color: #222222;
                     }
                     .blink{
-                        color: #fff3e0;
+                        color: #212121;
                     }
                 }
             }
         }
         .newchat {
             z-index: 10;
-            box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .18);
-            background: white;
+            border: 1px solid lightgrey;
+            background: inherit;
             position: absolute;
             bottom: 15px;
             margin: auto 3%;
@@ -390,9 +393,9 @@
             border-radius: 0.9em;
             display: flex;
             flex-direction: row;
-            transition: 0.5s all ease-in-out;
+            transition: 0.35s all ease-in-out;
             &.typing {
-                box-shadow: none;
+                border: 1px solid transparent;
                 border-radius: unset;
                 background: inherit;
                 border-bottom: 1px solid rgb(190, 190, 190);
@@ -524,7 +527,7 @@
             font-weight: 700;
         }
         &:hover {
-            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.12);
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 10px;
         }
         .close {
 
@@ -620,9 +623,9 @@
                 width: 1.8em;
                 height: auto;
                 margin: 0.4em auto;
-                animation: light-up 0.6s 5 cubic-bezier(0.6, -0.28, 0.735, 0.045);
+                animation: light-up 0.6s 3 cubic-bezier(0.6, -0.28, 0.735, 0.045);
                 @keyframes light-up {
-                    0% {transform: scale(1.5); opacity: 0.6}
+                    0% {transform: scale(1.25); opacity: 0.85}
                     100% {transform: scale(1); opacity: 1}
                 }
             }
