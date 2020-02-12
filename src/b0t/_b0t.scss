@@ -92,14 +92,14 @@
     flex-direction: row;
     bottom: 0px;
     right: 0px;
-    border-top: 1px solid lightgrey;
+    border-top: 1px solid rgb(224, 224, 224);
     .showhide-ter {
         margin-top: -1.8em;
         background: whitesmoke;
         height: 1.8em;
-        border-top: 1px solid lightgrey;
-        border-right: 1px solid lightgrey;
-        border-left: 1px solid lightgrey;
+        border-top: 1px solid rgb(224, 224, 224);
+        border-right: 1px solid rgb(224, 224, 224);
+        border-left: 1px solid rgb(224, 224, 224);
         color: #5a5a5a;
     }
 
@@ -157,6 +157,9 @@
             transition: all 0.2s;
             margin-bottom: 70px;
             padding: 0 10px;
+            .same-person {
+                margin-top: 10px;
+            }
             .chat {
                 position: relative;
                 .iden {
@@ -241,7 +244,7 @@
                     display: flex;
                     flex-direction: row;
                     justify-content: flex-start;
-                    margin: 5px 5px;
+                    margin: 2px 5px;
                     //max-width: 300px;
                     word-break: break-word;
                     background: white;

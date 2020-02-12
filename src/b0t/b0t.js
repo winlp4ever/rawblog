@@ -116,7 +116,7 @@ class B0t extends Component {
         currDest: 0,
         notifs: [],
         referral: '',
-        supp_info: {},
+        insights: {},
         hints: [],
         is_typing: false
     }
@@ -213,11 +213,11 @@ class B0t extends Component {
         if (toread) {
             insights.toread = toread;
         }
-        this.setState({supp_info: insights})
+        this.setState({insights: insights})
     }
 
     closeInsights = async () => {
-        this.setState({supp_info: {}});
+        this.setState({insights: {}});
     }
 
     setReferral = name => {
@@ -238,7 +238,70 @@ class B0t extends Component {
             defaultSize: {
                 width:'100%',
                 height: this.state.hide ? 25: 350,
-            }, minWidth: '100%', minHeight: this.state.hide ? 25: 200, maxWidth: '100%', maxHeight: this.state.hide ? 25: 600, position: 'absolute'}
+            }, 
+            minWidth: '100%', 
+            minHeight: this.state.hide ? 25: 200, 
+            maxWidth: '100%', maxHeight: this.state.hide ? 25: 600, 
+            position: 'absolute'
+        }
+        var sameperson = []
+
+        const chats = []
+        this.state.chats.map((c, id) => {
+            let course_id = c.courses || -1;
+            let viewinsights = (c.toread | course_id >= 0)? 
+                <a onClick={e => this.viewInsights(c.toread, course_id, e)}>see here</a>: null
+
+            let blink = (id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'></span>: null;
+
+            if (c.sender != this.state.dests[this.state.currDest] && 
+                c.dest != this.state.dests[this.state.currDest]) return;
+
+            let b0ticon = (c.sender == 'bot') ? <span className='ava'><img src={bot} /></span>: 
+                <span className='ava'><img src={mStud}/></span>;
+            let identifier = (c.sender == this.props.username) ? 'iden me-chat': 'iden other-chat';
+            let cl = 'msg';
+            if (id == this.state.chats.length-1) cl = 'appear ' + cl;
+            if (id == 0 || this.state.chats[id-1].sender != c.sender) cl = 'first ' + cl;
+            if (id == this.state.chats.length-1 || this.state.chats[id+1].sender != c.sender)
+                cl = 'last ' + cl;
+            if (c.sender == 'bot') {
+                cl += ' bot';
+            } else if (c.sender != this.props.username) {
+                cl += ' others';
+            } else {cl += ' me'}
+            if (c.type && c.type == 'answer') cl += ' answer';
+            let chat_ = (
+                <div key={id} className='chat'>
+                    <div className={identifier}>
+                        {(id == this.state.chats.length-1 || this.state.chats[id+1].sender != c.sender) ? 
+                            <div className='user-and-date'>
+                                {b0ticon}
+                                <span className='user'>{c.sender}:</span>
+                            </div>: <div className='user-and-date' />
+                        }
+                        
+                        <div className={cl}>
+                            <span className='seemore'>
+                                {c.msg + ' '}{viewinsights}
+                                {blink}
+                            </span>
+                            {c.referral ? 
+                            <span className='reply-to' onClick={_ => this.setReferral(c.referral)}>
+                                <i className="fas fa-reply"></i> {c.referral}
+                            </span>: null}
+                        </div>
+                    </div>
+                </div>
+            );
+            sameperson.push(chat_)  
+            if (id == this.state.chats.length-1 || this.state.chats[id+1].sender != c.sender) {
+                chats.push(<div className='same-person'>{sameperson}</div>);
+                sameperson = [];
+            }
+            
+        })
+
         return (
             <NotifContext.Provider value={Nos}>
             <Resizable {...reprops} className={this.state.hide? 'hide-b0t': 'b0t'}>
@@ -254,54 +317,7 @@ class B0t extends Component {
                 </div>
                 <div className='chat-section'>
                     <div className='oldchats'>
-                        {this.state.chats.map((c, id) => {
-                            let course_id = c.courses || -1;
-                            let viewinsights = (c.toread | course_id >= 0)? 
-                                <a onClick={e => this.viewInsights(c.toread, course_id, e)}>see here</a>: null
-    
-                            let blink = (id == this.state.chats.length-1 && c.sender=='bot') ? <span className='blink'></span>: null;
-
-                            if (c.sender != this.state.dests[this.state.currDest] && 
-                                c.dest != this.state.dests[this.state.currDest]) return;
-
-                            let b0ticon = (c.sender == 'bot') ? <span className='ava'><img src={bot} /></span>: 
-                                <span className='ava'><img src={mStud}/></span>;
-                            let identifier = (c.sender == this.props.username) ? 'iden me-chat': 'iden other-chat';
-                            let cl = 'msg';
-                            if (id == this.state.chats.length-1) cl = 'appear ' + cl;
-                            if (id == 0 || this.state.chats[id-1].sender != c.sender) cl = 'first ' + cl;
-                            if (id == this.state.chats.length-1 || this.state.chats[id+1].sender != c.sender)
-                                cl = 'last ' + cl;
-                            if (c.sender == 'bot') {
-                                cl += ' bot';
-                            } else if (c.sender != this.props.username) {
-                                cl += ' others';
-                            } else {cl += ' me'}
-                            if (c.type && c.type == 'answer') cl += ' answer';
-                            return (
-                                <div key={id} className='chat'>
-                                    <div className={identifier}>
-                                        {(id == this.state.chats.length-1 || this.state.chats[id+1].sender != c.sender) ? 
-                                            <div className='user-and-date'>
-                                                {b0ticon}
-                                                <span className='user'>{c.sender}:</span>
-                                            </div>: <div className='user-and-date' />
-                                        }
-                                        
-                                        <div className={cl}>
-                                            <span className='seemore'>
-                                                {c.msg + ' '}{viewinsights}
-                                                {blink}
-                                            </span>
-                                            {c.referral ? 
-                                            <span className='reply-to' onClick={_ => this.setReferral(c.referral)}>
-                                                <i className="fas fa-reply"></i> {c.referral}
-                                            </span>: null}
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })}
+                        {chats}
                         {this.state.is_typing? <div className='is-typing'>
                             <div /><div /><div /><div />
                         </div>: null}
@@ -318,7 +334,7 @@ class B0t extends Component {
                 <Notif />
                 
                 <CSSTransition
-                    in={this.state.supp_info.course? true: false}
+                    in={this.state.insights.course? true: false}
                     timeout={100}
                     classNames="display"
                     unmountOnExit
@@ -326,19 +342,19 @@ class B0t extends Component {
                 <div className='supp-info'>
                     <button className='close' onClick={this.closeInsights}><i className="fas fa-times"></i></button>
                     <span className='title-icon'><img src={idea} /></span>
-                    {this.state.supp_info.course? 
+                    {this.state.insights.course? 
                         <div className='relevant-course'>
                             <span><img src={lesson} /></span>
-                            <span>Relevant Course: <a onClick={_ => this.props.viewFullPost(this.state.supp_info.course.id)}>
-                                {this.state.supp_info.course.title}</a>
+                            <span>Relevant Course: <a onClick={_ => this.props.viewFullPost(this.state.insights.course.id)}>
+                                {this.state.insights.course.title}</a>
                             </span>    
                         </div> : null }
-                    {this.state.supp_info.toread?
+                    {this.state.insights.toread?
                         <div className='toread'>
                             <span><img src={toread} /></span>
                             <span>To read more on this topic:</span>
                             <ul>
-                            {this.state.supp_info.toread.map((t, j) => 
+                            {this.state.insights.toread.map((t, j) => 
                                 <li key={j}><a href={t} target='_blank'>{t}</a></li>)}
                             </ul>
                         </div>:null
