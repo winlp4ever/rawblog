@@ -14,7 +14,7 @@
         display: block;
         border: none;
         box-sizing: border-box;
-        padding: 10px 10px;
+        padding: 5px 10px;
         margin:10px auto;
         float: left;
         transition: all 0.2s;
@@ -22,10 +22,14 @@
             family: 'Raleway', sans-serif;
             size: 100%;
         }     
+        span {
+            display: inline-block;
+            margin: auto 2px;
+        }
         span.username {
             display: inline-block;
             box-sizing: border-box;
-            padding: 5px;
+            padding: 0;
             color: #1565c0;
         }
         button.del {
@@ -58,22 +62,26 @@
                 size: 100%;
                 family: 'Raleway', sans-serif;
             }
+            position: relative;
+            bottom: 0;
+            display: block;
             box-sizing: border-box;
             padding: 0;
-            margin: auto;
+            margin: 5px auto;
             resize: none;
             border: none;
             outline: none;
             overflow: hidden;
             width: 100%;
             background: none;
+            height: 100%;
             &::-webkit-scrollbar {
                 width: 0 !important;
             }  
         
         }
         span.label {
-            background: none;
+            background: transparent;
             z-index: 2;
             position: absolute;
             top: 50%;
@@ -88,7 +96,7 @@
             bottom: -2px;
             left: 0;
             height: 2px;
-            transition: all 0.3s ease;
+            transition: all 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
             background: rgb(138, 138, 138);
         }
 
@@ -96,14 +104,9 @@
             background: rgb(250, 250, 250);
         }
 
-        &:focus {
-            background: white;
-        }
-
         textarea:focus + span, textarea:not(:placeholder-shown) + span.label {
-            transform: translateY(-150%) scale(0.75);
+            transform: translateY(-120%) scale(0.75);
             font-weight: 700;
-            background: white;
             + span.border {
                 width: 100%;
             }
