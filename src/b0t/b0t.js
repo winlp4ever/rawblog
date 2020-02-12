@@ -260,6 +260,8 @@ class B0t extends Component {
             let b0ticon = (c.sender == 'bot') ? <span className='ava'><img src={bot} /></span>: 
                 <span className='ava'><img src={mStud}/></span>;
             let identifier = (c.sender == this.props.username) ? 'iden me-chat': 'iden other-chat';
+            if (this.state.insights.course || this.state.insights.toread) identifier += ' insights-on';
+
             let cl = 'msg';
             if (id == this.state.chats.length-1) cl = 'appear ' + cl;
             if (id == 0 || this.state.chats[id-1].sender != c.sender) cl = 'first ' + cl;
@@ -303,7 +305,8 @@ class B0t extends Component {
         })
 
         return (
-            <NotifContext.Provider value={Nos}>
+            
+        <NotifContext.Provider value={Nos}>
             <Resizable {...reprops} className={this.state.hide? 'hide-b0t': 'b0t'}>
                 <button className='showhide-ter' onClick={_ => this.showhide()}>
                     {this.state.hide? 'Ask me!': 'Hide me!'}
@@ -318,7 +321,8 @@ class B0t extends Component {
                 <div className='chat-section'>
                     <div className='oldchats'>
                         {chats}
-                        {this.state.is_typing? <div className='is-typing'>
+                        {this.state.is_typing? <div className={(this.state.insights.course || this.state.insights.toread) ?
+                            'is-typing insights-on': 'is-typing'}>
                             <div /><div /><div /><div />
                         </div>: null}
                     </div>
@@ -336,34 +340,41 @@ class B0t extends Component {
                 <CSSTransition
                     in={this.state.insights.course? true: false}
                     timeout={200}
-                    classNames="display"
+                    classNames="insights"
                     unmountOnExit
                 >
-                <div className='supp-info'>
-                    <button className='close' onClick={this.closeInsights}><i className="fas fa-times"></i></button>
-                    <span className='title-icon'><img src={idea} /></span>
-                    {this.state.insights.course? 
-                        <div className='relevant-course'>
-                            <span><img src={lesson} /></span>
-                            <span>Relevant Course: <a onClick={_ => this.props.viewFullPost(this.state.insights.course.id)}>
-                                {this.state.insights.course.title}</a>
-                            </span>    
-                        </div> : null }
-                    {this.state.insights.toread?
-                        <div className='toread'>
-                            <span><img src={toread} /></span>
-                            <span>To read more on this topic:</span>
-                            <ul>
-                            {this.state.insights.toread.map((t, j) => 
-                                <li key={j}><a href={t} target='_blank'>{t}</a></li>)}
-                            </ul>
-                        </div>:null
-                    }
-                </div>
+                    <div className='insights'>
+                        <button className='close' onClick={this.closeInsights}>
+                            <i className="fas fa-times"></i>
+                        </button>
+                        <div className='cnt'>
+                            <span className='title-icon'><img src={idea} /></span>
+                            {this.state.insights.course? 
+                                <div className='relevant-course'>
+                                    <span><img src={lesson} /></span>
+                                    <span>
+                                        Relevant Course: 
+                                        <a onClick={_ => this.props.viewFullPost(this.state.insights.course.id)}>
+                                            {this.state.insights.course.title}
+                                        </a>
+                                    </span>    
+                                </div> : null }
+                            {this.state.insights.toread?
+                                <div className='toread'>
+                                    <span><img src={toread} /></span>
+                                    <span>To read more on this topic:</span>
+                                    <ul>
+                                    {this.state.insights.toread.map((t, j) => 
+                                        <li key={j}><a href={t} target='_blank'>{t}</a></li>)}
+                                    </ul>
+                                </div>:null
+                            }
+                        </div>
+                        
+                    </div>
                 </CSSTransition>
             </Resizable>
-            </NotifContext.Provider>
-        )
+        </NotifContext.Provider>)
     }
 }
 export default B0t;

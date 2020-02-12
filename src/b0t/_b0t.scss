@@ -26,6 +26,16 @@
     70% {margin-right: 20px}
 }
 
+@keyframes enter {
+    0% {opacity: 0; transform: translateY(20%)}
+    100% {opacity: 1; transform: none}
+}
+
+@keyframes exit {
+    0% {opacity: 1; transform: none}
+    100% {opacity: 0; transform: translateY(20%)}
+}
+
 .showhide-ter {
     color: #5a5a5a;
     left: 50%;
@@ -167,8 +177,12 @@
                     flex-direction: row;
                     justify-content: flex-start;
                     margin: 0px;
-                    width: 60%;
-                    
+                    width: 70%;
+                    transition: 0.3s all cubic-bezier(0.4, 0.0, 0.2, 1);
+                    max-width: 800px;
+                    &.insights-on {
+                        max-width: 60%;
+                    }
                     &.other-chat {
                         flex-direction: row-reverse;
                         justify-content: end;
@@ -222,9 +236,6 @@
                         }
                     }
                 }
-
-                
-
                 img {
                     width: 1.8em;
                     height: auto;
@@ -252,6 +263,7 @@
                     padding: 10px 10px;
                     
                     max-width: 65%;
+                    
                     a {
                         color: #2196f3;
                         transition: all 0.2s linear;
@@ -495,21 +507,15 @@
             }
         }
     }
-    .display-enter, .display-enter-active {
-        @keyframes enter {
-            0% {opacity: 0; transform: translateY(20%)}
-            100% {opacity: 1; transform: none}
-        }
+    .insights-enter, .insights-enter-active {
+        
         animation: enter 0.2s 1 cubic-bezier(0.0, 0.0, 0.2, 1);
     }
-    .display-exit {
-        @keyframes exit {
-            0% {opacity: 1; transform: none}
-            100% {opacity: 0; transform: translateY(20%)}
-        }
+    .insights-exit {
+        
         animation: exit 0.2s 1 cubic-bezier(0.0, 0.0, 0.2, 1);
     }
-    .supp-info {
+    .insights {
         background: white;
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         min-height: 200px;
@@ -522,7 +528,7 @@
         padding: 3em 0.6em 0.6em;
         overflow: hidden;
         margin: 0.5em;
-        transition: all 0.1s;
+        transition: all 0.2s cubic-bezier(0.0, 0.0, 0.2, 1);
         font: {
             size: 0.6em;
         }
@@ -551,7 +557,7 @@
             transition: 0.2s all linear;
             &:hover {
                 background: whitesmoke;
-            }
+            }           
         }
         .relevant-course, .toread {
             a {
@@ -637,8 +643,11 @@
 }
 
 .is-typing {
-  position: relative;
-  left: 55%;
+    position: relative;
+    left: 65%;
+    &.insights-on {
+        left: 55%;
+    }
 }
 .is-typing div {
   position: absolute;
