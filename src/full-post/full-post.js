@@ -7,6 +7,8 @@ import './_full-post.scss';
 import io from 'socket.io-client';
 import { hot } from 'react-hot-loader';
 import Img from '../../imgs/cs-bg.svg';
+import Button from '@material-ui/core/Button';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 function disableDoubleClick() {
     $('.full-post .post-interact i').on('mousedown', e => {
@@ -91,14 +93,15 @@ export default class FullPost extends Component {
                     className='post-interact'
                 >
                     <div>
-                        <span 
+                        <Button 
+                            className='like-post' 
+                            variant='contained'
+                            endIcon={<FavoriteBorderIcon/>}
                             onClick={this.like}
-                        >
-                            <i className="fab fa-gratipay"></i>
-                        </span>
-                        <span>{this.state.likes}</span>
+                        > 
+                            {this.state.likes}
+                        </Button>
                     </div>
-
                 </div>
 
                 {comments_section}

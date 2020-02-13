@@ -205,6 +205,26 @@ div.full-post {
         }
     }
 
+    .post-interact {
+        position: fixed;
+        left: 0px;
+        top: 100px;
+        width: auto;
+        text-align: center;
+        
+        line-height: 1.2;
+        .like-post {
+            background-color: whitesmoke;
+            color: #424242;
+            text-transform: none;
+            font: {
+                weight: 700;
+                size: 0.8em;
+            }
+        }
+        
+    }
+
     div.comment-section {
         position: relative;
         font: {

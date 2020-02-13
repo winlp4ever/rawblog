@@ -6,7 +6,7 @@ div.post {
     //box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.06);        
     margin: 10px auto;
     box-sizing: border-box;
-    padding: 25px 2%;
+    padding: 10px;
     line-height: 1.2;
     border-top: 1px solid lightgrey;
     font: {
@@ -15,6 +15,8 @@ div.post {
         weight: 700;
     }
     h1 {
+        line-height: 1;
+        margin: 0 0px 20px;
         color: #212121;
         font: {
             size: 200%;
@@ -85,10 +87,10 @@ div.post {
     div.post-text {
         position: relative;
         transition: all 0.2s;
-        overflow: hidden;
+        padding: 10px 25px 25px;
         div.markdown-render {
-            height: 121px;
-            padding: 20px 25px;
+            height: 120px;
+            overflow: hidden;
         }
     }
 
@@ -107,7 +109,6 @@ div.post {
         justify-content: space-between;
         padding: 10px 20px;
         background: rgb(255, 248, 248);
-        border-top: 1px solid lightgrey;
         >div {
             padding: 10px 0px;
         }
@@ -131,16 +132,15 @@ div.post {
 
     button.read-more {
         position: absolute;
-        top: 0;
-        left: 10px;
-        color: grey;
         bottom: 0px;
-        width: 150px;
+        left: 25px;
+        color: grey;
+        width: auto;
         border: none;
         background: none;
         outline: none;
         box-sizing: border-box;
-        padding: 2px 5px;
+        padding: 5px 0;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         transition: all 0.3s;
