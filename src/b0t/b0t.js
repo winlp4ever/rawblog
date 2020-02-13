@@ -13,7 +13,11 @@ import lesson from '../../imgs/lesson.svg';
 import toread from '../../imgs/toread.svg';
 import Send from '../../imgs/send.svg';
 import {CSSTransition} from 'react-transition-group';
-//import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
+import MinimizeIcon from '@material-ui/icons/Minimize';
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import CloseIcon from '@material-ui/icons/Close';
 
 const Newchat = (props) => {
     const [newchat, setNewchat] = useState('');
@@ -310,10 +314,26 @@ class B0t extends Component {
         return (
             
         <NotifContext.Provider value={Nos}>
-            <Resizable {...reprops} className={this.state.hide? 'hide-b0t': 'b0t'}>
-                <button className='showhide-ter' onClick={_ => this.showhide()}>
-                    {this.state.hide? 'Ask me!': 'Hide me!'}
-                </button>
+            <Resizable {...reprops} className={this.state.hide? 'b0t hide': 'b0t'}>
+                {this.state.hide?
+                    <Button 
+                        className='show-ter' 
+                        onClick={_ => this.showhide()}
+                        variant='contained'
+                        color='#e57373'
+                    >
+                        <ChatBubbleOutlineIcon />
+                    </Button>:
+                    <Button 
+                        className='hide-ter' 
+                        onClick={_ => this.showhide()}
+                        variant='contained'
+                        color='#e57373'
+                    >
+                        <MinimizeIcon />
+                    </Button>
+                }
+                
                 <div className='chat-list'>
                     {this.state.dests.map((d, id) => {
                         if (id == this.state.currDest) 
@@ -347,9 +367,9 @@ class B0t extends Component {
                     unmountOnExit
                 >
                     <div className='insights'>
-                        <button className='close' onClick={this.closeInsights}>
-                            <i className="fas fa-times"></i>
-                        </button>
+                        <Button className='close' onClick={this.closeInsights} variant='contained'>
+                            <CloseIcon/>
+                        </Button>
                         <div className='cnt'>
                             <span className='title-icon'><img src={idea} /></span>
                             {this.state.insights.course? 
