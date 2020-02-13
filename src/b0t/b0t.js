@@ -292,11 +292,13 @@ class B0t extends Component {
                             <span className='seemore'>
                                 {c.msg + ' '}{viewinsights}
                                 {blink}
+                                
+                                {c.referral ? 
+                                <span className='reply-to' onClick={_ => this.setReferral(c.referral)}>
+                                    Reply to {c.referral}
+                                </span>: null}
                             </span>
-                            {c.referral ? 
-                            <span className='reply-to' onClick={_ => this.setReferral(c.referral)}>
-                                <i className="fas fa-reply"></i> {c.referral}
-                            </span>: null}
+                            
                         </div>
                     </div>
                 </div>

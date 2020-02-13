@@ -293,7 +293,7 @@
                         flex: auto;
                         display: inline-block;
                         font: {
-                            size: 60%;
+                            size: 0.7em;
                         }
                         text-align: left;
                         vertical-align: middle;
@@ -304,21 +304,16 @@
                     
                     .reply-to {
                         text-align: center;
-                        position: absolute;
                         z-index: 3;
-                        bottom: -1.2em;
-                        background: rgb(248, 248, 248);
                         border-radius: 5px;
-                        width: auto;
-                        padding: 0 5px;
-                        display: block;
-                        color: rgb(153, 153, 153) !important;
+                        display: inline-block;
+                        color: #2196f3 !important;
                         font: {
-                            size: 50%;
+                            size: 1em;
                             weight: 700;
                         }
                         &:hover {
-                            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.08);
+                            color: #3e9fee;
                         }
                         i {
                             color: grey;
@@ -416,7 +411,7 @@
         .newchat {
             z-index: 10;
             border: 1px solid lightgrey;
-            background: inherit;
+            background: white;
             position: absolute;
             bottom: 15px;
             margin: auto 3%;
@@ -438,11 +433,11 @@
                 border-radius: 5px;
                 background: whitesmoke;
                 min-width: 90px;
-                padding: 5 5px;
+                padding: 0 5px;
                 text-align: center;
-                color: grey;
+                color: #424242;
                 font: {
-                    size: 60%;
+                    size: 0.7em;
                     weight: 700;
                 }
             }
@@ -469,7 +464,7 @@
                 border: none;
                 outline: none;
                 font: {
-                    size: 70%;
+                    size: 0.8em;
                 }
                 float: left;
                 text-align: left;
@@ -485,7 +480,7 @@
                 padding: 0;
                 background: linear-gradient(to top, whitesmoke, rgb(250, 250, 250) 20px);
                 font: {
-                    size: 70%;
+                    size: 0.8em;
                 }
                 div {
                     
@@ -549,7 +544,7 @@
         margin: 0.5em;
         transition: box-shadow 200ms cubic-bezier(.4,0,.2,1),width 300ms cubic-bezier(.4,0,.2,1), background 0.2s cubic-bezier(.4,0,.2,1);
         font: {
-            size: 0.6em;
+            size: 0.8em;
         }
         a {
             font-weight: 700;
