@@ -1,13 +1,11 @@
 # Count of range sum
 
-__Problem:__
-
-Given an integer array nums, return the number of range sums that lie in [lower, upper] inclusive.
+__Problem:__ Given an integer array nums, return the number of range sums that lie in [lower, upper] inclusive.
 Range sum `S(i, j)` is defined as the sum of the elements in nums between indices `i` and `j` `(i ≤ j)`, inclusive.
 
 __Note:__
 
-A naive algorithm of `O(n^2)` is trivial. You MUST do better than that.
+This is a popular problem on _LeetCode_. For this problem, the solution differs between positive integer only case and general case. The former case is solvable in `O(n)` while the latter can only be solved in `O(nlogn)`.
 
 __Example:__
 
@@ -17,7 +15,7 @@ Output: 3
 Explanation: The three ranges are : [0,0], [2,2], [0,2] and their respective sums are: -2, -1, 2.
 ```
 
-## My solution
+## Positive only case
 
 ```python
 from typing import List
@@ -57,4 +55,11 @@ class Solution:
             return count
         count = mergeSort(0,n-1)
         return count
+```
+
+## General case
+
+Here is the code:
+
+```
 ```

@@ -33,6 +33,7 @@
   "description": "",
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@material-ui/core": "^4.9.2",
     "@microlink/react": "^4.4.7",
     "@nteract/mathjax": "^4.0.1",
     "@types/react": "^16.9.15",

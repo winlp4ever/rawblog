@@ -1,23 +1,22 @@
 div.full-post {
     position: relative;
-    color: rgb(80, 80, 80);
+    color: rgb(46, 46, 46);
     margin: auto;
     width: 70%;
-    line-height: 1.8;
+    line-height: 1.5;
     font: {
-        family: 'Raleway', sans-serif;
-        size: 75%;
+        family: 'Open Sans';
+        size: 80%;
     }
     h1 {
         text-align: center;
-        color: #202121;
+        color: #424242;
         width: 100%;
         display: block;
         box-sizing: border-box;
-        padding: 20px 10px;
-        border-bottom: 1px solid rgb(230, 230, 230);
+        line-height: 1;
         font: {
-            size: 250%;
+            size: 3em;
             family: 'Josefin Sans', sans-serif;
             weight: 700;
         }
@@ -25,7 +24,6 @@ div.full-post {
     h2 {
         font: {
             size: 180%;
-            family: 'Lora', serif;
         }
     }
     .google-slides-container{
@@ -73,9 +71,9 @@ div.full-post {
     p {
         display: block;
         box-sizing: border-box;
-        padding: 10px;
         border-left: 4px solid white;
         transition: all 0.2s;
+        margin: 1.6em auto;
         > code {
             background-color: whitesmoke;
             display: inline-block;
@@ -83,27 +81,23 @@ div.full-post {
             box-sizing: border-box;
             padding: 1px 2px;
         }
-        &:hover {
-            border-left: 4px solid lightgrey;
-        }
+        
     }
     
 
     .markdown-render > p:first-of-type::first-letter {
         color: #202121;
         float: left;
-        font-size: 75px;
-        line-height: 60px;
-        padding-top: 4px;
-        padding-right: 8px;
-        padding-left: 3px;
-      }
+        font-size: 3em;
+        line-height: 1em;
+        padding-right: 4px;
+    }
     pre {
         display: block;
         position: relative;
         margin: 0 2.5em;
         font: {
-            size: 100%;
+            size: 80%;
         };
         box-sizing: border-box;
         border: none;
@@ -175,18 +169,13 @@ div.full-post {
     }
 
     div.outline {
-        position: fixed;
-        top: 100px;
-        left: 10px;
-        width: 12%;
+        margin: 4em 2em;
         h2 {
-            background: whitesmoke;
             display: block;
             width: 100%;
             box-sizing: border-box;
             padding: 5px 10px;
             font: {
-                family: 'Raleway', sans-serif;
                 size: 120%;
             }
             text-align: center;
@@ -211,7 +200,7 @@ div.full-post {
             border-bottom: 1px solid lightgrey;
             transition: 0.2s all;
             &:hover {
-                background: whitesmoke;
+                background: rgb(250, 250, 250);
             }
         }
     }
@@ -227,50 +216,6 @@ div.full-post {
             box-shadow:0px 6px 12px rgba(0, 0, 0, 0.08);   
         }
         height: auto;
-    }
-    div.post-interact {
-        position: fixed;
-        top: 90px;
-        left: 50%;
-        margin-left: -50px;
-        width: 100px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 0px 5px;
-        border-radius: 0px;
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        background: whitesmoke;
-        transition: all 0.2s;
-        >div {
-            padding: 0px;
-            
-            i.fab, i.fas {
-                transition: all 0.2s;
-                &:hover {
-                    color: #2196f3;
-                }
-                &:active {
-                    animation: blap 0.2s normal forwards ease-in-out;
-                    //color: $funny;
-                }
-            }
-            span {
-                display: inline-block;
-                box-sizing: border-box;
-                padding: 0px;
-                margin: auto 5px;
-                line-height: 1.0;
-                vertical-align: middle;
-            }
-            font: {
-                size: 80%;
-            }
-        }
     }
     div.comment-section {
         overflow: hidden;

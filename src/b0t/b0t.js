@@ -13,6 +13,7 @@ import lesson from '../../imgs/lesson.svg';
 import toread from '../../imgs/toread.svg';
 import Send from '../../imgs/send.svg';
 import {CSSTransition} from 'react-transition-group';
+//import Button from '@material-ui/core/Button';
 
 const Newchat = (props) => {
     const [newchat, setNewchat] = useState('');
@@ -298,7 +299,9 @@ class B0t extends Component {
             );
             sameperson.push(chat_)  
             if (id == this.state.chats.length-1 || this.state.chats[id+1].sender != c.sender) {
-                chats.push(<div className='same-person'>{sameperson}</div>);
+                chats.push(<div className='same-person'>
+                    {sameperson}
+                </div>);
                 sameperson = [];
             }
             
