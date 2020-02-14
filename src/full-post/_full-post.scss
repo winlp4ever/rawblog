@@ -230,13 +230,14 @@ div.full-post {
 
     .post-interact {
         position: fixed;
-        left: 0px;
+        left: 0;
         top: 100px;
         width: auto;
         text-align: center;
         
         line-height: 1.2;
         .like-post {
+            box-shadow: none;
             background-color: whitesmoke;
             color: #424242;
             text-transform: none;
@@ -244,6 +245,7 @@ div.full-post {
                 weight: 700;
                 size: 0.8em;
             }
+            transition: all 0.2s cubic-bezier(0.0, 0.0, 0.2, 1); 
         }
         
     }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './_menu.scss';
 
 const Option = props => {
@@ -15,6 +15,7 @@ const Option = props => {
 
 const Menu = props => {
     let links = [];
+    const [on, setOn] = useState(true);
     for (const [i, link] of Object.entries(props.links)) {
         links.push(<Option key={i} {...link} isActive={props.activeTab == i}/>);
     }

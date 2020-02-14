@@ -5,6 +5,17 @@ import App from './app/app';
 import './behaviors';
 import $ from 'jquery';
 
+var lastScrollTop = $(window).scrollTop();
+
+$(window).on({
+    scroll: (e) => {
+        let n = $(window).scrollTop();
+        if (n == 0) $('.menu').attr('class', 'menu init');
+        else if (n - lastScrollTop < -25) $('.menu').attr('class', 'menu display');
+        else if (n - lastScrollTop > 0) $('.menu').attr('class', 'menu hide');
+        lastScrollTop = n; 
+    }
+})
 
 
 function renderWeb() {
