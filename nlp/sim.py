@@ -15,7 +15,7 @@ import spacy
 nlp = spacy.load('en')
 
 def run():
-    bc = BertClient(ip='35.180.111.19')  # ip address of the GPU machine
+    bc = BertClient(ip='15.188.8.216')  # ip address of the GPU machine
     QAs = json.load(open('nlp/qas.json'))
     sio = socketio.Client()
 

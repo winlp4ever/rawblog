@@ -249,9 +249,10 @@ class B0t extends Component {
             maxWidth: '100%', maxHeight: this.state.hide ? 25: 600, 
             position: 'absolute'
         }
-        var sameperson = []
+        var sameperson = [];
 
-        const chats = []
+        const chats = [];
+        var blockid = 0;
         this.state.chats.map((c, id) => {
             let course_id = c.courses || -1;
             let viewinsights = (c.toread | course_id >= 0)? 
@@ -303,12 +304,13 @@ class B0t extends Component {
                     </div>
                 </div>
             );
-            sameperson.push(chat_)  
+            sameperson.push(chat_); 
             if (id == this.state.chats.length-1 || this.state.chats[id+1].sender != c.sender) {
-                chats.push(<div className='same-person'>
+                chats.push(<div key={blockid} className='same-person'>
                     {sameperson}
                 </div>);
                 sameperson = [];
+                blockid ++;
             }
             
         })
