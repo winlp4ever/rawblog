@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import "./_common.scss";
 import App from './app/app';
 import './behaviors';
+import $ from 'jquery';
+
 
 
 function renderWeb() {
