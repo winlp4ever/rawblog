@@ -9,7 +9,7 @@ print(cosine(emb, e))
 
 import spacy 
 nlp = spacy.load('en')
-s = "what is happening now in the u.s. can you tell me? i'm having trouble seeing things"
+s = "i have a question what is machine learning"
 doc = nlp(s)
 for sent in doc.sents:
     print(sent.text)
