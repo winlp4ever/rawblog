@@ -8,6 +8,7 @@ import Editor from '../editor/editor';
 import { userContext } from '../user-context/user-context';
 import Home from '../home/home';
 import B0t from '../b0t/b0t';
+import Login from '../login/login';
 
 import Cookies from 'js-cookie';
 
@@ -95,14 +96,17 @@ class App extends Component {
             updateUser: this.updateUser
         }
 
-        return (
+        return (<Login/>)
+
+        /*return (
+            
             <userContext.Provider value={value}>
                 <B0t socket={this.state.socket} username={this.state.user.name} viewFullPost={this.viewFullPost}/>
                 <Menu links={menuOptions} activeTab={this.state.activeTab}/>
                 {main}
                 {auth}
             </userContext.Provider>
-        )
+        )*/
     }
 }
 

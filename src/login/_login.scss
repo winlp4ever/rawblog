@@ -1,0 +1,103 @@
+.login-window {
+    .login-background {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+    }
+    .login {
+        display: block;
+        position: fixed;
+        left: 10%;
+        width: 30%;
+        margin: auto;
+        box-sizing: border-box;
+        padding: 2em;
+        background: #F5F5F6;
+        border-radius: 8px;
+        box-shadow: 0 1px 1px 0 rgba(60,64,67,.08), 0 1px 3px 1px rgba(60,64,67,.16);
+        h1 {
+            color: #af4448;
+            font: {
+                
+            }
+        }
+        h2 {
+            color: #424242;
+            font: {
+                weight: 400;
+                size: 0.9em;
+            }
+        }
+        .enter-username, .enter-password {
+            font: {
+                size: 0.7em;
+            }
+            line-height: 1.6;
+            padding: 5px 0;
+            margin: 1.5em 0;
+            box-sizing: border-box;
+            border-radius: 0px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            position: relative;
+            border-bottom: 2px solid lightgrey;
+            textarea {
+                font: {
+    
+                    size: 100%;
+                }
+                position: relative;
+                bottom: 0;
+                display: block;
+                box-sizing: border-box;
+                padding: 0;
+                margin: 5px auto;
+                resize: none;
+                border: none;
+                outline: none;
+                overflow: hidden;
+                width: 100%;
+                background: none;
+                height: 100%;
+                &::-webkit-scrollbar {
+                    width: 0 !important;
+                }  
+            
+            }
+            span.label {
+                background: transparent;
+                z-index: 2;
+                position: absolute;
+                top: 50%;
+                left: 10px;
+                transform: translateY(-50%);
+                transform-origin: 0 0;
+                transition: all 0.2s;
+            }
+            span.border {
+                position: absolute;
+                z-index: 2;
+                bottom: -2px;
+                left: 0;
+                height: 2px;
+                transition: all 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+                background: #e57373;
+            }
+    
+            &:hover {
+                background: rgb(250, 250, 250);
+            }
+    
+            textarea:focus + span, textarea:not(:placeholder-shown) + span.label {
+                transform: translateY(-120%) scale(0.75);
+                font-weight: 700;
+                color: #af4448;
+                + span.border {
+                    width: 100%;
+                }
+            }
+        }
+    }
+    
+}
