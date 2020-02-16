@@ -21,6 +21,7 @@ class App extends Component {
         activeTab: 1,
         postId: -1,
         socket: io(),
+        loginValid: false
     }
 
     componentDidMount() {
@@ -61,6 +62,11 @@ class App extends Component {
         this.setState({activeTab: 0, postId: -1});
     }
 
+    handleLogin = (yn) => {
+        if (yn == 'y') this.setState({loginValid: true});
+        console.log(this.state.loginValid);
+    }
+
     render = () => {
         let menuOptions = [
             {name: 'Home', onClick: this.viewHome}, 
@@ -96,17 +102,15 @@ class App extends Component {
             updateUser: this.updateUser
         }
 
-        return (<Login/>)
-
-        /*return (
-            
+        if (!this.state.loginValid) return (<Login handleLogin={this.handleLogin}/>);
+        return (
             <userContext.Provider value={value}>
                 <B0t socket={this.state.socket} username={this.state.user.name} viewFullPost={this.viewFullPost}/>
                 <Menu links={menuOptions} activeTab={this.state.activeTab}/>
                 {main}
                 {auth}
             </userContext.Provider>
-        )*/
+        )
     }
 }
 

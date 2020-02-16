@@ -13,17 +13,15 @@
         margin: auto;
         box-sizing: border-box;
         padding: 2em;
-        background: #F5F5F6;
         border-radius: 8px;
-        box-shadow: 0 1px 1px 0 rgba(60,64,67,.08), 0 1px 3px 1px rgba(60,64,67,.16);
         h1 {
-            color: #af4448;
+            color: whitesmoke;
             font: {
                 
             }
         }
         h2 {
-            color: #424242;
+            color: white;
             font: {
                 weight: 400;
                 size: 0.9em;
@@ -34,15 +32,15 @@
                 size: 0.7em;
             }
             line-height: 1.6;
-            padding: 5px 0;
+            padding: 0;
             margin: 1.5em 0;
             box-sizing: border-box;
             border-radius: 0px;
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
             position: relative;
-            border-bottom: 2px solid lightgrey;
-            textarea {
+            border-bottom: 2px solid black;
+            input {
                 font: {
     
                     size: 100%;
@@ -51,8 +49,8 @@
                 bottom: 0;
                 display: block;
                 box-sizing: border-box;
-                padding: 0;
-                margin: 5px auto;
+                padding: 0.7em 10px;
+                margin: auto;
                 resize: none;
                 border: none;
                 outline: none;
@@ -81,21 +79,36 @@
                 bottom: -2px;
                 left: 0;
                 height: 2px;
-                transition: all 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
-                background: #e57373;
+                transition: all 300ms cubic-bezier(.4,0,.2,1);
+                background: #af4448;
             }
     
             &:hover {
-                background: rgb(250, 250, 250);
+                background: rgba(250, 250, 250, 0.08);
             }
     
-            textarea:focus + span, textarea:not(:placeholder-shown) + span.label {
+            input:focus + span, input:not(:placeholder-shown) + span.label {
                 transform: translateY(-120%) scale(0.75);
                 font-weight: 700;
                 color: #af4448;
                 + span.border {
                     width: 100%;
                 }
+            }
+        }
+        .login-submit {
+            margin: 1.2em auto;
+            border-radius: 1.5em;
+            line-height: 1.5;
+            padding: 0.8em 3em 0.4em;
+            background: #e57373;
+            color: white;
+            display: block; 
+
+            font: {
+                family: 'Josefin Sans', sans-serif;
+                weight: 700;
+                size: 0.7em;
             }
         }
     }

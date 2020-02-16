@@ -157,6 +157,11 @@ app.get('/', (req, res, next) => {
     });
 });
 
+app.post('/login', (req, res) => {
+    if (req.body.username != 'redgunner' || req.body.password != 2311) res.json({answer: 'n'});
+    res.json({answer: 'y'});
+})
+
 app.post('/get-post-title', (req, res) => {
     let postId = req.query.postId;
     res.json({ title: posts[postId].content.title });
