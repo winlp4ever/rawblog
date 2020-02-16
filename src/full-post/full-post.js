@@ -29,8 +29,12 @@ function genOutline() {
 
 export default class FullPost extends Component {
     state = {
-        post_content: {} ,
-        likes: '',
+        post: {
+            title: '',
+            likes: '',
+            article: '',
+            hashtags: []
+        },
         view_comments: true
     }
 
@@ -39,9 +43,9 @@ export default class FullPost extends Component {
     async componentDidMount() {
         // behaviors
         disableDoubleClick();
-        let response = await fetch(`/get-post?postId=${this.props.postId}`, {method: 'POST'});
+        let response = await fetch(`/get-full-post?postId=${this.props.postId}`, {method: 'POST'});
         let data = await response.json();
-        this.setState({ post_content: data.content, likes: data.likes });
+        this.setState({ post: data });
         genOutline();
     }
 
@@ -51,7 +55,9 @@ export default class FullPost extends Component {
     }
 
     like() {
-        this.setState({ likes: this.state.likes + 1 });
+        let post_ = JSON.parse(JSON.stringify(this.state.post));
+        post_.likes ++;
+        this.setState({post: post_});
         this.props.socket.emit(`likes`, this.props.postId);
     }
 
@@ -71,9 +77,9 @@ export default class FullPost extends Component {
             );
         }
         let hashtags = '';
-        if (this.state.post_content.hashtags) {
+        if (this.state.post.hashtags) {
             hashtags = (<div className='hashtags'>
-                {this.state.post_content.hashtags.map((e, id) => (
+                {this.state.post.hashtags.map((e, id) => (
                     <span key={id}>#{e}</span>
                 ))}
             </div>)
@@ -85,8 +91,7 @@ export default class FullPost extends Component {
                 <div className='himmi'><img src={Img}/></div>
                 <div>
                     {hashtags}
-                    <MdRender source={this.state.post_content.text} />
-                    <LinkPreview url={this.state.post_content.shared_link}/>
+                    <MdRender source={this.state.post.article} />
                 </div>
 
                 <div
@@ -99,7 +104,7 @@ export default class FullPost extends Component {
                             endIcon={<FavoriteBorderIcon/>}
                             onClick={this.like}
                         > 
-                            {this.state.likes}
+                            {this.state.post.likes}
                         </Button>
                     </div>
                 </div>

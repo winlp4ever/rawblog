@@ -4,7 +4,6 @@ import FullPost from '../full-post/full-post';
 import Auth from '../user-auth/user-auth';
 import io from 'socket.io-client';
 import Menu from '../menu/menu';
-import Editor from '../editor/editor';
 import { userContext } from '../user-context/user-context';
 import Home from '../home/home';
 import B0t from '../b0t/b0t';
@@ -46,10 +45,6 @@ class App extends Component {
         }
     }
 
-    viewEditor = () => {
-        this.setState({activeTab: 2, postId: -1})
-    }
-
     viewFullPost = (id) => {
         this.setState({activeTab: 1, postId: id});
     }
@@ -72,7 +67,6 @@ class App extends Component {
             {name: 'Home', onClick: this.viewHome}, 
             {name: 'Wall', onClick: this.viewSocio}
         ];
-        if (this.state.user.name == 'Wall-Q') menuOptions.push({name: 'Editor', onClick: this.viewEditor});
 
         let auth = '';
         if (!this.state.user.name) auth=(<Auth updateUser={this.updateUser} />);
@@ -93,9 +87,6 @@ class App extends Component {
                 socket={this.state.socket} 
             />;
         } 
-        else if (this.state.activeTab == 2) {
-            main = <Editor />
-        }
 
         const value = {
             user: this.state.user,

@@ -39,8 +39,8 @@ server.listen(PORT, () => {
 });
 
 var posts = {};
-var articlesPath = './articles';
-fs.readdir(articlesPath, function (err, files) {
+var postsPath = './posts';
+fs.readdir(postsPath, function (err, files) {
     if (err) {
         console.error("Could not list the directory.", err);
         process.exit(1);
@@ -51,32 +51,25 @@ fs.readdir(articlesPath, function (err, files) {
          * for each file (a post) in a (predefined) dir, load the content to the dict and also
          * load the supp. info from JSON file of same name in logs folder if already existed, otherwise create one
          */
-        let p = path.join(articlesPath, file);
+        let p = path.join(postsPath, file);
         let name = path.parse(file).name;
         if (fs.lstatSync(p).isDirectory()) {
             return;
         }
-        let info = {likes: 0, comments: [], hashtags: []};
+        let info = {likes: 0, intro: '', comments: [], hashtags: []};
         try {
-            info = JSON.parse(fs.readFileSync(path.join(articlesPath, 'logs', name + '.json')))
+            info = JSON.parse(fs.readFileSync(path.join(postsPath, 'postinfo', name + '.json')))
             console.log(info);
         } catch (err) {
             console.error(err);
         }
         try {
-            const data = fs.readFileSync(path.join(articlesPath, file), 'utf8');
-            posts[index] = {
-                content: {
-                    title: name,
-                    text: data,
-                    shared_link: '',
-                    hashtags: info.hashtags
-                },
-                likes: info.likes,
-                comments: info.comments
-            }
+            const data = fs.readFileSync(path.join(postsPath, file), 'utf8');
+            posts[index] = info;
+            posts[index].article = data;
         } catch (err) {
             console.log(err);
+            posts[index].title = name;
         }
     })
 });
@@ -164,40 +157,30 @@ app.post('/login', (req, res) => {
 
 app.post('/get-post-title', (req, res) => {
     let postId = req.query.postId;
-    res.json({ title: posts[postId].content.title });
-    console.log(posts[postId].content.title );
+    res.json({ title: posts[postId].title });
+    console.log(posts[postId].title );
 })
 
 app.post('/get-post', (req, res) => {
     let postId = req.query.postId;
-    res.json({ content: posts[postId].content, likes: posts[postId].likes });
+    let post_ = JSON.parse(JSON.stringify(posts[postId]));
+    delete post_.article;
+    delete post_.comments;
+    res.json(post_);
+})
+
+app.post('/get-full-post', (req, res) => {
+    let postId = req.query.postId;
+    let post_ = JSON.parse(JSON.stringify(posts[postId]));
+    delete post_.intro;
+    delete post_.comments;
+    res.json(post_);
 })
 
 app.post('/postIds', (req, res) => {
     let keys = new Set(Object.keys(posts));
     console.log(keys);
     res.json({postIds: Object.keys(posts)});
-})
-
-app.post('/save-post', (req, res) => {
-    if (req.body.password != '2311') return;
-    let idx = Math.max(...Object.keys(posts))+1;
-    console.log(idx);
-    posts[idx] = {
-        id: idx,
-        content: {
-            title: req.body.title, 
-            text: req.body.content, 
-            shared_link: req.body.shared_link,
-            hashtags: []
-        },
-        likes: 0,
-        comments: []
-    };
-    console.log(posts);
-    res.json({
-        answer: 'y',
-    });
 })
 
 app.post('/admin-verify', (req, res) => {
@@ -210,10 +193,10 @@ app.post('/admin-verify', (req, res) => {
 process.on('SIGINT', _ => {
     console.log('now you quit!');
     for (const id in posts) {
-        let name = posts[id].content.title;
-        let info = {likes: posts[id].likes, comments: posts[id].comments, hashtags: posts[id].content.hashtags};
-        fs.writeFileSync(path.join(articlesPath, 'logs', name + '.json'), JSON.stringify(info, undefined, 4));
-        console.log(path.join(articlesPath, 'logs', name + '.json'));
+        let name = posts[id].title;
+        let info = {likes: posts[id].likes, comments: posts[id].comments, hashtags: posts[id].hashtags};
+        fs.writeFileSync(path.join(postsPath, 'logs', name + '.json'), JSON.stringify(info, undefined, 4));
+        console.log(path.join(postsPath, 'logs', name + '.json'));
     }
     
     process.exit();

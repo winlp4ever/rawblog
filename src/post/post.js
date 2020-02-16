@@ -16,8 +16,11 @@ function disableDoubleClick() {
 export default class Post extends Component {
     
     state = {
-        post_content: {} ,
-        likes: '',
+        post: {
+            title: '',
+            likes: '',
+            intro: ''
+        },
         view_comments: false
     }
     like = this.like.bind(this);
@@ -28,7 +31,7 @@ export default class Post extends Component {
         disableDoubleClick();
         let response = await fetch(`/get-post?postId=${this.props.postId}`, {method: 'POST'});
         let data = await response.json();
-        this.setState({ post_content: data.content, likes: data.likes });
+        this.setState({post: data});
     }
 
     async componentWillUnmount() {
@@ -36,7 +39,9 @@ export default class Post extends Component {
     }
 
     like() {
-        this.setState({ likes: this.state.likes + 1 });
+        let post_ = JSON.parse(JSON.stringify(this.state.post));
+        post_.likes ++;
+        this.setState({post: post_});
         this.props.socket.emit(`likes`, this.props.postId);
     }
 
@@ -61,12 +66,12 @@ export default class Post extends Component {
                 className='post'
             >
                 <div className='post-text'>
-                    <MdRender source={this.state.post_content.text} />
+                    <h2>{this.state.post.title}</h2>
+                    <MdRender source={this.state.post.intro} />
                     <button className='read-more' onClick={_ => this.props.viewFullPost(this.props.postId)}>
                         See full ...
                     </button>
                 </div>
-                <LinkPreview url={this.state.post_content.shared_link}/>
                 <div
                     className='post-interact'
                 >
@@ -76,7 +81,7 @@ export default class Post extends Component {
                         >
                             <i className="fab fa-gratipay"></i>
                         </span>
-                        <span>{this.state.likes}</span>
+                        <span>{this.state.post.likes}</span>
                         
                     </div>
                     <div>

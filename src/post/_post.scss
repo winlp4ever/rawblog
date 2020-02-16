@@ -89,8 +89,9 @@ div.post {
         position: relative;
         transition: all 0.2s;
         padding: 10px 25px 25px;
+        overflow: hidden;
+        height: 120px;
         div.markdown-render {
-            height: 120px;
             overflow: hidden;
         }
     }
