@@ -48,7 +48,6 @@ export default class FullPost extends Component {
         this.setState({ post: data });
         genOutline();
     }
-
     
     async componentWillUnmount() {
         //this.props.socket.disconnect();

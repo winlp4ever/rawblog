@@ -192,12 +192,13 @@ app.post('/admin-verify', (req, res) => {
 
 process.on('SIGINT', _ => {
     console.log('now you quit!');
+    /*
     for (const id in posts) {
         let name = posts[id].title;
         let info = {likes: posts[id].likes, comments: posts[id].comments, hashtags: posts[id].hashtags};
         fs.writeFileSync(path.join(postsPath, 'logs', name + '.json'), JSON.stringify(info, undefined, 4));
         console.log(path.join(postsPath, 'logs', name + '.json'));
     }
-    
+    */
     process.exit();
 })

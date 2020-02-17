@@ -14,7 +14,6 @@ function disableDoubleClick() {
 }
 
 export default class Post extends Component {
-    
     state = {
         post: {
             title: '',

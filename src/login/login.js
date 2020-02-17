@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './_login.scss';
 import $ from 'jquery';
-import bg from '../../imgs/bg.svg';
+import bg from '../../imgs/bg_.svg';
 import Button from '@material-ui/core/Button';
 
 
