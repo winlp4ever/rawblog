@@ -83,7 +83,13 @@ div.full-post {
         }
             
     }
-    
+
+    .article {
+        border-radius: unset;
+        box-sizing: border-box;
+        padding: 0 0 5em;
+        border-bottom: 1px solid lightgrey;
+    }
 
     .markdown-render > p:first-of-type::first-letter {
         color: #202121;
@@ -251,16 +257,15 @@ div.full-post {
     }
 
     div.comment-section {
+        background: white;
+        margin-top: 2em;
         position: relative;
         font: {
             size: 80%;
         }
-        padding: 0px;
         transition: all 0.2s;
         box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
         height: auto;
-    }
-    div.comment-section {
         overflow: hidden;
         box-sizing: border-box;
         padding: 10px 20px;

@@ -1,5 +1,6 @@
 # on another CPU machine
 from bert_serving.client import BertClient
+from collections import deque
 
 import json
 
@@ -7,6 +8,7 @@ from time import sleep
 
 
 import socketio
+import sys
 
 from scipy.spatial.distance import cosine
 
@@ -15,7 +17,10 @@ import spacy
 nlp = spacy.load('en')
 
 def run():
-    bc = BertClient(ip='15.188.8.216')  # ip address of the GPU machine
+    if not sys.argv[1]:
+        sys.stderr('You must enter an ip for your remote machine!')
+        return
+    bc = BertClient(ip=sys.argv[1])  # ip address of the GPU machine
     QAs = json.load(open('nlp/qas.json'))
     sio = socketio.Client()
 
@@ -23,6 +28,9 @@ def run():
     print('begin embedding all questions...')
     embeds = bc.encode(questions)
     print('finished!')
+
+    MEMO_MAX_LEN = 10
+    Q = deque(maxlen=MEMO_MAX_LEN)
     def send_msg(event, msg):
         sio.emit('is typing', {'sender': msg['sender'], 'dest': msg['dest']})
         sleep(1)
@@ -35,22 +43,14 @@ def run():
     
     @sio.on('ask for hints')
     def on_message(typed):
-        if len(typed['msg']) < 10:
-            sio.emit('hints', {'dest': typed['sender'], 'hints': []})
-            return
-        try:
-            emb = bc.encode([typed['msg']])[0]
-            hints = []
-            for i, q in enumerate(QAs):
-                confid = 1.0-cosine(embeds[i], emb)
-                if confid > 0.7:
-                    hints.append({'hint': q, 'confidence': '%.2f'%confid})
-            hints.sort(key= lambda u: u['confidence'], reverse=True)
-            if len(hints) > 5:
-                hints = hints[:5]
-            sio.emit('hints', {'dest': typed['sender'], 'hints': hints})
-        except:
-            return
+        msg = typed['msg']
+        
+        
+        #try:
+        print('added new question')
+        nonlocal Q
+        Q.append(typed)
+        return
 
 
     @sio.on('new chat')
@@ -96,8 +96,29 @@ def run():
         print('disconnected from server')
 
     sio.connect('http://localhost:5000')
-    sio.wait()
+    while True:
+        sleep(0.05)
+        if Q:
+            print('Q not empty! question answering...') 
+            msg = Q.popleft() 
+            if len(msg['msg']) < 10:
+                sio.emit('hints', {'dest': msg['sender'], 'hints': []})
+            else:
+                emb = bc.encode([msg['msg']])[0]
+                hints = []
+                for i, q in enumerate(QAs):
+                    confid = 1.0-cosine(embeds[i], emb)
+                    if confid > 0.5:
+                        hints.append({'hint': q, 'confidence': '%.2f'%confid})
+                hints.sort(key= lambda u: u['confidence'], reverse=True)
+                if len(hints) > 5:
+                    hints = hints[:5]
+                sio.emit('hints', {'dest': msg['sender'], 'hints': hints})
+                print('hints sent!')
 
+
+    sio.wait()
+    
 
 if __name__ == "__main__":
     run()

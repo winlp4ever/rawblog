@@ -30,5 +30,11 @@
     },
     "what is recurrent neural network?": {
         "answer": "A recurrent neural network (RNN) is a class of artificial neural networks where connections between nodes form a directed graph along a temporal sequence. This allows it to exhibit temporal dynamic behavior."
+    },
+    "how does minimum spanning tree works?": {
+        "answer": "blah blah blah..."
+    },
+    "what is page rank algorithm?": {
+        "answer": "another blah blah"
     }
 }

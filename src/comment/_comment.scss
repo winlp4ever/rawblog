@@ -4,7 +4,7 @@
     position: relative;    
     >div{
         position: relative;
-        border-radius: 1em;
+        border-radius: 1.5em;
         height: auto;
         white-space: pre-wrap;
         word-wrap: break-word;
@@ -14,11 +14,11 @@
         display: block;
         border: none;
         box-sizing: border-box;
-        padding: 5px 10px;
-        margin:10px auto;
+        padding: 0.6em;
+        margin:0.7em auto;
         float: left;
         transition: all 0.2s;
-        line-height: 1.6;
+        line-height: 1.5;
         font: {
             family: 'Lato', sans-serif;
             size: 1.1em;

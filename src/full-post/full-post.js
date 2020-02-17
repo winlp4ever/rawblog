@@ -88,7 +88,7 @@ export default class FullPost extends Component {
                 className='full-post'
             >
                 <div className='himmi'><img src={Img}/></div>
-                <div>
+                <div className='article'>
                     {hashtags}
                     <MdRender source={this.state.post.article} />
                 </div>
