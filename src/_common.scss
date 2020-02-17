@@ -1,15 +1,17 @@
-body, html {
+body, html, #main {
     min-width: 400px;
     min-height: 600px;
     font: {
         size: 21px;
         family: 'Lato', sans-serif;
     }
-    a {
-        text-decoration: none;
-        color: #1e88e5;
-    }
+    
     background-color: #fafafa;
+}
+
+a {
+    text-decoration: none;
+    color: #1e88e5;
 }
 
 .display {
@@ -18,10 +20,6 @@ body, html {
 
 .not-display {
     display: none;
-}
-
-#main {
-    margin: 100px auto 50px;
 }
 
 section.view {

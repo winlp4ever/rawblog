@@ -1,13 +1,18 @@
 .login-window {
-    .login-background {
-        position: fixed;
-        width: 100%;
-        bottom: 0;
-        left: 0;
-    }
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../../imgs/bg_.svg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     .login {
         display: block;
         position: fixed;
+        top: 4em;
         left: 10%;
         width: 30%;
         margin: auto;

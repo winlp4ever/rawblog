@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './_login.scss';
 import $ from 'jquery';
-import bg from '../../imgs/bg_.svg';
 import Button from '@material-ui/core/Button';
 
 
@@ -39,7 +38,6 @@ export default class Login extends Component {
 
     render() {
         return (<div className='login-window'>
-            <img className='login-background' src={bg}/>
             <div className='login'>
                 <h1>How are you?</h1>
                 <h2>Let get you back in...</h2>
