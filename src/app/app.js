@@ -8,6 +8,7 @@ import { userContext } from '../user-context/user-context';
 import Home from '../home/home';
 import B0t from '../b0t/b0t';
 import Login from '../login/login';
+import Vid from '../vid/vid';
 
 import Cookies from 'js-cookie';
 
@@ -57,6 +58,10 @@ class App extends Component {
         this.setState({activeTab: 0, postId: -1});
     }
 
+    viewVideo = () => {
+        this.setState({activeTab: 2, postId: -1});
+    }
+
     handleLogin = (yn) => {
         if (yn == 'y') this.setState({loginValid: true});
         console.log(this.state.loginValid);
@@ -65,7 +70,8 @@ class App extends Component {
     render = () => {
         let menuOptions = [
             {name: 'Home', onClick: this.viewHome}, 
-            {name: 'Wall', onClick: this.viewSocio}
+            {name: 'Wall', onClick: this.viewSocio},
+            {name: 'Video', onClick: this.viewVideo}
         ];
 
         let auth = '';
@@ -87,6 +93,10 @@ class App extends Component {
                 socket={this.state.socket} 
             />;
         } 
+
+        else if (this.state.activeTab == 2) {
+            main = <Vid />;
+        }
 
         const value = {
             user: this.state.user,

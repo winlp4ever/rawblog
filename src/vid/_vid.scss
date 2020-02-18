@@ -1,0 +1,148 @@
+.vid {
+    position: relative;
+    margin: 3.5em auto 50px;
+    width: 100%;
+    .video-player {
+        position: relative;
+        margin: 1em auto auto 1em;
+        width: 60%;
+        .player-wrapper {
+            padding: 30% 0;
+
+            .react-player {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+        .controls {
+            position: absolute;
+            background: white;
+            height: auto;
+            box-sizing: border-box;
+            padding: 0.1em;
+            width: 100%;
+            bottom: -1.7em;
+            border-radius: 2px;
+            transition: all 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+            .progress-bar {
+                position: absolute;
+                z-index: 0;
+                height: 100%;
+                width: 100%;
+                bottom: 0;
+                left: 0;
+                transition: all 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+                .seek {
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    height: 100%;
+                    background: #e57373;
+                }
+            }
+            .control-buttons {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                font: {
+                    size: 0.7em;
+                }
+                button {
+                    padding: 0;
+                    margin: auto 5px;
+                }
+                svg {
+                    margin: auto;
+                    padding: 0em 0.2em;
+                }
+            }
+            &:hover {
+                box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+                .progress-bar {
+                    height: 0.2em;
+                    top: -0.2em;
+                    color: #af4448;
+                }
+            }
+        }
+    }
+    .right-panel {
+        position: absolute;
+        width: 35%;
+        right: 0.5em;
+        top: 0.5em;
+        z-index: 2;
+        min-height: 700px;
+        .course-info {
+
+            box-sizing: border-box;
+            padding: 0.5em 1em;
+            position: relative;
+            color: #424242;
+            
+            border-left: 3px solid #e57373;
+            font: {
+                family: 'Josefin Sans', sans-serif;
+                size: 0.8em;
+            }
+            h1 {
+                color: #666666;
+            }
+        }
+        .question-answer {
+            position: relative;
+            box-sizing: border-box;
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+            div {
+                position: relative;
+                box-sizing: border-box;
+                width: auto;
+                color: #424242;
+                max-width: 80%;
+                margin: 1em auto;
+                font: {
+                    size: 0.8em;
+                }
+                svg {
+                    position: absolute;
+                    display: block;
+                    font: {
+                        size: 2em;
+                    }
+                }
+                span {
+                    position: relative;
+                    display: block;
+                    padding: 0.5em 1em;
+                    border-radius: 1.5em;
+                    margin: 0 0.5em;
+                    overflow-wrap: break-word;
+                }
+                &.question {
+                    span {
+                        background: #ffa4a2;
+                    }
+                    margin-left: 2em;
+                    svg {
+                        top: 0;
+                        left: -1em;
+                    }
+                }
+                &.answer {
+                    span {
+                        background: #b2fab4;
+                    }
+                    margin-right: 2em;
+                    svg {
+                        top: 0;
+                        right: -1em;
+                    }
+                }
+            }
+        }
+    }
+    
+}
