@@ -78,6 +78,7 @@ def run():
             return
 
         q = msg['msg']
+        print(q.lower() in QAs)
         if q.lower() in QAs:
             match = QAs[q.lower()]
             answer = match['answer']

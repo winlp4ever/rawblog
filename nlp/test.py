@@ -1,15 +1,12 @@
-import sent2vec
-from scipy.spatial.distance import cosine
-model = sent2vec.Sent2vecModel()
-model.load_model('/home/redlcamille/workspace/sent2vec/torontobooks_unigrams.bin')
-emb = model.embed_sentence("what is neural network?") 
-e = model.embed_sentence("how does neural network work?")
-embs = model.embed_sentences(["first sentence .", "another sentence"])
-print(cosine(emb, e))
+import pandas as pd
+import json
 
-import spacy 
-nlp = spacy.load('en')
-s = "i have a question what is machine learning"
-doc = nlp(s)
-for sent in doc.sents:
-    print(sent.text)
+csv = pd.read_csv('bob-qas.csv', header=None)
+d = dict()
+
+for r in csv.iterrows():
+    print('%s' % (r[1][0]))
+    d[r[1][0][3:].lstrip().lower()] = {'answer': ' '.join(r[1][1].split('\n'))}
+
+with open('qas.json', 'w') as outfile:
+    json.dump(d, outfile, indent=4)

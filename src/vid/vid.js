@@ -7,17 +7,19 @@ import PauseRoundedIcon from '@material-ui/icons/PauseRounded';
 import StopRoundedIcon from '@material-ui/icons/StopRounded';
 import ContactSupportOutlinedIcon from '@material-ui/icons/ContactSupportOutlined';
 import DoneOutlineRoundedIcon from '@material-ui/icons/DoneOutlineRounded';
+import {CSSTransition} from 'react-transition-group';
+
 
 const QAs = [
-    {t: 1, content: 'what is blah blah?', isQuestion: true}, 
-    {t: 4, content: "it's blah blah", isQuestion: false},
-    {t: 6, content: 'now can you tell me what is blah blah? wait a minute this owei oiwe ooieis fe', isQuestion: true}, 
-    {t: 8, content: "thi's is blllllahwfew", isQuestion: false}
+    {t: 8, content: "high level, how is this working?", isQuestion: true}, 
+    {t: 15, content: "Yeah, how it work is you may think like in my example like, 'i want to eat fish', the sentence is either one hot or embedded, and you insert I to the network, then next word until the last one ", isQuestion: false},
+    {t: 126, content: "how does the alpha work?", isQuestion: true}, 
+    {t: 132, content: "The alpha depends, as I said, if you in the cases, it depends on what function. You want to apply if you applied softmax which means you want to do a multiple dimensions class vacations", isQuestion: false}
 ]
 
 export default class Vid extends Component {
     state = {
-        url: 'https://taii.s3.eu-west-3.amazonaws.com/ted-ed-vid.mp4',
+        url: 'https://taii.s3.eu-west-3.amazonaws.com/trim_.mp4',
         playing: false,
         duration: 1,
         seek: 0,
@@ -25,6 +27,7 @@ export default class Vid extends Component {
     };
 
     componentDidMount() {
+        this.set_ = 0;
         this.progressing_ = setInterval(() => {
             let seek = 0;
             try {
@@ -53,7 +56,11 @@ export default class Vid extends Component {
                     
                 }
             }
-            if (this.state.currentQAs.length > 2) this.setState({currentQAs: this.state.currentQAs.slice(2, 3)})
+            if (this.state.currentQAs.length == 2) this.set_ ++;
+            if (this.set_ > 20) {
+                this.setState({currentQAs: this.state.currentQAs.slice(2, 3)})
+                this.set_ = 0;
+            }
 
         }, 100);
     }
@@ -116,8 +123,15 @@ export default class Vid extends Component {
                     </div>
                     <div className='question-answer'>
                         {this.state.currentQAs.map((chat, index) => {
-                            if (chat.isQuestion) return <div className='question'><ContactSupportOutlinedIcon /><span key={chat.t} className='appear'>{chat.content}</span></div>
-                            return <div className='answer'><span key={chat.t} className='appear'>{chat.content}</span><DoneOutlineRoundedIcon/></div>
+                            if (chat.isQuestion) return (
+                                <div className='question'>
+                                    <ContactSupportOutlinedIcon />
+                                    <span key={chat.t} className='appear'>{chat.content}</span>
+                                </div>)
+                            return <div className='answer'>
+                                <span key={chat.t} className='appear'>{chat.content}</span>
+                                <DoneOutlineRoundedIcon/>
+                            </div>
                         })}
                     </div>
                 </div>
