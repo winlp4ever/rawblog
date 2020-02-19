@@ -8,9 +8,18 @@ import StopRoundedIcon from '@material-ui/icons/StopRounded';
 import ContactSupportOutlinedIcon from '@material-ui/icons/ContactSupportOutlined';
 import DoneOutlineRoundedIcon from '@material-ui/icons/DoneOutlineRounded';
 import {CSSTransition} from 'react-transition-group';
+import { findDOMNode } from 'react-dom';
+import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
 
 
-const QAs = [
+const transcript = [
+    {t: 1, content: "what is the question", isQuestion: true}, 
+    {t: 2, content: "Yeah, how it work is you may think like in my example like, 'i want to eat fish', the sentence is either one hot or embedded, and you insert I to the network, then next word until the last one ", isQuestion: false},
+    {t: 5, content: "how does the alpha work?", isQuestion: true}, 
+    {t: 6, content: "The alpha depends, as I said, if you in the cases, it depends on what function. You want to apply if you applied softmax which means you want to do a multiple dimensions class vacations", isQuestion: false}
+]
+
+const QAs_ = [
     {t: 8, content: "high level, how is this working?", isQuestion: true}, 
     {t: 15, content: "Yeah, how it work is you may think like in my example like, 'i want to eat fish', the sentence is either one hot or embedded, and you insert I to the network, then next word until the last one ", isQuestion: false},
     {t: 126, content: "how does the alpha work?", isQuestion: true}, 
@@ -23,46 +32,45 @@ export default class Vid extends Component {
         playing: false,
         duration: 1,
         seek: 0,
-        currentQAs: [],
+        transcript: QAs_,
+        displayed: [],
+        index: -1,
+        toserver: false
     };
 
     componentDidMount() {
-        this.set_ = 0;
+        this.$player = $(findDOMNode(this.player));
         this.progressing_ = setInterval(() => {
             let seek = 0;
             try {
                 seek = this.player.getCurrentTime();
-                $('.react-player')
+
             } catch (e) {
-                console.log(e);
             }
-            $('.seek').css('width', `${seek / this.state.duration * 100}%`);
-            this.setState({seek: seek})
-            //console.log(parseInt(seek));
-
-            for (let c of QAs) {
-                if (c.t == parseInt(seek)) {
-                    let currentQAs_ = this.state.currentQAs.slice();
-                    let assume = false;
-                    if (this.state.currentQAs.length > 0) {
-                        if (this.state.currentQAs[this.state.currentQAs.length-1].t != c.t)
-                            assume = true;
-
-                    } else assume = true;
-                    if (assume)
-                        currentQAs_.push(c);
-                    this.setState({currentQAs: currentQAs_});
-                    break;
-                    
+                this.$player.parent().parent()
+                    .children('.controls')
+                    .children('.progress-bar')
+                    .children('.seek').css('width', `${seek / this.state.duration * 100}%`);
+                this.setState({seek: seek});
+                if (this.state.index + 1 < this.state.transcript.length) 
+                    if (parseInt(seek) == this.state.transcript[this.state.index+1].t) {
+                        if (this.state.displayed.length > 0) 
+                            if (this.state.displayed[this.state.displayed.length-1].t == parseInt(seek)) 
+                                return;
+                        let display_ = this.state.displayed.slice();
+                        display_.push(this.state.transcript[this.state.index+1]);
+                        this.setState({displayed: display_, index: this.state.index+1});   
+                } 
+                if (this.state.displayed.length >= 2) {
+                    setTimeout(() => {
+                        let displ = this.state.displayed.slice(2);
+                        this.setState({displayed: displ, toserver: true});
+                        setTimeout(()=> {
+                            this.setState({toserver: false})
+                        }, 2000)
+                    }, 2000);
                 }
-            }
-            if (this.state.currentQAs.length == 2) this.set_ ++;
-            if (this.set_ > 20) {
-                this.setState({currentQAs: this.state.currentQAs.slice(2, 3)})
-                this.set_ = 0;
-            }
-
-        }, 100);
+        }, 200);
     }
 
     componentWillUnmount() {
@@ -75,7 +83,7 @@ export default class Vid extends Component {
 
     stop = () => {
         this.player.seekTo(0);
-        this.setState({playing: false, seek: 0});
+        this.setState({playing: false, seek: 0, index: -1, displayed: []});
     }
 
     handleReady = () => {
@@ -114,25 +122,47 @@ export default class Vid extends Component {
                             <Button className='stop' onClick={this.stop}><StopRoundedIcon /></Button>
                         </div>
                     </div>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        className='like-vid'
+                        startIcon={<SentimentVerySatisfiedIcon />}
+                    >
+                        I learned something!
+                    </Button>
                 </div>
                 <div className='right-panel'>
                     <div className='course-info'>
-                        <h1>The legend of Annapurna, Hindu goddess of nourishment</h1>
+                        <h1>Introduction to Recurrent Neural Network</h1>
                         <p>Teacher: The AI Institute</p>
                         <p>Duration: {parseInt(this.state.duration)}s</p>
                     </div>
+                    
                     <div className='question-answer'>
-                        {this.state.currentQAs.map((chat, index) => {
-                            if (chat.isQuestion) return (
-                                <div className='question'>
-                                    <ContactSupportOutlinedIcon />
-                                    <span key={chat.t} className='appear'>{chat.content}</span>
-                                </div>)
-                            return <div className='answer'>
-                                <span key={chat.t} className='appear'>{chat.content}</span>
+                        {this.state.displayed.map((chat, index) => {
+                            if (chat.isQuestion) 
+                                return (
+                                    <div className='question' key={chat.t}>
+                                        <ContactSupportOutlinedIcon />
+                                        <Button variant='contained' className='appear'>{chat.content}</Button>
+                                    </div>
+                                    )
+                            return <div className='answer' key={chat.t}>
+                                <Button variant='outlined' className='appear'>{chat.content}</Button>
                                 <DoneOutlineRoundedIcon/>
                             </div>
                         })}
+                        <CSSTransition
+                            in={this.state.toserver? true: false}
+                            timeout={1000}
+                            classNames="toserver"
+                            unmountOnExit
+                        >
+                            <Button variant='contained' className='toserver'>
+                                Registered to Server!
+                            </Button>
+                        </CSSTransition>
+                        
                     </div>
                 </div>
             </div>

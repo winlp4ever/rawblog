@@ -1,3 +1,13 @@
+@keyframes ent {
+    0% {transform: scale(1.5); opacity: 0}
+    100% {transform: scale(1); opacity: 1}
+}
+
+@keyframes ext {
+    0% {transform: scale(1); opacity: 1}
+    100% {transform: scale(1.5); opacity: 0}
+}
+
 .vid {
     position: relative;
     margin: 3.5em auto 50px;
@@ -17,12 +27,12 @@
         }
         .controls {
             position: absolute;
-            background: white;
+            background: transparent;
             height: auto;
             box-sizing: border-box;
             padding: 0.1em;
             width: 100%;
-            bottom: -1.7em;
+            bottom: -1em;
             border-radius: 2px;
             transition: all 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
             .progress-bar {
@@ -55,16 +65,23 @@
                 svg {
                     margin: auto;
                     padding: 0em 0.2em;
+                    color: #212121;
                 }
             }
             &:hover {
-                box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
                 .progress-bar {
                     height: 0.2em;
                     top: -0.2em;
                     color: #af4448;
                 }
             }
+            
+        }
+        .like-vid {
+            position: absolute;
+            bottom: -5em;
+            right: 0.5em;
+             font-size: 0.7em;   
         }
     }
     .right-panel {
@@ -96,13 +113,34 @@
             padding: 1em;
             display: flex;
             flex-direction: column;
+            min-height: 400px;
+            .toserver {
+                position: absolute;
+                bottom: -2em;
+                right: 0;
+            }
+            .toserver-enter {
+                opacity: 0;
+            }
+            .toserver-enter-active {
+                opacity: 1;
+                transition: all 1s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+            }
+
+            .toserver-exit {
+                opacity: 1;
+            }
+            .toserver-exit-active {
+                opacity: 0;
+                transition: all 1s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+            }
             div {
                 position: relative;
                 box-sizing: border-box;
                 width: auto;
                 color: #424242;
                 max-width: 80%;
-                margin: 1em auto;
+                margin: 0.5em auto;
                 font: {
                     size: 0.8em;
                 }
@@ -113,16 +151,19 @@
                         size: 2em;
                     }
                 }
-                span {
+                button {
+                    text-transform: none;
+                    font-size: 0.9em;
+                    letter-spacing: normal;
                     position: relative;
                     display: block;
                     padding: 0.5em 1em;
-                    border-radius: 1.5em;
                     margin: 0 0.5em;
                     overflow-wrap: break-word;
                 }
                 &.question {
-                    span {
+                    font-weight: 700;
+                    button {
                         background: #ffa4a2;
                     }
                     margin-left: 2em;
@@ -131,9 +172,10 @@
                         left: -1em;
                     }
                 }
+                
                 &.answer {
-                    span {
-                        background: #b2fab4;
+                    button {
+                        border: 2px solid #7cb342;
                     }
                     margin-right: 2em;
                     svg {
@@ -141,6 +183,7 @@
                         right: -1em;
                     }
                 }
+                
             }
         }
     }

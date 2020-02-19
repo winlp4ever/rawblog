@@ -364,6 +364,7 @@ class B0t extends Component {
                 </div>
                 <Notif />
                 
+                
                 <CSSTransition
                     in={this.state.insights.course? true: false}
                     timeout={200}

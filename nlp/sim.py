@@ -71,7 +71,7 @@ def run():
         q = msg['msg']
         emb = bc.encode([q])[0]
         u = max(range(len(questions)), key=lambda j: 1.0-cosine(embeds[j], emb))
-        if cosine(embeds[u], emb) < 0.5:
+        if cosine(embeds[u], emb) < 0.06:
             match = QAs[questions[u]]
             answer = match['answer']
             for sent in nlp(answer).sents:
