@@ -29,11 +29,11 @@ const QAs_ = [
 
 export default class Vid extends Component {
     state = {
-        url: 'https://taii.s3.eu-west-3.amazonaws.com/trim_.mp4',
+        url: 'https://taii.s3.eu-west-3.amazonaws.com/ted-ed-vid.mp4',
         playing: false,
         duration: 1,
         seek: 0,
-        transcript: QAs_,
+        transcript: transcript,
         displayed: [],
         index: -1,
         toserver: false
