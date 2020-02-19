@@ -78,7 +78,7 @@ def run():
                 send_msg('new chat', {'sender': 'bot', 'dest': msg['sender'], 'msg': sent.text, 'type': 'answer'})
 
             if 'courses' in match or 'toread' in match:
-                res = {'sender': 'bot', 'dest': msg['sender'], 'msg': 'more insights'}
+                res = {'sender': 'bot', 'dest': msg['sender'], 'msg': 'more insights?'}
                 if 'courses' in match:
                     res['courses'] = match['courses']
                 if 'toread' in match:
