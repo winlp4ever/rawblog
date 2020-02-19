@@ -181,7 +181,7 @@
     .chat-section {
         position: relative;
         width: 80%;
-        background: whitesmoke;
+        background: white;
         display: flex;
         flex-direction: row;
         
@@ -280,7 +280,7 @@
                 }                    
 
                 .msg {
-                    line-height: 1.5;
+                    line-height: 1.2;
                     position: relative;
                     display: flex;
                     flex-direction: row;
@@ -288,7 +288,7 @@
                     margin: 2px 5px;
                     //max-width: 300px;
                     word-break: break-word;
-                    background: white;
+                    background: #f1f0f0;
                     box-sizing: border-box;
                     padding: 10px 10px;
                     
@@ -404,15 +404,15 @@
                     &.last {
                         border-bottom-left-radius: 20px;
                     }
-                    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.08);
                     .reply-to {
                         left: 10px;
                     }
                 }
                 .msg.bot.answer {
-                    background: #af4448;
+                    background: #f1f0f0;
+                    border: 1px solid lightgrey;
                     span{
-                        color: white;
+                        color: #424242
                     }
                     .blink{
                         color: white;

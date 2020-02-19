@@ -10,7 +10,8 @@ import DoneOutlineRoundedIcon from '@material-ui/icons/DoneOutlineRounded';
 import {CSSTransition} from 'react-transition-group';
 import { findDOMNode } from 'react-dom';
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
-
+import GoodIcon from '../../imgs/good.svg';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 const transcript = [
     {t: 1, content: "what is the question", isQuestion: true}, 
@@ -20,10 +21,10 @@ const transcript = [
 ]
 
 const QAs_ = [
-    {t: 8, content: "high level, how is this working?", isQuestion: true}, 
-    {t: 15, content: "Yeah, how it work is you may think like in my example like, 'i want to eat fish', the sentence is either one hot or embedded, and you insert I to the network, then next word until the last one ", isQuestion: false},
-    {t: 126, content: "how does the alpha work?", isQuestion: true}, 
-    {t: 132, content: "The alpha depends, as I said, if you in the cases, it depends on what function. You want to apply if you applied softmax which means you want to do a multiple dimensions class vacations", isQuestion: false}
+    {t: 10, content: "high level, how is this working?", isQuestion: true}, 
+    {t: 38, content: "Yeah, how it work is you may think like in my example like, 'i want to eat fish', the sentence is either one hot or embedded, and you have a vector you gave I to one of the aren't first note and then like that are in protest.", isQuestion: false},
+    {t: 129, content: "how does the alpha work?", isQuestion: true}, 
+    {t: 143, content: "The alpha depends, as I said, if you in the cases, it depends on what function. You want to apply if you applied softmax which means you want to do a multiple dimensions classification", isQuestion: false}
 ]
 
 export default class Vid extends Component {
@@ -104,8 +105,8 @@ export default class Vid extends Component {
                             ref={this.ref}
                             className='react-player'
                             url={this.state.url}
-                            width='100%'
                             height='100%'
+                            width='100%'
                             playing={this.state.playing}
                             onClick={this.pauseOrPlay}
                             onReady={this.handleReady}
@@ -123,10 +124,9 @@ export default class Vid extends Component {
                         </div>
                     </div>
                     <Button
-                        variant="outlined"
-                        color="primary"
+                        variant="contained"
                         className='like-vid'
-                        startIcon={<SentimentVerySatisfiedIcon />}
+                        endIcon={<img src={GoodIcon}/>}
                     >
                         I learned something!
                     </Button>
@@ -156,6 +156,7 @@ export default class Vid extends Component {
                             in={this.state.toserver? true: false}
                             timeout={1000}
                             classNames="toserver"
+                            color='primary'
                             unmountOnExit
                         >
                             <Button variant='contained' className='toserver'>

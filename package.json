@@ -37,6 +37,7 @@
     "@material-ui/icons": "^4.9.1",
     "@microlink/react": "^4.4.7",
     "@nteract/mathjax": "^4.0.1",
+    "@svgr/webpack": "^5.1.0",
     "@types/react": "^16.9.15",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
