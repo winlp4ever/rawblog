@@ -65,6 +65,7 @@
     "react-player": "^1.15.2",
     "react-syntax-highlighter": "^11.0.2",
     "react-transition-group": "^4.3.0",
+    "react-useanimations": "^1.2.12",
     "remark-math": "^2.0.0",
     "remarkable": "^2.0.0",
     "request": "^2.88.0",

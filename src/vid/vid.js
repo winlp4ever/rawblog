@@ -5,17 +5,15 @@ import Button from '@material-ui/core/Button';
 import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
 import PauseRoundedIcon from '@material-ui/icons/PauseRounded';
 import StopRoundedIcon from '@material-ui/icons/StopRounded';
-import ContactSupportOutlinedIcon from '@material-ui/icons/ContactSupportOutlined';
-import DoneOutlineRoundedIcon from '@material-ui/icons/DoneOutlineRounded';
 import {CSSTransition} from 'react-transition-group';
 import { findDOMNode } from 'react-dom';
-import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
 import GoodIcon from '../../imgs/good.svg';
-import SvgIcon from '@material-ui/core/SvgIcon';
+import UseAnimations from "react-useanimations";
 
 
 export default class Vid extends Component {
     state = {
+        ready: false,
         url: 'https://taii.s3.eu-west-3.amazonaws.com/ted-ed-vid.mp4',
         playing: false,
         duration: 1,
@@ -53,7 +51,7 @@ export default class Vid extends Component {
     }
 
     handleReady = () => {
-        this.setState({duration: this.player.getDuration()});
+        this.setState({ready: true, duration: this.player.getDuration()});
         
     }
 
@@ -66,6 +64,10 @@ export default class Vid extends Component {
             <div className='vid'>
                 <div className='video-player'>
                     <div className='player-wrapper'>
+                        {this.state.ready? null: 
+                            <div className='loading'>
+                                <UseAnimations className='loading-icon' animationKey="loading" />
+                            </div>}
                         <ReactPlayer
                             ref={this.ref}
                             className='react-player'

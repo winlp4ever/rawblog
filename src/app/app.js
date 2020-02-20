@@ -103,7 +103,7 @@ class App extends Component {
             updateUser: this.updateUser
         }
 
-        if (!this.state.loginValid) return (<Login handleLogin={this.handleLogin}/>);
+        //if (!this.state.loginValid) return (<Login handleLogin={this.handleLogin}/>);
         return (
             <userContext.Provider value={value}>
                 <B0t socket={this.state.socket} username={this.state.user.name} viewFullPost={this.viewFullPost}/>
