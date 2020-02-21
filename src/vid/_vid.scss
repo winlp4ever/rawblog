@@ -18,7 +18,9 @@
         width: 60%;
         .player-wrapper {
             padding: 0 0;
-            
+            max-height: 700px;
+            height: 400px;
+            transition: all 0.3s cubic-bezier(0.0, 0.0, 0.2, 1);
             overflow: hidden !important;
             .loading {
                 width: 100%;
@@ -44,9 +46,7 @@
                 //position: absolute;
                 background: black;
                 //margin-bottom: -5px;
-                max-height: 700px;
-                height: 400px;
-                transition: all 0.2s linear;
+                
                 video {
                     display: block;
                     margin: auto !important;
@@ -63,7 +63,7 @@
             bottom: -1.6em;
             height: 1.6em;
             border-radius: 2px;
-            transition: all 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+            transition: all 0.2s cubic-bezier(0.0, 0.0, 0.2, 1);
             .progress-bar {
                 position: absolute;
                 z-index: 0;
@@ -71,7 +71,7 @@
                 width: 100%;
                 bottom: 0;
                 left: 0;
-                transition: all 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+                transition: all 0.3s cubic-bezier(0.0, 0.0, 0.2, 1);
                 .seek {
                     position: absolute;
                     left: 0;
@@ -165,7 +165,7 @@
                 background: #f5f5f5;
                 box-shadow: none;
                 font-weight: 700;
-                transition: 0.2 all cubic-bezier(0.6, -0.28, 0.735, 0.045);
+                transition: 0.2 all cubic-bezier(0.0, 0.0, 0.2, 1);
                 &.on {
                     background: #fffde7;
                 }

@@ -80,7 +80,7 @@ class Bookmark extends Component {
             autoplay: false,
             animationData: bookmark // the path to the animation json
         });
-        this.anim.setSpeed(2)
+        this.anim.setSpeed(2);
     }
 
     componentWillUnmount() {
@@ -141,7 +141,7 @@ export default class Vid extends Component {
 
     handleReady = () => {
         this.setState({ready: true, duration: this.player.getDuration()});
-        this.$player.css('height', parseFloat(this.$player.children('video').css('height'), 10));   
+        this.$player.parent().css('height', parseFloat(this.$player.children('video').css('height'), 10));   
     }
 
     ref = player => {

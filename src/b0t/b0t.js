@@ -116,7 +116,7 @@ class B0t extends Component {
     _isMounted = false;
     state = {
         chats: [],
-        hide: false,
+        hide: true,
         dests: ['bot'],
         currDest: 0,
         notifs: [],
