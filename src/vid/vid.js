@@ -8,8 +8,95 @@ import StopRoundedIcon from '@material-ui/icons/StopRounded';
 import {CSSTransition} from 'react-transition-group';
 import { findDOMNode } from 'react-dom';
 import GoodIcon from '../../imgs/good.svg';
-import UseAnimations from "react-useanimations";
+import bookmark from '../../imgs/bookmark.json';
+import loading from '../../imgs/loading.json';
+import yo from '../../imgs/yo.json';
+import lottie from 'lottie-web';
 
+class Yo extends Component {
+
+    state = {on: false}
+    
+    componentDidMount() {
+        this.anim = lottie.loadAnimation({
+            container: this.animBox,
+            renderer: 'svg',
+            loop: false,
+            autoplay: false,
+            animationData: yo
+        })
+        this.anim.setSpeed(1.5);
+    }
+
+    componentWillUnmount() {
+        this.anim.destroy();
+    }
+
+    handleClick = () => {
+        if (!this.state.on)
+            this.anim.play();
+        else this.anim.stop();
+        this.setState({on: !this.state.on})
+    }
+
+    render() {
+        let cl = 'like-vid';
+        if (this.state.on) cl += ' on';
+        return <Button
+            variant="contained"
+            className={cl}
+            endIcon={<span className='yo' ref={animBox => this.animBox = animBox}/>}
+            onClick={this.handleClick}
+        >
+            I learned something!
+        </Button>
+    }
+}
+
+class Loading extends Component {
+    componentDidMount() {
+        this.anim = lottie.loadAnimation({
+            container: this.animBox,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            animationData: loading
+        })
+    }
+    render() {
+        return <div className='loading-icon' ref={animBox => this.animBox = animBox}/>
+    }
+}
+
+class Bookmark extends Component {
+    state = {
+        on: false
+    }
+    componentDidMount() {
+        this.anim = lottie.loadAnimation({
+            container: this.animBox, // the dom element that will contain the animation
+            renderer: 'svg',
+            loop: false,
+            autoplay: false,
+            animationData: bookmark // the path to the animation json
+        });
+        this.anim.setSpeed(2)
+    }
+
+    componentWillUnmount() {
+        this.anim.destroy();
+    }
+
+    handleClick = () => {
+        this.anim.setDirection(this.state.on? -1: 1);
+        this.anim.play();
+        this.setState({on: !this.state.on})
+    }
+    
+    render() {
+        return <div ref={animBox => {this.animBox = animBox}} onClick={this.handleClick}/>
+    }
+}
 
 export default class Vid extends Component {
     state = {
@@ -22,6 +109,8 @@ export default class Vid extends Component {
 
     componentDidMount() {
         this.$player = $(findDOMNode(this.player));
+        
+        console.log(this.$player.css('height'))
         this.progressing_ = setInterval(() => {
             let seek = 0;
             try {
@@ -52,7 +141,7 @@ export default class Vid extends Component {
 
     handleReady = () => {
         this.setState({ready: true, duration: this.player.getDuration()});
-        
+        this.$player.css('height', parseFloat(this.$player.children('video').css('height'), 10));   
     }
 
     ref = player => {
@@ -66,13 +155,13 @@ export default class Vid extends Component {
                     <div className='player-wrapper'>
                         {this.state.ready? null: 
                             <div className='loading'>
-                                <UseAnimations className='loading-icon' animationKey="loading" />
+                                <Loading />
                             </div>}
                         <ReactPlayer
                             ref={this.ref}
                             className='react-player'
                             url={this.state.url}
-                            height='100%'
+                            height='auto'
                             width='100%'
                             playing={this.state.playing}
                             onClick={this.pauseOrPlay}
@@ -97,15 +186,12 @@ export default class Vid extends Component {
                         <h1>Introduction to Recurrent Neural Network</h1>
                         <p>Teacher: The AI Institute</p>
                         <p>Duration: {parseInt(this.state.duration)}s</p>
+                        <div className='bookmark'>
+                            <Bookmark />
+                        </div>
                     </div>
                     <div className='review'>
-                        <Button
-                            variant="contained"
-                            className='like-vid'
-                            endIcon={<img src={GoodIcon}/>}
-                        >
-                            I learned something!
-                        </Button>
+                        <Yo />
                     </div>
                 </div>
                 <div className='main-panel'>

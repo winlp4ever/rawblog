@@ -74,7 +74,6 @@ fs.readdir(postsPath, function (err, files) {
     })
 });
 
-
 var count = 0;
 
 var admin = 'Wall-Q';

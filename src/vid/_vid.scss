@@ -18,7 +18,8 @@
         width: 60%;
         .player-wrapper {
             padding: 0 0;
-            height: auto;
+            
+            overflow: hidden !important;
             .loading {
                 width: 100%;
                 position: absolute;
@@ -41,9 +42,15 @@
             }
             .react-player {
                 //position: absolute;
-                height: 600px !important;
                 background: black;
                 //margin-bottom: -5px;
+                max-height: 700px;
+                height: 400px;
+                transition: all 0.2s linear;
+                video {
+                    display: block;
+                    margin: auto !important;
+                }
             }
         }
         .controls {
@@ -124,19 +131,33 @@
                 color: #666666;
                 font-size: 2em;
             }
+            .bookmark {
+                position: absolute;
+                bottom: 1em;
+                right: 2em;
+                svg {
+                    height: 1.5em !important;
+                    width: 1.5em !important;
+                    * {
+                        fill: #424242;
+                        stroke: #424242;
+                    }
+                }
+            }
         }
         .review {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             button {
+                padding: 0 1.5em 0 2em;
                 position: relative;
                 border-radius: 2em;
                 border: 1px solid lightgrey;
             }
             .like-vid {
-                img {
-                    width: 1.5em;
+                .yo {
+                    width: 2em;
                     height: auto;
                 }
                 font-size: 0.6em;   
@@ -144,6 +165,10 @@
                 background: #f5f5f5;
                 box-shadow: none;
                 font-weight: 700;
+                transition: 0.2 all cubic-bezier(0.6, -0.28, 0.735, 0.045);
+                &.on {
+                    background: #fffde7;
+                }
             }
         }
         
