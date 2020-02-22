@@ -12,7 +12,7 @@ import bookmark from '../../imgs/bookmark.json';
 import loading from '../../imgs/loading.json';
 import yo from '../../imgs/yo.json';
 import lottie from 'lottie-web';
-
+import favorite from '../../imgs/favorite.json';
 class Yo extends Component {
 
     state = {on: false}
@@ -40,7 +40,7 @@ class Yo extends Component {
     }
 
     render() {
-        let cl = 'like-vid';
+        let cl = 'learned-something';
         if (this.state.on) cl += ' on';
         return <Button
             variant="contained"
@@ -68,7 +68,7 @@ class Loading extends Component {
     }
 }
 
-class Bookmark extends Component {
+class _Icon extends Component {
     state = {
         on: false
     }
@@ -78,7 +78,7 @@ class Bookmark extends Component {
             renderer: 'svg',
             loop: false,
             autoplay: false,
-            animationData: bookmark // the path to the animation json
+            animationData: this.props.icon // the path to the animation json
         });
         this.anim.setSpeed(2);
     }
@@ -186,8 +186,13 @@ export default class Vid extends Component {
                         <h1>Introduction to Recurrent Neural Network</h1>
                         <p>Teacher: The AI Institute</p>
                         <p>Duration: {parseInt(this.state.duration)}s</p>
-                        <div className='bookmark'>
-                            <Bookmark />
+                        <div className='favorite-and-bookmark'>
+                            <div className='favorite'>
+                                <_Icon icon={favorite}/>
+                            </div>
+                            <div className='bookmark'>
+                                <_Icon icon={bookmark} />
+                            </div>
                         </div>
                     </div>
                     <div className='review'>
