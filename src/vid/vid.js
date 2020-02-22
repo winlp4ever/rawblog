@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, { Component, createRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import './_vid.scss';
 import Button from '@material-ui/core/Button';
@@ -13,8 +13,39 @@ import loading from '../../imgs/loading.json';
 import yo from '../../imgs/yo.json';
 import lottie from 'lottie-web';
 import favorite from '../../imgs/favorite.json';
-class Yo extends Component {
+import Input from '@material-ui/core/Input';
+import HelpOutlinedIcon from '@material-ui/icons/HelpOutlined';
 
+const NewQuestion = (props) => {
+    const [active, setActive] = useState(false);
+    const [q, setQ] = useState('');
+
+    const handleChange = (e) => {
+        setQ(e.target.value);
+    }
+
+    const handleFocus = () => {
+        setActive(true);
+    }
+
+    const handleOutFocus = () => {
+        setActive(false);
+    }
+
+    let cl = 'question';
+    if (active) cl+= ' active';
+    return <div className={cl}>
+        <Input disableUnderline={true} 
+            fullWidth={true} 
+            placeholder='Ask a question' 
+            onFocus={handleFocus} 
+            onBlur={handleOutFocus}
+            onChange={handleChange}/>
+        <HelpOutlinedIcon className='question-mark'/>
+    </div>
+}
+
+class Yo extends Component {
     state = {on: false}
     
     componentDidMount() {
@@ -94,14 +125,16 @@ class _Icon extends Component {
     }
     
     render() {
-        return <div ref={animBox => {this.animBox = animBox}} onClick={this.handleClick}/>
+        return <div 
+            ref={animBox => {this.animBox = animBox}} 
+            onClick={this.handleClick} 
+            className={this.props.className}/>
     }
 }
 
-export default class Vid extends Component {
+class VideoPlayer extends Component {
     state = {
         ready: false,
-        url: 'https://taii.s3.eu-west-3.amazonaws.com/ted-ed-vid.mp4',
         playing: false,
         duration: 1,
         seek: 0,
@@ -125,7 +158,6 @@ export default class Vid extends Component {
             this.setState({seek: seek});
         }, 200);
     }
-
     componentWillUnmount() {
         clearInterval(this.progressing_);
     }
@@ -149,38 +181,48 @@ export default class Vid extends Component {
     }
 
     render() {
+        return <div className='video-player'>
+            <div className='player-wrapper'>
+                {this.state.ready? null: 
+                    <div className='loading'>
+                        <Loading />
+                    </div>}
+                <ReactPlayer
+                    ref={this.ref}
+                    className='react-player'
+                    url={this.props.url}
+                    height='auto'
+                    width='100%'
+                    playing={this.state.playing}
+                    onClick={this.pauseOrPlay}
+                    onReady={this.handleReady}
+                />
+            </div>
+            <div className='controls'>
+                <div className='progress-bar'>
+                    <div className='seek'></div>
+                </div>
+                <div className='control-buttons'>
+                    <Button className='playpause' onClick={this.pauseOrPlay}>
+                        {this.state.playing? <PauseRoundedIcon/>: <PlayArrowRoundedIcon/>}
+                    </Button>
+                    <Button className='stop' onClick={this.stop}><StopRoundedIcon /></Button>
+                </div>
+            </div>
+            
+        </div>
+    }
+}
+
+export default class Vid extends Component {
+    state = {
+        url: 'https://taii.s3.eu-west-3.amazonaws.com/ted-ed-vid.mp4',
+    };
+
+    render() {
         return (
             <div className='vid'>
-                <div className='video-player'>
-                    <div className='player-wrapper'>
-                        {this.state.ready? null: 
-                            <div className='loading'>
-                                <Loading />
-                            </div>}
-                        <ReactPlayer
-                            ref={this.ref}
-                            className='react-player'
-                            url={this.state.url}
-                            height='auto'
-                            width='100%'
-                            playing={this.state.playing}
-                            onClick={this.pauseOrPlay}
-                            onReady={this.handleReady}
-                        />
-                    </div>
-                    <div className='controls'>
-                        <div className='progress-bar'>
-                            <div className='seek'></div>
-                        </div>
-                        <div className='control-buttons'>
-                            <Button className='playpause' onClick={this.pauseOrPlay}>
-                                {this.state.playing? <PauseRoundedIcon/>: <PlayArrowRoundedIcon/>}
-                            </Button>
-                            <Button className='stop' onClick={this.stop}><StopRoundedIcon /></Button>
-                        </div>
-                    </div>
-                    
-                </div>
+                <VideoPlayer url={this.state.url}/>
                 <div className='right-panel'>
                     <div className='course-info'>
                         <h1>Introduction to Recurrent Neural Network</h1>
@@ -201,7 +243,7 @@ export default class Vid extends Component {
                 </div>
                 <div className='main-panel'>
                     <div className='ask-question'>
-                        <input></input>
+                        <NewQuestion />
                     </div>
                 </div>
             </div>
