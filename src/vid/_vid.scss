@@ -23,7 +23,7 @@
             transition: all 0.3s cubic-bezier(0.0, 0.0, 0.2, 1);
             border-radius: 3px;
             overflow: hidden !important;
-            box-shadow: 0 80px 40px -50px rgba(0,0,0,.2);
+            box-shadow: 0 80px 40px -50px rgba(163,131,146,.6);
             .loading {
                 width: 100%;
                 position: absolute;
@@ -57,62 +57,78 @@
             }
         }
         .controls {
-            position: absolute;
+            position: relative;
             background: transparent;
             height: auto;
             box-sizing: border-box;
             padding: 0;
             width: 100%;
-            bottom: 0;
-            height: 1em;
+            margin-top: 3em;
+            height: 2.8em;
             border-radius: 2px;
             transition: all 0.3s cubic-bezier(0.0, 0.0, 0.2, 1);
             > div {
                 display: none;
             }
-            
-            &:hover {
-                background: linear-gradient(to top, whitesmoke 0%, transparent 100%);
-                height: 2.5em;
-                .progress-bar {
-                    display: block;
+              
+            .progress-bar {
+                display: block;
+                position: absolute;
+                z-index: 0;
+                height: 0.5em;
+                border-radius: 0.25em;
+                width: 70%;
+                border: 1px solid lightgrey;
+                top: -0.7em;
+                left: 15%;
+                right: 0,5em;
+                transition: all 0.3s cubic-bezier(0.0, 0.0, 0.2, 1);
+                .seek {
                     position: absolute;
-                    z-index: 0;
-                    height: 0.3em;
-                    border-radius: 0.15em;
-                    width: 100%;
-                    bottom: 0;
                     left: 0;
-                    right: 0,5em;
-                    transition: all 0.3s cubic-bezier(0.0, 0.0, 0.2, 1);
-                    .seek {
-                        position: absolute;
-                        left: 0;
-                        bottom: 0;
-                        height: 100%;
-                        background: #424242;
-                    }
-                }
-                .control-buttons {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
+                    bottom: 0;
                     height: 100%;
-                    width: 100%;
-                    font: {
-                        size: 0.7em;
-                    }
-                    button {
-                        padding: 0;
-                        margin: auto 5px;
-                    }
+                    background: #af4448;
+                    border-radius: 0.2em;
+                }
+            }
+            .control-buttons {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                height: 100%;
+                width: 100%;
+                font: {
+                    size: 0.6em;
+                }
+                button {
+                    padding: 0;
+                    margin: auto 5px;
+                    width: 2.5em;
+                    height: 2.5em;
+                    min-width: 0;
+                    border-radius: 50%;
+                    border: 1px solid lightgrey;
+                    transition: all 0.3s cubic-bezier(0, 0, 0.2, 1);
                     svg {
+                        height: 0.6em;
                         margin: auto;
                         padding: 0em 0.2em;
-                        color: #212121;
+                        color: #e57373;
+                        transition: all 0.3s cubic-bezier(0, 0, 0.2, 1);
+                    }
+                    &:hover {
+                        background: none;
+                        transform: scale(0.9);
+                        border-color: #e57373;
+                        svg {
+                            transform: scale(1.5);
+                            color: #af4448;
+                        }
                     }
                 }
             }
+            
             
         }
     }
@@ -176,7 +192,6 @@
                 padding: 0 1.5em 0 2em;
                 position: relative;
                 border-radius: 2em;
-                border: 1px solid lightgrey;
             }
             .learned-something {
                 .yo {
@@ -185,19 +200,19 @@
                 }
                 font-size: 0.6em;   
                 color: #424242;
-                background: #f5f5f5;
+                background: #fdd835;
                 box-shadow: none;
                 font-weight: 700;
                 transition: 0.2 all cubic-bezier(0.0, 0.0, 0.2, 1);
                 &.on {
-                    background: #fffde7;
+                    background: #ffeb3b;
                 }
             }
         }
         
     }
     .main-panel {
-        margin-top: 7em;
+        margin-top: 5em;
         position: relative;
         background-color: #eeeeee;
         width: 100%;
@@ -254,11 +269,12 @@
         .questions {
             position: relative;
             top: 3em;
+            text-align: center;
             .questions-menu {
                 position: relative;
-                margin-left: 15%;
                 display: inline-block;
                 border-bottom: 1px solid lightgrey;
+                text-align: center;
                 span {
                     position: relative;
                     display: inline-block;
@@ -288,7 +304,7 @@
             .Qs {
                 position: relative;
                 width: 70%;
-                margin: 0.5em auto 0;
+                margin: 1em auto 0;
                 .Q {
                     position: relative;
                     display: block;
@@ -296,10 +312,15 @@
                     box-sizing: border-box;
                     padding: 0.5em 1em;
                     background: inherit;
-                    box-shadow: none;
-                    background: whitesmoke;
+                    box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
+                    background: inherit;
                     margin: 0.5em auto;
-                    border-radius: 0.5em;
+                    transition: all 0.25 cubic-bezier(0, 0, 0.2, 1);
+                    &:hover {
+                        background: whitesmoke;
+                        box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);;
+                    }
+                    //border-radius: 0.5em;
                     > span {
                         //border: 1px solid lightgrey;
                         display: flex;
@@ -314,14 +335,14 @@
                                 size: 0.9em;
                             }
                             &.question-status {
-                                
+                                border-radius: 8px;
                                 &.answered {
-                                    background: #388E3C;
-                                    color: whitesmoke;
+                                    background: #4caf50;
+                                    color: #212121;
                                 }
                                 &.open {
-                                    background: #D84315;
-                                    color: whitesmoke;
+                                    background: #e57373;
+                                    color: #212121;
                                 }
                             }
                         }                     
