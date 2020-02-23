@@ -132,7 +132,7 @@
         .course-info {
             border-bottom: 1px solid lightgrey;
             font: {
-                family: 'Josefin Sans', sans-serif;
+                family: 'Work Sans', sans-serif;
                 size: 0.8em;
             }
             h1 {
@@ -196,7 +196,7 @@
         
     }
     .main-panel {
-        margin-top: 3em;
+        margin-top: 7em;
         position: relative;
         background-color: #eeeeee;
         width: 100%;
@@ -252,7 +252,7 @@
         }
         .questions {
             position: relative;
-            top: 2em;
+            top: 3em;
             .questions-menu {
                 position: relative;
                 margin-left: 15%;
@@ -264,11 +264,13 @@
                     box-sizing: border-box;
                     padding: 0.5em 1em;
                     color: #424242;
+                    transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
                     font: {
-                        family: 'Josefin Sans', sans-serif;
+                        family: 'Work Sans', sans-serif;
                         size: 0.8em;
                     }
                     &.active {
+                        color: #BF360C;
                         &:before {
                             content: '';
                             position: absolute;
@@ -276,6 +278,7 @@
                             width: 100%;
                             left: 0;
                             height: 2px;
+                            border-radius: 1px;
                             background: #BF360C;
                         }
                     }
@@ -290,11 +293,11 @@
                     display: block;
                     width: 100%;
                     box-sizing: border-box;
-                    padding: 0.3em 1em;
+                    padding: 0.5em 1em;
                     background: inherit;
                     box-shadow: none;
-                    border: 1px solid lightgrey;
-                    margin: 0.2em auto;
+                    background: whitesmoke;
+                    margin: 0.3em auto;
                     > span {
                         //border: 1px solid lightgrey;
                         display: flex;
