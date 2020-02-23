@@ -47,14 +47,14 @@
             padding: 20px 5px;
             box-sizing: border-box;
             font-size: 120%;
-            color: #212121;
-            letter-spacing: 1px;
+            color: #424242;
             //text-transform: uppercase;
             text-decoration: none;
             text-align: center;    
             font: {
-                //family: 'Varela Round', sans-serif;
-                weight: 700;
+                size: 1.2em;
+                family: 'Work Sans', sans-serif;
+                weight: 600;
             }
             transition: all 0.2s;
         }
