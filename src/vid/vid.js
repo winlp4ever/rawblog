@@ -45,6 +45,37 @@ const NewQuestion = (props) => {
     </div>
 }
 
+class Questions extends Component {
+    state = {
+        active: 0,
+        menuOptions: ['All', 'Answered', 'Open']
+    }
+
+    handleMenuClick = (id) => {
+        this.setState({active: id});
+    }
+    render() {
+        return <div className='questions'>
+            <div className='questions-menu'>
+                {this.state.menuOptions.map((o, id) => {
+                    if (id == this.state.active) 
+                        return <span key={id} className='active'>{o}</span>;
+                    return <span key={id} onClick={_ => this.handleMenuClick(id)}>{o}</span>
+                })}
+            </div>
+            <div className='Qs'>
+                {this.props.questions.map((q, id) => {
+                    let cl = this.state.menuOptions[this.state.active].toLowerCase();
+                    if (cl != 'all' & q.status != cl) return null;
+                    return <Button className='Q' key={id} variant='contained'>
+                        <span>{q.content}</span><span className={'question-status ' + q.status}>{q.status}</span>
+                    </Button>
+                })}
+            </div>
+        </div>
+    }
+}
+
 class Yo extends Component {
     state = {on: false}
     
@@ -217,6 +248,33 @@ class VideoPlayer extends Component {
 export default class Vid extends Component {
     state = {
         url: 'https://taii.s3.eu-west-3.amazonaws.com/ted-ed-vid.mp4',
+        questions: [
+            {
+                content: 'why i keep having this error?', 
+                likes: 0, 
+                status: 'open',
+                comments: [
+                    {
+                        user: 'anakin', 
+                        content: 'yup, this is new, have you tried blah blah',
+                        likes: 12
+                    }
+                ]    
+            },
+            {
+                content: 'yaya this is just a test', 
+                likes: 0, 
+                status: 'answered',
+                comments: [
+                    {
+                        user: 'anakin', 
+                        content: 'yup, this is new, have you tried blah blah',
+                        likes: 12
+                    }
+                ]    
+            }
+        ],
+
     };
 
     render() {
@@ -245,6 +303,7 @@ export default class Vid extends Component {
                     <div className='ask-question'>
                         <NewQuestion />
                     </div>
+                    <Questions questions={this.state.questions} />
                 </div>
             </div>
         )

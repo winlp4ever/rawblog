@@ -250,5 +250,79 @@
                 }
             }
         }
+        .questions {
+            position: relative;
+            top: 2em;
+            .questions-menu {
+                position: relative;
+                margin-left: 15%;
+                width: 70%;
+                border-bottom: 1px solid lightgrey;
+                span {
+                    position: relative;
+                    display: inline-block;
+                    box-sizing: border-box;
+                    padding: 0.5em 1em;
+                    color: #424242;
+                    font: {
+                        family: 'Josefin Sans', sans-serif;
+                        size: 0.8em;
+                    }
+                    &.active {
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            bottom: -1px;
+                            width: 100%;
+                            left: 0;
+                            height: 2px;
+                            background: #BF360C;
+                        }
+                    }
+                }
+            }
+            .Qs {
+                position: relative;
+                width: 70%;
+                margin: 0.5em auto 0;
+                .Q {
+                    position: relative;
+                    display: block;
+                    width: 100%;
+                    box-sizing: border-box;
+                    padding: 0.3em 1em;
+                    background: inherit;
+                    box-shadow: none;
+                    border: 1px solid lightgrey;
+                    margin: 0.2em auto;
+                    > span {
+                        //border: 1px solid lightgrey;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: start;
+                        > span {
+                            display: inline-block;
+                            padding: 0 0.5em;
+                            color: #212121;
+                            text-transform: none;
+                            font: {
+                                size: 0.9em;
+                            }
+                            &.question-status {
+                                
+                                &.answered {
+                                    background: #388E3C;
+                                    color: whitesmoke;
+                                }
+                                &.open {
+                                    background: #D84315;
+                                    color: whitesmoke;
+                                }
+                            }
+                        }                     
+                    }
+                }
+            }
+        }
     }
 }
