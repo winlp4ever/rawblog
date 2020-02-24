@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import MdRender from '../markdown-render/markdown-render';
 import Comment from '../comment/comment';
-import LinkPreview from '../link-preview/link-preview';
 import $ from 'jquery';
 import './_post.scss';
 import io from 'socket.io-client';
