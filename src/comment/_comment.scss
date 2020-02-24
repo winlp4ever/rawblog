@@ -49,7 +49,7 @@
                 color: grey;
             }
         }
-        .star-comment {
+        .like-comment {
             padding: 0;
             position: absolute;
             bottom: -1.4em;
@@ -57,10 +57,14 @@
             border: none;
             background: transparent;
             box-shadow: none;
-            font-size: 0.8em;
+            font-size: 1em;
+            display: inline-block;
+            .like {
+                display: inline-block;
+            }
             svg {
-                width: 0.9em !important;
-                height: 0.9em !important;
+                height: 1em !important;
+                width: 1em !important;
                 fill: lightgrey;
                 stroke: lightgrey;
             }

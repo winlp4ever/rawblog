@@ -98,10 +98,14 @@ io.on('connection', function(socket){
         socket.emit(`comment history postId=${postId}`, posts[postId].comments);
     })
     socket.on('submit comment', msg => {
-        posts[msg.postId].comments.push({username: msg.username, content: msg.comment});
-        console.log('message: ' + msg.comment);
-        io.emit(`new comment postId=${msg.postId}`, {username: msg.username, content: msg.comment});
+        posts[msg.postId].comments.push({username: msg.username, content: msg.content, likes: msg.likes});
+        console.log('message: ' + msg.content);
+        io.emit(`new comment postId=${msg.postId}`, {username: msg.username, content: msg.content, likes: msg.likes});
     });
+
+    socket.on('like comment', msg => {
+        posts[msg.postId].comments[msg.commentId] ++;
+    })
     socket.on('likes', id => {
         posts[id].likes ++;
         console.log(posts[id]);

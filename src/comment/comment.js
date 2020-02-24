@@ -23,7 +23,7 @@ const NewComment = (props) => {
             props.socket.emit('submit comment', 
                 {
                     username: value.user.name || 'anonymous',
-                    comment: newComment, 
+                    content: newComment, 
                     postId: props.postId,
                     likes: 0
                 }
@@ -78,8 +78,12 @@ class Comment extends Component {
 
     likeComment = async (i) => {
         let comments_ = this.state.comments.slice();
-        comments_[i].stars ++;
+        comments_[i].likes ++;
         this.setState({comments: comments_});
+        this.props.socket.emit(`like comment`, {
+            postId: this.props.postId,
+            commentId: i
+        })
     }
 
     render = () => {
@@ -91,7 +95,10 @@ class Comment extends Component {
                         <span className='username'>{comm.username}:</span>
                         <span>{comm.content}</span>
                         <button className='del'><i className="fas fa-times"></i></button>
-                        <Button variant='contained' className='star-comment' startIcon={<_Icon icon={like}/>}>{comm.likes}</Button>
+                        <Button 
+                            variant='contained' 
+                            className='like-comment' 
+                            onClick={_=>this.likeComment(i)}><_Icon icon={like} className='like'/> {comm.likes}</Button>
                     </div>
                 ))}
             </div>

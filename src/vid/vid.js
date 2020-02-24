@@ -141,9 +141,7 @@ class VideoPlayer extends Component {
     };
 
     componentDidMount() {
-        this.$player = $(findDOMNode(this.player));
-        
-        console.log(this.$player.css('height'))
+        this.$player = $(this.player);
         this.progressing_ = setInterval(() => {
             let seek = 0;
             try {
