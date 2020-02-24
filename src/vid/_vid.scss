@@ -212,7 +212,7 @@
         
     }
     .main-panel {
-        margin-top: 5em;
+        margin-top: 3em;
         position: relative;
         background-color: #eeeeee;
         width: 100%;
@@ -244,7 +244,7 @@
                     .question-mark {
                         @keyframes hotter {
                             0% {transform: scale(1); fill: #424242}
-                            50% {transform: scale(0); fill: #424242}
+                            50% {transform: scale(0.4); fill: #424242}
                             100% {transform: scale(1); fill: #66BB6A}
                         }
                         animation: hotter 0.4s cubic-bezier(0, 0, 0.2, 1);
@@ -268,7 +268,7 @@
         }
         .questions {
             position: relative;
-            top: 3em;
+            top: 3.5em;
             text-align: center;
             .questions-menu {
                 position: relative;
@@ -280,11 +280,12 @@
                     display: inline-block;
                     box-sizing: border-box;
                     padding: 0.5em 1em;
-                    color: #424242;
+                    color: #4b4b4b;
                     transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
                     font: {
                         family: 'Work Sans', sans-serif;
                         size: 0.8em;
+                        weight: 600;
                     }
                     &.active {
                         color: #BF360C;
@@ -304,7 +305,7 @@
             .Qs {
                 position: relative;
                 width: 70%;
-                margin: 1em auto 0;
+                margin: 0.5em auto 0;
                 .Q {
                     position: relative;
                     display: block;
