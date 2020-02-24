@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Post from '../post/post';
-import LinkPreview from '../link-preview/link-preview';
 import './_socio.scss';
 
 class Socio extends Component {

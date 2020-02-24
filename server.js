@@ -15,19 +15,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-const config = require('./webpack.config.js');
+const prodConfig = require('./webpack.prod.js');
+const devConfig = require('./webpack.dev.js');
+const options = {};
 
-const options = {
-    //contentBase: './public',
-    //hot: true,
-    //host: 'localhost',
-    //proxy: { '*': 'http://localhost:5000' }
+if (process.argv.length < 3) console.error('Please precise mode!');
+if (process.argv[2] != 'prod' & process.argv[2] != 'dev') {
+    console.error('Wrong mode - only dev or prod is accepted!');
+    return;
 };
-
-// webpackDevServer.addDevServerEntrypoints(config, options);
-const compiler = webpack(config);
-//const server = new webpackDevServer(compiler, options);
-//compiler.outputFileSystem = fs;
+var compiler = null;
+if (process.argv[2] == 'prod') compiler = webpack(prodConfig);
+else compiler = webpack(devConfig);
 
 const server = new http.Server(app);
 const io = require('socket.io')(server);
