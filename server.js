@@ -104,7 +104,7 @@ io.on('connection', function(socket){
     });
 
     socket.on('like comment', msg => {
-        posts[msg.postId].comments[msg.commentId] ++;
+        posts[msg.postId].comments[msg.commentId].likes ++;
     })
     socket.on('likes', id => {
         posts[id].likes ++;
