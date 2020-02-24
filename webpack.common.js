@@ -1,11 +1,11 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 /**
  * Some options are put in comments as they're for frontend only version, for frontend-backend, we prefer write
  * a nodejs appli that permits also database and routing configurations
  */
-const webpack = require('webpack'); // @frontend
 
-const source = path.resolve(__dirname, 'src');
 const public = path.resolve(__dirname, 'public');
 
 

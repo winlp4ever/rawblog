@@ -5,10 +5,10 @@ const path = require('path');
 const source = path.resolve(__dirname, 'src');
 const public = path.resolve(__dirname, 'public');
 
-const webpack = require('webpack'); // @frontend
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 
 
 const pages = ['index'].map(name => {
@@ -25,6 +25,7 @@ module.exports = merge(common, {
     },
     mode: 'production',
     plugins: [
+        new CompressionPlugin(),
         new CleanWebpackPlugin(),
         ...pages
     ],
