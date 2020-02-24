@@ -1,7 +1,6 @@
 div.post {
     background: #F5F5F6;
     position: relative;
-    color: rgb(80, 80, 80);
     width: 60%;
     //box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
     border-radius: 2px;
@@ -13,7 +12,6 @@ div.post {
     font: {
         family: 'Work Sans', sans-serif;
         size: 70%;
-        weight: 700;
     }
     h1 {
         line-height: 1;
@@ -24,13 +22,15 @@ div.post {
             family: 'Work Sans', sans-serif
         }
     }
+    p {
+        color: #505050;
+    }
     > button {
         height: 30px;
         width: 30px;
         border-radius: 15px;
         margin: 10px -5px 0px 10px;
         background: none;
-        color: #9e9e9e;
         border: none;
         outline: none;
         font: {
@@ -51,40 +51,6 @@ div.post {
         padding: 1px 2px;
     }
     
-    pre {
-        position: relative;
-        font: {
-            size: 80%;
-        };
-        box-sizing: border-box;
-        border: none;
-        code {
-            overflow-x: scroll;
-        }
-        &:after {
-            content: ' ';
-            height: 10px;
-            width: 10px;
-            border-radius: 5px;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #ff5f56;
-            z-index: 100;
-        }
-        &:before {
-            content: ' ';
-            height: 10px;
-            width: 10px;
-            border-radius: 5px;
-            position: absolute;
-            top: 10px;
-            left: 25px;
-            background: #27c93f;
-            z-index: 100;
-        }
-    }
-
     div.post-text {
         position: relative;
         transition: all 0.2s;
@@ -115,15 +81,6 @@ div.post {
             padding: 10px 0px;
         }
         
-        i.fab, i.fas {
-            transition: all 0.2s;
-            &:hover {
-                color: #2196f3;
-            }
-            &:active {
-                animation: blap 0.2s normal forwards ease-in-out;
-            }
-        }
         span {
             margin: auto 5px;
         }

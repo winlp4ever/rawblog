@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import MdRender from '../markdown-render/markdown-render';
-import Comment from '../comment/comment';
 import $ from 'jquery';
 import './_post.scss';
-import io from 'socket.io-client';
 import { hot } from 'react-hot-loader';
 
 function disableDoubleClick() {
@@ -18,11 +16,8 @@ export default class Post extends Component {
             title: '',
             likes: '',
             intro: ''
-        },
-        view_comments: false
+        }
     }
-    like = this.like.bind(this);
-    viewComments = this.viewComments.bind(this);
     
     async componentDidMount() {
         // behaviors
@@ -43,22 +38,7 @@ export default class Post extends Component {
         this.props.socket.emit(`likes`, this.props.postId);
     }
 
-    viewComments() {
-        this.setState({view_comments: !this.state.view_comments});
-    }
-
     render() {
-        let comments_section = '';
-        if (this.state.view_comments) {
-            comments_section = (
-                <div className='comment-section'>
-                    <Comment 
-                        postId={this.props.postId} 
-                        socket={this.props.socket} 
-                    />
-                </div>
-            );
-        }
         return (
             <div 
                 className='post'
@@ -74,25 +54,16 @@ export default class Post extends Component {
                     className='post-interact'
                 >
                     <div>
-                        <span 
-                            onClick={this.like}
-                        >
-                            <i className="fab fa-gratipay"></i>
-                        </span>
+                        <span><i className="fab fa-gratipay"></i></span>
                         <span>{this.state.post.likes}</span>
                         
                     </div>
                     <div>
-                        <span
-                            onClick={this.viewComments}
-                        >
-                            <i className="fas fa-comment-dots"></i>
-                        </span>
+                        <span><i className="fas fa-comment-dots"></i></span>
+                        <span>{this.state.post.nbComments}</span>
                     </div>
                     
                 </div>
-                
-                {comments_section}
             </div>
         );
     }

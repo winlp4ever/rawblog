@@ -10,6 +10,9 @@ const MdRender = props => {
         renderers: {
             ...props.renderers,
             code: CodeBlock
+        },
+        transformImageUri: (uri) => {
+            return '../../imgs/' + uri;
         }
     };
     

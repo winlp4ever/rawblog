@@ -8,6 +8,8 @@ const public = path.resolve(__dirname, 'public');
 const webpack = require('webpack'); // @frontend
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
+
 
 const pages = ['index'].map(name => {
     return new HtmlWebpackPlugin({
@@ -25,5 +27,16 @@ module.exports = merge(common, {
     plugins: [
         new CleanWebpackPlugin(),
         ...pages
-    ]
+    ],
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({
+                parallel: true,
+                terserOptions: {
+                    ecma: 6,
+                },
+            }),
+        ],
+    },
 });
