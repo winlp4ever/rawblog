@@ -7,7 +7,7 @@ import Menu from '../menu/menu';
 import { userContext } from '../user-context/user-context';
 import Home from '../home/home';
 import B0t from '../b0t/b0t';
-import Login from '../login/login';
+//import Login from '../login/login';
 import Vid from '../vid/vid';
 
 import Cookies from 'js-cookie';

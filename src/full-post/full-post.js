@@ -7,6 +7,7 @@ import { hot } from 'react-hot-loader';
 import Img from '../../imgs/cs-bg.svg';
 import Button from '@material-ui/core/Button';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import LazyLoad from 'react-lazyload';
 
 
 function disableDoubleClick() {
@@ -107,7 +108,11 @@ export default class FullPost extends Component {
                 className='full-post'
             >
                 {supp}
-                <div className='himmi'><img src={Img}/></div>
+                <div className='himmi'>
+                    <LazyLoad height={400}>
+                        <img src={Img}/>
+                    </LazyLoad>                  
+                </div>
                 <div 
                     className='article'
                     ref={article => this.article = article}>
