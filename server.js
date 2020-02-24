@@ -171,7 +171,7 @@ app.post('/get-post', (req, res) => {
 app.post('/get-full-post', (req, res) => {
     let postId = req.query.postId;
     let post_ = JSON.parse(JSON.stringify(posts[postId]));
-    delete post_.intro;
+    //delete post_.intro;
     delete post_.comments;
     res.json(post_);
 })

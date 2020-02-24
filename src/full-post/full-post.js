@@ -90,7 +90,18 @@ export default class FullPost extends Component {
             </div>)
         }
 
-        let supp = this.state.display_supp? <div className='supp'><h2>{this.state.post.title}</h2></div>: null;
+        let supp = this.state.display_supp? <div className='supp'>
+            <h2>{this.state.post.title}</h2>
+            <p>{this.state.post.intro}</p>
+                <Button 
+                    className='like-post' 
+                    variant='outlined'
+                    endIcon={<FavoriteBorderIcon/>}
+                    onClick={this.like}
+                > 
+                    {this.state.post.likes}
+                </Button>
+        </div>: null;
         return (
             <div 
                 className='full-post'

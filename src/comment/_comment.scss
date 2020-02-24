@@ -4,13 +4,11 @@
     position: relative;    
     >div{
         position: relative;
-        border-radius: 1.5em;
         height: auto;
         white-space: pre-wrap;
         word-wrap: break-word;
         width: 100%;
         outline: none;
-        background: #F5F5F6;
         display: block;
         border: none;
         box-sizing: border-box;
@@ -20,18 +18,20 @@
         transition: all 0.2s;
         line-height: 1.5;
         font: {
-            family: 'Lato', sans-serif;
-            size: 1.1em;
+            family: 'Work Sans', sans-serif;
+            size: 1em;
         }     
         span {
             display: inline-block;
             margin: auto 2px;
         }
         span.username {
-            display: inline-block;
+            display: block;
             box-sizing: border-box;
             padding: 0;
-            color: #1565c0;
+            color: black;
+            font-size: 0.8em;
+            font-weight: 600;
         }
         button.del {
             position: absolute;
@@ -47,6 +47,22 @@
             color: lightgrey;
             &:hover {
                 color: grey;
+            }
+        }
+        .star-comment {
+            padding: 0;
+            position: absolute;
+            bottom: -1.4em;
+            left: 0.4em;
+            border: none;
+            background: transparent;
+            box-shadow: none;
+            font-size: 0.8em;
+            svg {
+                width: 0.9em !important;
+                height: 0.9em !important;
+                fill: lightgrey;
+                stroke: lightgrey;
             }
         }
     }

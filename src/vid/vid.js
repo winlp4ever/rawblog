@@ -6,7 +6,6 @@ import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
 import PauseRoundedIcon from '@material-ui/icons/PauseRounded';
 import StopRoundedIcon from '@material-ui/icons/StopRounded';
 import {CSSTransition} from 'react-transition-group';
-import { findDOMNode } from 'react-dom';
 import GoodIcon from '../../imgs/good.svg';
 import bookmark from '../../imgs/bookmark.json';
 import loading from '../../imgs/loading.json';
@@ -15,6 +14,7 @@ import lottie from 'lottie-web';
 import favorite from '../../imgs/favorite.json';
 import Input from '@material-ui/core/Input';
 import HelpOutlinedIcon from '@material-ui/icons/HelpOutlined';
+import _Icon from '../_icon/_icon';
 
 const NewQuestion = (props) => {
     const [active, setActive] = useState(false);
@@ -130,38 +130,7 @@ class Loading extends Component {
     }
 }
 
-class _Icon extends Component {
-    state = {
-        on: false
-    }
-    componentDidMount() {
-        this.anim = lottie.loadAnimation({
-            container: this.animBox, // the dom element that will contain the animation
-            renderer: 'svg',
-            loop: false,
-            autoplay: false,
-            animationData: this.props.icon // the path to the animation json
-        });
-        this.anim.setSpeed(2);
-    }
 
-    componentWillUnmount() {
-        this.anim.destroy();
-    }
-
-    handleClick = () => {
-        this.anim.setDirection(this.state.on? -1: 1);
-        this.anim.play();
-        this.setState({on: !this.state.on})
-    }
-    
-    render() {
-        return <div 
-            ref={animBox => {this.animBox = animBox}} 
-            onClick={this.handleClick} 
-            className={this.props.className}/>
-    }
-}
 
 class VideoPlayer extends Component {
     state = {

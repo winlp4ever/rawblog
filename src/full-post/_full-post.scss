@@ -3,31 +3,7 @@ div.full-post {
     color: #3b3b3b;
     margin: 100px auto 50px;
     width: 60%;
-    line-height: 1.5;
-    font: {
-        family: 'Lato', sans-serif;
-        size: 0.9em;
-    }
-    h1 {
-        text-align: center;
-        color: #424242;
-        width: 100%;
-        display: block;
-        box-sizing: border-box;
-        line-height: 1;
-        font: {
-            size: 2.5em;
-            family: 'Work Sans', sans-serif;
-            weight: 700;
-        }
-    }
-    h2 {
-        font: {
-            size: 180%;
-        }
-        display: block;
-        border-bottom: 1px solid lightgrey;
-    }
+    
     .google-slides-container{
         position: relative;
         width: 100%;
@@ -70,29 +46,14 @@ div.full-post {
         }  
     }
 
-    p {
-        display: block;
-        box-sizing: border-box;
-        border-left: 4px solid white;
-        transition: all 0.2s;
-        margin: 1.6em auto;
-        > code {
-            background-color: whitesmoke;
-            display: inline-block;
-            border-radius: 5px;
-            box-sizing: border-box;
-            padding: 1px 2px;
-        }
-            
-    }
-
+    
     .article {
         border-radius: unset;
         box-sizing: border-box;
         padding: 0 0 5em;
         border-bottom: 1px solid lightgrey;
         position: relative;
-
+        line-height: 1.5;
         &:after {
             position: absolute;
             bottom: 0;
@@ -101,8 +62,48 @@ div.full-post {
             font-size: 1.2em;
             display: inline-block;
             width: 100%;
-            text-align: middle;
+            text-align: center;
         }
+
+        font: {
+            family: 'Lato', sans-serif;
+            size: 0.9em;
+        }
+        h1 {
+            text-align: center;
+            color: #424242;
+            width: 100%;
+            display: block;
+            box-sizing: border-box;
+            line-height: 1;
+            font: {
+                size: 2.5em;
+                family: 'Work Sans', sans-serif;
+                weight: 700;
+            }
+        }
+        h2 {
+            font: {
+                size: 180%;
+            }
+            display: block;
+            border-bottom: 1px solid lightgrey;
+        }
+        p {
+            display: block;
+            box-sizing: border-box;
+            transition: all 0.2s;
+            margin: 1.6em auto;
+            > code {
+                background-color: whitesmoke;
+                display: inline-block;
+                border-radius: 5px;
+                box-sizing: border-box;
+                padding: 1px 2px;
+            }
+                
+        }
+    
     }
 
     .markdown-render > p:first-of-type::first-letter {
@@ -206,8 +207,8 @@ div.full-post {
         span {
             display: block;
             width: 100%;
-            padding: 0px 0.7em;
-            margin: 0;
+            padding: 5px 0.7em;
+            margin: 0.5em 0;
             text-overflow: ellipsis;
             overflow: hidden; 
             white-space: nowrap;
@@ -251,27 +252,38 @@ div.full-post {
 
     .supp {
         position: fixed;
-        right: 0.5em;
+        right: 3%;
         top: 5em;
         width: 15%;
-        font: {
-            family: 'Work Sans';
-            weight: 600;
-        }
+        font-size: 0.8em;
+        color: grey;
         h2 {
+            display: block;
             text-align: middle;
+            color: #424242;
+            font: {
+                size: 1.6em;
+                family: 'Work Sans';
+                weight: 600;
+            }
         }
+        p {
+            margin: 0.5em 0;
+        }
+        .like-post {
+            margin: 0.5em 0;
+            font-size: 0.8em;
+        }   
     }
 
     div.comment-section {
-        background: white;
+        background: inherit;
         margin-top: 2em;
         position: relative;
         font: {
             size: 0.8em;
         }
         transition: all 0.2s;
-        box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
         height: auto;
         overflow: hidden;
         box-sizing: border-box;
@@ -281,6 +293,7 @@ div.full-post {
             box-sizing: border-box;
             padding: 0 40px;
         }
+        
     }
 }
 

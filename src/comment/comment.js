@@ -1,7 +1,9 @@
 import React, { Component, useState, useContext } from 'react';
-import { autoResize } from './utils';
 import './_comment.scss';
 import { userContext } from '../user-context/user-context';
+import Button from '@material-ui/core/Button';
+import _Icon from '../_icon/_icon';
+import like from '../../imgs/facebook-like.json';
 
 const NewComment = (props) => {
     const [newComment, setNewComment] = useState('');
@@ -22,7 +24,8 @@ const NewComment = (props) => {
                 {
                     username: value.user.name || 'anonymous',
                     comment: newComment, 
-                    postId: props.postId
+                    postId: props.postId,
+                    likes: 0
                 }
             );
             $(e.currentTarget).val('');  
@@ -73,17 +76,13 @@ class Comment extends Component {
         this._isMounted = false;
     }
 
+    likeComment = async (i) => {
+        let comments_ = this.state.comments.slice();
+        comments_[i].stars ++;
+        this.setState({comments: comments_});
+    }
+
     render = () => {
-        let spans = [];
-        for(const [i, comm] of Object.entries(this.state.comments)) {
-            spans.push(
-                <div key={i}>
-                    <span className='username'>{comm.username}:</span>
-                    <span>{comm.content}</span>
-                    <button className='del'><i className="fas fa-times"></i></button>
-                </div>
-            );
-        }
         return (
             <div className='comment'>
                 <NewComment postId={this.props.postId} socket={this.props.socket}/>
@@ -92,6 +91,7 @@ class Comment extends Component {
                         <span className='username'>{comm.username}:</span>
                         <span>{comm.content}</span>
                         <button className='del'><i className="fas fa-times"></i></button>
+                        <Button variant='contained' className='star-comment' startIcon={<_Icon icon={like}/>}>{comm.likes}</Button>
                     </div>
                 ))}
             </div>
