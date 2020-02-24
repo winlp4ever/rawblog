@@ -64,6 +64,7 @@
     "react-dom": "^16.9.0",
     "react-hot-loader": "^4.12.15",
     "react-markdown": "^4.2.2",
+    "react-mathjax": "^1.0.1",
     "react-native": "^0.61.5",
     "react-player": "^1.15.2",
     "react-syntax-highlighter": "^11.0.2",

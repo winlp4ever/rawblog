@@ -3,27 +3,16 @@ import MdRender from '../markdown-render/markdown-render';
 import Comment from '../comment/comment';
 import $ from 'jquery';
 import './_full-post.scss';
-import io from 'socket.io-client';
 import { hot } from 'react-hot-loader';
 import Img from '../../imgs/cs-bg.svg';
 import Button from '@material-ui/core/Button';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
+
 function disableDoubleClick() {
     $('.full-post .post-interact i').on('mousedown', e => {
         e.preventDefault();
     });
-}
-
-function genOutline() {
-    let outline = $(`<div class='outline'><h2>Outline</h2></div>`);
-    let count = 0;
-    $('.full-post .markdown-render').children('h2').each(function() {
-        outline.append(`<span><a href='#post-sec-${count}'>${$(this).html()}</a></span>`);
-        $(this).attr('id', `post-sec-${count}`);
-        count ++;
-    })
-    $('.full-post h1').after(outline);
 }
 
 export default class FullPost extends Component {
@@ -34,7 +23,8 @@ export default class FullPost extends Component {
             article: '',
             hashtags: []
         },
-        view_comments: true
+        view_comments: true,
+        display_supp: false,
     }
 
     like = this.like.bind(this)
@@ -45,11 +35,28 @@ export default class FullPost extends Component {
         let response = await fetch(`/get-full-post?postId=${this.props.postId}`, {method: 'POST'});
         let data = await response.json();
         this.setState({ post: data });
-        genOutline();
+
+        // generate outline
+        let outline = $(`<div class='outline'><h2>Outline</h2></div>`);
+        let count = 0;
+        this.$article = $(this.article);
+        this.$article.children('.markdown-render').children('h2').each(function() {
+            outline.append(`<span><a href='#post-sec-${count}'>${$(this).html()}</a></span>`);
+            $(this).attr('id', `post-sec-${count}`);
+            count ++;
+        })
+        this.$article.children('.markdown-render').children('h1').after(outline);
+        $(window).on('scroll', () => {
+            if ($(window).scrollTop() > this.$article.find('.outline').first().offset().top +
+                this.$article.find('.outline').first().outerHeight()) this.setState({display_supp: true});
+            else this.setState({display_supp: false});
+        })
     }
     
     async componentWillUnmount() {
         //this.props.socket.disconnect();
+        this.$article.off();
+        $(window).off('scroll', '**');
     }
 
     like() {
@@ -82,31 +89,36 @@ export default class FullPost extends Component {
                 ))}
             </div>)
         }
+
+        let supp = this.state.display_supp? <div className='supp'><h2>{this.state.post.title}</h2></div>: null;
         return (
             <div 
                 className='full-post'
             >
+                {supp}
                 <div className='himmi'><img src={Img}/></div>
-                <div className='article'>
+                <div 
+                    className='article'
+                    ref={article => this.article = article}>
                     {hashtags}
-                    <MdRender source={this.state.post.article} />
-                </div>
-
-                <div
-                    className='post-interact'
-                >
-                    <div>
-                        <Button 
-                            className='like-post' 
-                            variant='contained'
-                            endIcon={<FavoriteBorderIcon/>}
-                            onClick={this.like}
-                        > 
-                            {this.state.post.likes}
-                        </Button>
+                    <div
+                        className='post-interact'
+                    >
+                        <div>
+                            <Button 
+                                className='like-post' 
+                                variant='contained'
+                                endIcon={<FavoriteBorderIcon/>}
+                                onClick={this.like}
+                            > 
+                                {this.state.post.likes}
+                            </Button>
+                        </div>
                     </div>
+                    <MdRender 
+                        source={this.state.post.article} 
+                    />
                 </div>
-
                 {comments_section}
             </div>
         );

@@ -56,7 +56,6 @@ export default class Post extends Component {
                     <div>
                         <span><i className="fab fa-gratipay"></i></span>
                         <span>{this.state.post.likes}</span>
-                        
                     </div>
                     <div>
                         <span><i className="fas fa-comment-dots"></i></span>

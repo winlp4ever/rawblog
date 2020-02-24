@@ -4,7 +4,6 @@ import "./_common.scss";
 import App from './app/app';
 import './behaviors';
 import $ from 'jquery';
-import '../imgs/nn.png';
 var lastScrollTop = $(window).scrollTop();
 
 $(window).on({
