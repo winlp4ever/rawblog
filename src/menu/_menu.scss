@@ -19,26 +19,6 @@
     &.display {
         box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
         top: 0;
-        background-color: #af4448;
-        button.option {
-            &:hover {
-                border-top: 2px solid whitesmoke;
-                a {
-                    color: whitesmoke;
-                }            
-            }
-            a {
-                color: rgb(230, 230, 230);
-            }
-            &.active {
-                a {
-                    color: white !important;
-                }
-                &:after {
-                    background: whitesmoke;
-                }
-            }
-        }    
     }
     &.hide {
         top: -3em;

@@ -110,7 +110,7 @@ export default class FullPost extends Component {
                 {supp}
                 <div className='himmi'>
                     <LazyLoad height={400}>
-                        <img src={Img}/>
+                        <img src={Img} alt='himmi'/>
                     </LazyLoad>                  
                 </div>
                 <div 
@@ -120,16 +120,14 @@ export default class FullPost extends Component {
                     <div
                         className='post-interact'
                     >
-                        <div>
-                            <Button 
-                                className='like-post' 
-                                variant='contained'
-                                endIcon={<FavoriteBorderIcon/>}
-                                onClick={this.like}
-                            > 
-                                {this.state.post.likes}
-                            </Button>
-                        </div>
+                        <Button 
+                            className='like-post' 
+                            variant='contained'
+                            endIcon={<FavoriteBorderIcon/>}
+                            onClick={this.like}
+                        > 
+                            {this.state.post.likes}
+                        </Button>
                     </div>
                     <MdRender 
                         source={this.state.post.article} 
