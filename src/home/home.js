@@ -4,7 +4,7 @@ import './home.scss';
 const Home = _ => {
     return (
         <div className='home'>
-            "Hi all,"
+            "A place to share knowledge and ideas"
         </div>
     )
 };
