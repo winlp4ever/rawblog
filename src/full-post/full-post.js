@@ -117,7 +117,9 @@ export default class FullPost extends Component {
                 {supp}
                 <div className='himmi'>
                     <LazyLoad height={400}>
-                        <img src={Img} alt='himmi'/>
+                        <img src={this.state.post.himmi? 
+                            require('../../imgs/' + this.state.post.himmi)
+                            :Img} alt='himmi'/>
                     </LazyLoad>                  
                 </div>
                 <div 

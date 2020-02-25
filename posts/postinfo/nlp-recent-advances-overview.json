@@ -8,5 +8,6 @@
         "transformers",
         "bert"
     ],
-    "comments": []
+    "comments": [],
+    "himmi": "nlp.svg"
 }
