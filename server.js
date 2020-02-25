@@ -19,12 +19,16 @@ const prodConfig = require('./webpack.prod.js');
 const devConfig = require('./webpack.dev.js');
 const options = {};
 
-if (process.argv.length < 3) console.error('Please precise mode!');
-if (process.argv[2] != 'prod' & process.argv[2] != 'dev') {
+var compiler = null;
+
+if (process.argv.length < 3) {
+    console.log('unspecified mode - default to production mode!');
+    compiler = webpack(prodConfig);
+};
+else if (process.argv[2] != 'prod' & process.argv[2] != 'dev') {
     console.error('Wrong mode - only dev or prod is accepted!');
     return;
 };
-var compiler = null;
 if (process.argv[2] == 'prod') compiler = webpack(prodConfig);
 else compiler = webpack(devConfig);
 
