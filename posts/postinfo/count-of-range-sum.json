@@ -1,9 +1,21 @@
 {
     "title": "Count of range sum",
     "intro": "A popular problem on leetcode",
-    "likes": 84,
-    "hashtags": ["algorithm", "python"],
+    "likes": 88,
+    "hashtags": [
+        "algorithm",
+        "python"
+    ],
     "comments": [
-        
+        {
+            "username": "anakin",
+            "content": "what's up",
+            "likes": 6
+        },
+        {
+            "username": "anakin",
+            "content": "this is not new",
+            "likes": 3
+        }
     ]
 }

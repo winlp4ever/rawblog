@@ -55,7 +55,7 @@ fs.readdir(postsPath, function (err, files) {
         if (fs.lstatSync(p).isDirectory()) {
             return;
         }
-        let info = {likes: 0, intro: '', comments: [], hashtags: []};
+        let info = {title: '', likes: 0, intro: '', comments: [], hashtags: []};
         try {
             info = JSON.parse(fs.readFileSync(path.join(postsPath, 'postinfo', name + '.json')))
             console.log(info);
@@ -70,6 +70,7 @@ fs.readdir(postsPath, function (err, files) {
             console.log(err);
             posts[index].title = name;
         }
+        posts[index].fn = name;
     })
 });
 
@@ -197,10 +198,11 @@ process.on('SIGINT', _ => {
     console.log('now you quit!');
 
     for (const id in posts) {
-        let name = posts[id].title;
-        let info = {likes: posts[id].likes, comments: posts[id].comments, hashtags: posts[id].hashtags};
-        fs.writeFileSync(path.join(postsPath, 'logs', name + '.json'), JSON.stringify(info, undefined, 4));
-        console.log(path.join(postsPath, 'logs', name + '.json'));
+        let name = posts[id].fn;
+        delete posts[id].fn;
+        delete posts[id].article;
+        fs.writeFileSync(path.join(postsPath, 'postinfo', name + '.json'), JSON.stringify(posts[id], undefined, 4));
+        console.log(path.join(postsPath, 'postinfo', name + '.json'));
     }
     process.exit();
 })

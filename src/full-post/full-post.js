@@ -15,8 +15,8 @@ function disableDoubleClick() {
         e.preventDefault();
     });
 }
-
 export default class FullPost extends Component {
+    _mounted = false;
     state = {
         post: {
             title: '',
@@ -28,14 +28,20 @@ export default class FullPost extends Component {
         display_supp: false,
     }
 
-    like = this.like.bind(this)
+    _setState = async (dict) => {
+        // only set state when component is mounted
+        if (this._mounted) {
+            this.setState(dict);
+        }
+    }
         
     async componentDidMount() {
         // behaviors
+        this._mounted = true;
         disableDoubleClick();
         let response = await fetch(`/get-full-post?postId=${this.props.postId}`, {method: 'POST'});
         let data = await response.json();
-        this.setState({ post: data });
+        this._setState({ post: data });
 
         // generate outline
         let outline = $(`<div class='outline'><h2>Outline</h2></div>`);
@@ -49,8 +55,8 @@ export default class FullPost extends Component {
         this.$article.children('.markdown-render').children('h1').after(outline);
         $(window).on('scroll', () => {
             if ($(window).scrollTop() > this.$article.find('.outline').first().offset().top +
-                this.$article.find('.outline').first().outerHeight()) this.setState({display_supp: true});
-            else this.setState({display_supp: false});
+                this.$article.find('.outline').first().outerHeight()) this._setState({display_supp: true});
+            else this._setState({display_supp: false});
         })
     }
     
@@ -58,12 +64,13 @@ export default class FullPost extends Component {
         //this.props.socket.disconnect();
         this.$article.off();
         $(window).off('scroll', '**');
+        this._mounted = false;
     }
 
-    like() {
+    like = async () => {
         let post_ = JSON.parse(JSON.stringify(this.state.post));
         post_.likes ++;
-        this.setState({post: post_});
+        this._setState({post: post_});
         this.props.socket.emit(`likes`, this.props.postId);
     }
 
