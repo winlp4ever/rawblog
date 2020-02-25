@@ -106,7 +106,6 @@ class App extends Component {
         //if (!this.state.loginValid) return (<Login handleLogin={this.handleLogin}/>);
         return (
             <userContext.Provider value={value}>
-                <B0t socket={this.state.socket} username={this.state.user.name} viewFullPost={this.viewFullPost}/>
                 <Menu links={menuOptions} activeTab={this.state.activeTab}/>
                 {main}
                 {auth}
