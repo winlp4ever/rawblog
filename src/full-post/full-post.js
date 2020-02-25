@@ -95,6 +95,14 @@ export default class FullPost extends Component {
                 {this.state.post.hashtags.map((e, id) => (
                     <span key={id}>#{e}</span>
                 ))}
+                <Button 
+                    className='like-post' 
+                    variant='contained'
+                    endIcon={<FavoriteBorderIcon/>}
+                    onClick={this.like}
+                > 
+                    {this.state.post.likes}
+                </Button>
             </div>)
         }
 
@@ -126,18 +134,6 @@ export default class FullPost extends Component {
                     className='article'
                     ref={article => this.article = article}>
                     {hashtags}
-                    <div
-                        className='post-interact'
-                    >
-                        <Button 
-                            className='like-post' 
-                            variant='contained'
-                            endIcon={<FavoriteBorderIcon/>}
-                            onClick={this.like}
-                        > 
-                            {this.state.post.likes}
-                        </Button>
-                    </div>
                     <MdRender 
                         source={this.state.post.article} 
                     />

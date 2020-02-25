@@ -171,10 +171,10 @@ div.full-post {
     }
 
     div.hashtags {
-        span {
+        > span {
             display: inline-block;
             box-sizing: border-box;
-            padding: 0.2em 1em;
+            padding: 0.5em 1em;
             border-radius: 2em;
             text-align: center;
             background: #e6e6e6;
@@ -184,6 +184,20 @@ div.full-post {
                 weight: 600;
             }
         }
+        .like-post {
+            box-shadow: none;
+            border: 1px solid lightgrey;
+            border-radius: 2em;
+            color: #424242;
+            background: transparent;
+            text-transform: none;
+            margin: 0 0.2em;
+            font: {
+                weight: 700;
+                size: 0.8em;
+            }
+            transition: all 0.2s cubic-bezier(0.0, 0.0, 0.2, 1); 
+        }   
     }
 
     div.outline {
@@ -227,28 +241,9 @@ div.full-post {
         }
     }
 
-    .post-interact {
-        position: absolute;
-        right: 0.5em;
-        top: 5em;
-        width: auto;
-        text-align: center;
-        
-        line-height: 1.2;
-        .like-post {
-            box-shadow: none;
-            border: 1px solid lightgrey;
-            border-radius: 2em;
-            color: #424242;
-            background: transparent;
-            text-transform: none;
-            font: {
-                weight: 700;
-                size: 0.7em;
-            }
-            transition: all 0.2s cubic-bezier(0.0, 0.0, 0.2, 1); 
-        }   
-    }
+    
+    
+    
 
     .supp {
         position: fixed;
