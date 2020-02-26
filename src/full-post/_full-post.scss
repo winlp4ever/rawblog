@@ -4,29 +4,6 @@ div.full-post {
     margin: 100px auto 50px;
     width: 60%;
     
-    .google-slides-container{
-        position: relative;
-        width: 100%;
-        padding-top: 60%;
-        overflow: hidden;
-        box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.12);
-        background: none;
-        border-radius: 5px;
-        transition: all 0.5s;
-        &:hover {
-            box-shadow: 0px 0px 21px rgba(0, 0, 0, 0.18);
-        }
-    }
-    
-    .google-slides-container iframe{
-        position: absolute;
-        top: -2px;
-        left: -1px;
-        right: -1px;
-        transform: scale(1.01);
-        width: 100%;
-        height: 100%;
-    }
     > button {
         height: 30px;
         width: 30px;
@@ -63,6 +40,8 @@ div.full-post {
             display: inline-block;
             width: 100%;
             text-align: center;
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 700;
         }
 
         font: {
@@ -87,7 +66,6 @@ div.full-post {
                 size: 180%;
             }
             display: block;
-            border-bottom: 1px solid lightgrey;
         }
         p {
             display: block;
@@ -247,6 +225,11 @@ div.full-post {
         width: 15%;
         font-size: 0.8em;
         color: grey;
+        @keyframes supp-appear {
+            0% {opacity: 0; transform: scale(0.8);}
+            100% {opacity: 1; transform: scale(1);}
+        }
+        animation: supp-appear 0.25s cubic-bezier(0, 0, 0.2, 1);
         h2 {
             display: block;
             text-align: middle;
@@ -268,6 +251,7 @@ div.full-post {
             color: white;
             font-size: 0.8em;
             border: none;
+            box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);;
         }   
     }
 
@@ -286,7 +270,11 @@ div.full-post {
         h3.channel {
             display: block;
             box-sizing: border-box;
-            padding: 0 40px;
+            padding: 0.5em 2em;
+            width: 100%;
+            background: #2979ff;
+            color: white;
+            border-radius: 5px;
         }
         
     }

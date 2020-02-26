@@ -77,7 +77,7 @@ const Comment = (props) => {
                 {' '+props.comment.likes}
             </Button>
             {
-                props.commentId != null? <Button
+                props.replyTo == null? <Button
                     variant='contained' 
                     className='nb-replies' 
                     onClick={showHideReplies}
@@ -89,7 +89,7 @@ const Comment = (props) => {
         </div>
         
         {
-            props.commentId != null & displayReplies? <div className='comment-replies'>
+            props.replyTo == null & displayReplies? <div className='comment-replies'>
                 {props.comment.replies.map(
                     (rep, j) => <Comment 
                         key={j} 
@@ -123,10 +123,11 @@ export default class Comments extends Component {
         this.props.socket.on(`comment history postId=${this.props.postId}`, 
             comments => this._setState({comments: comments}));
         this.props.socket.on(`new comment postId=${this.props.postId}`, msg => {
+            console.log('new comment');
             console.log(msg);
             let comments = this.state.comments.slice();
             // check if this comment is a reply to another comment or not
-            if (msg.replyTo) {
+            if (msg.replyTo != null) {
                 // if yes push it to replies list of the specified comment
                 const i = msg.replyTo;
                 delete msg.replyTo;

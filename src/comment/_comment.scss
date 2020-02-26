@@ -5,10 +5,11 @@
     .comment {
         position: relative;
         box-sizing: border-box;
-        padding: 0 0.5em;
+        padding: 0.2em 0.5em;
         .comment, .enter-comment {
             background: whitesmoke;
-            left: 2em;
+            left: 2%;
+            width: 98%;
         }
         position: relative;
         font: {
@@ -71,7 +72,7 @@
         border-radius: 0px;
         position: relative;
         border-bottom: 2px solid lightgrey;
-        padding: 0.5em 0;
+        padding: 0.8em 0;
         textarea {
             font: {
 
@@ -88,7 +89,7 @@
             outline: none;
             overflow: hidden;
             background: none;
-            width: 95%;
+            width: 98%;
             height: 100%;
             &::-webkit-scrollbar {
                 width: 0 !important;
@@ -112,11 +113,11 @@
             left: 0;
             height: 2px;
             transition: all 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
-            background: rgb(138, 138, 138);
+            background: #2979ff;
         }
 
         textarea:focus + span, textarea:not(:placeholder-shown) + span.label {
-            transform: translateY(-120%) scale(0.75);
+            transform: translateY(-150%) scale(0.75);
             font-weight: 700;
             + span.border {
                 width: 100%;

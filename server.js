@@ -102,7 +102,7 @@ io.on('connection', function(socket){
         let postId = msg.postId;
         delete msg.postId;
 
-        if (msg.replyTo) {
+        if (msg.replyTo != null) {
             let i = msg.replyTo;
             delete msg.replyTo;
             posts[postId].comments[i].replies.push(msg);
