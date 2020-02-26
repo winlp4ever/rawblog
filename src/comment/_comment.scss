@@ -43,22 +43,28 @@
                 color: grey;
             }
         }
-        .like-comment {
-            border: none;
-            background: transparent;
-            box-shadow: none;
-            font-size: 1em;
-            display: block;
-            .like {
+        .comment-interact {
+            button {
+                padding: 0em 0.5em;
+                background: transparent;
+                box-shadow: none;
+                font-size: 0.9em;
                 display: inline-block;
+                min-width: 0;
+                color: #0077c2;
+                .like {
+                    display: inline-block;
+                }
+                
             }
             svg {
                 height: 1em !important;
                 width: 1em !important;
-                fill: lightgrey;
-                stroke: lightgrey;
+                fill: #0077c2;
+                stroke: #0077c2;
             }
         }
+        
     }
     .enter-comment {
         box-sizing: border-box;

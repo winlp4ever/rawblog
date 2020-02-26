@@ -4,6 +4,9 @@ import "./_common.scss";
 import App from './app/app';
 import './behaviors';
 import $ from 'jquery';
+import { initializeIcons } from '@uifabric/icons';
+initializeIcons();
+
 var lastScrollTop = $(window).scrollTop();
 
 $(window).on({

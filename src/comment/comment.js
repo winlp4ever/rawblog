@@ -4,6 +4,7 @@ import { userContext } from '../user-context/user-context';
 import Button from '@material-ui/core/Button';
 import _Icon from '../_icon/_icon';
 import like from '../../imgs/facebook-like.json';
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 const NewComment = (props) => {
     const [newComment, setNewComment] = useState('');
@@ -56,23 +57,40 @@ const NewComment = (props) => {
     )
 }
 const Comment = (props) => {
+    const [displayReplies, setDisplayReplies] = useState(false);
     const handleClick = () => {
         if (props.commentId != null) props.likeComment(props.commentId, -1);
         else props.likeComment(props.replyTo, props.replyId);
+    }
+    const showHideReplies = () => {
+        setDisplayReplies(!displayReplies)
     }
     return <div className='comment'>
         <span className='username'>{props.comment.username}:</span>
         <span>{props.comment.content}</span>
         <button className='del'><i className="fas fa-times"></i></button>
-        <Button 
-            variant='contained' 
-            className='like-comment' 
-            onClick={handleClick}>
-            <_Icon icon={like} className='like'/> 
-            {props.comment.likes}
-        </Button>
+        <div className='comment-interact'>
+            <Button 
+                variant='contained' 
+                className='like-comment' 
+                onClick={handleClick}>
+                <Icon iconName='Like'/> 
+                {' '+props.comment.likes}
+            </Button>
+            {
+                props.commentId != null? <Button
+                    variant='contained' 
+                    className='nb-replies' 
+                    onClick={showHideReplies}
+                >
+                    <Icon iconName='Comment'/>
+                    {' ' + props.comment.replies.length}
+                </Button>: null
+            }
+        </div>
+        
         {
-            props.commentId != null? <div className='comment-replies'>
+            props.commentId != null & displayReplies? <div className='comment-replies'>
                 {props.comment.replies.map(
                     (rep, j) => <Comment 
                         key={j} 

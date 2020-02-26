@@ -59,8 +59,27 @@
         {
             "username": "anakin",
             "content": "yay",
-            "likes": 0,
-            "replies": []
+            "likes": 7,
+            "replies": [
+                {
+                    "username": "anonymous",
+                    "content": "what the hell",
+                    "likes": 0,
+                    "replyTo": 2
+                },
+                {
+                    "username": "anonymous",
+                    "content": "ok",
+                    "likes": 0,
+                    "replyTo": 2
+                },
+                {
+                    "username": "anonymous",
+                    "content": "you don't have to piss off",
+                    "likes": 0,
+                    "replyTo": 2
+                }
+            ]
         },
         {
             "username": "anakin",
