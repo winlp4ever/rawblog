@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MdRender from '../markdown-render/markdown-render';
-import Comment from '../comment/comment';
+import Comments from '../comment/comment';
 import $ from 'jquery';
 import './_full-post.scss';
 import { hot } from 'react-hot-loader';
@@ -81,7 +81,7 @@ export default class FullPost extends Component {
             comments_section = (
                 <div className='comment-section'>
                     <h3 className='channel'>#general</h3>
-                    <Comment 
+                    <Comments
                         postId={this.props.postId} 
                         socket={this.props.socket} 
                         user={this.props.user} 

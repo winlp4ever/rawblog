@@ -10,12 +10,87 @@
         {
             "username": "anakin",
             "content": "what's up",
-            "likes": 6
+            "likes": 6,
+            "replies": []
         },
         {
             "username": "anakin",
             "content": "this is not new",
-            "likes": 3
+            "likes": 7,
+            "replies": [
+                {
+                    "username": "anonymous",
+                    "content": "lllalageag",
+                    "likes": 0,
+                    "replyTo": 1
+                },
+                {
+                    "username": "anonymous",
+                    "content": "wait a minute",
+                    "likes": 0,
+                    "replyTo": 1
+                },
+                {
+                    "username": "anonymous",
+                    "content": "yes",
+                    "likes": 0,
+                    "replyTo": 1
+                },
+                {
+                    "username": "anonymous",
+                    "content": "yes",
+                    "likes": 0,
+                    "replyTo": 1
+                },
+                {
+                    "username": "anonymous",
+                    "content": "are yoou hungry",
+                    "likes": 0,
+                    "replyTo": 1
+                },
+                {
+                    "username": "anonymous",
+                    "content": "for for",
+                    "likes": 0,
+                    "replyTo": 1
+                }
+            ]
+        },
+        {
+            "username": "anakin",
+            "content": "yay",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "anakin",
+            "content": "hmm",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "anonymous",
+            "content": "yay",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "anonymous",
+            "content": "yayayya",
+            "likes": 1,
+            "replies": []
+        },
+        {
+            "username": "anonymous",
+            "content": "yup",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "anonymous",
+            "content": "wfewef",
+            "likes": 0,
+            "replies": []
         }
     ]
 }

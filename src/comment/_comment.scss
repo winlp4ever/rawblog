@@ -1,34 +1,28 @@
 @import '../animations/_animations';
 
-.comment {
+.comments {
     position: relative;    
-    >div{
+    .comment {
         position: relative;
-        height: auto;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        width: 100%;
-        outline: none;
-        display: block;
-        border: none;
         box-sizing: border-box;
-        padding: 0.6em;
-        margin:0.7em auto;
-        float: left;
-        transition: all 0.2s;
-        line-height: 1.5;
+        padding: 0 0.5em;
+        .comment, .enter-comment {
+            background: whitesmoke;
+            left: 2em;
+        }
+        position: relative;
         font: {
             family: 'Work Sans', sans-serif;
             size: 1em;
         }     
         span {
-            display: inline-block;
+            display: block;
             margin: auto 2px;
+            overflow-wrap: break-word;
+            box-sizing: border-box;
         }
         span.username {
-            display: block;
-            box-sizing: border-box;
-            padding: 0;
+            padding: 0.3em 0;
             color: black;
             font-size: 0.8em;
             font-weight: 600;
@@ -50,15 +44,11 @@
             }
         }
         .like-comment {
-            padding: 0;
-            position: absolute;
-            bottom: -1.4em;
-            left: 0.4em;
             border: none;
             background: transparent;
             box-shadow: none;
             font-size: 1em;
-            display: inline-block;
+            display: block;
             .like {
                 display: inline-block;
             }
@@ -73,27 +63,26 @@
     .enter-comment {
         box-sizing: border-box;
         border-radius: 0px;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
         position: relative;
         border-bottom: 2px solid lightgrey;
+        padding: 0.5em 0;
         textarea {
             font: {
 
                 size: 100%;
             }
+            left: 2%;
             position: relative;
             bottom: 0;
             display: block;
             box-sizing: border-box;
             padding: 0;
-            margin: 5px auto;
             resize: none;
             border: none;
             outline: none;
             overflow: hidden;
-            width: 100%;
             background: none;
+            width: 95%;
             height: 100%;
             &::-webkit-scrollbar {
                 width: 0 !important;
@@ -105,7 +94,7 @@
             z-index: 2;
             position: absolute;
             top: 50%;
-            left: 10px;
+            left: 2%;
             transform: translateY(-50%);
             transform-origin: 0 0;
             transition: all 0.2s;
@@ -118,10 +107,6 @@
             height: 2px;
             transition: all 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
             background: rgb(138, 138, 138);
-        }
-
-        &:hover {
-            background: rgb(250, 250, 250);
         }
 
         textarea:focus + span, textarea:not(:placeholder-shown) + span.label {
