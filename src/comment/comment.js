@@ -3,7 +3,6 @@ import './_comment.scss';
 import { userContext } from '../user-context/user-context';
 import Button from '@material-ui/core/Button';
 import _Icon from '../_icon/_icon';
-import like from '../../imgs/facebook-like.json';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 const NewComment = (props) => {

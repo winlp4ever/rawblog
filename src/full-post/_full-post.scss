@@ -186,7 +186,6 @@ div.full-post {
         }
         .like-post {
             box-shadow: none;
-            border: 1px solid lightgrey;
             border-radius: 2em;
             color: #424242;
             background: transparent;
@@ -228,7 +227,7 @@ div.full-post {
                 weight: 700;
             }
             a {
-                color: #3949ab;
+                color: #448aff;
             }
             text-align: left;
             box-sizing: border-box;
@@ -263,7 +262,12 @@ div.full-post {
         }
         .like-post {
             margin: 0.5em 0;
+            padding: 0.5em 1.5em;
+            border-radius: 2em;
+            background: linear-gradient(23deg, #448aff 0%, #2979ff 100%);
+            color: white;
             font-size: 0.8em;
+            border: none;
         }   
     }
 

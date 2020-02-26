@@ -5,10 +5,9 @@
     height: 3em;
     position: fixed;
     z-index: 3;
-    width: 100%;
-    top: 0px;
-    left: 0px;
-    padding: 0px;
+    top: 0.5em;
+    left: 3em;
+    padding: 0px 1em;
     background-color: whitesmoke;
     overflow: hidden;
     //box-shadow: none;
@@ -36,7 +35,7 @@
         border-top: 2px solid transparent;
         padding: 0px 10px;
         margin-left: -1px;
-        a {
+        i {
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
@@ -52,9 +51,7 @@
             text-decoration: none;
             text-align: center;    
             font: {
-                size: 1.2em;
-                family: 'Work Sans', sans-serif;
-                weight: 600;
+                size: 1.6em;
             }
             transition: all 0.2s;
         }

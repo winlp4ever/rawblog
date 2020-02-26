@@ -6,7 +6,7 @@ import './_full-post.scss';
 import { hot } from 'react-hot-loader';
 import Img from '../../imgs/cs-bg.svg';
 import Button from '@material-ui/core/Button';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import LazyLoad from 'react-lazyload';
 
 
@@ -98,7 +98,7 @@ export default class FullPost extends Component {
                 <Button 
                     className='like-post' 
                     variant='contained'
-                    endIcon={<FavoriteBorderIcon/>}
+                    endIcon={<Icon iconName='Heart'/>}
                     onClick={this.like}
                 > 
                     {this.state.post.likes}
@@ -112,12 +112,12 @@ export default class FullPost extends Component {
                 <Button 
                     className='like-post' 
                     variant='outlined'
-                    endIcon={<FavoriteBorderIcon/>}
+                    endIcon={<Icon iconName='Heart'/>}
                     onClick={this.like}
                 > 
                     {this.state.post.likes}
                 </Button>
-        </div>: null;
+            </div>: null;
         return (
             <div 
                 className='full-post'

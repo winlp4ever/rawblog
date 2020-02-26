@@ -70,7 +70,7 @@ class App extends Component {
     render = () => {
         let menuOptions = [
             {name: 'Home', onClick: this.viewHome}, 
-            {name: 'Wall', onClick: this.viewSocio},
+            {name: 'ViewAll', onClick: this.viewSocio},
             {name: 'Video', onClick: this.viewVideo}
         ];
 

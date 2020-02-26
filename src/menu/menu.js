@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './_menu.scss';
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
+
 
 const Option = props => {
     let classN = 'option';
@@ -7,7 +9,7 @@ const Option = props => {
     return (
         <div>
             <button className={classN} onClick={_ => props.onClick()}>
-                <a>{props.name}</a>
+                <Icon iconName={props.name} />
             </button>
         </div>
     );
