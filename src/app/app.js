@@ -21,7 +21,6 @@ export default class App extends Component {
         activeTab: 1,
         postId: -1,
         socket: io(),
-        loginValid: false
     }
 
     componentDidMount() {
@@ -43,6 +42,8 @@ export default class App extends Component {
         await this.setState({user: {name: info.name, email: info.email}});
         if (info.name != '') {
             Cookies.set('user', this.state.user, {expires: 1});
+        } else {
+            Cookies.remove('user');
         }
     }
 
@@ -60,11 +61,6 @@ export default class App extends Component {
 
     viewVideo = () => {
         this.setState({activeTab: 2, postId: -1});
-    }
-
-    handleLogin = (yn) => {
-        if (yn == 'y') this.setState({loginValid: true});
-        console.log(this.state.loginValid);
     }
 
     render() {

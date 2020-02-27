@@ -12,7 +12,7 @@
         {
             "username": "anakin",
             "content": "this is not wok",
-            "likes": 3,
+            "likes": 5,
             "replies": [
                 {
                     "username": "anakin",
@@ -29,6 +29,12 @@
                 {
                     "username": "anakin",
                     "content": "i dont know",
+                    "likes": 0,
+                    "replyTo": 0
+                },
+                {
+                    "username": "anakin",
+                    "content": "i dont get it",
                     "likes": 0,
                     "replyTo": 0
                 }
@@ -143,6 +149,12 @@
                     "replyTo": 2
                 }
             ]
+        },
+        {
+            "username": "rebecca",
+            "content": "yup",
+            "likes": 0,
+            "replies": []
         }
     ],
     "himmi": "nlp.svg"
