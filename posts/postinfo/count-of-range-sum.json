@@ -1,7 +1,7 @@
 {
     "title": "Count of range sum",
     "intro": "A popular problem on leetcode",
-    "likes": 88,
+    "likes": 93,
     "hashtags": [
         "algorithm",
         "python"
@@ -10,8 +10,21 @@
         {
             "username": "anakin",
             "content": "what's up",
-            "likes": 6,
-            "replies": []
+            "likes": 9,
+            "replies": [
+                {
+                    "username": "anakin",
+                    "content": "hmm",
+                    "likes": 0,
+                    "replyTo": 0
+                },
+                {
+                    "username": "anakin",
+                    "content": "why",
+                    "likes": 0,
+                    "replyTo": 0
+                }
+            ]
         },
         {
             "username": "anakin",
@@ -76,6 +89,12 @@
                 {
                     "username": "anonymous",
                     "content": "you don't have to piss off",
+                    "likes": 0,
+                    "replyTo": 2
+                },
+                {
+                    "username": "anakin",
+                    "content": "this is bad",
                     "likes": 0,
                     "replyTo": 2
                 }

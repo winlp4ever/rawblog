@@ -1,13 +1,149 @@
 {
     "title": "NLP - Recent Advances Overview",
     "intro": "Recently a new wave of technology advances emerges in the field of NLP - let's try to resume what's going on",
-    "likes": 84,
+    "likes": 85,
     "hashtags": [
         "deep learning",
         "nlp",
         "transformers",
         "bert"
     ],
-    "comments": [],
+    "comments": [
+        {
+            "username": "anakin",
+            "content": "this is not wok",
+            "likes": 3,
+            "replies": [
+                {
+                    "username": "anakin",
+                    "content": "why",
+                    "likes": 0,
+                    "replyTo": 0
+                },
+                {
+                    "username": "anakin",
+                    "content": "dont tell me",
+                    "likes": 0,
+                    "replyTo": 0
+                },
+                {
+                    "username": "anakin",
+                    "content": "i dont know",
+                    "likes": 0,
+                    "replyTo": 0
+                }
+            ]
+        },
+        {
+            "username": "anakin",
+            "content": "are you sure you dont know",
+            "likes": 6,
+            "replies": [
+                {
+                    "username": "anakin",
+                    "content": "yes",
+                    "likes": 0,
+                    "replyTo": 1
+                },
+                {
+                    "username": "anakin",
+                    "content": "im so sure about it",
+                    "likes": 0,
+                    "replyTo": 1
+                },
+                {
+                    "username": "anakin",
+                    "content": "youre are terrible",
+                    "likes": 0,
+                    "replyTo": 1
+                },
+                {
+                    "username": "anakin",
+                    "content": "don't you know",
+                    "likes": 0,
+                    "replyTo": 1
+                },
+                {
+                    "username": "anakin",
+                    "content": "hmm",
+                    "likes": 0,
+                    "replyTo": 1
+                },
+                {
+                    "username": "anakin",
+                    "content": "this is bad",
+                    "likes": 0,
+                    "replyTo": 1
+                },
+                {
+                    "username": "anakin",
+                    "content": "like very very bad",
+                    "likes": 0,
+                    "replyTo": 1
+                },
+                {
+                    "username": "anakin",
+                    "content": "anyway",
+                    "likes": 0,
+                    "replyTo": 1
+                },
+                {
+                    "username": "anakin",
+                    "content": "i hate you",
+                    "likes": 0,
+                    "replyTo": 1
+                }
+            ]
+        },
+        {
+            "username": "anakin",
+            "content": "will this be the end of this stupid error",
+            "likes": 8,
+            "replies": [
+                {
+                    "username": "anakin",
+                    "content": "possibly",
+                    "likes": 0,
+                    "replyTo": 2
+                },
+                {
+                    "username": "anakin",
+                    "content": "but one cant never be sure",
+                    "likes": 0,
+                    "replyTo": 2
+                },
+                {
+                    "username": "anakin",
+                    "content": "what do you think",
+                    "likes": 0,
+                    "replyTo": 2
+                },
+                {
+                    "username": "anakin",
+                    "content": "dont take me wrong",
+                    "likes": 0,
+                    "replyTo": 2
+                },
+                {
+                    "username": "anakin",
+                    "content": "i really like the idea",
+                    "likes": 0,
+                    "replyTo": 2
+                },
+                {
+                    "username": "anakin",
+                    "content": "it's just not good enough for me",
+                    "likes": 0,
+                    "replyTo": 2
+                },
+                {
+                    "username": "anakin",
+                    "content": "=))",
+                    "likes": 0,
+                    "replyTo": 2
+                }
+            ]
+        }
+    ],
     "himmi": "nlp.svg"
 }
