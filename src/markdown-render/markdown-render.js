@@ -20,7 +20,7 @@ const MdRender = props => {
                 <BlockMath math={props.value} />,
             inlineMath: (props) =>
                 <InlineMath math={props.value} />
-        }
+        },
     };
     
     return (

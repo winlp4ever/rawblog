@@ -16,4 +16,4 @@ __Masked Language Model__ - a practical skip-gram model, used in BERT:
 
 For example, a sentence like: 'i have a dream, that is everyone can be free' will be masked randomly 15% of its words, become 'i __[masked]__ a dream, that is __[masked]__ can be free' before being passed to the network, which tries to demask all masked words. 
 
-![img](https://docs.google.com/drawings/d/e/2PACX-1vTbBZWep6AyfO80-FwMcGp_FxoooctEmbNkT5FjaUiRuWtnq-x8ml5UtRQS6oNts2-HyvcetcXkU8DJ/pub?w=960&h=720)
+![img](https://my-article-imgs.s3.eu-west-3.amazonaws.com/nn.png)

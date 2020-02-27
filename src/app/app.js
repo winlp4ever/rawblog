@@ -12,7 +12,7 @@ import Vid from '../vid/vid';
 
 import Cookies from 'js-cookie';
 
-class App extends Component {
+export default class App extends Component {
     state = {
         user: {
             name: '',
@@ -40,8 +40,8 @@ class App extends Component {
     }
 
     updateUser =  async (info) => {
-        if (info.name) {
-            await this.setState({user: {name: info.name, email: info.email}});
+        await this.setState({user: {name: info.name, email: info.email}});
+        if (info.name != '') {
             Cookies.set('user', this.state.user, {expires: 1});
         }
     }
@@ -67,15 +67,12 @@ class App extends Component {
         console.log(this.state.loginValid);
     }
 
-    render = () => {
+    render() {
         let menuOptions = [
             {name: 'Home', onClick: this.viewHome}, 
             {name: 'ViewAll', onClick: this.viewSocio},
             {name: 'Video', onClick: this.viewVideo}
         ];
-
-        let auth = '';
-        if (!this.state.user.name) auth=(<Auth updateUser={this.updateUser} />);
 
         let main = (<div>Oof! Error, page not found!</div>> -1);
         if (this.state.activeTab == 0) {
@@ -103,16 +100,13 @@ class App extends Component {
             updateUser: this.updateUser
         }
 
-        //if (!this.state.loginValid) return (<Login handleLogin={this.handleLogin}/>);
         return (
             <userContext.Provider value={value}>
-                <B0t socket={this.state.socket} username={this.state.user.name} viewFullPost={this.viewFullPost}/>
+                <B0t socket={this.state.socket} username={this.state.user.name || 'anonymous'} viewFullPost={this.viewFullPost}/>
                 <Menu links={menuOptions} activeTab={this.state.activeTab}/>
                 {main}
-                {auth}
+                <Auth />
             </userContext.Provider>
         )
     }
 }
-
-export default App;

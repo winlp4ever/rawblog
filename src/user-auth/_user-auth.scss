@@ -1,41 +1,55 @@
 .auth {
-    width: 200px;
-    top: 100px;
-    right: 5px;
-    max-height: 300px;
+    width: 15%;
+    top: 0.5em;
+    right: 3%;
     z-index: 100;
-    background: white;
-    box-shadow: 0px 0px 6px rgba(0,0,0, 0.08);
     position: fixed;
-    bottom: 10px;
     box-sizing: border-box;
-    text-align: center;
-    span, input {
-        outline: none;
-        border: none;
-        font: {
-            size: 70%;
+    .auth-line {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        i {
+            display: inline-block;
+            font-size: 1.2em;
+            padding: 0.8em 0.8em 0.2em;
         }
-        display: block;
-        color: #444444;
-        margin: 10px auto;
+        .MuiFormControl-root {
+            label, span, input {
+                font-size: 0.8em;
+            }
+            .focused {
+                color: black;
+            }
+        }
     }
-    input {
-        background: whitesmoke;
-        border-radius: 8px;
-        box-sizing: border-box;
-        padding: 10px;
-    }
-    padding: 10px 10px;
     button {
-        margin: auto;
-        background: whitesmoke;
-        display: block;
-        box-sizing: border-box;
-        padding: 10px;
-        border: none;
-        color: navy;
-        font: {
+        position: relative;
+        border-radius: unset;
+        font-size: 0.6em;
+        letter-spacing: 0px;
+        margin: 0.5em auto;
+        min-width: 100px;
+        left: 50%;
+        margin-left: -50px;
+    }
+}
+
+.user-panel {
+    position: fixed;
+    right: 5%;
+    top: 0.5em;
+    span {
+        display: inline-block;
+        font-size: 0.8em;
+        font-family: 'Work Sans';
+        font-weight: 600;
+        margin: 0.2em 0.5em;
+    }
+    button {
+        i {
+            font-size: 1.2em;
         }
     }
+    
 }
