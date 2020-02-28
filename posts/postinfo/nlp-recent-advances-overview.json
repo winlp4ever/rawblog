@@ -12,7 +12,7 @@
         {
             "username": "anakin",
             "content": "this is not wok",
-            "likes": 5,
+            "likes": 10,
             "replies": [
                 {
                     "username": "anakin",
@@ -35,6 +35,18 @@
                 {
                     "username": "anakin",
                     "content": "i dont get it",
+                    "likes": 0,
+                    "replyTo": 0
+                },
+                {
+                    "username": "Wall-Q",
+                    "content": "yay",
+                    "likes": 0,
+                    "replyTo": 0
+                },
+                {
+                    "username": "Wall-Q",
+                    "content": "this is so good",
                     "likes": 0,
                     "replyTo": 0
                 }
