@@ -1,0 +1,223 @@
+.qa-fix {
+    position: relative;
+    top: 5em;
+    width: 60%;
+    margin: 0 auto 100px;
+    color: #212121;
+    .video-player {
+        position: relative;
+        margin: 1em auto auto 1em;
+        width: 100%;
+        .player-wrapper {
+            padding: 0 0;
+            max-height: 700px;
+            height: 400px;
+            transition: all 0.3s cubic-bezier(0.0, 0.0, 0.2, 1);
+            border-radius: 3px;
+            overflow: hidden !important;
+            box-shadow: 0 80px 40px -50px rgba(163,131,146,.6);
+            .loading {
+                width: 100%;
+                position: absolute;
+                background: white;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                .loading-icon {
+                    width: 1.5em !important;
+                    position: absolute;
+                    left: 50%;
+                    margin-left: -0.75em;
+                    top: 50%;
+                    margin-top: -0.75em;
+                    svg {
+                        color: red;
+                    }
+                }
+            }
+            .react-player {
+                //position: absolute;
+                background: black;
+                //margin-bottom: -5px;
+                overflow: hidden !important;
+                border-radius: 3px;
+                video {
+                    display: block;
+                    margin: auto !important;
+                }
+            }
+        }
+        .controls {
+            position: relative;
+            background: transparent;
+            height: auto;
+            box-sizing: border-box;
+            padding: 0;
+            width: 100%;
+            margin-top: 3em;
+            height: 2.8em;
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.0, 0.0, 0.2, 1);
+            > div {
+                display: none;
+            }
+              
+            .progress-bar {
+                display: block;
+                position: absolute;
+                z-index: 0;
+                height: 0.5em;
+                border-radius: 0.25em;
+                width: 70%;
+                border: 1px solid lightgrey;
+                top: -0.7em;
+                left: 15%;
+                right: 0,5em;
+                transition: all 0.3s cubic-bezier(0.0, 0.0, 0.2, 1);
+                .seek {
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    height: 100%;
+                    background: #af4448;
+                    border-radius: 0.2em;
+                }
+            }
+            .control-buttons {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                height: 100%;
+                width: 100%;
+                font: {
+                    size: 0.6em;
+                }
+                button {
+                    padding: 0;
+                    margin: auto 5px;
+                    width: 2.5em;
+                    height: 2.5em;
+                    min-width: 0;
+                    border-radius: 50%;
+                    border: 1px solid lightgrey;
+                    transition: all 0.3s cubic-bezier(0, 0, 0.2, 1);
+                    svg {
+                        height: 0.6em;
+                        margin: auto;
+                        padding: 0em 0.2em;
+                        color: #e57373;
+                        transition: all 0.3s cubic-bezier(0, 0, 0.2, 1);
+                    }
+                    &:hover {
+                        background: none;
+                        transform: scale(0.9);
+                        border-color: #e57373;
+                        svg {
+                            transform: scale(1.5);
+                            color: #af4448;
+                        }
+                    }
+                }
+            }       
+        }
+    }
+    .qas {
+        position: relative;
+        top: 1em;
+        height: 20em;
+        overflow-y: scroll;
+        font-size: 0.9em;
+        .qa {
+            position: relative;
+            box-sizing: border-box;
+            border: 1px solid lightgrey;
+            padding: 0.5em 1em;
+            margin: 2em 0;
+            div {
+                position: relative;
+                padding: 0.5em 1em;
+                box-sizing: border-box;
+            }
+            i {
+                position: absolute;
+                z-index: 100;
+                left: -0.5em;
+                top: 0.8em;
+            }
+            span {
+                display: inline-block;
+                padding: 0.2em 1em;
+                overflow-wrap: anywhere;
+                border-bottom: 2px solid transparent;
+                i {
+                    font-size: 1.2em;
+                }
+                &.q {
+                    font-weight: 600;
+                }
+            }
+            button {
+                border-radius: none;
+                min-width: 0;
+                padding: 0;
+                margin: 0;
+                i {
+                    position: inherit;
+                }
+                font-size: 0.7em;
+            }
+            .timestamp {
+                position: absolute;
+                color: grey;
+                left: 1em;
+                top: -3em;
+                text-transform: none;
+                letter-spacing: unset;
+                font: {
+                    size: 0.6em;
+                    weight: 600;
+                }
+            }
+            .edit, .save {
+                position: absolute;
+                right: -1em;
+                top: -0.5em;
+                color: grey;
+                font: {
+                    size: 0.7em;
+                }
+            }
+    
+            .cancel {
+                position: absolute;
+                right: 2.5em;
+                top: -0.5em;
+                color: grey;
+                font: {
+                    size: 0.7em;
+                }
+            }
+            textarea {
+                font: {
+                    size: 1em;
+                }
+                resize: none;
+                background: none;
+                position: relative;
+                width: 100%;
+                padding: 0.2em 1em;
+                outline: none;
+                border: none;
+                border-bottom: 2px solid lightgrey;
+                transition: all 0.25s ease-in-out;
+                &:focus {
+                    border-bottom: 2px solid grey;
+                }
+            }
+        }
+        
+    }
+    
+}
+

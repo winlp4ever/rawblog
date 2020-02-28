@@ -169,6 +169,11 @@ app.post('/login', (req, res) => {
     res.json({answer: 'y'});
 })
 
+app.post('/get-questions', (req, res) => {
+    let data = JSON.parse(fs.readFileSync(path.join('imgs', 'sample-course.json')));
+    res.json({questions: data.questions})
+})
+
 app.post('/get-post-title', (req, res) => {
     let postId = req.query.postId;
     res.json({ title: posts[postId].title });

@@ -9,7 +9,7 @@ import Home from '../home/home';
 import B0t from '../b0t/b0t';
 //import Login from '../login/login';
 import Vid from '../vid/vid';
-
+import QAFix from '../qa-fix/qa-fix';
 import Cookies from 'js-cookie';
 
 export default class App extends Component {
@@ -18,7 +18,7 @@ export default class App extends Component {
             name: '',
             email: '',
         },
-        activeTab: 1,
+        activeTab: 2,
         postId: -1,
         socket: io(),
     }
@@ -88,7 +88,7 @@ export default class App extends Component {
         } 
 
         else if (this.state.activeTab == 2) {
-            main = <Vid />;
+            main = <QAFix />;
         }
 
         const value = {
