@@ -17,6 +17,7 @@ export default class App extends Component {
         user: {
             name: '',
             email: '',
+            color: ''
         },
         activeTab: 1,
         postId: -1,

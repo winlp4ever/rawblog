@@ -8,12 +8,12 @@ const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const http = require('http');
 
+// set up server
 var app = express();
 app.use(favicon(path.join(__dirname, 'imgs', 'favicon.ico')));
 app.use(express.static(__dirname + './public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 const prodConfig = require('./webpack.prod.js');
 const devConfig = require('./webpack.dev.js');
@@ -30,13 +30,17 @@ else compiler = webpack(devConfig);
 
 const server = new http.Server(app);
 const io = require('socket.io')(server);
-
 const PORT = 5000;
 
 server.listen(PORT, () => {
     console.log(`listening to port ${PORT}`)
 });
+app.use(
+    middleware(compiler, options)
+);
+app.use(require('webpack-hot-middleware')(compiler));
 
+// setup backend data for servicese
 var posts = {};
 var postsPath = './posts';
 fs.readdir(postsPath, function (err, files) {
@@ -75,17 +79,10 @@ fs.readdir(postsPath, function (err, files) {
 });
 
 var count = 0;
-
 var admin = 'Wall-Q';
 var chats = {};
 
-app.use(
-    middleware(compiler, options)
-);
-
-app.use(require('webpack-hot-middleware')(compiler));
-
-
+// websocket communication handlers
 io.on('connection', function(socket){
     count ++;
     console.log(`${count} user connected with id: ${socket.id}`);
@@ -150,7 +147,7 @@ io.on('connection', function(socket){
 
 });
 
-
+// normal routes with POST/GET 
 app.get('/', (req, res, next) => {
     var filename = path.join(compiler.outputPath,'index');
     
@@ -205,6 +202,7 @@ app.post('/admin-verify', (req, res) => {
     })
 })
 
+// on terminating the process
 process.on('SIGINT', _ => {
     console.log('now you quit!');
 
