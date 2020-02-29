@@ -1,4 +1,5 @@
 import React, { Component, createRef, useState } from 'react';
+import ReactDOM, { findDOMNode } from 'react-dom';
 import ReactPlayer from 'react-player';
 import './_vid.scss';
 import Button from '@material-ui/core/Button';
@@ -141,7 +142,7 @@ class VideoPlayer extends Component {
     };
 
     componentDidMount() {
-        this.$player = $(this.player);
+        this.$player = $(findDOMNode(this.player));
         this.progressing_ = setInterval(() => {
             let seek = 0;
             try {
