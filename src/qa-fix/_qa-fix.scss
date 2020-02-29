@@ -1,13 +1,13 @@
 .qa-fix {
     position: relative;
-    top: 5em;
+    top: 1em;
     width: 60%;
     margin: 0 auto 100px;
     color: #212121;
     .video-player {
         position: relative;
         margin: 1em auto auto 1em;
-        width: 100%;
+        width: 90%;
         .player-wrapper {
             padding: 0 0;
             max-height: 700px;
@@ -133,7 +133,15 @@
             box-sizing: border-box;
             border: 1px solid lightgrey;
             padding: 0.5em 1em;
-            margin: 2em 0;
+            margin: 2em auto;
+            width: 95%;
+            transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+
+            &.focus, &:hover {
+                background: white;
+                border: 1px solid transparent;
+                box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
+            }
             div {
                 position: relative;
                 padding: 0.5em 1em;

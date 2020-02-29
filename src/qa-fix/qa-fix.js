@@ -33,6 +33,7 @@ const QA = (props) => {
     const [q, setQ] = useState(props.q);
     const [a, setA] = useState(props.a);
     const [editMode, setEditMode] = useState(false);
+    const [focus, setFocus] = useState(false)
 
     const editOn = () => setEditMode(true);
 
@@ -50,7 +51,9 @@ const QA = (props) => {
         setEditMode(false);
     }
 
-    return (<div className='qa'>
+    return (<div className={focus? 'qa focus': 'qa'} 
+        onFocus={_ => setFocus(true)} 
+        onBlur={_ => setFocus(false)}>
         <Button className='timestamp' onClick={_ => props.seekTo(props.timestamp)}>
             time: {props.timestamp}s <Icon iconName='GotoToday' />
         </Button>
