@@ -57,6 +57,12 @@ const NewComment = (props) => {
 }
 const Comment = (props) => {
     const [displayReplies, setDisplayReplies] = useState(false);
+    const userdata = useContext(userContext);
+    const avaStyle = props.comment.username == userdata.user.username ? {
+        border: '1px solid transparent',
+        background: userdata.user.color,
+        color: 'whitesmoke'
+    }: {border: '1px solid lightgrey', color: '#212121', background: 'whitesmoke'}
     const handleClick = () => {
         if (props.commentId != null) props.likeComment(props.commentId, -1);
         else props.likeComment(props.replyTo, props.replyId);
@@ -65,6 +71,9 @@ const Comment = (props) => {
         setDisplayReplies(!displayReplies)
     }
     return <div className='comment'>
+        <span className='ava' style={avaStyle}>
+            {props.comment.username.substr(0,1).toUpperCase()}
+        </span>
         <span className='username'>{props.comment.username}:</span>
         <span>{props.comment.content}</span>
         <button className='del'><i className="fas fa-times"></i></button>

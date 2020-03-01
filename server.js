@@ -80,8 +80,8 @@ fs.readdir(postsPath, function (err, files) {
 
 var count = 0;
 var users = {
-    'Wall-Q': {password: '1', color: 'red', email: ''}, 
-    'anakin': {password: '2', color: 'green', email: ''}
+    'Wall-Q': {password: '1', color: '#e53935', email: ''}, 
+    'anakin': {password: '2', color: '#1e88e5', email: ''}
 };
 var chats = {};
 

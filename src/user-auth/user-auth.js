@@ -5,7 +5,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
-
 const Auth = () => {
     const [username, setUsername] = useState('');
     const [pass, setPass] = useState('');
@@ -51,9 +50,11 @@ const Auth = () => {
         userdata.updateUser({username: '', email: '', color: ''});
     }
 
-    console.log(userdata.user.username);
 
     if (userdata.user.username != '') return (<div className='user-panel'>
+        <span className='ava' style={{background: userdata.user.color}}>
+            {userdata.user.username.substr(0,1).toUpperCase()}
+        </span>
         <span>Hi, {userdata.user.username}</span> 
         <Button onClick={signOut}>
             <Icon iconName='SignOut'/>
