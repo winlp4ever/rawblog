@@ -25,10 +25,7 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        console.log(Cookies.get('user'));
-
         let userdata = Cookies.get('user');
-
         if (userdata) {
             this.setState({user: JSON.parse(userdata)});   
         }

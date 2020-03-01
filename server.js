@@ -176,6 +176,11 @@ app.post('/login', (req, res) => {
     res.json({err: 'wrong username or password'});
 })
 
+app.post('/get-user-data', (req, res) => {
+    console.log(req);
+    res.json({username: req.body.username, color: users[req.body.username].color});
+})
+
 app.post('/get-post-title', (req, res) => {
     let postId = req.query.postId;
     res.json({ title: posts[postId].title });

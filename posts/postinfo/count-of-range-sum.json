@@ -35,12 +35,6 @@
                     "content": "i dont get it",
                     "likes": 0,
                     "replyTo": 0
-                },
-                {
-                    "username": "anonymous",
-                    "content": "hmm",
-                    "likes": 0,
-                    "replyTo": 0
                 }
             ]
         },
@@ -48,68 +42,13 @@
             "username": "anakin",
             "content": "this is not new",
             "likes": 7,
-            "replies": [
-                {
-                    "username": "anonymous",
-                    "content": "lllalageag",
-                    "likes": 0,
-                    "replyTo": 1
-                },
-                {
-                    "username": "anonymous",
-                    "content": "wait a minute",
-                    "likes": 0,
-                    "replyTo": 1
-                },
-                {
-                    "username": "anonymous",
-                    "content": "yes",
-                    "likes": 0,
-                    "replyTo": 1
-                },
-                {
-                    "username": "anonymous",
-                    "content": "yes",
-                    "likes": 0,
-                    "replyTo": 1
-                },
-                {
-                    "username": "anonymous",
-                    "content": "are yoou hungry",
-                    "likes": 0,
-                    "replyTo": 1
-                },
-                {
-                    "username": "anonymous",
-                    "content": "for for",
-                    "likes": 0,
-                    "replyTo": 1
-                }
-            ]
+            "replies": []
         },
         {
             "username": "anakin",
             "content": "yay",
             "likes": 7,
             "replies": [
-                {
-                    "username": "anonymous",
-                    "content": "what the hell",
-                    "likes": 0,
-                    "replyTo": 2
-                },
-                {
-                    "username": "anonymous",
-                    "content": "ok",
-                    "likes": 0,
-                    "replyTo": 2
-                },
-                {
-                    "username": "anonymous",
-                    "content": "you don't have to piss off",
-                    "likes": 0,
-                    "replyTo": 2
-                },
                 {
                     "username": "anakin",
                     "content": "this is bad",
@@ -121,30 +60,6 @@
         {
             "username": "anakin",
             "content": "hmm",
-            "likes": 0,
-            "replies": []
-        },
-        {
-            "username": "anonymous",
-            "content": "yay",
-            "likes": 0,
-            "replies": []
-        },
-        {
-            "username": "anonymous",
-            "content": "yayayya",
-            "likes": 1,
-            "replies": []
-        },
-        {
-            "username": "anonymous",
-            "content": "yup",
-            "likes": 0,
-            "replies": []
-        },
-        {
-            "username": "anonymous",
-            "content": "wfewef",
             "likes": 0,
             "replies": []
         },

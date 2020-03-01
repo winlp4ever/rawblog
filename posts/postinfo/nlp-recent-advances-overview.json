@@ -161,12 +161,6 @@
                     "replyTo": 2
                 }
             ]
-        },
-        {
-            "username": "rebecca",
-            "content": "yup",
-            "likes": 0,
-            "replies": []
         }
     ],
     "himmi": "nlp.svg"

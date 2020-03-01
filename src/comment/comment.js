@@ -1,9 +1,11 @@
-import React, { Component, useState, useContext } from 'react';
+import React, { Component, useState, useContext, useEffect } from 'react';
 import './_comment.scss';
 import { userContext } from '../user-context/user-context';
 import Button from '@material-ui/core/Button';
 import _Icon from '../_icon/_icon';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import Cookies from 'js-cookie';
 
 const NewComment = (props) => {
     const [newComment, setNewComment] = useState('');
@@ -41,12 +43,12 @@ const NewComment = (props) => {
 
     return (
         <div className='enter-comment'>
-            <textarea
+            <TextareaAutosize
                 rows={1}
                 placeholder='&nbsp;'
                 onChange={handleChange}
                 onKeyPress={submit}
-            ></textarea>
+            ></TextareaAutosize>
             <span className='label'>
                 Your comment
             </span>
@@ -57,22 +59,58 @@ const NewComment = (props) => {
 }
 const Comment = (props) => {
     const [displayReplies, setDisplayReplies] = useState(false);
+    const [user, setUser] = useState({username: props.comment.username, color: 'whitesmoke'});
     const userdata = useContext(userContext);
-    const avaStyle = props.comment.username == userdata.user.username ? {
-        border: '1px solid transparent',
-        background: userdata.user.color,
-        color: 'whitesmoke'
-    }: {border: '1px solid lightgrey', color: '#212121', background: 'whitesmoke'}
+
+    useEffect(() => {
+        const cpnDidMount = async () => {
+            if (userdata.user.username == user.username) setUser(userdata.user);
+            else {
+                let users = Cookies.get('users');
+                if (users != null) {
+                    users = JSON.parse(users);
+                } else users = {};
+
+                if (user.username in users) setUser(users[user.username]);
+                else {
+                    try {
+                        let response = await fetch('/get-user-data', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                username: user.username,
+                            })
+                        })
+                        let data = await response.json();
+                        setUser(data);
+                        users[user.username] = data;
+                        Cookies.set('users', users, {expires: 1});
+                    } catch (e) {
+                        console.log(e);
+                    }
+                }
+            }
+        }
+        cpnDidMount();
+    }, [])
+
+    const avaStyle = {
+        background: user.color,
+        color: 'whitesmoke',
+    }
+
     const handleClick = () => {
         if (props.commentId != null) props.likeComment(props.commentId, -1);
         else props.likeComment(props.replyTo, props.replyId);
     }
+
     const showHideReplies = () => {
         setDisplayReplies(!displayReplies)
     }
+
     return <div className='comment'>
         <span className='ava' style={avaStyle}>
-            {props.comment.username.substr(0,1).toUpperCase()}
+            {user.username.substr(0,1).toUpperCase()}
         </span>
         <span className='username'>{props.comment.username}:</span>
         <span>{props.comment.content}</span>
