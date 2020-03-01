@@ -15,7 +15,7 @@ import Cookies from 'js-cookie';
 export default class App extends Component {
     state = {
         user: {
-            name: '',
+            username: '',
             email: '',
             color: ''
         },
@@ -40,8 +40,9 @@ export default class App extends Component {
     }
 
     updateUser =  async (info) => {
-        await this.setState({user: {name: info.name, email: info.email}});
-        if (info.name != '') {
+        await this.setState(
+            {user: info});
+        if (info.username != '') {
             Cookies.set('user', this.state.user, {expires: 1});
         } else {
             Cookies.remove('user');
@@ -99,9 +100,19 @@ export default class App extends Component {
 
         return (
             <userContext.Provider value={value}>
-                <B0t socket={this.state.socket} username={this.state.user.name || 'anonymous'} viewFullPost={this.viewFullPost}/>
-                <Menu links={menuOptions} activeTab={this.state.activeTab}/>
-                {main}
+                {
+                    (this.state.user.username != '') ? <div>
+                        <B0t 
+                            socket={this.state.socket} 
+                            username={this.state.user.username} 
+                            viewFullPost={this.viewFullPost}
+                        />
+                        <Menu links={menuOptions} activeTab={this.state.activeTab}/>
+                        {main}
+                    </div>: null
+                }
+                
+                
                 <Auth />
             </userContext.Provider>
         )

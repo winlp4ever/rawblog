@@ -79,7 +79,10 @@ fs.readdir(postsPath, function (err, files) {
 });
 
 var count = 0;
-var admin = 'Wall-Q';
+var users = {
+    'Wall-Q': {password: '1', color: 'red', email: ''}, 
+    'anakin': {password: '2', color: 'green', email: ''}
+};
 var chats = {};
 
 // websocket communication handlers
@@ -162,8 +165,15 @@ app.get('/', (req, res, next) => {
 });
 
 app.post('/login', (req, res) => {
-    if (req.body.username != 'redgunner' || req.body.password != 2311) res.json({answer: 'n'});
-    res.json({answer: 'y'});
+    console.log(req.body.username in users);
+    if (req.body.username in users) if (req.body.pass == users[req.body.username].password) {
+        let profile = JSON.parse(JSON.stringify(users[req.body.username]));
+        delete profile.password;
+        console.log({...profile, username: req.body.username});
+        res.json({...profile, username: req.body.username});
+        return;
+    }
+    res.json({err: 'wrong username or password'});
 })
 
 app.post('/get-post-title', (req, res) => {

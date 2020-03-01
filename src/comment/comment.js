@@ -19,7 +19,7 @@ const NewComment = (props) => {
         
         e.preventDefault(); // prevents page reloading
         let res = {
-            username: value.user.name || 'anonymous',
+            username: value.user.username,
             content: newComment, 
             postId: props.postId,
             likes: 0,

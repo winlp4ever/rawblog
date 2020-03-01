@@ -26,18 +26,18 @@ const Newchat = (props) => {
     const user = useContext(userContext).user;
     const onChange = async(e) => {
         setNewchat(e.target.value);
-        props.socket.emit('ask for hints', {sender: user.name, msg: e.target.value});
+        props.socket.emit('ask for hints', {sender: user.username, msg: e.target.value});
     }
     const sendNewChat = () => {
         if (!newchat) return;
         if (newchat.indexOf('@') == 0 && props.dest == 'bot') {
             props.socket.emit('submit chat',
-                {sender: user.name, dest: newchat.substr(1, newchat.length-1), msg: 'Hi'})
+                {sender: user.username, dest: newchat.substr(1, newchat.length-1), msg: 'Hi'})
         }
         else {
             if (props.referral) 
-                props.socket.emit('submit chat', {sender: user.name, dest: props.dest, msg: newchat, referral: props.referral});
-            else props.socket.emit('submit chat', {sender: user.name, dest: props.dest, msg: newchat});
+                props.socket.emit('submit chat', {sender: user.username, dest: props.dest, msg: newchat, referral: props.referral});
+            else props.socket.emit('submit chat', {sender: user.username, dest: props.dest, msg: newchat});
         }
         setNewchat('');
         setFocus(-1);
