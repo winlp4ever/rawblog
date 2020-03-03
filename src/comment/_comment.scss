@@ -136,7 +136,7 @@
             background: #2979ff;
         }
 
-        textarea:focus + span, textarea:not(:placeholder-shown) + span.label {
+        textarea:focus + textarea + span, textarea:not(:placeholder-shown) + textarea + span.label {
             transform: translateY(-150%) scale(0.75);
             font-weight: 700;
             + span.border {
