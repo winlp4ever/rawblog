@@ -28,7 +28,7 @@ export default class FullPost extends Component {
         display_supp: false,
     }
 
-    _setState = async (dict) => {
+    _setState = (dict) => {
         // only set state when component is mounted
         if (this._mounted) {
             this.setState(dict);
@@ -125,9 +125,12 @@ export default class FullPost extends Component {
                 {supp}
                 <div className='himmi'>
                     <LazyLoad height={400}>
-                        <img src={this.state.post.himmi? 
-                            require('../../imgs/' + this.state.post.himmi)
-                            :Img} alt='himmi'/>
+                    {
+                        this.state.post.himmi? <img 
+                            src={require('../../imgs/' + this.state.post.himmi)}
+                            alt='himmi'/>
+                        : null
+                    }
                     </LazyLoad>                  
                 </div>
                 <div 

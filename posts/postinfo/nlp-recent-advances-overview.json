@@ -12,7 +12,7 @@
         {
             "username": "anakin",
             "content": "this is not wok",
-            "likes": 10,
+            "likes": 20,
             "replies": [
                 {
                     "username": "anakin",
@@ -47,6 +47,18 @@
                 {
                     "username": "Wall-Q",
                     "content": "this is so good",
+                    "likes": 0,
+                    "replyTo": 0
+                },
+                {
+                    "username": "anakin",
+                    "content": "wait a minute",
+                    "likes": 0,
+                    "replyTo": 0
+                },
+                {
+                    "username": "Wall-Q",
+                    "content": "i dont get it",
                     "likes": 0,
                     "replyTo": 0
                 }
@@ -116,7 +128,7 @@
         {
             "username": "anakin",
             "content": "will this be the end of this stupid error",
-            "likes": 8,
+            "likes": 12,
             "replies": [
                 {
                     "username": "anakin",
@@ -159,6 +171,31 @@
                     "content": "=))",
                     "likes": 0,
                     "replyTo": 2
+                },
+                {
+                    "username": "anakin",
+                    "content": "i dont hget git",
+                    "likes": 0,
+                    "replyTo": 2
+                }
+            ]
+        },
+        {
+            "username": "anakin",
+            "content": "hey, this is working",
+            "likes": 3,
+            "replies": [
+                {
+                    "username": "anakin",
+                    "content": "hmm",
+                    "likes": 0,
+                    "replyTo": 3
+                },
+                {
+                    "username": "anakin",
+                    "content": "i dont get it",
+                    "likes": 0,
+                    "replyTo": 3
                 }
             ]
         }
