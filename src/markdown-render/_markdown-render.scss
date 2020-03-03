@@ -37,6 +37,10 @@
             }        
         }
     }
+    h2 {
+        display: inline-block;
+        border-bottom: 1px solid lightgrey;
+    }
     .to-download {
         position: relative;
         display: inline-block;
