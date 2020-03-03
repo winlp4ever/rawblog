@@ -31,6 +31,12 @@ class MdRender extends Component{
                         </Button>
                     </span>;
                 }
+                let title = props.children[0].props.value;
+                if (title.includes('download ')) {
+                    return <Button variant='outlined' className='to-download' href={props.href} target='_blank'>
+                        <Icon iconName='DownloadDocument' /><span>{title.split(' ')[1]}</span>
+                    </Button>
+                }
                 return <a href={props.href} target='_blank'>{props.children[0].props.value}</a>;
             }
         },
