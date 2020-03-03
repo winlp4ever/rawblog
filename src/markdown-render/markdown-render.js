@@ -24,12 +24,12 @@ class MdRender extends Component{
                 <InlineMath math={props.value} />,
             link: (props) => {
                 if (props.href.startsWith('https://docs.google.com/presentation')) {
-                    return <div className='gg-slides'>
+                    return <span className='gg-slides'>
                         <iframe src={props.href} />
                         <Button variant='outlined' className='full-screen' href={props.href} target='_blank'>
                             <Icon iconName='OpenInNewTab' /> Open
                         </Button>
-                    </div>;
+                    </span>;
                 }
                 return <a href={props.href} target='_blank'>{props.children[0].props.value}</a>;
             }
