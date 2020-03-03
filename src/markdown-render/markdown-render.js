@@ -31,6 +31,7 @@ class MdRender extends Component{
                         </Button>
                     </div>;
                 }
+                return <a href={props.href} target='_blank'>{props.children[0].props.value}</a>;
             }
         },
     };
