@@ -5,6 +5,10 @@ Range sum `S(i, j)` is defined as the sum of the elements in nums between indice
 
 __Note:__
 
+## Slides
+
+[google-present](https://docs.google.com/presentation/d/e/2PACX-1vSZ44q-fwq2DIeF8852-rjZrgxDFBGLXrOjEsl3YMO8HDcRmzpTcrep4304gQPdSWfsCftxlBhqJM8R/embed?start=false&loop=false&delayms=3000)
+
 This is a popular problem on _LeetCode_. For this problem, the solution differs between positive integer only case and general case. The former case is solvable in `O(n)` while the latter can only be solved in `O(nlogn)`.
 
 __Example:__

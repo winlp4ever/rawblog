@@ -8,6 +8,7 @@ import Img from '../../imgs/cs-bg.svg';
 import Button from '@material-ui/core/Button';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import LazyLoad from 'react-lazyload';
+import io from 'socket.io-client';
 
 
 function disableDoubleClick() {
@@ -26,6 +27,7 @@ export default class FullPost extends Component {
         },
         view_comments: true,
         display_supp: false,
+        socket: io()
     }
 
     _setState = (dict) => {
@@ -65,13 +67,14 @@ export default class FullPost extends Component {
         this.$article.off();
         $(window).off('scroll', '**');
         this._mounted = false;
+        this.state.socket.disconnect();
     }
 
     like = async () => {
         let post_ = JSON.parse(JSON.stringify(this.state.post));
         post_.likes ++;
         this._setState({post: post_});
-        this.props.socket.emit(`likes`, this.props.postId);
+        this.state.socket.emit(`likes`, this.props.postId);
     }
 
 

@@ -110,7 +110,7 @@ io.on('connection', function(socket){
         } else {
             posts[postId].comments.push(msg);
         }
-        console.log('message: ' + msg.content);
+        console.log('message: ' + JSON.stringify(msg));
         io.emit(`new comment postId=${postId}`, msg);
         
     });
@@ -177,8 +177,7 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/get-user-data', (req, res) => {
-    console.log(req);
-    res.json({username: req.body.username, color: users[req.body.username].color});
+    res.json({username: req.body.username, color: users[req.body.username].color});                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 })
 
 app.post('/get-post-title', (req, res) => {

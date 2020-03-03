@@ -6,6 +6,11 @@
         position: relative;
         box-sizing: border-box;
         padding: 0.2em 0.5em 0.2em 1.8em;
+        @keyframes comment-appear {
+            0% {transform: translateY(2em); opacity: 0;}
+            100% {transform: translateY(0); opacity: 1;}
+        }
+        animation: comment-appear 0.2s cubic-bezier(0, 0, 0.2, 1);
         .comment, .enter-comment {
             background: whitesmoke;
             left: 2%;

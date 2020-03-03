@@ -53,6 +53,12 @@
                     "content": "why is the error not popping up",
                     "likes": 0,
                     "replyTo": 0
+                },
+                {
+                    "username": "anakin",
+                    "content": "hey you",
+                    "likes": 0,
+                    "replyTo": 0
                 }
             ]
         },
@@ -325,6 +331,12 @@
                     "replyTo": 6
                 }
             ]
+        },
+        {
+            "username": "anakin",
+            "content": "yay",
+            "likes": 0,
+            "replies": []
         }
     ]
 }

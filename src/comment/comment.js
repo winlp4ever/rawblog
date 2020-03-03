@@ -6,6 +6,8 @@ import _Icon from '../_icon/_icon';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Cookies from 'js-cookie';
+import io from 'socket.io-client';
+
 
 const NewComment = (props) => {
     const [newComment, setNewComment] = useState('');
@@ -124,7 +126,7 @@ const Comment = (props) => {
                 {' '+props.comment.likes}
             </Button>
             {
-                props.replyTo == null? <Button
+                props.comment.replies != null? <Button
                     variant='contained' 
                     className='nb-replies' 
                     onClick={showHideReplies}
@@ -158,6 +160,7 @@ export default class Comments extends Component {
     _isMounted = false;
     state = {
         comments: [],
+        socket: io()
     }
 
     _setState = async (dict) => {
@@ -166,10 +169,10 @@ export default class Comments extends Component {
     
     componentDidMount = async () => {
         this._isMounted = true;
-        await this.props.socket.emit('comment history', this.props.postId);
-        this.props.socket.on(`comment history postId=${this.props.postId}`, 
+        await this.state.socket.emit('comment history', this.props.postId);
+        this.state.socket.on(`comment history postId=${this.props.postId}`, 
             comments => this._setState({comments: comments}));
-        this.props.socket.on(`new comment postId=${this.props.postId}`, msg => {
+        this.state.socket.on(`new comment postId=${this.props.postId}`, msg => {
             console.log('new comment');
             console.log(msg);
             let comments = this.state.comments.slice();
@@ -178,10 +181,10 @@ export default class Comments extends Component {
                 // if yes push it to replies list of the specified comment
                 const i = msg.replyTo;
                 delete msg.replyTo;
-                comments[i].replies.push(msg);
+                comments[i].replies.unshift(msg);
             } else {
                 // otherwise push it to our comments list
-                comments.push(msg);
+                comments.unshift(msg);
             }     
             this._setState({comments: comments});
         });
@@ -189,6 +192,7 @@ export default class Comments extends Component {
 
     componentWillUnmount = async () => {
         this._isMounted = false;
+        this.state.socket.disconnect();
     }
 
     likeComment = async (i, j) => {
@@ -203,7 +207,7 @@ export default class Comments extends Component {
             comments_[i].replies[j].likes ++;
         }
         this._setState({comments: comments_});
-        this.props.socket.emit(`like comment`, {
+        this.state.socket.emit(`like comment`, {
             postId: this.props.postId,
             commentId: i,
             replyId: j
@@ -213,14 +217,14 @@ export default class Comments extends Component {
     render = () => {
         return (
             <div className='comments'>
-                <NewComment postId={this.props.postId} socket={this.props.socket}/>
+                <NewComment postId={this.props.postId} socket={this.state.socket}/>
                 {this.state.comments.map((comm, i) => (
                     <Comment 
                         key={i}
                         commentId={i} 
                         comment={comm} 
                         postId={this.props.postId} 
-                        socket={this.props.socket}
+                        socket={this.state.socket}
                         likeComment={this.likeComment}/>
                 ))}
             </div>

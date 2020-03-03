@@ -2,7 +2,6 @@ import React, { Component, useReducer } from 'react';
 import Socio from '../socio/socio';
 import FullPost from '../full-post/full-post';
 import Auth from '../user-auth/user-auth';
-import io from 'socket.io-client';
 import Menu from '../menu/menu';
 import { userContext } from '../user-context/user-context';
 import Home from '../home/home';
@@ -21,7 +20,6 @@ export default class App extends Component {
         },
         activeTab: 1,
         postId: -1,
-        socket: io(),
     }
 
     componentDidMount() {
@@ -33,7 +31,6 @@ export default class App extends Component {
     }
 
     componentWillUnmount = () => {
-        this.state.socket.disconnect();
     }
 
     updateUser =  async (info) => {
@@ -108,8 +105,6 @@ export default class App extends Component {
                         {main}
                     </div>: null
                 }
-                
-                
                 <Auth />
             </userContext.Provider>
         )

@@ -18,6 +18,7 @@ import MinimizeIcon from '@material-ui/icons/Minimize';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import CloseIcon from '@material-ui/icons/Close';
+import io from 'socket.io-client';
 
 const Newchat = (props) => {
     const [newchat, setNewchat] = useState('');
@@ -123,7 +124,8 @@ class B0t extends Component {
         referral: '',
         insights: {},
         hints: [],
-        is_typing: false
+        is_typing: false,
+        socket: io()
     }
 
     updateNotifs = async () => {
@@ -168,13 +170,13 @@ class B0t extends Component {
             else await new Promise(res => setTimeout(() => res(), 100));
             this.setState({chats: [{sender: 'bot', dest: this.props.username, msg: first_msg.substr(0, i) || 'K'}]})
         }
-        this.props.socket.on('new chat', msg => this.updateChat(msg));
-        this.props.socket.on('hints', msg => {
+        this.state.socket.on('new chat', msg => this.updateChat(msg));
+        this.state.socket.on('hints', msg => {
             if (msg.dest == this.props.username) {
                 this.setState({hints: msg.hints})
             }
         })
-        this.props.socket.on('is typing', msg => {
+        this.state.socket.on('is typing', msg => {
             if (msg.dest == this.props.username) {
                 this.setState({is_typing: true})
             }
@@ -197,6 +199,7 @@ class B0t extends Component {
     
     componentWillUnmount() {
         this._isMounted = false;
+        this.state.socket.disconnect();
     }
 
     chooseDest = (id) => {
@@ -354,7 +357,7 @@ class B0t extends Component {
                         </div>: null}
                     </div>
                     <Newchat 
-                        socket={this.props.socket} 
+                        socket={this.state.socket} 
                         dest={this.state.dests[this.state.currDest]} 
                         referral={this.state.referral}
                         unsetReferral={this.unsetReferral}

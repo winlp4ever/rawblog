@@ -1,8 +1,39 @@
 .markdown-render {
+    position: relative;
     word-wrap: break-word;
     transition: all 0.2s;
     img {
         margin: auto;
         max-width: 100%;
+    }
+    .gg-slides {
+        margin: 3em 0 5em;
+        position: relative;
+        width: 100%;
+        height: 25em;
+        border: none;
+        background: transparent;
+        text-align: middle;
+        transform: scale(1.1);
+        iframe {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        a {
+            text-align: middle;
+            display: inline-block;
+            //margin: 0.5em auto;
+            position: relative;
+            color: #424242;  
+            padding: 0em 1em;
+            left: 45%;
+            .MuiButton-label {
+                font: {
+                    size: 0.7em;
+                }
+            }        
+        }
     }
 }
