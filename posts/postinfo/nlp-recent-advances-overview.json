@@ -198,6 +198,84 @@
                     "replyTo": 3
                 }
             ]
+        },
+        {
+            "username": "Wall-Q",
+            "content": "hey you",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "Wall-Q",
+            "content": "what's so funny",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "Wall-Q",
+            "content": "what's with that",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "Wall-Q",
+            "content": "hey",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "Wall-Q",
+            "content": "i dont get it",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "Wall-Q",
+            "content": "hey hey what's happening",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "Wall-Q",
+            "content": "hi",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "Wall-Q",
+            "content": "what is",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "Wall-Q",
+            "content": "yes",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "Wall-Q",
+            "content": "i dont get it",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "anakin",
+            "content": "hey there",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "anakin",
+            "content": "what;s up",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "anakin",
+            "content": "i dont get it",
+            "likes": 0,
+            "replies": []
         }
     ],
     "himmi": "nlp.svg"
