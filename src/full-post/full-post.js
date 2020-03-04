@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import MdRender from '../markdown-render/markdown-render';
-import Comments from '../comment/comment';
+import Comments, {NewComment} from '../comment/comment';
 import $ from 'jquery';
 import './_full-post.scss';
 import { hot } from 'react-hot-loader';
@@ -10,12 +10,31 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import LazyLoad from 'react-lazyload';
 import io from 'socket.io-client';
 
+const CommentSection = (props) => {
+    const [view, setView] = useState(false);
+    const toggleView = () => setView(!view);
+    let cl = 'comment-section';
+    if (view) cl += ' view';
+    return <div className={cl}>
+        {!view ? <div className='question-bar'>
+            <Button variant='contained' className='view-comments' onClick={toggleView}>
+                <Icon iconName='StatusCircleQuestionMark' />
+            </Button>
+            <NewComment {...props}/>
+        </div>: <div >
+            <Button className='close' onClick={toggleView}><Icon iconName='ChromeClose'/></Button>
+            <h3 className='channel'>#questions</h3>
+            <Comments {...props} onBlur={toggleView}/>
+        </div>}
+    </div>
+}
 
 function disableDoubleClick() {
     $('.full-post .post-interact i').on('mousedown', e => {
         e.preventDefault();
     });
 }
+
 export default class FullPost extends Component {
     _mounted = false;
     state = {
@@ -144,7 +163,9 @@ export default class FullPost extends Component {
                         source={this.state.post.article} 
                     />
                 </div>
-                {comments_section}
+                <CommentSection postId={this.props.postId} 
+                    socket={this.state.socket} 
+                    user={this.props.user} />
             </div>
         );
     }

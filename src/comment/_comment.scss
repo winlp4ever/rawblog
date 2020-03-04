@@ -2,15 +2,22 @@
 
 .comments {
     position: relative;    
+    display: flex;
+    flex-direction: column-reverse;
     .comment {
         position: relative;
         box-sizing: border-box;
         padding: 0.2em 0.5em 0.2em 1.8em;
+        
         @keyframes comment-appear {
             0% {transform: translateY(2em); opacity: 0;}
             100% {transform: translateY(0); opacity: 1;}
         }
         animation: comment-appear 0.2s cubic-bezier(0, 0, 0.2, 1);
+        .comment-replies {
+            display: flex;
+            flex-direction: column-reverse;
+        }
         .comment, .enter-comment {
             background: whitesmoke;
             left: 2%;
@@ -87,61 +94,78 @@
             font-size: 1.2em;
         }
     }
-    .enter-comment {
-        box-sizing: border-box;
-        border-radius: 0px;
+    
+}
+.enter-comment {
+    box-sizing: border-box;
+    border-radius: 0px;
+    position: relative;
+    border-bottom: 2px solid lightgrey;
+    padding: 0.8em 0;
+    margin: 0.5em 0;
+    textarea {
+        font: {
+
+            size: 100%;
+        }
+        left: 2%;
         position: relative;
-        border-bottom: 2px solid lightgrey;
-        padding: 0.8em 0;
-        textarea {
-            font: {
+        bottom: 0;
+        display: block;
+        box-sizing: border-box;
+        padding: 0;
+        resize: none;
+        border: none;
+        outline: none;
+        overflow: hidden;
+        background: none;
+        width: 98%;
+        height: 100%;
+        &::-webkit-scrollbar {
+            width: 0 !important;
+        }  
+    
+    }
+    span.label {
+        background: transparent;
+        z-index: 2;
+        position: absolute;
+        top: 50%;
+        left: 2%;
+        transform: translateY(-50%);
+        transform-origin: 0 0;
+        transition: all 0.2s;
+    }
+    span.border {
+        position: absolute;
+        z-index: 2;
+        bottom: -2px;
+        left: 0;
+        height: 2px;
+        transition: all 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+        background: #2979ff;
+    }
 
-                size: 100%;
-            }
-            left: 2%;
-            position: relative;
-            bottom: 0;
-            display: block;
-            box-sizing: border-box;
-            padding: 0;
-            resize: none;
-            border: none;
-            outline: none;
-            overflow: hidden;
-            background: none;
-            width: 98%;
-            height: 100%;
-            &::-webkit-scrollbar {
-                width: 0 !important;
-            }  
-        
+    textarea:focus + textarea + span, textarea:not(:placeholder-shown) + textarea + span.label {
+        transform: scale(0.75);
+        top: -0.5em;
+        font-weight: 700;
+        + span.border {
+            width: 100%;
         }
-        span.label {
-            background: transparent;
-            z-index: 2;
-            position: absolute;
-            top: 50%;
-            left: 2%;
-            transform: translateY(-50%);
-            transform-origin: 0 0;
-            transition: all 0.2s;
-        }
-        span.border {
-            position: absolute;
-            z-index: 2;
-            bottom: -2px;
-            left: 0;
-            height: 2px;
-            transition: all 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
-            background: #2979ff;
-        }
+    }
 
-        textarea:focus + textarea + span, textarea:not(:placeholder-shown) + textarea + span.label {
-            transform: translateY(-150%) scale(0.75);
-            font-weight: 700;
-            + span.border {
-                width: 100%;
-            }
+    .question-sent {
+        position: absolute;
+        top: -2em;
+        left: 0;
+        border-radius: 2em;
+        display: inline-block;
+        @keyframes sent {
+            0% {opacity: 0; transform: scale(1.2);}
+            20% {opacity: 1; transform: scale(1);}
+            100% {opacity: 0; transform: translateY(2em);}
         }
+        animation: sent 1s cubic-bezier(0, 0, 0.2, 1);
     }
 }

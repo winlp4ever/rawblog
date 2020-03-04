@@ -9,13 +9,22 @@ import Cookies from 'js-cookie';
 import io from 'socket.io-client';
 
 
-const NewComment = (props) => {
+export const NewComment = (props) => {
     const [newComment, setNewComment] = useState('');
-
+    const [focus, setFocus] = useState(false);
+    const [sent, setSent] = useState(false);
     const handleChange = (e) => {
         setNewComment(e.target.value);
     }
-
+    const handleFocus = () => setFocus(!focus);
+    const handleSent = async () => {
+        setSent(!sent);
+        if (!sent) {
+            setTimeout(() => {
+                setSent(false);
+            }, 1000);
+        }
+    }
     const value = useContext(userContext);
     const submit = async (e) => {
         let keycode = e.keyCode || e.which;
@@ -39,23 +48,28 @@ const NewComment = (props) => {
             props.socket.emit('submit comment', res);
             $(e.currentTarget).val('');  
             setNewComment('');
+            handleSent();
         }  
         return false;
     } 
-
+    let cl = 'enter-comment';
+    if (focus) cl += ' focus';
     return (
-        <div className='enter-comment'>
+        <div className={cl}>
             <TextareaAutosize
                 rows={1}
                 placeholder='&nbsp;'
                 onChange={handleChange}
                 onKeyPress={submit}
+                onFocus={handleFocus}
+                onBlur={handleFocus}
             ></TextareaAutosize>
             <span className='label'>
-                Your comment
+                {props.placehoder_ || 'Your question'}
             </span>
             <span className='border'>
             </span>
+            {(sent & props.replyTo == null)? <span className='question-sent'>+1 question</span>:null}
         </div>
     )
 }
@@ -72,8 +86,8 @@ const Comment = (props) => {
                 if (users != null) {
                     users = JSON.parse(users);
                 } else users = {};
-
-                if (user.username in users) setUser(users[user.username]);
+                console.log(user.username);
+                if (false) setUser(users[user.username]);                        
                 else {
                     try {
                         let response = await fetch('/get-user-data', {
@@ -109,8 +123,8 @@ const Comment = (props) => {
     const showHideReplies = () => {
         setDisplayReplies(!displayReplies)
     }
-
-    return <div className='comment'>
+    let cl = 'comment ' + ((props.comment.replies != null) ? 'question': 'reply');
+    return <div className={cl}>
         <span className='ava' style={avaStyle}>
             {user.username.substr(0,1).toUpperCase()}
         </span>
@@ -139,6 +153,7 @@ const Comment = (props) => {
         
         {
             props.replyTo == null & displayReplies? <div className='comment-replies'>
+                
                 {props.comment.replies.map(
                     (rep, j) => <Comment 
                         key={j} 
@@ -148,8 +163,11 @@ const Comment = (props) => {
                         socket={props.socket}
                         replyId={j}
                         likeComment={props.likeComment}/>
-                )}
-                <NewComment replyTo={props.commentId} postId={props.postId} socket={props.socket}/>
+                )}     
+                <NewComment replyTo={props.commentId} 
+                    postId={props.postId} 
+                    socket={props.socket}
+                    placehoder_={`reply to ${props.comment.username}`}/>
             </div>: null
         }
         
@@ -181,10 +199,10 @@ export default class Comments extends Component {
                 // if yes push it to replies list of the specified comment
                 const i = msg.replyTo;
                 delete msg.replyTo;
-                comments[i].replies.unshift(msg);
+                comments[i].replies.push(msg);
             } else {
                 // otherwise push it to our comments list
-                comments.unshift(msg);
+                comments.push(msg);
             }     
             this._setState({comments: comments});
         });
@@ -216,8 +234,7 @@ export default class Comments extends Component {
 
     render = () => {
         return (
-            <div className='comments'>
-                <NewComment postId={this.props.postId} socket={this.state.socket}/>
+            <div className='comments'>   
                 {this.state.comments.map((comm, i) => (
                     <Comment 
                         key={i}
@@ -227,6 +244,7 @@ export default class Comments extends Component {
                         socket={this.state.socket}
                         likeComment={this.likeComment}/>
                 ))}
+                <NewComment postId={this.props.postId} socket={this.state.socket}/>
             </div>
         )
     }

@@ -256,17 +256,34 @@ div.full-post {
     }
 
     div.comment-section {
+        &.view {
+            left: 20%;
+            box-shadow: 0 25.6px 57.6px 0 rgba(0,0,0,.22), 0 4.8px 14.4px 0 rgba(0,0,0,.18);
+            width: 60%;
+            top: 3em;
+            background: white;
+            > div {
+                overflow-y: scroll;
+                height: 90%;
+                margin: 2% 0;
+            }
+        }
+        z-index: 10;;
+        box-sizing: border-box;
+        width: 30%;
         background: inherit;
         margin-top: 2em;
-        position: relative;
+        position: fixed;
+        bottom: 2em;
+        left: 2em;
+        padding: 0;
         font: {
             size: 0.8em;
         }
-        transition: all 0.2s;
+        transition: all 0.35s cubic-bezier(0,0,0.2,1);
         height: auto;
-        overflow: hidden;
+        overflow-wrap: break-word;
         box-sizing: border-box;
-        padding: 10px 20px;
         h3.channel {
             display: block;
             box-sizing: border-box;
@@ -276,7 +293,56 @@ div.full-post {
             color: white;
             border-radius: 5px;
         }
-        
+        .question-bar {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border-radius: 2em;
+            padding:0.2em;
+            width: 100%;
+            
+            .enter-comment {
+                margin: auto 1em;
+                width: 100%;
+
+            }
+        }
+        .view-comments {
+
+            min-width: 0;
+            width: 2.5em;
+            height: 2.5em;
+            border-radius: 2em;
+            font: {
+                size: 1em;
+            }&.view-comments {
+                background: #fdd835;
+            }
+        }
+        .close {
+            min-width: 0;
+            width: 2.5em;
+            height: 2.5em;
+            border-radius: 2em;
+            font: {
+                size: 1em;
+            }
+            position: absolute;
+            right: -1.25em;
+            top: -1.25em;
+            background: white;
+            box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+        }
+        .enter-comment {
+            background: linear-gradient(to right, #fafafa 0%, transparent 100%);
+            opacity: 0.5;
+            transition: 0.2s all cubic-bezier(0, 0, 0.2, 1);
+            &.focus {
+                opacity: 1;
+                background: white;
+                box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
+            }
+        }
     }
 }
 
