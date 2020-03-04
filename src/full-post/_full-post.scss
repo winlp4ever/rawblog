@@ -258,15 +258,28 @@ div.full-post {
 
     div.comment-section {
         &.view {
-            left: 20%;
-            box-shadow: 0 25.6px 57.6px 0 rgba(0,0,0,.22), 0 4.8px 14.4px 0 rgba(0,0,0,.18);
-            width: 60%;
-            top: 3em;
+            border: 1px solid lightgrey;
+            width: 50%;
             background: white;
+            padding: 0;
+            position: fixed;
+            margin: auto;
+            top: 2em;
+            left: 25%;
+            bottom: 1em;
             > div {
                 overflow-y: scroll;
-                height: 90%;
-                margin: 2% 0;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                -ms-overflow-style: none;
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+                .comments {
+                    box-sizing: border-box;
+                    padding: 0.5em 2em;
+                }
             }
         }
         z-index: 10;;
@@ -281,18 +294,19 @@ div.full-post {
         font: {
             size: 0.8em;
         }
-        transition: all 0.35s cubic-bezier(0,0,0.2,1);
         height: auto;
         overflow-wrap: break-word;
         box-sizing: border-box;
         h3.channel {
+            margin: 0;
             display: block;
             box-sizing: border-box;
             padding: 0.5em 2em;
             width: 100%;
             background: #2979ff;
             color: white;
-            border-radius: 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
         }
         .question-bar {
             display: flex;
@@ -322,14 +336,14 @@ div.full-post {
         }
         .close {
             min-width: 0;
-            width: 2.5em;
-            height: 2.5em;
+            width: 3em;
+            height: 3em;
             border-radius: 2em;
             font: {
-                size: 1em;
+                size: 0.6em;
             }
             position: absolute;
-            right: -1.25em;
+            right: 0.25em;
             top: -1.25em;
             background: white;
             box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);

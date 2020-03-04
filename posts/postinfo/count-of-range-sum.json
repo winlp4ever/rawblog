@@ -1,7 +1,7 @@
 {
     "title": "Count of range sum",
     "intro": "A popular problem on leetcode",
-    "likes": 102,
+    "likes": 104,
     "hashtags": [
         "algorithm",
         "python"
@@ -65,13 +65,13 @@
         {
             "username": "Wall-Q",
             "content": "i got that",
-            "likes": 0,
+            "likes": 2,
             "replies": []
         },
         {
             "username": "Wall-Q",
             "content": "dont u get me",
-            "likes": 9,
+            "likes": 10,
             "replies": [
                 {
                     "username": "anakin",
@@ -96,6 +96,18 @@
         {
             "username": "anakin",
             "content": "hey u",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "anakin",
+            "content": "what is ims",
+            "likes": 2,
+            "replies": []
+        },
+        {
+            "username": "Wall-Q",
+            "content": "here is a question for you",
             "likes": 0,
             "replies": []
         }

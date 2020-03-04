@@ -24,7 +24,7 @@ const CommentSection = (props) => {
         </div>: <div >
             <Button className='close' onClick={toggleView}><Icon iconName='ChromeClose'/></Button>
             <h3 className='channel'>#questions</h3>
-            <Comments {...props} onBlur={toggleView}/>
+            <Comments {...props}/>
         </div>}
     </div>
 }
