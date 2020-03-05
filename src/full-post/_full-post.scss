@@ -319,7 +319,8 @@ div.full-post {
             border-radius: 2em;
             padding:0.2em;
             width: 100%;
-            
+            min-height: 3em;
+            transition: 0.2s all cubic-bezier(0, 0, 0.2, 1);
             .enter-comment {
                 margin: auto 0.2em;
                 width: 100%;
@@ -335,7 +336,7 @@ div.full-post {
                 font: {
                     size: 1em;
                 }&.view-comments {
-                    background: #fdd835;
+                    background: linear-gradient(to top, #fdd835 0%, #fde88b 100%);
                 }
                 .explained {
                     position: absolute;
@@ -361,6 +362,17 @@ div.full-post {
                         opacity: 1;
                     }
                 }
+                .nb-questions {
+                    position: absolute;
+                    font-size: 0.7em;
+                    background: #e53935;
+                    color: whitesmoke;
+                    top: -0.5em;
+                    left: -0.5em;
+                    height: 1.5em;
+                    width: 1.5em;
+                    border-radius: 0.75em;
+                }   
             }
         }
         

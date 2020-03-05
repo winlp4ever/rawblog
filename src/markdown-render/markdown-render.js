@@ -24,18 +24,23 @@ class MdRender extends Component{
                 <InlineMath math={props.value} />,
             link: (props) => {
                 if (props.href.startsWith('https://docs.google.com/presentation')) {
-                    return <span className='gg-slides'>
-                        <iframe src={props.href} />
+                    return <span className='gg-slides-container'>
                         <Button variant='outlined' className='full-screen' href={props.href} target='_blank'>
-                            <Icon iconName='OpenInNewTab' /> Open
+                            <Icon iconName='OpenInNewTab' />
                         </Button>
+                        <span className='gg-slides'>
+                            <iframe src={props.href} />
+                        </span>
                     </span>;
                 }
                 let title = props.children[0].props.value;
                 if (title.includes('download ')) {
-                    return <Button variant='outlined' className='to-download' href={props.href} target='_blank'>
-                        <Icon iconName='DownloadDocument' /><span>{title.split(' ')[1]}</span>
-                    </Button>
+                    return <span className='to-download'>
+                        <Button variant='outlined' href={props.href} target='_blank'>
+                            <Icon iconName='DownloadDocument' className='dw-icon'/>
+                        </Button>
+                        <span>{title.split(' ')[1]}</span>
+                    </span>
                 }
                 return <a href={props.href} target='_blank'>{props.children[0].props.value}</a>;
             }

@@ -59,6 +59,12 @@
                     "content": "this is really weird",
                     "likes": 0,
                     "replyTo": 2
+                },
+                {
+                    "username": "Wall-Q",
+                    "content": "yes",
+                    "likes": 0,
+                    "replyTo": 2
                 }
             ]
         },
@@ -108,6 +114,12 @@
         {
             "username": "Wall-Q",
             "content": "here is a question for you",
+            "likes": 0,
+            "replies": []
+        },
+        {
+            "username": "Wall-Q",
+            "content": "here i have this question",
             "likes": 0,
             "replies": []
         }

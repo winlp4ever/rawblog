@@ -9,7 +9,12 @@ const Option = props => {
     return (
         <div>
             <button className={classN} onClick={_ => props.onClick()}>
-                <Icon iconName={props.name} />
+                <span>
+                    <Icon iconName={props.name} />
+                </span> 
+                <span>
+                    {props.name}
+                </span>
             </button>
         </div>
     );

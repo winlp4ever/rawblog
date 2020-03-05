@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import MdRender from '../markdown-render/markdown-render';
 import Comments, {NewComment} from '../comment/comment';
 import $ from 'jquery';
@@ -15,6 +15,15 @@ const Explained = (props) => <span className='explained'>{props.explained}</span
 const CommentSection = (props) => {
     const [view, setView] = useState(false);
     const [newQ, setNewQ] = useState(false);
+    const [nb_q, setNb_q] = useState(0);
+
+    const newQuestionComing = () => setNb_q(nb_q+1);
+    useEffect(() => {
+        props.socket.emit('nb comments', props.postId);
+        props.socket.on(`nb comments postId=${props.postId}`, msg => setNb_q(msg))
+        props.socket.on(`new comment postId=${props.postId}`, msg => newQuestionComing())
+    }, [nb_q])
+
     const toggleView = () => setView(!view);
     const toogleNewQ = () => setNewQ(!newQ);
     let cl = 'comment-section';
@@ -24,6 +33,7 @@ const CommentSection = (props) => {
             <Button variant='contained' className='view-comments' onClick={toggleView}>
                 <Icon iconName='CommentUrgent' />
                 <Explained explained='view all asked questions' />
+                {nb_q > 0? <span className='nb-questions'>{nb_q}</span>:null}
             </Button>
             <Button variant='contained' className='ask' onClick={toogleNewQ}>
                 <Icon iconName='StatusCircleQuestionMark' />
@@ -51,7 +61,8 @@ export default class FullPost extends Component {
             title: '',
             likes: '',
             article: '',
-            hashtags: []
+            hashtags: [],
+            nbComments: 0
         },
         view_comments: true,
         display_supp: false,
@@ -174,7 +185,8 @@ export default class FullPost extends Component {
                 </div>
                 <CommentSection postId={this.props.postId} 
                     socket={this.state.socket} 
-                    user={this.props.user} />
+                    user={this.props.user} 
+                    nbComments={this.state.post.nbComments}/>
             </div>
         );
     }

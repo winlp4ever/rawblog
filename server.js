@@ -98,6 +98,10 @@ io.on('connection', function(socket){
         console.log(posts[postId].comments);
         socket.emit(`comment history postId=${postId}`, posts[postId].comments);
     })
+
+    socket.on('nb comments', postId => {
+        socket.emit(`nb comments postId=${postId}`, posts[postId].comments.length);
+    })
     socket.on('submit comment', msg => {
         let postId = msg.postId;
         delete msg.postId;
@@ -200,6 +204,7 @@ app.post('/get-full-post', (req, res) => {
     let postId = req.query.postId;
     let post_ = JSON.parse(JSON.stringify(posts[postId]));
     //delete post_.intro;
+    post_.nbComments = post_.comments.length;
     delete post_.comments;
     res.json(post_);
 })

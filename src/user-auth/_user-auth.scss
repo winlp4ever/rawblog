@@ -39,9 +39,10 @@
 }
 
 .user-panel {
+    z-index: 10;
     position: fixed;
     right: 5%;
-    top: 0.5em;
+    top: 0.2em;
     span {
         box-sizing: border-box;
         display: inline-block;
