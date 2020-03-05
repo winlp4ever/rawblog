@@ -10,17 +10,26 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import LazyLoad from 'react-lazyload';
 import io from 'socket.io-client';
 
+const Explained = (props) => <span className='explained'>{props.explained}</span>
+
 const CommentSection = (props) => {
     const [view, setView] = useState(false);
+    const [newQ, setNewQ] = useState(false);
     const toggleView = () => setView(!view);
+    const toogleNewQ = () => setNewQ(!newQ);
     let cl = 'comment-section';
     if (view) cl += ' view';
     return <div className={cl}>
         {!view ? <div className='question-bar'>
             <Button variant='contained' className='view-comments' onClick={toggleView}>
-                <Icon iconName='StatusCircleQuestionMark' />
+                <Icon iconName='CommentUrgent' />
+                <Explained explained='view all asked questions' />
             </Button>
-            <NewComment {...props}/>
+            <Button variant='contained' className='ask' onClick={toogleNewQ}>
+                <Icon iconName='StatusCircleQuestionMark' />
+                <Explained explained='Struggled? Ask a question' />
+            </Button>
+            {newQ? <NewComment {...props}/>:null}
         </div>: <div >
             <Button className='close' onClick={toggleView}><Icon iconName='ChromeClose'/></Button>
             <h3 className='channel'>#questions</h3>

@@ -258,7 +258,6 @@ div.full-post {
 
     div.comment-section {
         &.view {
-            border: 1px solid lightgrey;
             width: 50%;
             background: white;
             padding: 0;
@@ -267,6 +266,7 @@ div.full-post {
             top: 2em;
             left: 25%;
             bottom: 1em;
+            box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
             > div {
                 overflow-y: scroll;
                 height: 100%;
@@ -303,37 +303,67 @@ div.full-post {
             box-sizing: border-box;
             padding: 0.5em 2em;
             width: 100%;
-            background: #2979ff;
+            background: inherit;
             color: white;
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
+            border-bottom: 1px solid lightgrey;
+            font-weight: 600;
+            color: #424242;
         }
         .question-bar {
+            position: relative;
             display: flex;
             flex-direction: row;
-            justify-content: center;
+            justify-content: start;
             border-radius: 2em;
             padding:0.2em;
             width: 100%;
             
             .enter-comment {
-                margin: auto 1em;
+                margin: auto 0.2em;
                 width: 100%;
 
             }
-        }
-        .view-comments {
-
-            min-width: 0;
-            width: 2.5em;
-            height: 2.5em;
-            border-radius: 2em;
-            font: {
-                size: 1em;
-            }&.view-comments {
-                background: #fdd835;
+            button {
+                position: relative;
+                margin: auto 0.2em;
+                min-width: 0;
+                width: 2.5em;
+                height: 2.5em;
+                border-radius: 2em;
+                font: {
+                    size: 1em;
+                }&.view-comments {
+                    background: #fdd835;
+                }
+                .explained {
+                    position: absolute;
+                    top: -2em;
+                    left: 1em;
+                    opacity: 0;
+                    transform: scale(0);
+                    background: #424242;
+                    color: whitesmoke;
+                    font-size: 0.8em;
+                    min-width: 150px;
+                    text-transform: none;
+                    letter-spacing: 0;
+                    transition: 0.15s all cubic-bezier(0, 0, 0.2, 1);
+                }
+                &:hover {
+                    .explained {
+                        display: inline-block;
+                        border-top-left-radius: 1em;
+                        border-top-right-radius: 1em;
+                        border-bottom-right-radius: 1em;
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                }
             }
         }
+        
         .close {
             min-width: 0;
             width: 3em;
@@ -349,10 +379,12 @@ div.full-post {
             box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
         }
         .enter-comment {
-            background: linear-gradient(to right, #fafafa 0%, transparent 100%);
-            opacity: 0.5;
+            background: white;
+            border: 1px solid lightgrey;
             transition: 0.2s all cubic-bezier(0, 0, 0.2, 1);
+            border-radius: 0.5em;
             &.focus {
+                border: 1px solid transparent;
                 opacity: 1;
                 background: white;
                 box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
