@@ -324,7 +324,11 @@ div.full-post {
             .enter-comment {
                 margin: auto 0.2em;
                 width: 100%;
-
+                @keyframes enter-comment-appear {
+                    0% {max-width: 0; opacity: 0;}
+                    100% {max-width: 25em; opacity: 1;}
+                }
+                animation: 0.25s enter-comment-appear cubic-bezier(0, 0, 0.2, 1);
             }
             button {
                 position: relative;
