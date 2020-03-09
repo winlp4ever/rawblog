@@ -12,13 +12,20 @@
     left: 0;
     box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
     background-color: #fafafa;
-    border-bottom: 1px solid transparent;
     overflow: hidden;
     //box-shadow: none;
     transition: all 250ms cubic-bezier(0.0, 0.0, 0.2, 1); 
     &.init {
         box-shadow: none;
-        border-bottom: 1px solid rgb(231, 231, 231);
+        &:after {
+            position: absolute;
+            width: 100%;
+            content: '';
+            bottom: 0;
+            left: 0;
+            height: 1px;
+            background: rgb(231, 231, 231);
+        }
     }
     button.option {
         position: relative;
@@ -37,7 +44,7 @@
         transition: all 0.2s;
         color: #797979;
         font: {
-            family: 'Work Sans', sans-serif;
+            family: 'prsans', sans-serif;
             weight: 600;
         }
         span {
@@ -45,19 +52,49 @@
             margin: auto 0.2em;
             vertical-align: middle;
         }
+        i {
+            font-size: 1.6em;
+            margin-top: 0.15em;
+            margin-right: 0.2em;
+        }
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            width: 0em;
+            left: 50%;
+            margin-left: 0em;
+            height: 2px;
+            background: #af4448;
+            z-index: 3;
+            transition: 0.2s all cubic-bezier(0, 0, 0.2, 1);
+        }  
         &:hover {
-            border-bottom: 2px solid #af4448;
             a {
                 color: #333333;
             }       
-            color: #424242;     
+            color: #424242;
+            &:after {
+                width: 3em;
+                margin-left: -1.5em;
+                height: 2px;
+                background: #af4448;
+                z-index: 3;
+            }     
         }
         &.active {
             a {
                 color: #af4448;
             }
             color: #424242;     
-            border-bottom: 2px solid #e57373;
+            &:after {
+                width: 3em;
+                left: 50%;
+                margin-left: -1.5em;
+                height: 2px;
+                background: #e57373;
+                z-index: 3;
+            }
         }
     }
 }

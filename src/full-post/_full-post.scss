@@ -1,3 +1,16 @@
+.loading-icon {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    svg {
+        position: relative;
+        top: 7em;
+        width: 1em!important;
+        display: block;
+        margin: auto;
+    }
+}
+
 div.full-post {
     position: relative;
     color: #3b3b3b;
@@ -78,10 +91,23 @@ div.full-post {
                 border-radius: 5px;
                 box-sizing: border-box;
                 padding: 1px 2px;
-            }
-                
+            }   
         }
-    
+        [data-remark], [data-warning] {
+            background: white;
+            box-sizing: border-box;
+            padding: 1em 2em;
+            box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+            border-radius: 0.8em;
+            margin: 0.5em;
+            &[data-remark] {
+                border-top: 1px solid #ffab00;
+            }
+            &[data-warning] {
+                border-top: 1px solid #ff3d00;
+                background: #eceff1;
+            }
+        }
     }
 
     .markdown-render > p:first-of-type::first-letter {
@@ -146,6 +172,7 @@ div.full-post {
             display: block;
             margin: auto;
             max-width: 100%;
+            max-height: 600px;
         }
     }
 
@@ -210,7 +237,7 @@ div.full-post {
             }
             text-align: left;
             box-sizing: border-box;
-            border-bottom: 1px solid lightgrey;
+            border-bottom: 1px dashed lightgrey;
             transition: 0.2s all;
             &:hover {
                 background: rgb(241, 241, 241);
@@ -248,12 +275,25 @@ div.full-post {
             margin: 0.5em 0;
             padding: 0.5em 1.5em;
             border-radius: 2em;
-            background: linear-gradient(23deg, #448aff 0%, #2979ff 100%);
+            background: linear-gradient(to bottom, #448aff 0%, #2962ff 100%);
             color: white;
             font-size: 0.8em;
             border: none;
             box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);;
-        }   
+        }  
+        .outline {
+            padding: 0;
+            margin: 0.5em 0;
+            background: inherit;
+            span {
+                a {
+                    color: #424242;
+                    font-size: 1.2em;
+                }
+                border-bottom: none;
+                border-left: 2px solid lightgrey;
+            }
+        } 
     }
 
     div.comment-section {
@@ -339,8 +379,12 @@ div.full-post {
                 border-radius: 2em;
                 font: {
                     size: 1em;
-                }&.view-comments {
-                    background: linear-gradient(to top, #fdd835 0%, #fde88b 100%);
+                }
+                &.view-comments {
+                    background: linear-gradient(to top, #fdd835 0%, #fdeca0 100%);
+                }
+                &.ask {
+                    background: linear-gradient(to bottom, whitesmoke 0%, rgb(230, 230, 230) 100%);
                 }
                 .explained {
                     position: absolute;

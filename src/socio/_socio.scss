@@ -1,13 +1,24 @@
 .socio {
+    position: relative;
     margin: 100px 0 4em;
+    >div {
+        position: relative;
+        margin: 1em 0;
+    }
     div.head-icons {
+        position: absolute;
+        top: 0.2em;
+        left: 20%;
         margin: auto;
         width: 60%;
+        z-index: 2;
+        box-sizing: border-box;
+        padding: 0 0.5em;
         button {
-            height: 30px;
-            width: 30px;
+            height: 2.5em;
+            width: 2.5em;
             border-radius: 15px;
-            margin: 10px -5px 0px 10px;
+            margin: 0 0.2em;
             background: none;
             color: #9e9e9e;
             border: none;

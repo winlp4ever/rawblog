@@ -9,13 +9,13 @@ import StopRoundedIcon from '@material-ui/icons/StopRounded';
 import {CSSTransition} from 'react-transition-group';
 import GoodIcon from '../../imgs/good.svg';
 import bookmark from '../../imgs/bookmark.json';
-import loading from '../../imgs/loading.json';
 import yo from '../../imgs/yo.json';
+import loading from '../../imgs/loading.json';
+import _Icon from '../_icon/_icon';
 import lottie from 'lottie-web';
 import favorite from '../../imgs/favorite.json';
 import Input from '@material-ui/core/Input';
 import HelpOutlinedIcon from '@material-ui/icons/HelpOutlined';
-import _Icon from '../_icon/_icon';
 
 const NewQuestion = (props) => {
     const [active, setActive] = useState(false);

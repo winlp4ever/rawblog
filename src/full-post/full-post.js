@@ -1,4 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
+import { findDOMNode } from 'react-dom';
 import MdRender from '../markdown-render/markdown-render';
 import Comments, {NewComment} from '../comment/comment';
 import $ from 'jquery';
@@ -9,8 +10,26 @@ import Button from '@material-ui/core/Button';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import LazyLoad from 'react-lazyload';
 import io from 'socket.io-client';
+import loading from '../../imgs/loading.json';
+import _Icon from '../_icon/_icon';
+import lottie from 'lottie-web';
 
 const Explained = (props) => <span className='explained'>{props.explained}</span>
+
+class Loading extends Component {
+    componentDidMount() {
+        this.anim = lottie.loadAnimation({
+            container: this.animBox,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            animationData: loading
+        })
+    }
+    render() {
+        return <div className='loading-icon' ref={animBox => this.animBox = animBox}/>
+    }
+}
 
 const CommentSection = (props) => {
     const [view, setView] = useState(false);
@@ -64,6 +83,7 @@ export default class FullPost extends Component {
             hashtags: [],
             nbComments: 0
         },
+        outline: [],
         view_comments: true,
         display_supp: false,
         socket: io()
@@ -87,13 +107,16 @@ export default class FullPost extends Component {
         // generate outline
         let outline = $(`<div class='outline'><h2>Outline</h2></div>`);
         let count = 0;
-        this.$article = $(this.article);
+        this.$article = $(findDOMNode(this.article));
+        let O = []
         this.$article.children('.markdown-render').children('h2').each(function() {
             outline.append(`<span><a href='#post-sec-${count}'>${$(this).html()}</a></span>`);
+            O.push($(this).html());
             $(this).attr('id', `post-sec-${count}`);
             count ++;
         })
-        this.$article.children('.markdown-render').children('h1').after(outline);
+        this.setState({outline: O});
+        await this.$article.children('.markdown-render').children('h1').after(outline);
         $(window).on('scroll', () => {
             if ($(window).scrollTop() > this.$article.find('.outline').first().offset().top +
                 this.$article.find('.outline').first().outerHeight()) this._setState({display_supp: true});
@@ -118,6 +141,7 @@ export default class FullPost extends Component {
 
 
     render() {
+        //if (!this._mounted) return <Loading />;
         let comments_section = '';
         if (this.state.view_comments) {
             comments_section = (
@@ -149,8 +173,8 @@ export default class FullPost extends Component {
         }
 
         let supp = this.state.display_supp? <div className='supp'>
-            <h2>{this.state.post.title}</h2>
-            <p>{this.state.post.intro}</p>
+                <h2>{this.state.post.title}</h2>
+                <p>{this.state.post.intro}</p>
                 <Button 
                     className='like-post' 
                     variant='outlined'
@@ -159,6 +183,11 @@ export default class FullPost extends Component {
                 > 
                     {this.state.post.likes}
                 </Button>
+                <div className='outline'>
+                    {this.state.outline.map((l, i) => <span key={i} >
+                            <a href={`#post-sec-${i}`}>{l}</a>
+                        </span>)}
+                </div>
             </div>: null;
         return (
             <div 
