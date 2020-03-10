@@ -280,6 +280,12 @@
         {
             "username": "Wall-Q",
             "content": "i have this question",
+            "likes": 6,
+            "replies": []
+        },
+        {
+            "username": "anakin",
+            "content": "what is rnn?",
             "likes": 0,
             "replies": []
         }

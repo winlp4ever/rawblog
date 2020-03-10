@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {findDOMNode} from 'react-dom';
 import ReactMarkdown from "react-markdown";
 import CodeBlock from '../syntax-highlight/syntax-highlight';
 import './_markdown-render.scss';
@@ -47,11 +48,18 @@ class MdRender extends Component{
         },
     };
 
+    async componentDidMount() {
+        if (this.props.getOutline != null) {
+            this.$content = $(findDOMNode(this.content));
+            
+        }
+    }
+
     render() {
         console.log('oofi');
         return (
             <div className='markdown-render'>
-                <ReactMarkdown {...this.props} {...this.state}/>
+                <ReactMarkdown {...this.props} {...this.state} ref={content => this.content = content}/>
             </div> 
         );
     }
