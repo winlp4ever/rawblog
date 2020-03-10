@@ -84,7 +84,6 @@ export default class FullPost extends Component {
             nbComments: 0
         },
         outline: [],
-        view_comments: true,
         display_supp: false,
         socket: io()
     }
@@ -141,20 +140,7 @@ export default class FullPost extends Component {
 
 
     render() {
-        //if (!this._mounted) return <Loading />;
-        let comments_section = '';
-        if (this.state.view_comments) {
-            comments_section = (
-                <div className='comment-section'>
-                    <h3 className='channel'>#general</h3>
-                    <Comments
-                        postId={this.props.postId} 
-                        socket={this.props.socket} 
-                        user={this.props.user} 
-                    />
-                </div>
-            );
-        }
+        if (!this._mounted) return <Loading />;
         let hashtags = '';
         if (this.state.post.hashtags) {
             hashtags = (<div className='hashtags'>

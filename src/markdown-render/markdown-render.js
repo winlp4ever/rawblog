@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect, useContext } from "react";
+import { userContext } from '../user-context/user-context';
 import {findDOMNode} from 'react-dom';
 import ReactMarkdown from "react-markdown";
 import CodeBlock from '../syntax-highlight/syntax-highlight';
@@ -9,6 +10,16 @@ import { InlineMath, BlockMath } from 'react-katex';
 import Button from '@material-ui/core/Button';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
+const GgSlides = (props) => {
+    return <span className='gg-slides-container' onClick={nextSlide}>
+        <Button variant='outlined' className='full-screen' href={props.href} target='_blank'>
+            <Icon iconName='OpenInNewTab' />
+        </Button>
+        <span className='gg-slides'>
+            <iframe src={props.href} />
+        </span>
+    </span>;
+}
 
 class MdRender extends Component{
     state = {
@@ -25,14 +36,7 @@ class MdRender extends Component{
                 <InlineMath math={props.value} />,
             link: (props) => {
                 if (props.href.startsWith('https://docs.google.com/presentation')) {
-                    return <span className='gg-slides-container'>
-                        <Button variant='outlined' className='full-screen' href={props.href} target='_blank'>
-                            <Icon iconName='OpenInNewTab' />
-                        </Button>
-                        <span className='gg-slides'>
-                            <iframe src={props.href} />
-                        </span>
-                    </span>;
+                    return <GgSlides {...props}/>
                 }
                 let title = props.children[0].props.value;
                 if (title.includes('download ')) {
@@ -56,10 +60,9 @@ class MdRender extends Component{
     }
 
     render() {
-        console.log('oofi');
         return (
             <div className='markdown-render'>
-                <ReactMarkdown {...this.props} {...this.state} ref={content => this.content = content}/>
+                <ReactMarkdown {...this.props} {...this.state}/>
             </div> 
         );
     }
