@@ -42,21 +42,14 @@
         margin-left: 1em;
         font-size: 0.7em;
         transition: all 0.2s;
+        text-transform: none;
         color: #797979;
         font: {
             family: 'prsans', sans-serif;
             weight: 600;
         }
-        span {
-            display: table;
-            margin: auto 0.2em;
-            vertical-align: middle;
-        }
-        i {
-            font-size: 1.6em;
-            margin-top: 0.15em;
-            margin-right: 0.2em;
-        }
+        
+        
         &:after {
             content: '';
             position: absolute;
@@ -94,6 +87,9 @@
                 height: 2px;
                 background: #e57373;
                 z-index: 3;
+            }
+            svg {
+                fill: #e57373;
             }
         }
     }

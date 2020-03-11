@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 const GgSlides = (props) => {
-    return <span className='gg-slides-container' onClick={nextSlide}>
+    return <span className='gg-slides-container'>
         <Button variant='outlined' className='full-screen' href={props.href} target='_blank'>
             <Icon iconName='OpenInNewTab' />
         </Button>

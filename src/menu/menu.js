@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
 import './_menu.scss';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
-
-
+import Button from '@material-ui/core/Button';
 const Option = props => {
     let classN = 'option';
     if (props.isActive) classN += ' active';
     return (
         <div>
-            <button className={classN} onClick={_ => props.onClick()}>
-                <span>
-                    <Icon iconName={props.name} />
-                </span> 
-                <span>
-                    {props.name}
-                </span>
-            </button>
+            <Button className={classN} onClick={_ => props.onClick()} startIcon={props.icon}>
+                {props.name}
+            </Button>
         </div>
     );
 }

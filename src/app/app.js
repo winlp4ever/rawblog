@@ -8,7 +8,9 @@ import Home from '../home/home';
 import B0t from '../b0t/b0t';
 //import Login from '../login/login';
 import Vid from '../vid/vid';
-
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+import ViewHeadlineRoundedIcon from '@material-ui/icons/ViewHeadlineRounded';
+import VideocamRoundedIcon from '@material-ui/icons/VideocamRounded';
 import Cookies from 'js-cookie';
 
 export default class App extends Component {
@@ -61,9 +63,9 @@ export default class App extends Component {
 
     render() {
         let menuOptions = [
-            {name: 'Home', onClick: this.viewHome}, 
-            {name: 'ViewAll', onClick: this.viewSocio},
-            {name: 'Video', onClick: this.viewVideo}
+            {name: 'Home', onClick: this.viewHome, icon: <HomeRoundedIcon/>}, 
+            {name: 'ViewAll', onClick: this.viewSocio, icon: <ViewHeadlineRoundedIcon/>},
+            {name: 'Video', onClick: this.viewVideo, icon: <VideocamRoundedIcon/>}
         ];
 
         let main = (<div>Oof! Error, page not found!</div>> -1);
