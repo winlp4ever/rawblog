@@ -64,8 +64,7 @@ export default class App extends Component {
     render() {
         let menuOptions = [
             {name: 'Home', onClick: this.viewHome, icon: <HomeRoundedIcon/>}, 
-            {name: 'ViewAll', onClick: this.viewSocio, icon: <ViewHeadlineRoundedIcon/>},
-            {name: 'Video', onClick: this.viewVideo, icon: <VideocamRoundedIcon/>}
+            {name: 'View all', onClick: this.viewSocio, icon: <ViewHeadlineRoundedIcon/>}
         ];
 
         let main = (<div>Oof! Error, page not found!</div>> -1);
@@ -85,10 +84,6 @@ export default class App extends Component {
             />;
         } 
 
-        else if (this.state.activeTab == 2) {
-            main = <Vid />;
-        }
-
         const value = {
             user: this.state.user,
             updateUser: this.updateUser
@@ -98,11 +93,6 @@ export default class App extends Component {
             <userContext.Provider value={value}>
                 {
                     (this.state.user.username != '') ? <div>
-                        <B0t 
-                            socket={this.state.socket} 
-                            username={this.state.user.username} 
-                            viewFullPost={this.viewFullPost}
-                        />
                         <Menu links={menuOptions} activeTab={this.state.activeTab}/>
                         {main}
                     </div>: null

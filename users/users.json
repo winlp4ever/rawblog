@@ -1,0 +1,16 @@
+{
+    "users": {
+        "Wall-Q": {"password": "2311", "color": "#d50000", "email": ""},
+        "crowley": {"password": "tAII_2020", "color": "#ef5350", "email": ""},
+        "zhengyu": {"password": "tAII_2020", "color": "#3949ab", "email": ""},
+        "shivam": {"password": "tAII_2020", "color": "#0091ea ", "email": ""},
+        "gravina": {"password": "tAII_2020", "color": "#00838f", "email": ""},
+        "farooqui": {"password": "tAII_2020", "color": "#388e3c", "email": ""},
+        "rinosh": {"password": "tAII_2020", "color": "#827717", "email": ""},
+        "pragadeesh": {"password": "tAII_2020", "color": "#ff6f00", "email": ""},
+        "ojas": {"password": "tAII_2020", "color": "#6d4c41", "email": ""},
+        "karishma": {"password": "tAII_2020", "color": "#616161", "email": ""},
+        "jun": {"password": "tAII_2020", "color": "#607d8b", "email": ""},
+        "jetin": {"password": "tAII_2020", "color": "#76ff03", "email": ""}
+    }
+}

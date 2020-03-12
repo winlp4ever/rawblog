@@ -30,7 +30,7 @@ else compiler = webpack(devConfig);
 
 const server = new http.Server(app);
 const io = require('socket.io')(server);
-const PORT = 5000;
+const PORT = 80;
 
 server.listen(PORT, () => {
     console.log(`listening to port ${PORT}`)
@@ -43,6 +43,8 @@ app.use(require('webpack-hot-middleware')(compiler));
 // setup backend data for servicese
 var posts = {};
 var postsPath = './posts';
+var usersPath = './users'
+
 fs.readdir(postsPath, function (err, files) {
     if (err) {
         console.error("Could not list the directory.", err);
@@ -79,10 +81,7 @@ fs.readdir(postsPath, function (err, files) {
 });
 
 var count = 0;
-var users = {
-    'Wall-Q': {password: '1', color: '#e53935', email: ''}, 
-    'anakin': {password: '2', color: '#1e88e5', email: ''}
-};
+var users = JSON.parse(fs.readFileSync(path.join(usersPath, 'users.json'))).users;
 var chats = {};
 
 // websocket communication handlers

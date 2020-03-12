@@ -58,6 +58,12 @@ In short, you provide tag information in the [condition element]() of a policy:
 
 _AWS IAM Access Analyzer_ is needed to locate AWS resources you're sharing with an external entity. That way, you're able to detect any security risk.
 
+### Create a Billing Alarm
+
+A small helpful tutorial that teaches you how to set up a billing alarm that helps you monitor estimated AWS charges.
+
+[download creating-a-billing-alarm](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html)
+
 ## Sum-up
 
 Here are some important notes:
