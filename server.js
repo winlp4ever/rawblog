@@ -19,13 +19,14 @@ const prodConfig = require('./webpack.prod.js');
 const devConfig = require('./webpack.dev.js');
 const options = {};
 
-if (process.argv.length < 3) console.error('Please precise mode!');
+var mode = 'prod'
+if (process.argv.length < 3) mode = 'prod';
 if (process.argv[2] != 'prod' & process.argv[2] != 'dev') {
     console.error('Wrong mode - only dev or prod is accepted!');
     return;
 };
 var compiler = null;
-if (process.argv[2] == 'prod') compiler = webpack(prodConfig);
+if (mode == 'prod') compiler = webpack(prodConfig);
 else compiler = webpack(devConfig);
 
 const server = new http.Server(app);
