@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "webpack",
+    "build": "node server.js prod",
     "start": "nodemon server.js dev --ignore 'node_modules/*' --ignore 'public/*' --ignore 'src/*' --watch server.js --ignore 'src/*'"
   },
   "keywords": [],
