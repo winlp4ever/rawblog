@@ -1,11 +1,19 @@
 {
     "title": "Part 0: AWS - Overview",
     "intro": "What is AWS? What are its provided services? How is it organized?",
-    "likes": 0,
+    "likes": 3,
     "hashtags": [
         "cloud",
         "aws"
     ],
-    "comments": [],
+    "comments": [
+        {
+            "time": "17 Mar 2020 16:41:24 GMT+1",
+            "username": "Wall-Q",
+            "content": "same question",
+            "likes": 0,
+            "replies": []
+        }
+    ],
     "himmi": "aws-overview.png"
 }

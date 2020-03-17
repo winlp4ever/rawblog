@@ -36,9 +36,14 @@
         }
         span.username {
             padding: 0.3em 0;
-            color: black;
-            font-size: 0.8em;
+            color: #424242;
+            font-size: 1em;
             font-weight: 600;
+            b {
+                color: rgb(158, 158, 158);
+                font-size: 0.9em;
+                font-family: 'Baloo Chettan 2', sans-serif;
+            }
         }
         button.del {
             position: absolute;

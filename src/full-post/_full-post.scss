@@ -271,16 +271,21 @@ div.full-post {
         p {
             margin: 0.5em 0;
         }
-        .like-post {
-            margin: 0.5em 0;
-            padding: 0.5em 1.5em;
-            border-radius: 2em;
-            background: linear-gradient(to bottom, #448aff 0%, #2962ff 100%);
-            color: white;
-            font-size: 0.8em;
-            border: none;
-            box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);;
-        }  
+        .post-interact {
+            padding: 0;
+            button {
+                min-width: 0;
+                margin: 0 0.5em;
+                color: #424242;
+                font-size: 0.8em;
+                border: none;
+                padding: 0 0.2em;
+                &:hover {
+                    background: inherit;
+                }
+            }
+        }
+        
         .outline {
             padding: 0;
             margin: 0.5em 0;
@@ -319,6 +324,24 @@ div.full-post {
                 .comments {
                     box-sizing: border-box;
                     padding: 0.5em 2em;
+                    .enter-comment {
+                        border: 1px solid transparent;
+                        span.border {
+                            position: absolute;
+                            z-index: 2;
+                            bottom: -2px;
+                            left: 0;
+                            height: 2px;
+                            transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+                            background: gray;
+                            width: 100%;
+                        }
+                        &.focus {
+                            span.border {
+                                background: #2979ff;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -364,11 +387,18 @@ div.full-post {
             .enter-comment {
                 margin: auto 0.2em;
                 width: 100%;
+                border: 1px solid lightgrey;
                 @keyframes enter-comment-appear {
                     0% {max-width: 0; opacity: 0;}
                     100% {max-width: 25em; opacity: 1;}
                 }
                 animation: 0.25s enter-comment-appear cubic-bezier(0, 0, 0.2, 1);
+                
+                &.focus {
+                    border-color: transparent;
+                    box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
+                    
+                }
             }
             button {
                 position: relative;
@@ -447,7 +477,6 @@ div.full-post {
                 border: 1px solid transparent;
                 opacity: 1;
                 background: white;
-                box-shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
             }
         }
     }

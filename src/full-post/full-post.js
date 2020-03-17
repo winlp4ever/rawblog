@@ -161,14 +161,23 @@ export default class FullPost extends Component {
         let supp = this.state.display_supp? <div className='supp'>
                 <h2>{this.state.post.title}</h2>
                 <p>{this.state.post.intro}</p>
-                <Button 
-                    className='like-post' 
-                    variant='outlined'
-                    endIcon={<Icon iconName='Heart'/>}
-                    onClick={this.like}
-                > 
-                    {this.state.post.likes}
-                </Button>
+                <div className='post-interact'>
+                    <Button 
+                        className='like-post' 
+                        variant='outlined'
+                        endIcon={<Icon iconName='Heart'/>}
+                        onClick={this.like}
+                    > 
+                        {this.state.post.likes}
+                    </Button>
+                    <Button 
+                        className='nb-questions'
+                        endIcon={<Icon iconName='Comment'/>}
+                    >
+                        {this.state.post.nbComments > 0? this.state.post.nbComments: ''}
+                    </Button>
+                </div>
+                
                 <div className='outline'>
                     {this.state.outline.map((l, i) => <span key={i} >
                             <a href={`#post-sec-${i}`}>{l}</a>

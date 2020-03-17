@@ -7,7 +7,7 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Cookies from 'js-cookie';
 import io from 'socket.io-client';
-
+import {getCurrentTime, dateToString} from '../utils';
 
 export const NewComment = (props) => {
     const [newComment, setNewComment] = useState('');
@@ -32,6 +32,7 @@ export const NewComment = (props) => {
         
         e.preventDefault(); // prevents page reloading
         let res = {
+            time: getCurrentTime(),
             username: value.user.username,
             content: newComment, 
             postId: props.postId,
@@ -123,12 +124,13 @@ const Comment = (props) => {
     const showHideReplies = () => {
         setDisplayReplies(!displayReplies)
     }
+
     let cl = 'comment ' + ((props.comment.replies != null) ? 'question': 'reply');
     return <div className={cl}>
         <span className='ava' style={avaStyle}>
             {user.username.substr(0,1).toUpperCase()}
         </span>
-        <span className='username'>{props.comment.username}:</span>
+        <span className='username'>{props.comment.username}: <b>{dateToString(props.comment.time)}</b></span>
         <span>{props.comment.content}</span>
         <button className='del'><i className="fas fa-times"></i></button>
         <div className='comment-interact'>
