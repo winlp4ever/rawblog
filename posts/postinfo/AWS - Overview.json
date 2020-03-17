@@ -6,6 +6,26 @@
         "cloud",
         "aws"
     ],
-    "comments": [],
+    "comments": [
+        {
+            "username": "Wall-Q",
+            "content": "how to create a billing alarm? (example question)",
+            "likes": 4,
+            "replies": []
+        },
+        {
+            "username": "jetin",
+            "content": "Could you say in a couple of sentences, what is the function of AWS? I am a novice to this software.",
+            "likes": 0,
+            "replies": [
+                {
+                    "username": "Wall-Q",
+                    "content": "Hi Jetin, AWS is a public cloud provider. It's not a software. A public cloud consists of different data & computing services available over the Internet to everyone who want to use or purchase them. A service here means a composition of different hardwares with preinstalled softwares that serves a purpose. Hope this helps!",
+                    "likes": 0,
+                    "replyTo": 1
+                }
+            ]
+        }
+    ],
     "himmi": "aws-overview.png"
 }
