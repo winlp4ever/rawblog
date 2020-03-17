@@ -16,7 +16,10 @@ export const NewComment = (props) => {
     const handleChange = (e) => {
         setNewComment(e.target.value);
     }
-    const handleFocus = () => setFocus(!focus);
+    const handleFocus = () => {
+        setFocus(!focus);
+        if (props.onFocus) props.onFocus();
+    }
     const handleSent = async () => {
         setSent(!sent);
         if (!sent) {
@@ -126,11 +129,12 @@ const Comment = (props) => {
     }
 
     let cl = 'comment ' + ((props.comment.replies != null) ? 'question': 'reply');
+    let usname = (user.username == userdata.user.username)? <i>{props.comment.username}:</i>: props.comment.username;
     return <div className={cl}>
         <span className='ava' style={avaStyle}>
             {user.username.substr(0,1).toUpperCase()}
         </span>
-        <span className='username'>{props.comment.username}: <b>{dateToString(props.comment.time)}</b></span>
+        <span className='username'>{usname} <b>{dateToString(props.comment.time)}</b></span>
         <span>{props.comment.content}</span>
         <button className='del'><i className="fas fa-times"></i></button>
         <div className='comment-interact'>
