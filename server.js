@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 const prodConfig = require('./webpack.prod.js');
 const devConfig = require('./webpack.dev.js');
 const options = {};
+var PORT = 5000;
 
 var mode = 'prod';
 if (process.argv.length < 3) mode = 'prod';
@@ -26,12 +27,14 @@ if (process.argv[2] != 'prod' & process.argv[2] != 'dev') {
     return;
 };
 mode = process.argv[2];
-if (mode == 'prod') compiler = webpack(prodConfig);
+if (mode == 'prod') {
+    compiler = webpack(prodConfig);
+    PORT = 80;
+}
 else compiler = webpack(devConfig);
 
 const server = new http.Server(app);
 const io = require('socket.io')(server);
-const PORT = 5000;
 
 server.listen(PORT, () => {
     console.log(`listening to port ${PORT}`)
