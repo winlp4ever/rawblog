@@ -6,65 +6,6 @@
         "cloud",
         "aws"
     ],
-    "comments": [
-        {
-            "time": "17 Mar 2020 16:41:24 GMT+1",
-            "username": "Wall-Q",
-            "content": "same question",
-            "likes": 0,
-            "replies": [
-                {
-                    "time": "17 Mar 2020 16:50:4 GMT+1",
-                    "username": "Wall-Q",
-                    "content": "hi, im not sure i can't agree with you about that",
-                    "likes": 0,
-                    "replyTo": 0
-                }
-            ]
-        },
-        {
-            "time": "17 Mar 2020 17:40:50 GMT+1",
-            "username": "Wall-Q",
-            "content": "wait a minute",
-            "likes": 2,
-            "replies": [
-                {
-                    "time": "17 Mar 2020 17:40:55 GMT+1",
-                    "username": "Wall-Q",
-                    "content": "is this ok?",
-                    "likes": 0,
-                    "replyTo": 1
-                },
-                {
-                    "time": "17 Mar 2020 21:39:36 GMT+1",
-                    "username": "anakin",
-                    "content": "hey, i dont agree wth you",
-                    "likes": 0,
-                    "replyTo": 1
-                }
-            ]
-        },
-        {
-            "time": "17 Mar 2020 18:17:31 GMT+1",
-            "username": "Wall-Q",
-            "content": "oof, this is my question",
-            "likes": 0,
-            "replies": []
-        },
-        {
-            "time": "17 Mar 2020 18:30:42 GMT+1",
-            "username": "Wall-Q",
-            "content": "just to test",
-            "likes": 0,
-            "replies": []
-        },
-        {
-            "time": "17 Mar 2020 21:30:5 GMT+1",
-            "username": "Wall-Q",
-            "content": "what's up man, you drive me crazy",
-            "likes": 0,
-            "replies": []
-        }
-    ],
+    "comments": [],
     "himmi": "aws-overview.png"
 }
