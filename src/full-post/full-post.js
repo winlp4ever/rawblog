@@ -31,39 +31,14 @@ class Loading extends Component {
     }
 }
 
-const CommentSection = (props) => {
-    const [view, setView] = useState(false);
-    const [newQ, setNewQ] = useState(false);
-    const [nb_q, setNb_q] = useState(0);
-
-    const newQuestionComing = () => setNb_q(nb_q+1);
-    useEffect(() => {
-        props.socket.emit('nb comments', props.postId);
-        props.socket.on(`nb comments postId=${props.postId}`, msg => setNb_q(msg))
-        props.socket.on(`new comment postId=${props.postId}`, msg => newQuestionComing())
-    }, [nb_q])
-
-    const toggleView = () => setView(!view);
-    const toogleNewQ = () => setNewQ(!newQ);
-    let cl = 'comment-section';
-    if (view) cl += ' view';
+const QuestionBar = (props) => {
+    const [focus, setFocus] = useState(false);
+    const handleFocus = _ => setFocus(!focus);
+    let cl = 'question-bar';
+    if (focus) cl += ' focus'
     return <div className={cl}>
-        {!view ? <div className='question-bar'>
-            <Button variant='contained' className='view-comments' onClick={toggleView}>
-                <Icon iconName='CommentUrgent' />
-                <Explained explained='view all asked questions' />
-                {nb_q > 0? <span className='nb-questions'>{nb_q}</span>:null}
-            </Button>
-            <Button variant='contained' className='ask' onClick={toogleNewQ}>
-                <Icon iconName='StatusCircleQuestionMark' />
-                <Explained explained='Struggled? Ask a question' />
-            </Button>
-            {newQ? <NewComment {...props}/>:null}
-        </div>: <div >
-            <Button className='close' onClick={toggleView}><Icon iconName='ChromeClose'/></Button>
-            <h3 className='channel'>#questions</h3>
-            <Comments {...props}/>
-        </div>}
+            <Button className='question-mark'><i className="fas fa-question fa-fw"></i></Button>
+        <NewComment {...props} onFocus={handleFocus}/>
     </div>
 }
 
@@ -85,7 +60,8 @@ export default class FullPost extends Component {
         },
         outline: [],
         display_supp: false,
-        socket: io()
+        socket: io(),
+        viewComments: false
     }
 
     _setState = (dict) => {
@@ -138,6 +114,8 @@ export default class FullPost extends Component {
         this.state.socket.emit(`likes`, this.props.postId);
     }
 
+    toggleViewComments = () => this.setState({viewComments: !this.state.viewComments});
+
 
     render() {
         if (!this._mounted) return <Loading />;
@@ -155,20 +133,37 @@ export default class FullPost extends Component {
                 > 
                     {this.state.post.likes}
                 </Button>
+                <Button 
+                    className='nb-questions'
+                    endIcon={<Icon iconName='Comment'/>}
+                    onClick={this.toggleViewComments}
+                >
+                    {this.state.post.nbComments > 0? this.state.post.nbComments: ''}
+                </Button>
             </div>)
         }
 
         let supp = this.state.display_supp? <div className='supp'>
                 <h2>{this.state.post.title}</h2>
                 <p>{this.state.post.intro}</p>
-                <Button 
-                    className='like-post' 
-                    variant='outlined'
-                    endIcon={<Icon iconName='Heart'/>}
-                    onClick={this.like}
-                > 
-                    {this.state.post.likes}
-                </Button>
+                <div className='post-interact'>
+                    <Button 
+                        className='like-post' 
+                        variant='outlined'
+                        endIcon={<Icon iconName='Heart'/>}
+                        onClick={this.like}
+                    > 
+                        {this.state.post.likes}
+                    </Button>
+                    <Button 
+                        className='nb-questions'
+                        endIcon={<Icon iconName='Comment'/>}
+                        onClick={this.toggleViewComments}
+                    >
+                        {this.state.post.nbComments > 0? this.state.post.nbComments: ''}
+                    </Button>
+                </div>
+                
                 <div className='outline'>
                     {this.state.outline.map((l, i) => <span key={i} >
                             <a href={`#post-sec-${i}`}>{l}</a>
@@ -198,10 +193,14 @@ export default class FullPost extends Component {
                         source={this.state.post.article} 
                     />
                 </div>
-                <CommentSection postId={this.props.postId} 
+                {!this.state.viewComments?<QuestionBar postId={this.props.postId} 
                     socket={this.state.socket} 
-                    user={this.props.user} 
-                    nbComments={this.state.post.nbComments}/>
+                    user={this.props.user} />:null}
+                {this.state.viewComments? <div className='comment-section'><div>
+                    <Button className='close' onClick={this.toggleViewComments}><Icon iconName='ChromeClose'/></Button>
+                    <h3 className='channel'>#questions</h3>
+                    <Comments postId={this.props.postId} socket={this.state.socket} user={this.props.user}/>
+                </div></div>: null}
             </div>
         );
     }
