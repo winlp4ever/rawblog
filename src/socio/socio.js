@@ -1,53 +1,69 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
 import Post from '../post/post';
 import './_socio.scss';
+import FullPost from '../full-post/full-post';
 
-class Socio extends Component {
-    state = {
-        postIds: new Set(), 
-    }
-    delPost = this.delPost.bind(this);
-    
+const Socio = props => {
+    const [postIds, setPostIds] = useState(new Set())
+    useEffect(() => {
+        async function init() {
+            let response = await fetch('/postIds', {method: 'POST'});
+            let data = await response.json();
+            setPostIds(new Set(data.postIds));
+        }
+        init();
+    }, [])
 
-    async componentDidMount() {
-        let response = await fetch('/postIds', {method: 'POST'});
-        let data = await response.json();
-        this.setState({ postIds: new Set(data.postIds) });
-    }
-
-    async delPost(i) {
-        if (this.props.user.username != 'Wall-Q') return;
-        let ids = new Set(this.state.postIds);
+    const delPost = async (i) => {
+        if (props.user.username != 'Wall-Q') return;
+        let ids = new Set(postIds);
         ids.delete(i);
-        this.setState({ postIds: ids });
+        setPostIds(ids);
     }
 
-    render() {
-        let posts = [];
-        for (let id of this.state.postIds) {
-            posts.push(<div key={id}>
-                <div className='head-icons'>
-                    <button className='del-post' onClick={_ => this.delPost(id)}>
-                        <i className="fas fa-times"></i>
-                    </button>
-                    <button onClick={_ => this.props.viewFullPost(id)}>
+    let posts = [];
+    let match = useRouteMatch();
+
+    for (let id of postIds) {
+        posts.push(<div key={id}>
+            <div className='head-icons'>
+                <button className='del-post' onClick={_ => delPost(id)}>
+                    <i className="fas fa-times"></i>
+                </button>
+                <Link to={`${match.url}/postid-${id}`}>
+                    <button>
                         <i className="fas fa-external-link-alt" ></i>
                     </button>
-                </div>
-            
-                <Post 
-                    postId={id}
-                    socket={this.props.socket} 
-                    viewFullPost={this.props.viewFullPost}
-                />
-                </div>);
-        }
-        return (
-            <div className='socio'>
-                {posts}
+                </Link>
             </div>
-        )
+        
+            <Post 
+                postId={id}
+                socket={props.socket} 
+            />
+            </div>);
     }
+    return (
+        <div className='socio'>
+            
+            <Switch>
+                {Array.from(postIds).map((id, _) => <Route path={`${match.url}/postid-${id}`} key={id}>
+                    <FullPost postId={id} />
+                </Route>)}
+                <Route path={match.url}>
+                    {posts}
+                </Route>
+            </Switch>
+        </div>
+    )
 }
 
 export default Socio;

@@ -159,7 +159,7 @@ io.on('connection', function(socket){
 });
 
 // normal routes with POST/GET 
-app.get('/', (req, res, next) => {
+app.get('*', (req, res, next) => {
     var filename = path.join(compiler.outputPath,'index');
     
     compiler.outputFileSystem.readFile(filename, async (err, data) => {

@@ -1,4 +1,10 @@
 import React, { Component, useReducer } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import Socio from '../socio/socio';
 import FullPost from '../full-post/full-post';
 import Auth from '../user-auth/user-auth';
@@ -13,6 +19,14 @@ import ViewHeadlineRoundedIcon from '@material-ui/icons/ViewHeadlineRounded';
 import VideocamRoundedIcon from '@material-ui/icons/VideocamRounded';
 import Cookies from 'js-cookie';
 
+const menuOptions = [
+    {name: 'View all', path: '/all-lessons', icon: <ViewHeadlineRoundedIcon/>, cpn: <Socio/>},
+    {name: 'Home', path: '/', icon: <HomeRoundedIcon/>, cpn: <Home/>}
+];
+
+const reverse = menuOptions.slice();
+reverse.reverse();
+
 export default class App extends Component {
     state = {
         user: {
@@ -20,8 +34,7 @@ export default class App extends Component {
             email: '',
             color: ''
         },
-        activeTab: 1,
-        postId: -1,
+        activeTab: 0,
     }
 
     componentDidMount() {
@@ -45,55 +58,31 @@ export default class App extends Component {
         }
     }
 
-    viewFullPost = (id) => {
-        this.setState({activeTab: 1, postId: id});
-    }
-
-    viewSocio = () => {
-        this.setState({activeTab: 1, postId: -1});
-    }
-
-    viewHome = () => {
-        this.setState({activeTab: 0, postId: -1});
-    }
-
-    viewVideo = () => {
-        this.setState({activeTab: 2, postId: -1});
+    selectTab = (i) => {
+        this.setState({activeTab: i});
     }
 
     render() {
-        let menuOptions = [
-            {name: 'Home', onClick: this.viewHome, icon: <HomeRoundedIcon/>}, 
-            {name: 'View all', onClick: this.viewSocio, icon: <ViewHeadlineRoundedIcon/>}
-        ];
-
-        let main = (<div>Oof! Error, page not found!</div>> -1);
-        if (this.state.activeTab == 0) {
-            main = (<Home />);
-        }
-
-        else if (this.state.activeTab == 1 && this.state.postId == -1) {
-            main = (<Socio socket={this.state.socket} 
-                viewFullPost={this.viewFullPost} 
-            />);
-        }
-            
-        else if (this.state.activeTab == 1 && this.state.postId > -1) {
-            main = <FullPost postId={this.state.postId} 
-                socket={this.state.socket} 
-            />;
-        } 
-
         const value = {
             user: this.state.user,
             updateUser: this.updateUser
         }
 
+        let main = <Router>
+            <Menu onClick={this.selectTab} activeTab={this.state.activeTab} links={reverse}/>
+            <Switch>
+                {menuOptions.map((o, id) => <Route path={o.path} key={id}>
+                    <Menu onClick={this.selectTab} activeTab={menuOptions.length - 1 - id} links={reverse}/>
+                    {o.cpn}
+                </Route>
+                )}
+            </Switch>
+        </Router>        
+
         return (
             <userContext.Provider value={value}>
                 {
                     (this.state.user.username != '') ? <div>
-                        <Menu links={menuOptions} activeTab={this.state.activeTab}/>
                         {main}
                     </div>: null
                 }
