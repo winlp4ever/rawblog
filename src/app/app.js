@@ -69,7 +69,6 @@ export default class App extends Component {
         }
 
         let main = <Router>
-            <Menu onClick={this.selectTab} activeTab={this.state.activeTab} links={reverse}/>
             <Switch>
                 {menuOptions.map((o, id) => <Route path={o.path} key={id}>
                     <Menu onClick={this.selectTab} activeTab={menuOptions.length - 1 - id} links={reverse}/>

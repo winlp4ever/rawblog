@@ -38,7 +38,7 @@ const Socio = props => {
                 <button className='del-post' onClick={_ => delPost(id)}>
                     <i className="fas fa-times"></i>
                 </button>
-                <Link to={`${match.url}/postid-${id}`}>
+                <Link to={`${match.url}/${id}`}>
                     <button>
                         <i className="fas fa-external-link-alt" ></i>
                     </button>
@@ -55,15 +55,21 @@ const Socio = props => {
         <div className='socio'>
             
             <Switch>
-                {Array.from(postIds).map((id, _) => <Route path={`${match.url}/postid-${id}`} key={id}>
-                    <FullPost postId={id} />
-                </Route>)}
-                <Route path={match.url}>
+                <Route path={`${match.path}/:postId`}>
+                    <FPost />
+                </Route>
+                <Route exact path={match.path}>
                     {posts}
                 </Route>
             </Switch>
         </div>
     )
+}
+
+const FPost = (props) => {
+    'wrapper of FullPost that use useParams to resolve routing'
+    let { postId } = useParams();
+    return <FullPost postId={postId} />
 }
 
 export default Socio;

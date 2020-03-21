@@ -5,13 +5,13 @@ import { shadesOfPurple } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 class CodeBlock extends PureComponent {
     static propTypes = {
-      value: PropTypes.string.isRequired,
-      language: PropTypes.string
+        value: PropTypes.string.isRequired,
+        language: PropTypes.string
     };
   
     static defaultProps = {
-      language: 'js',
-      value: 'type code here'
+        language: 'js',
+        value: 'type code here'
     };
   
     render() {
@@ -25,4 +25,4 @@ class CodeBlock extends PureComponent {
     }
 }
   
-  export default CodeBlock;
+export default CodeBlock;
