@@ -1,9 +1,30 @@
 .socio {
     position: relative;
-    margin: 100px 0 4em;
+    margin: 3em 0 4em;
     >div {
         position: relative;
         margin: 1em 0;
+    }
+    .course-info-panel {
+        position: relative;
+        box-sizing: border-box;
+        padding: 1em 8em 1em 1em;
+        width: 55%;
+        margin: 4em auto 2em;
+        background: url('../../imgs/course-deco-bottom.png') left bottom no-repeat, 
+            url('../../imgs/course-deco-top.png') left top no-repeat, whitesmoke;
+        background-size: cover;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
+        h1 {
+            font-size: 1.8em;
+            overflow-wrap: break-word;
+            color: #005ecb;
+        }
+        p {
+            overflow-wrap: break-word;
+        }
     }
     div.head-icons {
         position: absolute;

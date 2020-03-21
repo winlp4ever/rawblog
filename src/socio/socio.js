@@ -58,6 +58,12 @@ const Socio = props => {
             </Route>
             <Route exact path={match.path}>
                 <div className='socio'>
+                    <div className='course-info-panel'>
+                        <h1>AWS - A cloud platform</h1>
+                        <p>this is a long introductionllllllllllllllllllllllwefewfl ffffffffwfwfef 
+                        wefwel fwefl fwlggggggggggqlwef lfffffffffffffffffffffffffffffffffffffffflfl
+                        fwew we</p>
+                    </div>
                     {posts}
                 </div>
             </Route>
