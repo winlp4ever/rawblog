@@ -52,17 +52,16 @@ const Socio = props => {
             </div>);
     }
     return (
-        <div className='socio'>
-            
-            <Switch>
-                <Route path={`${match.path}/:postId`}>
-                    <FPost />
-                </Route>
-                <Route exact path={match.path}>
+        <Switch>
+            <Route path={`${match.path}/:postId`}>
+                <FPost />
+            </Route>
+            <Route exact path={match.path}>
+                <div className='socio'>
                     {posts}
-                </Route>
-            </Switch>
-        </div>
+                </div>
+            </Route>
+        </Switch>
     )
 }
 

@@ -14,8 +14,8 @@
 div.full-post {
     position: relative;
     color: #3b3b3b;
-    margin: 100px auto 50px;
-    width: 60%;
+    margin: 0em auto 50px;
+    width: 100%;
     
     > button {
         height: 30px;
@@ -43,7 +43,9 @@ div.full-post {
         padding: 0 0 5em;
         border-bottom: 1px solid lightgrey;
         position: relative;
-        line-height: 1.8;
+        line-height: 1.6;
+        width: 55%;
+        margin: auto;
         &:after {
             position: absolute;
             bottom: 0;
@@ -76,7 +78,9 @@ div.full-post {
         }
         h2 {
             font: {
-                size: 180%;
+                size: 1.5em;
+                family: 'Baloo Chettan 2', sans-serif;
+                weight: 600;
             }
             display: block;
         }
@@ -168,11 +172,13 @@ div.full-post {
     .himmi {
         position: relative;
         width: 100%;
+        max-height: 30em;
+        overflow: hidden;
+        border-radius: unset;
         img {
             display: block;
             margin: auto;
-            max-width: 100%;
-            max-height: 600px;
+            width: 100%;
         }
     }
 
@@ -186,7 +192,8 @@ div.full-post {
             background: #e6e6e6;
             margin: auto 0.2em;
             font: {
-                size: 0.8em;
+                family: 'Baloo Chettan 2', sans-serif;
+                size: 0.7em;
                 weight: 600;
             }
         }
@@ -199,7 +206,7 @@ div.full-post {
             min-width: 0;
             margin: 0 0.2em;
             font: {
-                weight: 700;
+                family: 'Baloo Chettan 2', sans-serif;
                 size: 0.7em;
             }
             transition: all 0.2s cubic-bezier(0.0, 0.0, 0.2, 1); 
@@ -350,7 +357,8 @@ div.full-post {
             box-sizing: border-box;
             padding: 0.5em 2em;
             width: 100%;
-            background: inherit;
+            background: center no-repeat url('../../imgs/comment-head-img.png');
+            background-size: cover;
             color: white;
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
