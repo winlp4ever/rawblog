@@ -10,9 +10,13 @@ import {
 import Post from '../post/post';
 import './_socio.scss';
 import FullPost from '../full-post/full-post';
+import Button from '@material-ui/core/Button';
+import ExpandLessRoundedIcon from '@material-ui/icons/ExpandLessRounded';
+
 
 const Socio = props => {
-    const [postIds, setPostIds] = useState(new Set())
+    const [postIds, setPostIds] = useState(new Set());
+    const [showPosts, setShowPosts] = useState(false);
     useEffect(() => {
         async function init() {
             let response = await fetch('/postIds', {method: 'POST'});
@@ -29,11 +33,13 @@ const Socio = props => {
         setPostIds(ids);
     }
 
+    const showhideposts = () => setShowPosts(!showPosts);
+
     let posts = [];
     let match = useRouteMatch();
 
     for (let id of postIds) {
-        posts.push(<div key={id}>
+        posts.push(<div key={id} className='post-container'>
             <div className='head-icons'>
                 <button className='del-post' onClick={_ => delPost(id)}>
                     <i className="fas fa-times"></i>
@@ -59,12 +65,20 @@ const Socio = props => {
             <Route exact path={match.path}>
                 <div className='socio'>
                     <div className='course-info-panel'>
-                        <h1>AWS - A cloud platform</h1>
-                        <p>this is a long introductionllllllllllllllllllllllwefewfl ffffffffwfwfef 
-                        wefwel fwefl fwlggggggggggqlwef lfffffffffffffffffffffffffffffffffffffffflfl
-                        fwew we</p>
+                        <div className='course-info'>
+                            <h1>AWS - A cloud platform</h1>
+                            <p>this is a long introductionllllllllllllllllllllllwefewfl ffffffffwfwfef 
+                            wefwel fwefl fwlggggggggggqlwef lfffffffffffffffffffffffffffffffffffffffflfl
+                            fwew we</p>
+                        </div>
+                        <Button 
+                            className={'show-posts' + (showPosts? ' show': '')}
+                            onClick={showhideposts}
+                        >
+                            <ExpandLessRoundedIcon/>
+                        </Button>
                     </div>
-                    {posts}
+                    {showPosts? posts: null}
                 </div>
             </Route>
         </Switch>
