@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useRouteMatch,
+    useParams
 } from "react-router-dom";
 import Post from '../post/post';
 import './_socio.scss';
