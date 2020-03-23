@@ -9,7 +9,7 @@ import Comments, {NewComment} from '../comment/comment';
 import loading from '../../imgs/loading.json';
 import _Icon from '../_icon/_icon';
 
-// third partied 
+// third party 
 import $ from 'jquery';
 import { hot } from 'react-hot-loader';
 import Img from '../../imgs/cs-bg.svg';
@@ -95,16 +95,15 @@ class FullPost extends Component {
         this.$article = $(findDOMNode(this.article));
         let O = []
         this.$article.children('.markdown-render').children('h2').each(function() {
-            outline.append(`<span><a href='#post-sec-${count}'>${$(this).html()}</a></span>`);
             O.push($(this).html());
             $(this).attr('id', `post-sec-${count}`);
             count ++;
         })
         this.setState({outline: O});
-        await this.$article.children('.markdown-render').children('h1').after(outline);
+        //await this.$article.children('.markdown-render').children('h1').after(outline);
         $(window).on('scroll', () => {
-            if ($(window).scrollTop() > this.$article.find('.outline').first().offset().top +
-                this.$article.find('.outline').first().outerHeight()) this._setState({display_supp: true});
+            if ($(window).scrollTop() > this.$article.find('h1').first().offset().top +
+                this.$article.find('h1').first().outerHeight()) this._setState({display_supp: true});
             else this._setState({display_supp: false});
         })
     }
@@ -183,7 +182,7 @@ class FullPost extends Component {
                 
                 <div className='outline'>
                     {this.state.outline.map((l, i) => <span key={i} >
-                            <a href={`/all-lessons/${this.props.postId}#post-sec-${i}`}>{l}</a>
+                            <a href={`${this.props.match.url}#post-sec-${i}`}>{l}</a>
                         </span>)}
                 </div>
             </div>: null;
