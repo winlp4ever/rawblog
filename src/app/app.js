@@ -45,8 +45,7 @@ export default class App extends Component {
         
     }
 
-    componentWillUnmount = () => {
-    }
+    componentWillUnmount = () => {};
 
     updateUser =  async (info) => {
         await this.setState(

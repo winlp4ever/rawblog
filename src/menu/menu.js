@@ -3,11 +3,13 @@ import './_menu.scss';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import Button from '@material-ui/core/Button';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
 } from "react-router-dom";
+
+
 const Option = props => {
     let classN = 'option';
     if (props.isActive) classN += ' active';

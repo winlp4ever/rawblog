@@ -1,20 +1,28 @@
+// react imports
 import React, { Component, useState, useEffect } from 'react';
 import { findDOMNode } from 'react-dom';
+import { withRouter } from "react-router";
+
+// external cpns
 import MdRender from '../markdown-render/markdown-render';
 import Comments, {NewComment} from '../comment/comment';
+import loading from '../../imgs/loading.json';
+import _Icon from '../_icon/_icon';
+
+// third partied 
 import $ from 'jquery';
-import './_full-post.scss';
 import { hot } from 'react-hot-loader';
 import Img from '../../imgs/cs-bg.svg';
 import Button from '@material-ui/core/Button';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import LazyLoad from 'react-lazyload';
 import io from 'socket.io-client';
-import loading from '../../imgs/loading.json';
-import _Icon from '../_icon/_icon';
 import lottie from 'lottie-web';
 
-const Explained = (props) => <span className='explained'>{props.explained}</span>
+// style file
+import './_full-post.scss';
+
+const Explained = (props) => <span className='explained'>{props.explained}</span>;
 
 class Loading extends Component {
     componentDidMount() {
@@ -24,20 +32,22 @@ class Loading extends Component {
             loop: true,
             autoplay: true,
             animationData: loading
-        })
+        });
     }
     render() {
-        return <div className='loading-icon' ref={animBox => this.animBox = animBox}/>
+        return <div className='loading-icon' ref={animBox => this.animBox = animBox}/>;
     }
 }
 
 const QuestionBar = (props) => {
     const [focus, setFocus] = useState(false);
+
     const handleFocus = _ => setFocus(!focus);
+
     let cl = 'question-bar';
     if (focus) cl += ' focus'
     return <div className={cl}>
-            <Button className='question-mark'><i className="fas fa-question fa-fw"></i></Button>
+        <Button className='question-mark'><i className="fas fa-question fa-fw"></i></Button>
         <NewComment {...props} onFocus={handleFocus}/>
     </div>
 }
@@ -48,7 +58,7 @@ function disableDoubleClick() {
     });
 }
 
-export default class FullPost extends Component {
+class FullPost extends Component {
     _mounted = false;
     state = {
         post: {
@@ -100,7 +110,6 @@ export default class FullPost extends Component {
     }
     
     async componentWillUnmount() {
-        //this.props.socket.disconnect();
         this.$article.off();
         $(window).off('scroll', '**');
         this._mounted = false;
@@ -118,7 +127,10 @@ export default class FullPost extends Component {
 
 
     render() {
+        // if the page is not yet mounted, return loading icon
         if (!this._mounted) return <Loading />;
+
+        // hashtags part
         let hashtags = '';
         if (this.state.post.hashtags) {
             hashtags = (<div className='hashtags'>
@@ -143,6 +155,11 @@ export default class FullPost extends Component {
             </div>)
         }
 
+        /**
+            Supplementary window, appears only when user has scrolled downpassed 
+            post's title and outline. It simply is a small win with title and outline
+            that appears next to post        
+         */
         let supp = this.state.display_supp? <div className='supp'>
                 <h2>{this.state.post.title}</h2>
                 <p>{this.state.post.intro}</p>
@@ -166,7 +183,7 @@ export default class FullPost extends Component {
                 
                 <div className='outline'>
                     {this.state.outline.map((l, i) => <span key={i} >
-                            <a href={`#post-sec-${i}`}>{l}</a>
+                            <a href={`/all-lessons/${this.props.postId}#post-sec-${i}`}>{l}</a>
                         </span>)}
                 </div>
             </div>: null;
@@ -193,18 +210,35 @@ export default class FullPost extends Component {
                         source={this.state.post.article} 
                     />
                 </div>
-                {!this.state.viewComments?<QuestionBar postId={this.props.postId} 
-                    socket={this.state.socket} 
-                    user={this.props.user} />:null}
-                {this.state.viewComments? <div className='comment-section'><div>
-                    <Button className='close' onClick={this.toggleViewComments}><Icon iconName='ChromeClose'/></Button>
-                    <h3 className='channel'>#questions</h3>
-                    <Comments postId={this.props.postId} socket={this.state.socket} user={this.props.user}/>
-                </div></div>: null}
+                {!this.state.viewComments ? 
+                    <QuestionBar postId={this.props.postId} 
+                        socket={this.state.socket} 
+                        user={this.props.user} />
+                : null}
+                {this.state.viewComments? 
+                    <div className='comment-section'>
+                        <div>
+                            <Button 
+                                className='close' 
+                                onClick={this.toggleViewComments}
+                            >
+                                <Icon iconName='ChromeClose'/>
+                            </Button>
+                            <h3 className='channel'>#questions</h3>
+                            <Comments 
+                                postId={this.props.postId} 
+                                socket={this.state.socket} 
+                                user={this.props.user}
+                            />
+                        </div>
+                    </div>
+                : null}
             </div>
         );
     }
 }
+
+export default withRouter(FullPost);
 
 if (hot.module) {
     hot.module.accept();

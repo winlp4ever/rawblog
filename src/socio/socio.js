@@ -12,11 +12,13 @@ import './_socio.scss';
 import FullPost from '../full-post/full-post';
 import Button from '@material-ui/core/Button';
 import ExpandLessRoundedIcon from '@material-ui/icons/ExpandLessRounded';
-
+import BorderColorTwoToneIcon from '@material-ui/icons/BorderColorTwoTone';
+import AssessmentTwoToneIcon from '@material-ui/icons/AssessmentTwoTone';
 
 const Socio = props => {
     const [postIds, setPostIds] = useState(new Set());
     const [showPosts, setShowPosts] = useState(false);
+    
     useEffect(() => {
         async function init() {
             let response = await fetch('/postIds', {method: 'POST'});
@@ -67,9 +69,14 @@ const Socio = props => {
                     <div className='course-info-panel'>
                         <div className='course-info'>
                             <h1>AWS - A cloud platform</h1>
-                            <p>this is a long introductionllllllllllllllllllllllwefewfl ffffffffwfwfef 
-                            wefwel fwefl fwlggggggggggqlwef lfffffffffffffffffffffffffffffffffffffffflfl
-                            fwew we</p>
+                            <div>
+                                <span className='icon'><BorderColorTwoToneIcon/></span>
+                                <span>Wall-Q</span>
+                            </div>
+                            <div>
+                                <span className='icon'><AssessmentTwoToneIcon/></span>
+                                <span>Medium</span>
+                            </div>
                         </div>
                         <Button 
                             className={'show-posts' + (showPosts? ' show': '')}

@@ -3,8 +3,8 @@ div.post {
     border-radius: 0.5em;
     position: relative;
     width: 50%;
-    box-shadow: 0 1px 1px 0 rgba(60,64,67,.08), 0 1px 3px 1px rgba(60,64,67,.16);
-    //border: 1px solid lightgrey;
+    //box-shadow: 0 1px 1px 0 rgba(60,64,67,.08), 0 1px 3px 1px rgba(60,64,67,.16);
+    border: 1px solid rgb(224, 224, 224);
     margin: 10px auto;
     box-sizing: border-box;
     padding: 10px;
@@ -13,6 +13,7 @@ div.post {
     //border-top: 1px solid lightgrey;
     transition: all 0.25s cubic-bezier(0, 0, 0.2, 1);
     &:hover {
+        border-color: transparent;
         box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);;
     }
     font: {

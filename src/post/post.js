@@ -27,9 +27,7 @@ export default class Post extends Component {
         this.setState({post: data});
     }
 
-    async componentWillUnmount() {
-        //this.props.socket.disconnect();
-    }
+    async componentWillUnmount() {};
 
     like() {
         let post_ = JSON.parse(JSON.stringify(this.state.post));

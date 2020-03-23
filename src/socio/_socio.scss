@@ -24,9 +24,27 @@
                 font-size: 1.8em;
                 overflow-wrap: break-word;
                 color: #005ecb;
+                line-height: 1;
             }
             p {
                 overflow-wrap: break-word;
+            }
+            .icon {
+                color: #005ecb;
+                font-size: 0.6em;
+                svg {
+                    display: block;
+                    margin: auto;
+                }
+            }
+            span {
+                font-size: 0.95em;
+                display: inline-block;
+                box-sizing: border-box;
+                margin: auto 0.5em;
+                padding: 0.2em;
+                height: 100%;
+                vertical-align: middle;
             }
         }
         
