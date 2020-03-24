@@ -1,4 +1,21 @@
-# Raw Blog using React
+# Raw Platform using React
+
+* Install all packages
+```bash
+npm i
+```
+
+* Run code in dev mode
+
+```bash
+npm start
+```
+
+* Run code in prod mode
+
+```bash
+npm build
+```
 
 * How to kill process at a port
 
