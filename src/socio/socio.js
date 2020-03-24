@@ -1,3 +1,4 @@
+// react imports
 import React, { useState, useEffect } from 'react';
 import {
     BrowserRouter as Router,
@@ -7,14 +8,22 @@ import {
     useRouteMatch,
     useParams
 } from "react-router-dom";
+
+// other cpns imports
 import Post from '../post/post';
-import './_socio.scss';
 import FullPost from '../full-post/full-post';
+import Editor from '../editor/editor';
+
+// third party imports
 import Button from '@material-ui/core/Button';
 import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 import BorderColorTwoToneIcon from '@material-ui/icons/BorderColorTwoTone';
 import AssessmentTwoToneIcon from '@material-ui/icons/AssessmentTwoTone';
 import TimerTwoToneIcon from '@material-ui/icons/TimerTwoTone';
+
+// style file import
+import './_socio.scss';
+
 
 const CourseIntro = (props) => {
     return (
@@ -69,7 +78,7 @@ const Socio = props => {
                 <button className='del-post' onClick={_ => delPost(id)}>
                     <i className="fas fa-times"></i>
                 </button>
-                <Link to={`${match.url}/${id}`}>
+                <Link to={`${match.url}/post/${id}`}>
                     <button>
                         <i className="fas fa-external-link-alt" ></i>
                     </button>
@@ -84,7 +93,7 @@ const Socio = props => {
     }
     return (
         <Switch>
-            <Route path={`${match.path}/:postId`}>
+            <Route path={`${match.path}/post/:postId`}>
                 <FPost />
             </Route>
             <Route exact path={match.path}>
@@ -98,19 +107,24 @@ const Socio = props => {
                             <ExpandMoreRoundedIcon/>
                         </Button>
                     </div>
-                    {showPosts? <Link to='editor'>
+                    {showPosts? <Link to={`${match.path}/editor`}>
                         <Button variant='contained' className='create-a-new-post'>Create a new Post</Button>
                     </Link>:null}
                     {showPosts? posts: null}
                 </div>
             </Route>
+            <Route exact path={`${match.path}/editor`}>
+                <Editor />
+            </Route>
+
         </Switch>
     )
 }
 
 const FPost = (props) => {
-    'wrapper of FullPost that use useParams to resolve routing'
+    // wrapper of FullPost that use useParams to resolve routing'
     let { postId } = useParams();
+
     return <FullPost postId={postId} />
 }
 

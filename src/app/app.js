@@ -20,7 +20,7 @@ import VideocamRoundedIcon from '@material-ui/icons/VideocamRounded';
 import Cookies from 'js-cookie';
 
 const menuOptions = [
-    {name: 'View all', path: '/all-lessons', icon: <ViewHeadlineRoundedIcon/>, cpn: <Socio/>},
+    {name: 'All courses', path: '/all-courses', icon: <ViewHeadlineRoundedIcon/>, cpn: <Socio/>},
     {name: 'Home', path: '/', icon: <HomeRoundedIcon/>, cpn: <Home/>}
 ];
 
