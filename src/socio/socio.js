@@ -11,9 +11,32 @@ import Post from '../post/post';
 import './_socio.scss';
 import FullPost from '../full-post/full-post';
 import Button from '@material-ui/core/Button';
-import ExpandLessRoundedIcon from '@material-ui/icons/ExpandLessRounded';
+import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 import BorderColorTwoToneIcon from '@material-ui/icons/BorderColorTwoTone';
 import AssessmentTwoToneIcon from '@material-ui/icons/AssessmentTwoTone';
+import TimerTwoToneIcon from '@material-ui/icons/TimerTwoTone';
+
+const CourseIntro = (props) => {
+    return (
+        <div className='course-info'>
+            <h1>AWS - A cloud platform</h1>
+            <p>"A small course that helps you get known to AWS through its core features like S3 and EC2, etc...
+            Of course, most of the course will be practical sessions."</p>
+            <div>
+                <span className='icon'><BorderColorTwoToneIcon/></span>
+                <span>Wall-Q</span>
+            </div>
+            <div>
+                <span className='icon'><AssessmentTwoToneIcon/></span>
+                <span>Medium</span>
+            </div>
+            <div>
+                <span className='icon'><TimerTwoToneIcon/></span>
+                <span>21 hours</span>
+            </div>
+        </div>
+    )
+}
 
 const Socio = props => {
     const [postIds, setPostIds] = useState(new Set());
@@ -67,24 +90,17 @@ const Socio = props => {
             <Route exact path={match.path}>
                 <div className='socio'>
                     <div className='course-info-panel'>
-                        <div className='course-info'>
-                            <h1>AWS - A cloud platform</h1>
-                            <div>
-                                <span className='icon'><BorderColorTwoToneIcon/></span>
-                                <span>Wall-Q</span>
-                            </div>
-                            <div>
-                                <span className='icon'><AssessmentTwoToneIcon/></span>
-                                <span>Medium</span>
-                            </div>
-                        </div>
+                        <CourseIntro />
                         <Button 
                             className={'show-posts' + (showPosts? ' show': '')}
                             onClick={showhideposts}
                         >
-                            <ExpandLessRoundedIcon/>
+                            <ExpandMoreRoundedIcon/>
                         </Button>
                     </div>
+                    {showPosts? <Link to='editor'>
+                        <Button variant='contained' className='create-a-new-post'>Create a new Post</Button>
+                    </Link>:null}
                     {showPosts? posts: null}
                 </div>
             </Route>

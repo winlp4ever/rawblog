@@ -57,7 +57,7 @@
             width: 0em;
             left: 50%;
             margin-left: 0em;
-            height: 6px;
+            height: 5px;
             border-radius: 3px;
             background: #af4448;
             z-index: 3;
@@ -71,8 +71,8 @@
             }       
             color: #424242;
             &:after {
-                width: 2.5em;
-                margin-left: -1.25em;
+                width: 40%;
+                margin-left: -20%;
                 background: #af4448;
                 z-index: 3;
             }     
@@ -83,8 +83,8 @@
             }
             color: #424242;     
             &:after {
-                width: 2.5em;
-                margin-left: -1.25em;
+                width: 40%;
+                margin-left: -20%;
                 left: 50%;
                 background: #e57373;
                 z-index: 3;

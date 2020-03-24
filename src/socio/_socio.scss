@@ -30,7 +30,11 @@
                 padding: 0 0.2em;
             }
             p {
+                display: block;
+                box-sizing: border-box;
+                padding: 0 0.2px;
                 overflow-wrap: break-word;
+                font-style: italic;
             }
             .icon {
                 color: #005ecb;
@@ -106,7 +110,22 @@
                 color: #757575;
                 background-color: whitesmoke;
             }
-            
+        }
+    }
+    .create-a-new-post {
+        text-transform: none;
+        letter-spacing: 0em;
+        display: block;
+        max-width: 20em;
+        margin: auto;
+        border-radius: 0.5em;
+        font: {
+            family: 'Baloo Chettan 2', sans-serif;
+            size: 0.8em;
+        }
+        background: #f5f5f5;
+        &:hover {
+            background: #ececec;
         }
     }
 }

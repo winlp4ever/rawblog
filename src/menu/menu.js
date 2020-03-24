@@ -31,7 +31,7 @@ const Menu = props => {
         links.push(<Option key={i} onClick={_ => props.onClick(i)} isActive={props.activeTab == i} {...link}/>);
     }
     return (
-        <div className='menu'>
+        <div className='menu init'>
             {links}
         </div>
     )
