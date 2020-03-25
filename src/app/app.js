@@ -17,10 +17,6 @@ class App extends Component {
         
     }
 
-    componentWillUnmount() {
-        this.state.socket.disconnect();
-    }
-
     handleVideoUrlChange = (e) => {
         this.setState({videoUrl: e.target.value})
     }
@@ -29,11 +25,9 @@ class App extends Component {
         this.setState({transcriptUrl: e.target.value})
     }
 
-    
-
     generateInterface = () => {
         if (this.state.videoUrl == '') return;
-        this.setState({generateUI: true});
+        this.setState({generateUI: !this.state.generateUI});
     }
 
     render() {

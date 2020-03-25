@@ -134,8 +134,8 @@ app.post('/get-questions', (req, res) => {
 
 app.post('/save-to-cloud', (req, res) => {
     let data = req.body.qaList;
-    let fn = req.body.fn;
-    utils.uploadToS3(data, fn);
+    let fn = path.basename(req.body.url);
+    utils.uploadToS3(data, fn.split('.')[0] + '.json');
     res.json({answer: 'y'});
 })
 

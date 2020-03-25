@@ -193,7 +193,7 @@ export default class QAFix extends Component {
         let response = await fetch('/save-to-cloud', {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({qaList: this.state.questions, fn: 'test.json'})
+            body: JSON.stringify({qaList: this.state.questions, url: this.props.transcriptUrl})
         });
         let data = await response.json();
     }
