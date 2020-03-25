@@ -8,18 +8,13 @@ import './_app.scss';
 
 class App extends Component {
     state = {
-        socket: io(),
-        videoUrl: '',
-        transcriptUrl: '',
-        questions: [],
+        videoUrl: 'https://course-recording-q1-2020-taii.s3.eu-west-3.amazonaws.com/us/GMT20200117-205611_AI-Inst--U_gallery_1920x1080.mp4',
+        transcriptUrl: 'https://course-recording-q1-2020-taii.s3.eu-west-3.amazonaws.com/us/GMT20200117-205611_AI-Inst--U.transcript.vtt',
         generateUI: false
     }
 
     componentDidMount() {
-        this.state.socket.on('raw-qas', msg => {
-            this.setState({questions: msg.questions});
-            console.log(this.state.questions);
-        })
+        
     }
 
     componentWillUnmount() {
@@ -34,12 +29,11 @@ class App extends Component {
         this.setState({transcriptUrl: e.target.value})
     }
 
+    
+
     generateInterface = () => {
         if (this.state.videoUrl == '') return;
         this.setState({generateUI: true});
-        console.log(this.state.videoUrl);
-        console.log(this.state.transcriptUrl);
-        this.state.socket.emit('transcript-url', {url: this.state.transcriptUrl});
     }
 
     render() {
@@ -48,11 +42,13 @@ class App extends Component {
                     className='enter-url'
                     placehoder='enter video url'
                     onChange={this.handleVideoUrlChange}
+                    defaultValue='https://course-recording-q1-2020-taii.s3.eu-west-3.amazonaws.com/us/GMT20200117-205611_AI-Inst--U_gallery_1920x1080.mp4'
                 />
                 <TextareaAutosize 
                     className='enter-url'
                     placehoder='enter transcript url'
                     onChange={this.handleTranscriptUrlChange}
+                    defaultValue='https://course-recording-q1-2020-taii.s3.eu-west-3.amazonaws.com/us/GMT20200117-205611_AI-Inst--U.transcript.vtt'
                 />
                 <Button     
                     className='gen-ui'
@@ -63,8 +59,9 @@ class App extends Component {
                 </Button>
                 {this.state.generateUI ? 
                     <QAFix 
-                        url={this.state.videoUrl}
-                        questions={this.state.questions}/>
+                        videoUrl={this.state.videoUrl}
+                        transcriptUrl={this.state.transcriptUrl}
+                    />
                 :null}
             </div>
         ) 

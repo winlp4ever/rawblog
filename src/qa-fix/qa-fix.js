@@ -9,10 +9,15 @@ import './_qa-fix.scss';
 import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
 import PauseRoundedIcon from '@material-ui/icons/PauseRounded';
 import StopRoundedIcon from '@material-ui/icons/StopRounded';
+import Forward10Icon from '@material-ui/icons/Forward10';
+import Replay10Icon from '@material-ui/icons/Replay10';
+
 import {CSSTransition} from 'react-transition-group';
 import lottie from 'lottie-web';
 import loading from '../../imgs/loading.json';
 import { findDOMNode } from 'react-dom';
+import io from 'socket.io-client';
+
 
 class Loading extends Component {
     componentDidMount() {
@@ -67,6 +72,7 @@ const QA = (props) => {
                 <span className='a'>{props.a}</span>
             </div>
             <Button className='edit' onClick={editOn}><Icon iconName='Edit'/></Button>
+            <Button className='rm-question' onClick={props.rmQuestion}><Icon iconName='ChromeClose'/></Button>
         </div>
         :<div className='edit-mode'>
             <div>
@@ -78,7 +84,7 @@ const QA = (props) => {
                 <TextareaAutosize value={a} onChange={modifyA}/>
             </div>
             <Button className='save' onClick={saveChanges}><Icon iconName='Save' /></Button>
-            <Button className='cancel' onClick={cancelChanges}><Icon iconName='Cancel'/></Button>
+            <Button className='cancel' onClick={cancelChanges}><Icon iconName='Undo'/></Button>
         </div>}
     </div>)
 }
@@ -86,10 +92,12 @@ const QA = (props) => {
 export default class QAFix extends Component {
     _mounted = false;
     state = {
+        socket: io(),
         ready: false,
         playing: false,
         duration: 1,
         seek: 0,
+        questions: []
     }
 
     _setState = (dict) => {
@@ -99,6 +107,11 @@ export default class QAFix extends Component {
     async componentDidMount() {
         this._mounted = true;
         this.$player = $(findDOMNode(this.player));
+        this.state.socket.on('raw-qas', msg => {
+            this.setState({questions: msg.questions});
+            console.log(this.state.questions);
+        })
+        this.state.socket.emit('transcript-url', {url: this.props.transcriptUrl});
         this.progressing_ = setInterval(() => {
             let seek = 0;
             try {
@@ -117,6 +130,7 @@ export default class QAFix extends Component {
     componentWillUnmount() {
         this._mounted = false;
         clearInterval(this.progressing_);
+        this.state.socket.disconnect();
     }
 
     pauseOrPlay = () => {
@@ -151,12 +165,35 @@ export default class QAFix extends Component {
         }
     }
 
+    forward = () => {
+        if (this.player != null) {
+            let t = this.player.getCurrentTime();
+            this.player.seekTo(t+10);
+            this._setState({seek: t+10});
+        }
+    }
+
+    replay = () => {
+        if (this.player != null) {
+            let t = this.player.getCurrentTime();
+            t = (t - 10) > 0 ? t-10: 0; 
+            this.player.seekTo(t);
+            this._setState({seek: t});
+        }
+    }
+
+    rmQuestion = (i) => {
+        let qas_ = this.state.questions.slice();
+        qas_.splice(i, 1);
+        this.setState({questions: qas_});
+    }
+
     saveToCloud = async () => {
         if (this.props.url == '') return;
         let response = await fetch('/save-to-cloud', {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({qaList: this.props.questions, fn: 'test.json'})
+            body: JSON.stringify({qaList: this.state.questions, fn: 'test.json'})
         });
         let data = await response.json();
     }
@@ -172,7 +209,7 @@ export default class QAFix extends Component {
                     <ReactPlayer
                         ref={this.ref}
                         className='react-player'
-                        url={this.props.url}
+                        url={this.props.videoUrl}
                         height='auto'
                         width='100%'
                         playing={this.state.playing}
@@ -186,17 +223,19 @@ export default class QAFix extends Component {
                         <div className='seek'></div>
                     </div>
                     <div className='control-buttons'>
+                        <Button onClick={this.forward}><Forward10Icon/></Button>
                         <Button className='playpause' onClick={this.pauseOrPlay}>
                             {this.state.playing? <PauseRoundedIcon/>: <PlayArrowRoundedIcon/>}
                         </Button>
                         <Button className='stop' onClick={this.stop}><StopRoundedIcon /></Button>
+                        <Button onClick={this.replay}><Replay10Icon/></Button>
                     </div>
                 </div>
             </div>
             <Button className='save-to-cloud' onClick={this.saveToCloud}>Save to Cloud</Button>
             <div className='qas'>
-                {this.props.questions.map(
-                    (qa, id) => <QA {...qa} key={id} saveChanges={this.saveChanges} questionId={id} seekTo={this.seek}/>)}
+                {this.state.questions.map(
+                    (qa, id) => <QA {...qa} key={id} saveChanges={this.saveChanges} questionId={id} seekTo={this.seek} rmQuestion={_ => this.rmQuestion(id)}/>)}
             </div>
         </div>)
     }
