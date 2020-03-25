@@ -1,0 +1,21 @@
+.app {
+    .enter-url {
+        display: block;
+        width: 55%;
+        margin: 0.5em auto;
+        font-size: 1em;
+        outline: none;
+        border: none;
+        border-bottom: 2px solid lightgrey;
+        resize: unset;
+        .gen-ui {
+            display: block;
+            max-width: 200px;
+            margin: auto;
+            svg {
+                display: block;
+                margin: auto;
+            }
+        }
+    }
+}

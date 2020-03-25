@@ -86,12 +86,10 @@ const QA = (props) => {
 export default class QAFix extends Component {
     _mounted = false;
     state = {
-        url: 'https://sample-course-aii.s3.eu-west-3.amazonaws.com/sample-course.mp4',
         ready: false,
         playing: false,
         duration: 1,
         seek: 0,
-        questions: []
     }
 
     _setState = (dict) => {
@@ -114,13 +112,6 @@ export default class QAFix extends Component {
                 .children('.seek').css('width', `${seek / this.state.duration * 100}%`);
             this._setState({seek: seek});
         }, 200);
-        let response = await fetch('/get-questions', {
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({pass: 'hmm'})
-        })
-        let data = await response.json();
-        this._setState(data)
     }
 
     componentWillUnmount() {
@@ -161,10 +152,11 @@ export default class QAFix extends Component {
     }
 
     saveToCloud = async () => {
+        if (this.props.url == '') return;
         let response = await fetch('/save-to-cloud', {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({qaList: this.state.questions, fn: 'test.json'})
+            body: JSON.stringify({qaList: this.props.questions, fn: 'test.json'})
         });
         let data = await response.json();
     }
@@ -180,7 +172,7 @@ export default class QAFix extends Component {
                     <ReactPlayer
                         ref={this.ref}
                         className='react-player'
-                        url={this.state.url}
+                        url={this.props.url}
                         height='auto'
                         width='100%'
                         playing={this.state.playing}
@@ -203,7 +195,7 @@ export default class QAFix extends Component {
             </div>
             <Button className='save-to-cloud' onClick={this.saveToCloud}>Save to Cloud</Button>
             <div className='qas'>
-                {this.state.questions.map(
+                {this.props.questions.map(
                     (qa, id) => <QA {...qa} key={id} saveChanges={this.saveChanges} questionId={id} seekTo={this.seek}/>)}
             </div>
         </div>)

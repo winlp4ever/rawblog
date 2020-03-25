@@ -89,65 +89,20 @@ app.use(require('webpack-hot-middleware')(compiler));
 io.on('connection', function(socket){
     count ++;
     console.log(`${count} user connected with id: ${socket.id}`);
+    
     socket.on('disconnect', function(){
         count --;
         console.log(`1 user disconnected, rest ${count}`);
     });
-    socket.on('comment history', postId => {
-        console.log('request history ...');
-        console.log(posts[postId].comments);
-        socket.emit(`comment history postId=${postId}`, posts[postId].comments);
-    })
-    socket.on('submit comment', msg => {
-        let postId = msg.postId;
-        delete msg.postId;
-
-        if (msg.replyTo != null) {
-            let i = msg.replyTo;
-            delete msg.replyTo;
-            posts[postId].comments[i].replies.push(msg);
-            msg.replyTo = i
-        } else {
-            posts[postId].comments.push(msg);
-        }
-        console.log('message: ' + msg.content);
-        io.emit(`new comment postId=${postId}`, msg);
-        
-    });
-
-    socket.on('like comment', msg => {
-        posts[msg.postId].comments[msg.commentId].likes ++;
-    })
-    socket.on('likes', id => {
-        posts[id].likes ++;
-        console.log(posts[id]);
+    
+    socket.on('transcript-url', msg => {
+        io.emit('transcript-url', msg);
     })
 
-    //chat bot
-    socket.on('new chat', msg => {
-        io.emit('new chat', msg);
+    socket.on('raw-qas', msg => {
+        io.emit('raw-qas', msg);
         console.log(msg);
     })
-
-    socket.on('submit chat', msg => {
-        console.log(msg);
-        io.emit('new chat', msg);
-    })
-
-    socket.on('is typing', msg => {
-        io.emit('is typing', msg);
-    })
-
-    socket.on('ask for hints', msg => {
-        io.emit('ask for hints', msg);
-        console.log(msg);
-    })
-
-    socket.on('hints', msg => {
-        io.emit('hints', msg);
-        console.log(msg);
-    })
-
 });
 
 

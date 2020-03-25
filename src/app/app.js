@@ -1,108 +1,74 @@
-import React, { Component, useReducer } from 'react';
-import Socio from '../socio/socio';
-import FullPost from '../full-post/full-post';
-import Auth from '../user-auth/user-auth';
-import io from 'socket.io-client';
-import Menu from '../menu/menu';
-import { userContext } from '../user-context/user-context';
-import Home from '../home/home';
-import B0t from '../b0t/b0t';
-//import Login from '../login/login';
-import Vid from '../vid/vid';
+import React, { Component } from 'react';
 import QAFix from '../qa-fix/qa-fix';
-import Cookies from 'js-cookie';
+import io from 'socket.io-client';
+import Button from '@material-ui/core/Button';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import './_app.scss';
 
-export default class App extends Component {
+
+class App extends Component {
     state = {
-        user: {
-            name: '',
-            email: '',
-        },
-        activeTab: 2,
-        postId: -1,
         socket: io(),
+        videoUrl: '',
+        transcriptUrl: '',
+        questions: [],
+        generateUI: false
     }
 
     componentDidMount() {
-        console.log(Cookies.get('user'));
-
-        let userdata = Cookies.get('user');
-
-        if (userdata) {
-            this.setState({user: JSON.parse(userdata)});   
-        }
-        
+        this.state.socket.on('raw-qas', msg => {
+            this.setState({questions: msg.questions});
+            console.log(this.state.questions);
+        })
     }
 
-    componentWillUnmount = () => {
+    componentWillUnmount() {
         this.state.socket.disconnect();
     }
 
-    updateUser =  async (info) => {
-        await this.setState({user: {name: info.name, email: info.email}});
-        if (info.name != '') {
-            Cookies.set('user', this.state.user, {expires: 1});
-        } else {
-            Cookies.remove('user');
-        }
+    handleVideoUrlChange = (e) => {
+        this.setState({videoUrl: e.target.value})
     }
 
-    viewFullPost = (id) => {
-        this.setState({activeTab: 1, postId: id});
+    handleTranscriptUrlChange = (e) => {
+        this.setState({transcriptUrl: e.target.value})
     }
 
-    viewSocio = () => {
-        this.setState({activeTab: 1, postId: -1});
-    }
-
-    viewHome = () => {
-        this.setState({activeTab: 0, postId: -1});
-    }
-
-    viewVideo = () => {
-        this.setState({activeTab: 2, postId: -1});
+    generateInterface = () => {
+        if (this.state.videoUrl == '') return;
+        this.setState({generateUI: true});
+        console.log(this.state.videoUrl);
+        console.log(this.state.transcriptUrl);
+        this.state.socket.emit('transcript-url', {url: this.state.transcriptUrl});
     }
 
     render() {
-        let menuOptions = [
-            {name: 'Home', onClick: this.viewHome}, 
-            {name: 'ViewAll', onClick: this.viewSocio},
-            {name: 'Video', onClick: this.viewVideo}
-        ];
-
-        let main = (<div>Oof! Error, page not found!</div>> -1);
-        if (this.state.activeTab == 0) {
-            main = (<Home />);
-        }
-
-        else if (this.state.activeTab == 1 && this.state.postId == -1) {
-            main = (<Socio socket={this.state.socket} 
-                viewFullPost={this.viewFullPost} 
-            />);
-        }
-            
-        else if (this.state.activeTab == 1 && this.state.postId > -1) {
-            main = <FullPost postId={this.state.postId} 
-                socket={this.state.socket} 
-            />;
-        } 
-
-        else if (this.state.activeTab == 2) {
-            main = <QAFix />;
-        }
-
-        const value = {
-            user: this.state.user,
-            updateUser: this.updateUser
-        }
-
-        return (
-            <userContext.Provider value={value}>
-                <B0t socket={this.state.socket} username={this.state.user.name || 'anonymous'} viewFullPost={this.viewFullPost}/>
-                <Menu links={menuOptions} activeTab={this.state.activeTab}/>
-                {main}
-                <Auth />
-            </userContext.Provider>
-        )
+        return (<div className='app'>
+                <TextareaAutosize 
+                    className='enter-url'
+                    placehoder='enter video url'
+                    onChange={this.handleVideoUrlChange}
+                />
+                <TextareaAutosize 
+                    className='enter-url'
+                    placehoder='enter transcript url'
+                    onChange={this.handleTranscriptUrlChange}
+                />
+                <Button     
+                    className='gen-ui'
+                    variant='contained' 
+                    onClick={this.generateInterface}
+                >
+                    Generate Interface
+                </Button>
+                {this.state.generateUI ? 
+                    <QAFix 
+                        url={this.state.videoUrl}
+                        questions={this.state.questions}/>
+                :null}
+            </div>
+        ) 
     }
 }
+
+export default App;
