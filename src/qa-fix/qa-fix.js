@@ -223,12 +223,12 @@ export default class QAFix extends Component {
                         <div className='seek'></div>
                     </div>
                     <div className='control-buttons'>
-                        <Button onClick={this.forward}><Forward10Icon/></Button>
+                        <Button onClick={this.replay}><Replay10Icon/></Button>
                         <Button className='playpause' onClick={this.pauseOrPlay}>
                             {this.state.playing? <PauseRoundedIcon/>: <PlayArrowRoundedIcon/>}
                         </Button>
                         <Button className='stop' onClick={this.stop}><StopRoundedIcon /></Button>
-                        <Button onClick={this.replay}><Replay10Icon/></Button>
+                        <Button onClick={this.forward}><Forward10Icon/></Button>
                     </div>
                 </div>
             </div>
