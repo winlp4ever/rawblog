@@ -160,6 +160,15 @@ export default class QAFix extends Component {
         }
     }
 
+    saveToCloud = async () => {
+        let response = await fetch('/save-to-cloud', {
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({qaList: this.state.questions, fn: 'test.json'})
+        });
+        let data = await response.json();
+    }
+
     render() {
         return (<div className='qa-fix'>
             <div className='video-player'>
@@ -179,6 +188,7 @@ export default class QAFix extends Component {
                         onReady={this.handleReady}
                     />
                 </div>
+
                 <div className='controls'>
                     <div className='progress-bar'>
                         <div className='seek'></div>
@@ -190,8 +200,8 @@ export default class QAFix extends Component {
                         <Button className='stop' onClick={this.stop}><StopRoundedIcon /></Button>
                     </div>
                 </div>
-                
             </div>
+            <Button className='save-to-cloud' onClick={this.saveToCloud}>Save to Cloud</Button>
             <div className='qas'>
                 {this.state.questions.map(
                     (qa, id) => <QA {...qa} key={id} saveChanges={this.saveChanges} questionId={id} seekTo={this.seek}/>)}

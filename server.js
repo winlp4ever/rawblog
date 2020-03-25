@@ -7,13 +7,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const http = require('http');
+const utils = require('./utils');
 
 var app = express();
 app.use(favicon(path.join(__dirname, 'imgs', 'favicon.ico')));
 app.use(express.static(__dirname + './public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 const prodConfig = require('./webpack.prod.js');
 const devConfig = require('./webpack.dev.js');
@@ -169,10 +169,21 @@ app.post('/login', (req, res) => {
     res.json({answer: 'y'});
 })
 
+/**
+    QA Interface
+ */
 app.post('/get-questions', (req, res) => {
     let data = JSON.parse(fs.readFileSync(path.join('imgs', 'sample-course.json')));
     res.json({questions: data.questions})
 })
+
+app.post('/save-to-cloud', (req, res) => {
+    let data = req.body.qaList;
+    let fn = req.body.fn;
+    utils.uploadToS3(data, fn);
+    res.json({answer: 'y'});
+})
+
 
 app.post('/get-post-title', (req, res) => {
     let postId = req.query.postId;

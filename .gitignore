@@ -1,3 +1,4 @@
 node_modules
 articles
 data
+**/__pycache__
