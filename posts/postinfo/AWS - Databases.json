@@ -6,6 +6,14 @@
         "cloud",
         "aws"
     ],
-    "comments": [],
+    "comments": [
+        {
+            "time": "25 Mar 2020 10:21:55 GMT+1",
+            "username": "Wall-Q",
+            "content": "what is multi-az?",
+            "likes": 0,
+            "replies": []
+        }
+    ],
     "himmi": "aws-databases.jpg"
 }

@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 import io from 'socket.io-client';
 import {getCurrentTime, dateToString} from '../utils';
 
+
 export const NewComment = (props) => {
     const [newComment, setNewComment] = useState('');
     const [focus, setFocus] = useState(false);
