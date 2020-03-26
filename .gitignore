@@ -2,3 +2,4 @@ node_modules
 articles
 data
 **/__pycache__
+**/aws-credentials
