@@ -232,7 +232,7 @@ export default class QAFix extends Component {
                     </div>
                 </div>
             </div>
-            <Button className='save-to-cloud' onClick={this.saveToCloud}>Save to Cloud</Button>
+            <Button className='save-to-cloud' variant='contained' onClick={this.saveToCloud}>Save to Cloud</Button>
             <div className='qas'>
                 {this.state.questions.map(
                     (qa, id) => <QA {...qa} key={id} saveChanges={this.saveChanges} questionId={id} seekTo={this.seek} rmQuestion={_ => this.rmQuestion(id)}/>)}

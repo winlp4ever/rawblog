@@ -4,6 +4,8 @@ import io from 'socket.io-client';
 import Button from '@material-ui/core/Button';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import './_app.scss';
+import VideocamIcon from '@material-ui/icons/Videocam';
+import SubtitlesIcon from '@material-ui/icons/Subtitles';
 
 
 class App extends Component {
@@ -32,18 +34,23 @@ class App extends Component {
 
     render() {
         return (<div className='app'>
+                <VideocamIcon/>
                 <TextareaAutosize 
                     className='enter-url'
                     placehoder='enter video url'
                     onChange={this.handleVideoUrlChange}
                     defaultValue='https://course-recording-q1-2020-taii.s3.eu-west-3.amazonaws.com/us/GMT20200117-205611_AI-Inst--U_gallery_1920x1080.mp4'
-                />
+                >
+                    
+                </TextareaAutosize>
+                <SubtitlesIcon/>
                 <TextareaAutosize 
                     className='enter-url'
                     placehoder='enter transcript url'
                     onChange={this.handleTranscriptUrlChange}
                     defaultValue='https://course-recording-q1-2020-taii.s3.eu-west-3.amazonaws.com/us/GMT20200117-205611_AI-Inst--U.transcript.vtt'
-                />
+                >
+                </TextareaAutosize>
                 <Button     
                     className='gen-ui'
                     variant='contained' 

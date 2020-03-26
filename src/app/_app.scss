@@ -8,14 +8,22 @@
         border: none;
         border-bottom: 2px solid lightgrey;
         resize: unset;
-        .gen-ui {
+        
+    }
+    .gen-ui {
+        display: block;
+        max-width: 400px;
+        margin: auto;
+        text-transform: unset;
+        letter-spacing: 0;
+        font-size: 1em;
+        svg {
             display: block;
-            max-width: 200px;
             margin: auto;
-            svg {
-                display: block;
-                margin: auto;
-            }
         }
+    }
+    svg {
+        display: block;
+        margin: auto;
     }
 }
