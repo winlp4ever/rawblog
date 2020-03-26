@@ -1,3 +1,4 @@
+// react imports
 import React, { Component, useReducer } from 'react';
 import {
   BrowserRouter as Router,
@@ -5,6 +6,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
+
+// import other cpns
 import Socio from '../socio/socio';
 import FullPost from '../full-post/full-post';
 import Auth from '../user-auth/user-auth';
@@ -12,8 +15,10 @@ import Menu from '../menu/menu';
 import { userContext } from '../user-context/user-context';
 import Home from '../home/home';
 import B0t from '../b0t/b0t';
-//import Login from '../login/login';
 import Vid from '../vid/vid';
+import Dropzone from '../_dropzone/_dropzone';
+
+// third party imports
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import ViewHeadlineRoundedIcon from '@material-ui/icons/ViewHeadlineRounded';
 import VideocamRoundedIcon from '@material-ui/icons/VideocamRounded';
@@ -21,7 +26,7 @@ import Cookies from 'js-cookie';
 
 const menuOptions = [
     {name: 'All courses', path: '/all-courses', icon: <ViewHeadlineRoundedIcon/>, cpn: <Socio/>},
-    {name: 'Home', path: '/', icon: <HomeRoundedIcon/>, cpn: <Home/>}
+    {name: 'Home', path: '/', icon: <HomeRoundedIcon/>, cpn: <Dropzone/>}
 ];
 
 const reverse = menuOptions.slice();

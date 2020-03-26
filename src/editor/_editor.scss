@@ -109,4 +109,22 @@
             }
         }
     }
+    .validate {
+        text-align: center;
+        button {
+            margin: auto;
+            max-width: 500px;
+            text-transform: none;
+            letter-spacing: 0em;
+            background: #1976d2;
+            box-sizing: border-box;
+            padding: 0.2em 1em;
+            color: whitesmoke;
+            border-radius: 8px;
+            font: {
+                family: 'Baloo Chettan 2';
+                size: 0.8em;
+            }
+        }
+    }
 }

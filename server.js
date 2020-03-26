@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const http = require('http');
 
+const utils = require('./utils');
+
 // set up server
 var app = express();
 app.use(favicon(path.join(__dirname, 'imgs', 'favicon.ico')));
@@ -223,6 +225,10 @@ app.post('/admin-verify', (req, res) => {
     res.json({
         answer: 'y'
     })
+})
+
+app.post('/post-img', (req, res) => {
+    utils.uploadToS3(req.body.file, req.body.fn, msg => {res.json(msg)});
 })
 
 // on terminating the process

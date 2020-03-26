@@ -12,10 +12,12 @@ import MdRender from '../markdown-render/markdown-render';
 import Button from '@material-ui/core/Button';
 import ControlPointTwoToneIcon from '@material-ui/icons/ControlPointTwoTone';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
-
+import SaveTwoToneIcon from '@material-ui/icons/SaveTwoTone';
+import { v4 as uuidv4 } from 'uuid';
 
 const Editor = (props) => {
     // state
+    const [id, setId] = useState('');
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
     const [lecture, setLecture] = useState([]);
@@ -38,6 +40,10 @@ const Editor = (props) => {
     const viewHideRenderedSect = (i) => {
         let lecture_ = lecture.slice();
         lecture_[i].render = !lecture_[i].render;
+        // trim white spaces when escaping edit mode
+        if (!lecture_[i].render) {
+            lecture_[i].content = lecture_[i].content.trim();
+        }
         setLecture(lecture_);
     }
 
@@ -45,6 +51,12 @@ const Editor = (props) => {
         let lecture_ = lecture.slice();
         lecture_.splice(i, 1);
         setLecture(lecture_);
+    }
+
+    const saveToCloud = () => {
+        let idx = uuidv4();
+        setId(idx);
+        console.log(`uuid: ${idx}`);
     }
 
     // render
@@ -90,6 +102,13 @@ const Editor = (props) => {
                         <ControlPointTwoToneIcon/>
                     </Button>
                 </div>
+            </div>
+            <div className='validate'>
+                <Button 
+                    onClick={saveToCloud} 
+                    variant='contained'
+                    startIcon={<SaveTwoToneIcon/>}>Save Lecture
+                </Button>
             </div>
         </div>
     )
