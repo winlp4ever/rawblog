@@ -87,9 +87,11 @@ export default class App extends Component {
                 {
                     (this.state.user.username != '') ? <div>
                         {main}
+                        <B0t />
                     </div>: null
                 }
                 <Auth />
+                
             </userContext.Provider>
         )
     }

@@ -317,95 +317,96 @@ class B0t extends Component {
             }
             
         })
+        
+        console.log(this.state.chats);
 
         return (
-            
-        <NotifContext.Provider value={Nos}>
-            <Resizable {...reprops} className={this.state.hide? 'b0t hide': 'b0t'}>
-                {this.state.hide?
-                    <Button 
-                        className='show-ter' 
-                        onClick={_ => this.showhide()}
-                        variant='contained'
-                        color='#e57373'
-                    >
-                        <ChatBubbleOutlineIcon />
-                    </Button>:
-                    <Button 
-                        className='hide-ter' 
-                        onClick={_ => this.showhide()}
-                        variant='contained'
-                        color='#e57373'
-                    >
-                        <MinimizeIcon />
-                    </Button>
-                }
-                
-                <div className='chat-list'>
-                    {this.state.dests.map((d, id) => {
-                        if (id == this.state.currDest) 
-                            return <span key={id} data-iscurr onClick={_ => this.chooseDest(id)}>{d}</span>;
-                        return <span key={id} onClick={_ => this.chooseDest(id)}>{d}</span>;
-                    })}
-                </div>
-                <div className='chat-section'>
-                    <div className='oldchats'>
-                        {chats}
-                        {this.state.is_typing? <div className={(this.state.insights.course || this.state.insights.toread) ?
-                            'is-typing insights-on': 'is-typing'}>
-                            <div /><div /><div /><div />
-                        </div>: null}
-                    </div>
-                    <Newchat 
-                        socket={this.state.socket} 
-                        dest={this.state.dests[this.state.currDest]} 
-                        referral={this.state.referral}
-                        unsetReferral={this.unsetReferral}
-                        hints={this.state.hints}
-                        resetHints={this.resetHints}
-                    />
-                </div>
-                <Notif />
-                
-                
-                <CSSTransition
-                    in={this.state.insights.course? true: false}
-                    timeout={200}
-                    classNames="insights"
-                    unmountOnExit
-                >
-                    <div className='insights'>
-                        <Button className='close' onClick={this.closeInsights} variant='contained'>
-                            <CloseIcon/>
+            <NotifContext.Provider value={Nos}>
+                <Resizable {...reprops} className={this.state.hide? 'b0t hide': 'b0t'}>
+                    {this.state.hide?
+                        <Button 
+                            className='show-ter' 
+                            onClick={_ => this.showhide()}
+                            variant='contained'
+                            color='#e57373'
+                        >
+                            <ChatBubbleOutlineIcon />
+                        </Button>:
+                        <Button 
+                            className='hide-ter' 
+                            onClick={_ => this.showhide()}
+                            variant='contained'
+                            color='#e57373'
+                        >
+                            <MinimizeIcon />
                         </Button>
-                        <div className='cnt'>
-                            <span className='title-icon'><img src={idea} /></span>
-                            {this.state.insights.course? 
-                                <div className='relevant-course'>
-                                    <span><img src={lesson} /></span>
-                                    <span>
-                                        Relevant Course: 
-                                        <a onClick={_ => this.props.viewFullPost(this.state.insights.course.id)}>
-                                            {this.state.insights.course.title}
-                                        </a>
-                                    </span>    
-                                </div> : null }
-                            {this.state.insights.toread?
-                                <div className='toread'>
-                                    <span><img src={toread} /></span>
-                                    <span>To read more on this topic:</span>
-                                    <ul>
-                                    {this.state.insights.toread.map((t, j) => 
-                                        <li key={j}><a href={t} target='_blank'>{t}</a></li>)}
-                                    </ul>
-                                </div>:null
-                            }
-                        </div>
-                        
+                    }
+                    
+                    <div className='chat-list'>
+                        {this.state.dests.map((d, id) => {
+                            if (id == this.state.currDest) 
+                                return <span key={id} data-iscurr onClick={_ => this.chooseDest(id)}>{d}</span>;
+                            return <span key={id} onClick={_ => this.chooseDest(id)}>{d}</span>;
+                        })}
                     </div>
-                </CSSTransition>
-            </Resizable>
-        </NotifContext.Provider>)
+                    <div className='chat-section'>
+                        <div className='oldchats'>
+                            {chats}
+                            {this.state.is_typing? <div className={(this.state.insights.course || this.state.insights.toread) ?
+                                'is-typing insights-on': 'is-typing'}>
+                                <div /><div /><div /><div />
+                            </div>: null}
+                        </div>
+                        <Newchat 
+                            socket={this.state.socket} 
+                            dest={this.state.dests[this.state.currDest]} 
+                            referral={this.state.referral}
+                            unsetReferral={this.unsetReferral}
+                            hints={this.state.hints}
+                            resetHints={this.resetHints}
+                        />
+                    </div>
+                    <Notif />
+                    
+                    
+                    <CSSTransition
+                        in={this.state.insights.course? true: false}
+                        timeout={200}
+                        classNames="insights"
+                        unmountOnExit
+                    >
+                        <div className='insights'>
+                            <Button className='close' onClick={this.closeInsights} variant='contained'>
+                                <CloseIcon/>
+                            </Button>
+                            <div className='cnt'>
+                                <span className='title-icon'><img src={idea} /></span>
+                                {this.state.insights.course? 
+                                    <div className='relevant-course'>
+                                        <span><img src={lesson} /></span>
+                                        <span>
+                                            Relevant Course: 
+                                            <a onClick={_ => this.props.viewFullPost(this.state.insights.course.id)}>
+                                                {this.state.insights.course.title}
+                                            </a>
+                                        </span>    
+                                    </div> : null }
+                                {this.state.insights.toread?
+                                    <div className='toread'>
+                                        <span><img src={toread} /></span>
+                                        <span>To read more on this topic:</span>
+                                        <ul>
+                                        {this.state.insights.toread.map((t, j) => 
+                                            <li key={j}><a href={t} target='_blank'>{t}</a></li>)}
+                                        </ul>
+                                    </div>:null
+                                }
+                            </div>
+                            
+                        </div>
+                    </CSSTransition>
+                </Resizable>
+            </NotifContext.Provider>)
     }
 }
 export default B0t;
