@@ -15,6 +15,30 @@ import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import SaveTwoToneIcon from '@material-ui/icons/SaveTwoTone';
 import { v4 as uuidv4 } from 'uuid';
 
+const LectureSect = (props) => {
+    return <div className='lecture-sect'>
+        {!props.sect.render? <TextareaAutosize
+            className='sect'
+            defaultValue={props.sect.content}
+            onChange={props.handleChange}
+            onBlur={props.viewHide}
+        >
+        </TextareaAutosize>
+        :<div className='sect-rendered'
+            onDoubleClick={props.viewHide}>
+            <MdRender 
+                source={props.sect.content} 
+            />
+        </div>}
+        <Button 
+            className='del-sect'
+            onClick={props.del}
+        >
+            <CloseRoundedIcon/>
+        </Button>
+    </div>
+}
+
 const Editor = (props) => {
     // state
     const [id, setId] = useState('');
@@ -72,29 +96,13 @@ const Editor = (props) => {
                     placeholder='Enter description here'>
                 </TextareaAutosize>
                 <div className='lecture'>
-                    {lecture.map((sect, id) => {
-                        return <div className='lecture-sect' key={id}>
-                            {!sect.render? <TextareaAutosize
-                                className='sect'
-                                defaultValue={sect.content}
-                                onChange={(e) => handleSectChange(id, e)}
-                                onBlur={_ => viewHideRenderedSect(id)}
-                            >
-                            </TextareaAutosize>
-                            :<div className='sect-rendered'
-                                onDoubleClick={_ => viewHideRenderedSect(id)}>
-                                <MdRender 
-                                    source={sect.content} 
-                                />
-                            </div>}
-                            <Button 
-                                className='del-sect'
-                                onClick={_ => delSect(id)}
-                            >
-                                <CloseRoundedIcon/>
-                            </Button>
-                        </div>
-                    })}
+                    {lecture.map((sect, id) => <LectureSect key={id}
+                            handleChange={(e) => handleSectChange(id, e)}
+                            viewHide={_ => viewHideRenderedSect(id)}
+                            sect={sect}
+                            del={_ => delSect(id)}
+                        />
+                    )}
                     <Button
                         className='add-new-sect' 
                         onClick={addNewSect}

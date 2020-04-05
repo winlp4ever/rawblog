@@ -30,9 +30,8 @@
                 padding: 0.5em;
                 font-size: 0.9em;
                 font-style: italic;
-                border: 1px solid rgb(221, 221, 221);
                 border-left: 8px solid #005ecb;
-                border-radius: 8px;
+                box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
             }
         }
         .lecture {
@@ -116,7 +115,7 @@
             max-width: 500px;
             text-transform: none;
             letter-spacing: 0em;
-            background: #1976d2;
+            background: linear-gradient(to bottom, #448aff 0%, #2962ff 100%);
             box-sizing: border-box;
             padding: 0.2em 1em;
             color: whitesmoke;

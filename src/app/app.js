@@ -15,7 +15,6 @@ import Menu from '../menu/menu';
 import { userContext } from '../user-context/user-context';
 import Home from '../home/home';
 import B0t from '../b0t/b0t';
-import Vid from '../vid/vid';
 import Dropzone from '../_dropzone/_dropzone';
 
 // third party imports
@@ -47,7 +46,6 @@ export default class App extends Component {
         if (userdata) {
             this.setState({user: JSON.parse(userdata)});   
         }
-        
     }
 
     componentWillUnmount = () => {};
