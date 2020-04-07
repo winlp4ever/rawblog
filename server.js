@@ -133,31 +133,13 @@ io.on('connection', function(socket){
         console.log(posts[id]);
     })
 
-    //chat bot
-    socket.on('new chat', msg => {
-        io.emit('new chat', msg);
-        console.log(msg);
+    // chatbot
+    socket.on('ask-bob', msg => {
+        io.emit('ask-bob', msg);
     })
-
-    socket.on('submit chat', msg => {
-        console.log(msg);
-        io.emit('new chat', msg);
+    socket.on('bob-msg', msg => {
+        io.emit('bob-msg', msg);
     })
-
-    socket.on('is typing', msg => {
-        io.emit('is typing', msg);
-    })
-
-    socket.on('ask for hints', msg => {
-        io.emit('ask for hints', msg);
-        console.log(msg);
-    })
-
-    socket.on('hints', msg => {
-        io.emit('hints', msg);
-        console.log(msg);
-    })
-
 });
 
 // normal routes with POST/GET 

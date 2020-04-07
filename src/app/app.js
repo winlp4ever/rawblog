@@ -14,8 +14,8 @@ import Auth from '../user-auth/user-auth';
 import Menu from '../menu/menu';
 import { userContext } from '../user-context/user-context';
 import Home from '../home/home';
-import B0t from '../b0t/b0t';
 import Dropzone from '../_dropzone/_dropzone';
+import Bob from '../bob/bob';
 
 // third party imports
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
@@ -36,7 +36,8 @@ export default class App extends Component {
         user: {
             username: '',
             email: '',
-            color: ''
+            color: '',
+            userid: 1
         },
         activeTab: 0,
     }
@@ -85,7 +86,7 @@ export default class App extends Component {
                 {
                     (this.state.user.username != '') ? <div>
                         {main}
-                        <B0t />
+                        <Bob />
                     </div>: null
                 }
                 <Auth />
