@@ -136,6 +136,7 @@ io.on('connection', function(socket){
     // chatbot
     socket.on('ask-bob', msg => {
         io.emit('ask-bob', msg);
+        io.emit('new-chat', msg);
     })
     socket.on('bob-msg', msg => {
         io.emit('bob-msg', msg);

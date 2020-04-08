@@ -5,11 +5,17 @@ import {userContext} from '../user-context/user-context';
 // third party imports
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
+import BookmarkBorderRoundedIcon from '@material-ui/icons/BookmarkBorderRounded';
+import MinimizeRoundedIcon from '@material-ui/icons/MinimizeRounded';
 import Button from '@material-ui/core/Button';
 import io from 'socket.io-client';
 
 // import style file
 import './_bob.scss';
+
+// other cpns imports
+import {getCurrentTime} from '../utils';
+import MdRender from '../markdown-render/markdown-render';
 
 
 const Chat = ({content}) => {
@@ -19,14 +25,49 @@ const Chat = ({content}) => {
     </div>
 }
 
+const Answer = ({content}) => {
+    const [pin, setPin] = useState(false);
+    const [mini, setMini] = useState(false);
+
+    const togglePin = () => setPin(!pin);
+    const toggleMini = () => setMini(!mini);
+    return <div className={'answer' + (pin? ' pinned': '')}>
+        <div className='taskbar'>
+            <Button onClick={togglePin}><BookmarkBorderRoundedIcon/></Button>
+            <Button onClick={toggleMini}><MinimizeRoundedIcon/></Button>
+        </div>
+        <span 
+            className='text' 
+            dangerouslySetInnerHTML={{
+                __html: content.text
+            }}
+        />
+        {content.url != null ? <Button className='click-url' href={content.url} target='_blank'>Go to link</Button>:null}
+    </div>
+}
+
 const MultipleChoices = ({content}) => {
-    const handleClick = () => {
+    const [des, setDes] = useState(-1);
+
+    const handleClick = (id) => {
         console.log('click choice!');
+        setDes(id);
     }
+
     return <div className='multiple-choices'>
-        {content.choices.map((choice, id) => {
-            return <span key={id} className='choice' onClick={handleClick}>{choice.text}</span>
-        })}
+        <span className='text'>{content.text}</span>
+        <div className={'choices' + (des > -1? ' des': '')}>
+            {content.choices.map((choice, id) => {
+                if (des > -1 & id != des) return null;
+                return <span key={id} 
+                    className={'choice' + (id == des ? ' des': '')} 
+                    onClick={_ => handleClick(id) } 
+                    dangerouslySetInnerHTML={{
+                        __html: choice.text
+                    }}
+                />
+            })}
+        </div>
     </div>
 }
 
@@ -43,7 +84,8 @@ const OnePersonChats = (props) => {
         <div className='content'>
             {props.chats.map((c, id) => {
                 if (c.type == 'chat') return <Chat key={id} content={c}/>;
-                if (c.type == 'multiple-choices') return <MultipleChoices key={id} content={c}/>
+                if (c.type == 'answer') return <Answer key={id} content={c}/>;
+                if (c.type == 'multiple-choices') return <MultipleChoices key={id} content={c}/>;
             })}
         </div>
     </div>
@@ -62,6 +104,7 @@ const NewChat = (props) => {
     const send = () => {
         if (newchat == '') return;
         const nc = {
+            time: getCurrentTime(true),
             user: user,
             type: 'chat',
             text: newchat
@@ -70,13 +113,16 @@ const NewChat = (props) => {
             chat: nc,
             conversationID: user.userid
         });
-        props.addNewchat(nc);
         setNewchat('');
         input.current.value = '';
     }
 
     const handleKeyPress = (e) => {
-
+        let keycode = e.keyCode || e.which;
+        if (keycode != 13) return;
+        
+        e.preventDefault();
+        sending.current.click();
     }
 
     return <div className='new-chat'>
@@ -84,6 +130,7 @@ const NewChat = (props) => {
             ref={input}
             placeholder='ask a question'
             onChange={handleChange}
+            onKeyPress={handleKeyPress}
         />
         <Button onClick={send} ref={sending}><SendRoundedIcon/></Button>
     </div>
@@ -93,12 +140,21 @@ export default class Bob extends Component {
     static contextType = userContext;
     state = {
         chats: [],
-        socket: io()
+        socket: io(),
+        pins: [],
+        history: []
     }
 
     componentDidMount () {
         this.state.socket.on('bob-msg', msg => {
             console.log(msg);
+            if (msg.conversationID == this.context.user.userid) {
+                let chats_ = this.state.chats.slice();
+                chats_.push(msg.chat);
+                this.setState({chats: chats_});
+            }
+        })
+        this.state.socket.on('new-chat', msg => {
             if (msg.conversationID == this.context.user.userid) {
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
@@ -124,10 +180,10 @@ export default class Bob extends Component {
         let currentUser = '';
         this.state.chats.forEach((c, id) => {
             if (c.user.username != currentUser) {
+                currentUser = c.user.username;
                 if (onePersonChats.length > 0) {
                     chatParts.push(onePersonChats);
                     onePersonChats = [];
-                    currentUser = c.user.username;
                 }
             }
             onePersonChats.push(c);
@@ -136,12 +192,15 @@ export default class Bob extends Component {
         if (onePersonChats) chatParts.push(onePersonChats);
 
         return <div className='bob'>
-            <div className='old-chats'>
-                {chatParts.map((p, id) => {
-                    return <OnePersonChats key={id} chats={p}/>
-                })}
+
+            <div className='ask'>
+                <div className='old-chats'>
+                    {chatParts.map((p, id) => {
+                        return <OnePersonChats key={id} chats={p}/>
+                    })}
+                </div>
+                <NewChat socket={this.state.socket}/>
             </div>
-            <NewChat addNewchat={this.addNewchat} socket={this.state.socket}/>
         </div>
     }
 }
