@@ -7,6 +7,10 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import BookmarkBorderRoundedIcon from '@material-ui/icons/BookmarkBorderRounded';
 import MinimizeRoundedIcon from '@material-ui/icons/MinimizeRounded';
+import SmsFailedOutlinedIcon from '@material-ui/icons/SmsFailedOutlined';
+import CollectionsBookmarkOutlinedIcon from '@material-ui/icons/CollectionsBookmarkOutlined';
+import ExploreOutlinedIcon from '@material-ui/icons/ExploreOutlined';
+import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import Button from '@material-ui/core/Button';
 import io from 'socket.io-client';
 
@@ -142,7 +146,8 @@ export default class Bob extends Component {
         chats: [],
         socket: io(),
         pins: [],
-        history: []
+        history: [],
+        tab: 0
     }
 
     componentDidMount () {
@@ -167,10 +172,8 @@ export default class Bob extends Component {
         this.state.socket.disconnect();
     }
 
-    addNewchat = (c) => {
-        let chats_ = this.state.chats.slice();
-        chats_.push(c);
-        this.setState({chats: chats_});
+    toggleTab = (id) => {
+        this.setState({tab: id});
     }
 
     render() {
@@ -191,9 +194,32 @@ export default class Bob extends Component {
         })
         if (onePersonChats) chatParts.push(onePersonChats);
 
-        return <div className='bob'>
+        let options = [
+            {
+                icon: <SmsFailedOutlinedIcon/>,
+                cl: 'view-ask'
+            },
+            {
+                icon: <CollectionsBookmarkOutlinedIcon/>,
+                cl: 'view-bookmarks'
+            },
+            {
+                icon: <ExploreOutlinedIcon/>,
+                cl: 'view-explore'
+            },
+            {
+                icon: <MoreVertOutlinedIcon/>,
+                cl: 'view-more'
+            },
+            {
+                icon: <MinimizeRoundedIcon/>,
+                cl: 'minimize-window'
+            }
+        ]
 
-            <div className='ask'>
+        let main = null;
+        if (this.state.tab == 0) {
+            main = <div className='ask'>
                 <div className='old-chats'>
                     {chatParts.map((p, id) => {
                         return <OnePersonChats key={id} chats={p}/>
@@ -201,6 +227,19 @@ export default class Bob extends Component {
                 </div>
                 <NewChat socket={this.state.socket}/>
             </div>
+        }
+
+        return <div className='bob'>
+            <div className='bob-menu'>
+                {options.map((o, id) => <Button 
+                    key={id}
+                    className={o.cl + (id == this.state.tab? ' focus': '')}
+                    onClick={_=>this.toggleTab(id)}
+                >
+                    {o.icon}
+                </Button>)}
+            </div>
+            {main}
         </div>
     }
 }

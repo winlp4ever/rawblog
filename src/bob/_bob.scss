@@ -6,10 +6,56 @@
     height: 600px;
     box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
     box-sizing: border-box;
-    padding: 0.5em 1em;
+    padding: 3.2em 1em 0.5em 1em;
     border-radius: 0.5em;
     background: #f5f5f5;
     overflow: hidden;
+    .bob-menu {
+        position: absolute;
+        top: 0;
+        margin: 0 1em;
+        width: calc(100% - 2em);
+        border-bottom: 1px solid lightgrey;
+        right: 0;
+        box-sizing: border-box;
+        padding: 0.2em 0.5em;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        button {
+            position: relative;
+            svg {
+                font-size: 1.5em;
+            }
+            &.focus {
+                &:after {
+                    content: '';
+                    position: absolute;
+                    bottom: -4px;
+                    width: 75%;
+                    left: 50%;
+                    margin-left: -37.5%;
+                    height: 4px;
+                    background: #2979ff;
+                    display: block;
+                    border-radius: 2px;
+                    transform: perspective(50px) rotateX(23deg);
+                }
+            }
+        }
+        .view-more {
+            min-width: 0;
+        }
+        .minimize-window {
+            min-width: 0;
+            position: absolute;
+            top: 0;
+            right: 0;
+            svg {
+                font-size: 1em;
+            }
+        }
+    }
     .ask {
         height: 100%;
         display: flex;

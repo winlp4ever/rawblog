@@ -38,6 +38,7 @@ def run():
                 },
                 'type': 'answer',
                 'text': res,
+                'orinQuestion': msg['chat']['text'],
                 'url': link
             },
                 'conversationID': msg['conversationID']
