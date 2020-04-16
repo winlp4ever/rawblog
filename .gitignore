@@ -3,3 +3,4 @@ articles
 data
 aws-credentials/*
 **/__pycache__
+db-credentials
