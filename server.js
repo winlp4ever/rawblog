@@ -46,6 +46,15 @@ app.use(
 );
 app.use(require('webpack-hot-middleware')(compiler));
 
+/** 
+* setup postgres for backend data services
+*/
+const dbConfig = require('./db-credentials/config.js');
+const {Pool, Client} = require('pg');
+const pool = new Pool(dbConfig);
+const client = new Client(dbConfig);
+client.connect();
+
 // setup backend data for servicese
 var posts = {};
 var postsPath = './posts';
@@ -212,6 +221,18 @@ app.post('/admin-verify', (req, res) => {
 
 app.post('/post-img', (req, res) => {
     utils.uploadToS3(req.body.file, req.body.fn, msg => {res.json(msg)});
+})
+
+app.post('/submit-answer-rating', (req, res) => {
+    const query = 'update answer_temp set answer_rating=$1 where id=$2';
+    const values = [req.body.rating, req.body.answer_id]
+    client.query(query, values, (err, response) => {
+        if (err) {
+            res.json({status: err.stack});
+        } else {
+            res.json({status: 'ok'});
+        }
+    })
 })
 
 // on terminating the process
