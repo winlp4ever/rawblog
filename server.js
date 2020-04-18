@@ -150,6 +150,12 @@ io.on('connection', function(socket){
     socket.on('bob-msg', msg => {
         io.emit('bob-msg', msg);
     })
+    socket.on('ask-for-hints-bob', msg => {
+        io.emit('ask-for-hints-bob', msg);
+    })
+    socket.on('bob-hints', msg => {
+        io.emit('bob-hints', msg);
+    })
 });
 
 // normal routes with POST/GET 

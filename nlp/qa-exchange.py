@@ -8,6 +8,7 @@ import json
 
 sio = socketio.Client()
 questions_queue = deque()
+hints_queue = deque()
 bob = {
     'username': 'bob',
     'email': '',
@@ -26,8 +27,6 @@ f = open('db-credentials/config.json')
 
 dbconfig = json.load(f)
 
-
-
 @sio.event
 def connect():
     print('connection established')
@@ -35,6 +34,11 @@ def connect():
 @sio.on('ask-bob')
 def on_message(msg):
     questions_queue.appendleft(msg)
+
+@sio.on('ask-for-hints-bob')
+def on_message(msg):
+    if msg['typing'] not in {'', ' '}:
+        hints_queue.appendleft(msg)
 
 @sio.event
 def disconnect():
@@ -44,6 +48,7 @@ def get_answer(old_msg):
     question = old_msg['chat']['text']
     qs = sim.findSimQuestions(question, 5)
     ans = {}
+    msg = template.copy()
     if qs[0][2] > 0.9:
         conn = psycopg2.connect("dbname=%s user=%s host=%s port=%d password=%s"
             % (dbconfig['database'], dbconfig['user'], dbconfig['host'], dbconfig['port'], dbconfig['password']))
@@ -56,25 +61,39 @@ def get_answer(old_msg):
         # close the database
         cur.close()
         conn.close()
+        msg['related_questions'] = qs[1:]
+    else:
+        msg['related_questions'] = qs
     print('responded.')
-    msg = template.copy()
     msg['text'] = ans[2] if ans else ''
     msg['type'] = 'answer'
     msg['answer'] = ans
-    msg['related_questions'] = qs
+    
     return {
         'chat': msg,
         'conversationID': old_msg['conversationID']
     }
 
+def get_hints(msg):
+    question = msg['typing']
+    qs = sim.findSimQuestions(question, 5)
+    return {
+        'hints': qs,
+        'conversationID': msg['conversationID']
+    }
+
 sio.connect('http://localhost:5000')
 
 while True:
-    sleep(0.1)
+    sleep(0.01)
     if questions_queue:
         print('responding...')
         msg = questions_queue.pop()
         sio.emit('bob-msg', get_answer(msg))
+    if hints_queue:
+        print('sending hints...')
+        typing = hints_queue.pop()
+        sio.emit('bob-hints', get_hints(typing))
 
 
 sio.wait()
