@@ -1,4 +1,5 @@
 import React, {Component, useState, useContext, useEffect, useRef} from 'react';
+import ReactDOM, { findDOMNode } from 'react-dom';
 import {userContext} from '../user-context/user-context';
 
 import Button from '@material-ui/core/Button';
@@ -6,7 +7,7 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import StarsIcon from '@material-ui/icons/Stars';
 import RadioButtonCheckedRoundedIcon from '@material-ui/icons/RadioButtonCheckedRounded';
 import RadioButtonUncheckedRoundedIcon from '@material-ui/icons/RadioButtonUncheckedRounded';
-
+import $ from 'jquery';
 
 import './_ask.scss';
 
@@ -48,7 +49,7 @@ const RelatedQuestions = ({qs, socket}) => {
     const [viewRel, setViewRel] = useState(false);
 
     const user = useContext(userContext).user;
-
+    
     const toggleRel = () => setViewRel(!viewRel);
 
     const ask = (txt) => {
@@ -72,7 +73,7 @@ const RelatedQuestions = ({qs, socket}) => {
             <b>Wanna see some related questions?</b>
         </span>
         {viewRel? <div>
-            {qs.map((q, id) => <div className='rel-q'>
+            {qs.map((q, id) => <div className='rel-q' key={id}>
                 <span className='text' onClick={_ => ask(q[1])}>
                     {q[1]}
                 </span>
@@ -87,6 +88,10 @@ const AnswerInsights = ({content}) => {
             <h4><img src={require('../../imgs/bob/A.svg')} /> Full answer:</h4>
             {content.text}
         </div>
+        <div className='orientation'>
+            <h4><img src={require('../../imgs/bob/traces.svg')} /> This answer has traces:</h4>
+            {content.answer[12]? <span>{content.answer[12]}</span>: null}
+        </div>
     </div>
 }
 
@@ -99,9 +104,10 @@ const Answer = ({content, socket, setIns}) => {
 
     return <div> 
         <div className='chat'>
-            <span className='text'>I found something for you</span>
+            <span className='text'>{content.text != '' ? 'I found something for you': 
+                'I have troubles getting an answer for your question'}</span>
         </div>
-        <div 
+        {content.text != '' ? <div 
             className={'answer'} 
             onMouseEnter={_ => setIns(content)} 
             onMouseLeave={_ => setIns(null)}
@@ -118,8 +124,8 @@ const Answer = ({content, socket, setIns}) => {
                     __html: '... ' + content.text
                 }}
             />
-        </div>
-        <RateTheAnswer />
+        </div>:null}
+        {content.text != ''? <RateTheAnswer />:null}
         <RelatedQuestions qs={content.related_questions} socket={socket}/>
     </div>
 }
@@ -139,9 +145,11 @@ const ChatSegment = (props) => {
         }
     }
     return <div className={cl}>
-        {isBob ? <div className='user'>
-            <img src={require('../../imgs/bob/robot.svg')} />
-        </div>: null}
+        <div className='user'>
+            {isBob ? 
+                <img src={require('../../imgs/bob/robot.svg')} />
+            : null}
+        </div>
         <div className='content'>
             {props.chats.map((c, id) => {
                 if (c.type == 'chat') return <Chat key={id} content={c}/>;
@@ -211,6 +219,8 @@ const NewChat = (props) => {
         });
         setNewchat('');
         input.current.value = '';
+        //console.log(props.ocRef[0].scrollHeight);
+        //props.ocRef.scrollTop(props.ocRef[0].scrollHeight - 200);
     }
 
     const askRelatedQ = (q) => {
@@ -232,7 +242,8 @@ const NewChat = (props) => {
             <Hints hints={props.hints} applyHint={applyHint}
             />
         : null}
-        <Button className={'show-hints' + (viewHints? '': ' not-show')} 
+        <Button className={'show-hints' + (viewHints? '': ' not-show') + 
+            ((props.hints.length > 0 & viewHints)? ' hinting': '')} 
             onClick={viewHideHints}
         >
             <img src={require('../../imgs/bob/hint.svg')}/>
@@ -249,9 +260,8 @@ const NewChat = (props) => {
 
 const Ask = (props) => {
     const [ins, setIns] = useState(null);
-
+    
     const setIns_ = (cnt) => {
-        console.log('yuf');
         setIns(cnt);
     }
 

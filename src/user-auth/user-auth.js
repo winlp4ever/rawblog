@@ -47,7 +47,7 @@ const Auth = () => {
     }
 
     const signOut = async () => {
-        userdata.updateUser({username: '', email: '', color: ''});
+        userdata.updateUser({username: '', email: '', color: '', level: ''});
     }
 
 

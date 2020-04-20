@@ -16,6 +16,7 @@ import io from 'socket.io-client';
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
+import $ from 'jquery';
 
 // import style file
 import './_bob.scss';
@@ -70,6 +71,9 @@ export default class Bob extends Component {
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
                 this.setState({chats: chats_});
+                $(".old-chats").animate({
+                    scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 50
+                }, 500);
             }
         })
         this.state.socket.on('new-chat', msg => {
@@ -77,6 +81,9 @@ export default class Bob extends Component {
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
                 this.setState({chats: chats_});
+                $(".old-chats").animate({
+                    scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 50
+                }, 500);
             }
         })
         this.state.socket.on('bob-hints', msg => {

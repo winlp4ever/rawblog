@@ -4,9 +4,13 @@ import socketio
 from collections import deque
 from similarity_search import SimiSearch 
 import psycopg2
+import psycopg2.extras
+import random
+
 import json
 
 sio = socketio.Client()
+print('1')
 questions_queue = deque()
 hints_queue = deque()
 bob = {
@@ -22,6 +26,7 @@ template = {
 }
 
 sim = SimiSearch()
+print('2')
 
 f = open('db-credentials/config.json')
 
@@ -49,13 +54,24 @@ def get_answer(old_msg):
     qs = sim.findSimQuestions(question, 5)
     ans = {}
     msg = template.copy()
-    if qs[0][2] > 0.9:
+    res = {}
+    if qs and qs[0][2] > 0.9:
         conn = psycopg2.connect("dbname=%s user=%s host=%s port=%d password=%s"
             % (dbconfig['database'], dbconfig['user'], dbconfig['host'], dbconfig['port'], dbconfig['password']))
 
-        cur = conn.cursor()
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         cur.execute('select * from answer_temp, question_answer_temp where answer_temp.id=question_answer_temp.answer_temp_id and question_answer_temp.question_id = %s;', [str(qs[0][0])])
         ans = cur.fetchone()
+        ans_ = ans.copy() if ans else None
+        possible_res = []
+        while ans:
+            if ans['answer_level'] == old_msg['chat']['user']['level']:
+                possible_res.append(ans)
+            ans = cur.fetchone()
+        if possible_res:
+            res = possible_res[random.randint(0, len(possible_res)-1)]
+        else:
+            res = ans_
         conn.commit()
 
         # close the database
@@ -65,9 +81,9 @@ def get_answer(old_msg):
     else:
         msg['related_questions'] = qs
     print('responded.')
-    msg['text'] = ans[2] if ans else ''
+    msg['text'] = res['answer_text'] if res else ''
     msg['type'] = 'answer'
-    msg['answer'] = ans
+    msg['answer'] = res
     
     return {
         'chat': msg,
@@ -85,7 +101,7 @@ def get_hints(msg):
 sio.connect('http://localhost:5000')
 
 while True:
-    sleep(0.01)
+    sleep(0.005)
     if questions_queue:
         print('responding...')
         msg = questions_queue.pop()
