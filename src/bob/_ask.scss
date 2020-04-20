@@ -25,8 +25,8 @@
         padding: 0.5em 1em;
         border-radius: 1em;
         bottom: 20em;
-        left: -290px;
-        width: 300px;
+        left: -480px;
+        width: 500px;
         background: white;
         box-shadow: 0 25.6px 57.6px 0 rgba(0,0,0,.22), 0 4.8px 14.4px 0 rgba(0,0,0,.18);
         font-size: 0.8em;
@@ -352,15 +352,22 @@
                 } 
             }
             &:not(.me) {
+                position: relative;
                 display: flex;
                 flex-direction: row-reverse;
                 .user {
+                    width: 2.25em;
                     img {
+                        position: absolute;
                         display: block;
                         width: 1.5em;
-                        margin: 0.6em 0 auto 0.3em;
+                        margin: 0.6em 0 auto 0.5em;
                         height: 1.5em;
                         padding: 0.25em;
+                        bottom: 0.5em;
+                        right: 0;
+                        background: #ffe0b2;
+                        border-radius: 50%;
                     }
                 }
                 .chat, .rating, .related-questions {

@@ -52,6 +52,9 @@
             overflow-y: scroll;
             word-wrap: break-word;
             max-height: 60%;
+            box-sizing: border-box;
+            padding: 0 0.2em;
+            
             &::-webkit-scrollbar {
                 display: none;
             }
@@ -80,17 +83,19 @@
                         font-size: 0.65em;
                     }
                     &.old-q {
-                        border: 1px solid lightgrey;
+                        border: 1px solid rgb(223, 223, 223);
                         font-weight: 600;
+                        background: #e8f5e9;
                     }
                 }
                 .ans {
-                    border: 1px solid lightgrey;
+                    box-shadow: 0 3.2px 7.2px 0 rgba(0,0,0,.132), 0 0.6px 1.8px 0 rgba(0,0,0,.108);
                     overflow-y: scroll;
                     overflow-wrap: break-word;
                     max-width: 100%;
                     box-sizing: border-box;
                     padding: 0.1em 0;
+                    border-radius: 0.25em;
                     &::-webkit-scrollbar {
                         display: none;
                     }
