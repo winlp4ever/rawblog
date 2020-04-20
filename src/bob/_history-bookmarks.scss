@@ -1,0 +1,104 @@
+.bob {
+    .history-bookmarks {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.5em 1em;
+        .bob-bookmarks {
+            position: relative;
+            
+            overflow-y: scroll;
+            word-wrap: break-word;
+            max-height: 40%;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            h4 {
+                display: block;
+                overflow-wrap: break-word;
+                margin: 0.25em 0;
+                img {
+                    height: 1.2em;
+                    vertical-align: middle;
+                }
+            }
+            .old-bookmark {
+                max-height: 200px;
+                max-width: 100%;
+                overflow-y: scroll;
+                box-sizing: border-box;
+                padding: 0.25em 0.5em;
+                border-radius: 0.25em;
+                background: #fffde7;
+                line-height: 1.2;
+                margin-bottom: 0.5em;
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+                span {
+                    font-size: 0.8em;
+                }
+                .q_ {
+                    font-weight: 600;
+                }
+            }
+        }
+        .bob-history {
+            position: relative;
+            
+            overflow-y: scroll;
+            word-wrap: break-word;
+            max-height: 60%;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            h4 {
+                display: block;
+                overflow-wrap: break-word;
+                margin: 0.25em 0;
+                img {
+                    height: 1.2em;
+                    vertical-align: middle;
+                }
+            }
+            .old-question {
+                line-height: 1.2;
+                span {
+                    display: inline-block;
+                    font-size: 0.8em;
+                    line-height: 1.2;
+                    box-sizing: border-box;
+                    padding: 0.2em 0.25em;
+                    border-radius: 0.5em;
+                    margin: 0.1em;
+                    &.time {
+                        color: grey;
+                        font-weight: 700;
+                        font-size: 0.65em;
+                    }
+                    &.old-q {
+                        border: 1px solid lightgrey;
+                        font-weight: 600;
+                    }
+                }
+                .ans {
+                    border: 1px solid lightgrey;
+                    overflow-y: scroll;
+                    overflow-wrap: break-word;
+                    max-width: 100%;
+                    box-sizing: border-box;
+                    padding: 0.1em 0;
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+                    .title {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+}

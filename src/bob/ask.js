@@ -96,10 +96,27 @@ const AnswerInsights = ({content}) => {
 }
 
 const Answer = ({content, socket, setIns}) => {
-    const [pin, setPin] = useState(false);
+    const Us = useContext(userContext);
+
+    let u = content.datetime in Us.user.bookmarks
+    const [pin, setPin] = useState(u);
     const [mini, setMini] = useState(false);
 
-    const togglePin = () => setPin(!pin);
+    const togglePin = () => {
+        if (pin) {
+            let dct = Us.user;
+            delete dct.bookmarks[content.datetime];
+            Us.updateUser(dct);
+            console.log(dct);
+        }
+        else {
+            let dct = Us.user;
+            dct.bookmarks[content.datetime] = content;
+            Us.updateUser(dct);
+            console.log(dct);
+        }
+        setPin(!pin)
+    };
     const toggleMini = () => setMini(!mini);
 
     return <div> 

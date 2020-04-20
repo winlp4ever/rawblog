@@ -38,7 +38,9 @@ export default class App extends Component {
             email: '',
             color: '',
             userid: 1,
-            level: 'Master2'
+            level: 'Master2',
+            history: [],
+            bookmarks: {}
         },
         activeTab: 0,
     }

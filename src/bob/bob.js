@@ -24,8 +24,9 @@ import './_bob.scss';
 // other cpns imports
 
 import MdRender from '../markdown-render/markdown-render';
-import BobMenu from './menu.js';
-import Ask from './ask.js';
+import BobMenu from './menu';
+import Ask from './ask';
+import HistoryBookmarks from './history-bookmarks';
 
 const RatingLvs = ['totally unrelated!', 'not so helpful', 'contain info', 'very helpful', 'excellent']
 
@@ -60,7 +61,6 @@ export default class Bob extends Component {
         chats: [],
         socket: io(),
         pins: [],
-        history: [],
         tab: 0, 
     }
 
@@ -70,6 +70,10 @@ export default class Bob extends Component {
             if (msg.conversationID == this.context.user.userid) {
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
+                let dct = this.context.user;
+                dct.history.push(msg.chat);
+                this.context.updateUser(dct);
+                console.log(dct.history);
                 this.setState({chats: chats_});
                 $(".old-chats").animate({
                     scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 50
@@ -109,6 +113,8 @@ export default class Bob extends Component {
                 chats={this.state.chats}
                 hints={this.state.hints}
             />
+        } else if (this.state.tab == 1) {
+            main = <HistoryBookmarks/>
         }
 
         return <div className='bob'>

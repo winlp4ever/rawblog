@@ -8,6 +8,9 @@ import psycopg2.extras
 import random
 
 import json
+import time 
+from datetime import datetime
+
 
 sio = socketio.Client()
 print('1')
@@ -51,14 +54,35 @@ def disconnect():
 
 def get_answer(old_msg):
     question = old_msg['chat']['text']
-    qs = sim.findSimQuestions(question, 5)
+    isErr = [False]
+    global sim
+    qs = sim.findSimQuestions(question, 5, isErr=isErr)
+    if isErr[0]:
+        while True:
+            try:
+                sim = SimiSearch()
+            except Exception as e:
+                print(e)
+                sleep(0.5)
+                continue
+            break
     ans = {}
     msg = template.copy()
     res = {}
     if qs and qs[0][2] > 0.9:
-        conn = psycopg2.connect("dbname=%s user=%s host=%s port=%d password=%s"
-            % (dbconfig['database'], dbconfig['user'], dbconfig['host'], dbconfig['port'], dbconfig['password']))
-
+        while True:
+            try:
+                conn = psycopg2.connect (
+                    host=dbconfig['host'], database=dbconfig['database'],
+                    user=dbconfig['user'], password=dbconfig['password'], port=dbconfig['port'],
+                    connect_timeout=2
+                )
+            except Exception as e:
+                print(e)
+                sleep(0.5)
+                continue
+            break
+        print('what the hell')
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         cur.execute('select * from answer_temp, question_answer_temp where answer_temp.id=question_answer_temp.answer_temp_id and question_answer_temp.question_id = %s;', [str(qs[0][0])])
         ans = cur.fetchone()
@@ -84,7 +108,9 @@ def get_answer(old_msg):
     msg['text'] = res['answer_text'] if res else ''
     msg['type'] = 'answer'
     msg['answer'] = res
-    
+    msg['original_question'] = question
+    tm = datetime.fromtimestamp(time.time())
+    msg['datetime'] = '{}/{}/{} {}:{}:{}'.format(tm.day, tm.month, tm.year, tm.hour, tm.minute, tm.second)
     return {
         'chat': msg,
         'conversationID': old_msg['conversationID']
@@ -92,7 +118,19 @@ def get_answer(old_msg):
 
 def get_hints(msg):
     question = msg['typing']
-    qs = sim.findSimQuestions(question, 5)
+    isErr = [False]
+    global sim
+    qs = sim.findSimQuestions(question, 5, isErr=isErr)
+    if isErr[0]:
+        sleep(0.5)
+        err = True
+        while err:
+            try:
+                sim = SimiSearch()
+                err = False
+            except Exception as e:
+                print(e)
+        qs = sim.findSimQuestions(question, 5, isErr=isErr)
     return {
         'hints': qs,
         'conversationID': msg['conversationID']
@@ -101,7 +139,7 @@ def get_hints(msg):
 sio.connect('http://localhost:5000')
 
 while True:
-    sleep(0.005)
+    sleep(0.001)
     if questions_queue:
         print('responding...')
         msg = questions_queue.pop()
