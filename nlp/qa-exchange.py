@@ -118,6 +118,12 @@ def get_answer(old_msg):
 
 def get_hints(msg):
     question = msg['typing']
+    if len(question) < 7:
+        print('okk')
+        return {
+            'hints': [],
+            'conversationID': msg['conversationID']
+        }
     isErr = [False]
     global sim
     qs = sim.findSimQuestions(question, 5, isErr=isErr)

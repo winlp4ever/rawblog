@@ -13,6 +13,8 @@
             overflow-y: scroll;
             word-wrap: break-word;
             max-height: 40%;
+            margin-bottom: 1em;
+            line-height: 1.2;
             &::-webkit-scrollbar {
                 display: none;
             }

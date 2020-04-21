@@ -66,14 +66,12 @@ export default class Bob extends Component {
 
     componentDidMount () {
         this.state.socket.on('bob-msg', msg => {
-            console.log(msg);
             if (msg.conversationID == this.context.user.userid) {
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
                 let dct = this.context.user;
                 dct.history.push(msg.chat);
                 this.context.updateUser(dct);
-                console.log(dct.history);
                 this.setState({chats: chats_});
                 $(".old-chats").animate({
                     scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 50
@@ -91,6 +89,7 @@ export default class Bob extends Component {
             }
         })
         this.state.socket.on('bob-hints', msg => {
+            console.log(msg.hints.length);
             if (msg.conversationID == this.context.user.userid) {
                 this.setState({hints: msg.hints})
             }

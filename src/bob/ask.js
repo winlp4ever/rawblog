@@ -7,6 +7,7 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import StarsIcon from '@material-ui/icons/Stars';
 import RadioButtonCheckedRoundedIcon from '@material-ui/icons/RadioButtonCheckedRounded';
 import RadioButtonUncheckedRoundedIcon from '@material-ui/icons/RadioButtonUncheckedRounded';
+import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import $ from 'jquery';
 
 import './_ask.scss';
@@ -82,14 +83,14 @@ const RelatedQuestions = ({qs, socket}) => {
     </div>
 }
 
-const AnswerInsights = ({content}) => {
+const AnswerInsights = ({content, setContent}) => {
     return <div className='answer-insights'>
         <div className='full-answer'>
             <h4><img src={require('../../imgs/bob/A.svg')} /> Full answer:</h4>
             {content.text}
         </div>
         <div className='orientation'>
-            <h4><img src={require('../../imgs/bob/traces.svg')} /> This answer has traces:</h4>
+            <h4><img src={require('../../imgs/bob/traces.svg')} /> Explore more:</h4>
             {content.answer[12]? <span>{content.answer[12]}</span>: null}
         </div>
     </div>
@@ -107,13 +108,11 @@ const Answer = ({content, socket, setIns}) => {
             let dct = Us.user;
             delete dct.bookmarks[content.datetime];
             Us.updateUser(dct);
-            console.log(dct);
         }
         else {
             let dct = Us.user;
             dct.bookmarks[content.datetime] = content;
             Us.updateUser(dct);
-            console.log(dct);
         }
         setPin(!pin)
     };
@@ -208,10 +207,12 @@ const NewChat = (props) => {
 
     const viewHideHints = () => {
         setViewHints(!viewHints);
+        input.current.focus();
     }
 
     const handleChange = (e) => {
         setNewchat(e.target.value);
+        if (e.target.value.length == 7) setViewHints(true);
         props.socket.emit('ask-for-hints-bob', {
             'typing': e.target.value,
             'conversationID': user.userid
@@ -219,16 +220,25 @@ const NewChat = (props) => {
     }
 
     const handleAutoComplete = () => {
-        if (autoComplete >= 0 & autoComplete < props.hints.length) {
+        if (viewHints & autoComplete >= 0 & autoComplete < props.hints.length) {
             setNewchat(props.hints[autoComplete][1]);
             input.current.value = props.hints[autoComplete][1];
         }
     }
 
     const applyHint = (h) => {
-        setNewchat(h);
-        input.current.value = h;
-        //send();
+        const nc = {
+            time: getCurrentTime(true),
+            user: user,
+            type: 'chat',
+            text: h
+        }
+        props.socket.emit('ask-bob', {
+            chat: nc,
+            conversationID: user.userid
+        });
+        setNewchat('');
+        input.current.value = '';
     }
 
     const send = () => {
@@ -247,12 +257,6 @@ const NewChat = (props) => {
         input.current.value = '';
     }
 
-    const askRelatedQ = (q) => {
-        setNewchat(h);
-        input.current.value = h;
-        send();
-    }
-
     const handleKeyDown = (e) => {
         
         let keycode = e.keyCode || e.which;
@@ -268,7 +272,10 @@ const NewChat = (props) => {
                 handleAutoComplete();
             }
         }
-        
+        else if (keycode == 27) {
+            e.preventDefault();
+            setViewHints(false);
+        }
     }
 
     return <div className='new-chat'>
@@ -321,7 +328,7 @@ const Ask = (props) => {
     if (segment) chatSegments.push(segment);
 
     return <div className='ask'>
-        {ins? <AnswerInsights content={ins} />: null}
+        {ins? <AnswerInsights content={ins} setContent={setIns}/>: null}
         <div className='old-chats'>
             {chatSegments.map((p, id) => {
                 return <ChatSegment key={id} chats={p} socket={props.socket} setIns={setIns_}/>
