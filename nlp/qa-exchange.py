@@ -63,7 +63,7 @@ def get_answer(old_msg):
                 sim = SimiSearch()
             except Exception as e:
                 print(e)
-                sleep(0.5)
+                sleep(2)
                 continue
             break
     ans = {}

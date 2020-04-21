@@ -177,7 +177,7 @@ const ChatSegment = (props) => {
     </div>
 }
 
-const Hints = ({hints, applyHint}) => {
+const Hints = ({hints, applyHint, autoComplete}) => {
     const [focus, setFocus] = useState(-1);
 
     const toggleHint = (i) => {
@@ -187,7 +187,7 @@ const Hints = ({hints, applyHint}) => {
     return <div className='question-hints'>
         {hints.map((h, id) => <div 
             key={id} 
-            className={'hint' + (focus==id? ' focus': '')}
+            className={'hint' + (focus==id? ' focus': '') + (autoComplete-1 == id? ' auto-complete': '')}
             onMouseEnter={_ => toggleHint(id)}
             onMouseLeave={_ => toggleHint(-1)}
             onClick={_ => applyHint(h[1])}
@@ -200,6 +200,7 @@ const Hints = ({hints, applyHint}) => {
 const NewChat = (props) => {
     const [newchat, setNewchat] = useState('');
     const [viewHints, setViewHints] = useState(true);
+    const [autoComplete, setAutoComplete] = useState(0);
 
     const input = useRef(null);
     const sending = useRef(null);
@@ -217,9 +218,17 @@ const NewChat = (props) => {
         })
     }
 
+    const handleAutoComplete = () => {
+        if (autoComplete >= 0 & autoComplete < props.hints.length) {
+            setNewchat(props.hints[autoComplete][1]);
+            input.current.value = props.hints[autoComplete][1];
+        }
+    }
+
     const applyHint = (h) => {
         setNewchat(h);
         input.current.value = h;
+        //send();
     }
 
     const send = () => {
@@ -236,8 +245,6 @@ const NewChat = (props) => {
         });
         setNewchat('');
         input.current.value = '';
-        //console.log(props.ocRef[0].scrollHeight);
-        //props.ocRef.scrollTop(props.ocRef[0].scrollHeight - 200);
     }
 
     const askRelatedQ = (q) => {
@@ -246,17 +253,30 @@ const NewChat = (props) => {
         send();
     }
 
-    const handleKeyPress = (e) => {
-        let keycode = e.keyCode || e.which;
-        if (keycode != 13) return;
+    const handleKeyDown = (e) => {
         
-        e.preventDefault();
-        sending.current.click();
+        let keycode = e.keyCode || e.which;
+        if (keycode == 13) {
+            e.preventDefault();
+            sending.current.click();
+        }
+        else if (keycode == 9) {
+            e.preventDefault();
+            if (autoComplete >= props.hints.length) setAutoComplete(0);
+            else {
+                setAutoComplete(autoComplete + 1);
+                handleAutoComplete();
+            }
+        }
+        
     }
 
     return <div className='new-chat'>
         {viewHints & newchat != '' & newchat != ' ' & props.hints.length > 0 ?
-            <Hints hints={props.hints} applyHint={applyHint}
+            <Hints 
+                hints={props.hints} 
+                applyHint={applyHint} 
+                autoComplete={autoComplete}
             />
         : null}
         <Button className={'show-hints' + (viewHints? '': ' not-show') + 
@@ -269,9 +289,11 @@ const NewChat = (props) => {
             ref={input}
             placeholder='ask a question'
             onChange={handleChange}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyDown}
         />
-        <Button onClick={send} ref={sending}><img src={require('../../imgs/bob/send.svg')}/></Button>
+        <Button onClick={send} ref={sending}>
+            <img src={require('../../imgs/bob/send.svg')}/>
+        </Button>
     </div>
 }
 
