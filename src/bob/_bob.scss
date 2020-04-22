@@ -1,3 +1,13 @@
+@keyframes msg-appear {
+    0% {opacity: 0; transform: scale(1.2)}
+    100% {opacity: 1; transform: scale(1)}
+}
+
+@keyframes msg-disappear {
+    0% {opacity: 1}
+    100% {opacity: 0}
+}
+
 .bob-container {
     position: fixed;
     bottom: 1em;
@@ -41,6 +51,38 @@
         background: white;
         font-family: 'Baloo Bhaina 2';
         font-size: 1.1em;
+        .instant-answer {
+            position: absolute;
+            bottom: 5em;
+            right: -2em;
+            line-height: 1.25;
+            text-align: right;
+            font-size: 0.85em;
+            span {
+                display: block;
+                box-sizing: border-box;
+                padding: 0.5em 1em;
+                border-radius: 0.8em;
+                width: 400px;
+            }
+            .msg {
+                font-weight: 600;
+                background: white;
+                width: 300px;
+                box-shadow: 0 6.4px 14.4px 0 rgba(0,0,0,.132), 0 1.2px 3.6px 0 rgba(0,0,0,.108);
+                animation: 0.25s msg-appear 0s 1,
+                    1s msg-disappear 7s 1;
+                &:after {
+                    content: '';
+                    position: absolute;
+                    bottom: -0.5em;
+                    right: 1em;
+                    border-right: 0.2em solid transparent;
+                    border-left: 1.2em solid transparent;
+                    border-top: 0.5em solid white;
+                }
+            }
+        }
         .minimize-window {
             min-width: 0;
             position: absolute;

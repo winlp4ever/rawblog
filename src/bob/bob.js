@@ -60,7 +60,9 @@ export default class Bob extends Component {
         pins: [],
         tab: 0, 
         minimal: true,
-        newResponseComing: false
+        newResponseComing: false,
+        instantAnswer: '',
+        instantAnswerMsgEnable: false 
     }
 
     componentDidMount () {
@@ -71,15 +73,27 @@ export default class Bob extends Component {
                 let dct = this.context.user;
                 dct.history.push(msg.chat);
                 this.context.updateUser(dct);
+
                 if (this.state.minimal) {
-                    this.setState({chats: chats_, newResponseComing: true});
+                    this.setState({
+                        chats: chats_, 
+                        newResponseComing: true, 
+                        instantAnswerMsgEnable: true,
+                        instantAnswer: msg.chat.text
+                    });
+                    setTimeout(() => {
+                        this.setState({instantAnswerMsgEnable: false})
+                    }, 8000)
                 }
                 else {
                     this.setState({chats: chats_});
                 }
-                $(".old-chats").animate({
-                    scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 50
-                }, 500);
+                if ($(".old-chats").length > 0) {
+                    $(".old-chats").animate({
+                        scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 50
+                    }, 500);
+                }
+                
             }
         })
         this.state.socket.on('new-chat', msg => {
@@ -87,9 +101,11 @@ export default class Bob extends Component {
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
                 this.setState({chats: chats_});
-                $(".old-chats").animate({
-                    scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 50
-                }, 500);
+                if ($(".old-chats").length > 0) {
+                    $(".old-chats").animate({
+                        scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 50
+                    }, 500);
+                }
             }
         })
         this.state.socket.on('bob-hints', msg => {
@@ -135,6 +151,11 @@ export default class Bob extends Component {
                 <img src={require('../../imgs/bob/bob_.png')} />
             </div>
             <div className={'bob' + (this.state.minimal? ' minimal': '')}>
+                {this.state.minimal & this.state.newResponseComing & this.state.instantAnswerMsgEnable? 
+                    <div className='instant-answer'>
+                        <span className='msg'>Here's the response, click me to see more details!</span>
+                    </div>
+                :null}
                 {this.state.minimal? <NewChat socket={this.state.socket} hints={this.state.hints} />
                 :<div>
                     <Button className='minimize-window' onClick={this.toggleMode}><MinimizeRoundedIcon/></Button>
