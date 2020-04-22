@@ -297,10 +297,19 @@ const NewChat = (props) => {
             placeholder='ask a question'
             onChange={handleChange}
             onKeyDown={handleKeyDown}
+            className={'enter-question' + (newchat.length > 0? ' textin': '')}
         />
         <Button onClick={send} ref={sending}>
             <img src={require('../../imgs/bob/send.svg')}/>
         </Button>
+    </div>
+}
+
+const Welcome = () => {
+    return <div className='bob-welcome'>
+        <img src={require('../../imgs/bob/welcome-bot.svg')} />
+        <h2>Hi, I'm here to help!</h2>
+        <span>Ask me any course-relevant question and I'll try my best to untie the knot!</span>
     </div>
 }
 
@@ -330,6 +339,7 @@ const Ask = (props) => {
     return <div className='ask'>
         {ins? <AnswerInsights content={ins} setContent={setIns}/>: null}
         <div className='old-chats'>
+            {props.chats.length == 0? <Welcome />: null}
             {chatSegments.map((p, id) => {
                 return <ChatSegment key={id} chats={p} socket={props.socket} setIns={setIns_}/>
             })}
@@ -339,3 +349,4 @@ const Ask = (props) => {
 }
 
 export default Ask;
+export { NewChat };

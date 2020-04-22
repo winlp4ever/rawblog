@@ -26,8 +26,7 @@ const Bookmarks = ({bookmarks}) => {
     for (let b in user.bookmarks) {
         bms.push(user.bookmarks[b]);
     }
-    console.log(bms);
-    console.log(user.bookmarks);
+    
     return <div className='bob-bookmarks'>
         <h4><img src={require('../../imgs/bob/bmk.svg')}/> Bookmarks:</h4>
         {bms.map((b, id) => {

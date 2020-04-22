@@ -1,6 +1,6 @@
 .bob {
     .history-bookmarks {
-        height: 100%;
+        height: calc(600px - 3.6em);
         display: flex;
         flex-direction: column;
         justify-content: end;

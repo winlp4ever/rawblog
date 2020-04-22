@@ -16,6 +16,7 @@ import io from 'socket.io-client';
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
+import NotificationsActiveRoundedIcon from '@material-ui/icons/NotificationsActiveRounded';
 import $ from 'jquery';
 
 // import style file
@@ -25,7 +26,7 @@ import './_bob.scss';
 
 import MdRender from '../markdown-render/markdown-render';
 import BobMenu from './menu';
-import Ask from './ask';
+import Ask, {NewChat} from './ask';
 import HistoryBookmarks from './history-bookmarks';
 
 const RatingLvs = ['totally unrelated!', 'not so helpful', 'contain info', 'very helpful', 'excellent']
@@ -47,10 +48,6 @@ const Options = [
         icon: <img src={require('../../imgs/bob/list.svg')}/>,
         cl: 'view-more'
     },
-    {
-        icon: <MinimizeRoundedIcon/>,
-        cl: 'minimize-window'
-    }
 ]
 
 
@@ -62,6 +59,8 @@ export default class Bob extends Component {
         socket: io(),
         pins: [],
         tab: 0, 
+        minimal: true,
+        newResponseComing: false
     }
 
     componentDidMount () {
@@ -72,7 +71,12 @@ export default class Bob extends Component {
                 let dct = this.context.user;
                 dct.history.push(msg.chat);
                 this.context.updateUser(dct);
-                this.setState({chats: chats_});
+                if (this.state.minimal) {
+                    this.setState({chats: chats_, newResponseComing: true});
+                }
+                else {
+                    this.setState({chats: chats_});
+                }
                 $(".old-chats").animate({
                     scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 50
                 }, 500);
@@ -100,6 +104,14 @@ export default class Bob extends Component {
         this.state.socket.disconnect();
     }
 
+    toggleMode = () => {
+        if (this.state.minimal) {
+            this.setState({minimal: false, newResponseComing: false});
+        } else {
+            this.setState({minimal: true});
+        }
+    }
+
     changeTab = (id) => {
         this.setState({tab: id});
     }
@@ -116,13 +128,24 @@ export default class Bob extends Component {
             main = <HistoryBookmarks/>
         }
 
-        return <div className='bob'>
-            <BobMenu 
-                options={Options} 
-                activeTab={this.state.tab}
-                changeTab={this.changeTab} 
-            />
-            {main}
+        return <div className='bob-container'>
+            <div className='bob-ava' onClick={this.toggleMode}>
+                {this.state.newResponseComing? <span className='notif-res'>
+                </span>: null}
+                <img src={require('../../imgs/bob/bob_.png')} />
+            </div>
+            <div className={'bob' + (this.state.minimal? ' minimal': '')}>
+                {this.state.minimal? <NewChat socket={this.state.socket} hints={this.state.hints} />
+                :<div>
+                    <Button className='minimize-window' onClick={this.toggleMode}><MinimizeRoundedIcon/></Button>
+                    <BobMenu 
+                        options={Options} 
+                        activeTab={this.state.tab}
+                        changeTab={this.changeTab} 
+                    />
+                    {main}
+                </div>}
+            </div>
         </div>
     }
 }
