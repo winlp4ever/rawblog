@@ -4,3 +4,4 @@ data
 aws-credentials/*
 **/__pycache__
 db-credentials
+nlp/**/*.ipynb
