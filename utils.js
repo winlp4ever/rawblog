@@ -4,7 +4,7 @@ const _cliProgress = require('cli-progress');
 const request = require('request');
 var AWS = require('aws-sdk');
 AWS.config.loadFromPath(path.join(__dirname, 'aws-credentials', 'accessKeys.json'));
-
+const azure = require('./azure-credentials/config');
 
 var uploadToS3 = function(file, fn, callback) {
     s3 = new AWS.S3({apiVersion: '2006-03-01'});
@@ -27,7 +27,29 @@ var uploadToS3 = function(file, fn, callback) {
     });
 }
 
+var getNews = function(q, callback) {
+    let request_params = {
+        method: 'GET',
+        uri: azure.endpoint,
+        headers: {
+            'Ocp-Apim-Subscription-Key': azure.key
+        },
+        qs: {
+            q: q,
+            mkt: azure.mkt
+        },
+        json: true
+    }
+    request(request_params, function (error, response, body) {
+        if (error) {
+            console.error('error:', error)
+            return
+        }
+        return callback(body);
+    })
+}
 
 module.exports = {
-    uploadToS3: uploadToS3
+    uploadToS3: uploadToS3,
+    getNews: getNews
 }

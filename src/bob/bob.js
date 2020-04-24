@@ -28,6 +28,7 @@ import MdRender from '../markdown-render/markdown-render';
 import BobMenu from './menu';
 import Ask, {NewChat} from './ask';
 import HistoryBookmarks from './history-bookmarks';
+import News from './news';
 
 const RatingLvs = ['totally unrelated!', 'not so helpful', 'contain info', 'very helpful', 'excellent']
 
@@ -142,6 +143,8 @@ export default class Bob extends Component {
             />
         } else if (this.state.tab == 1) {
             main = <HistoryBookmarks/>
+        } else if (this.state.tab == 2) {
+            main = <News />
         }
 
         return <div className='bob-container'>

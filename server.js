@@ -241,6 +241,14 @@ app.post('/submit-answer-rating', (req, res) => {
     })
 })
 
+app.post('/post-news', (req, res) => {
+    const query = 'data science, machine learning, deep learning';
+    utils.getNews(query, (ans)=> {
+        console.log(ans);
+        res.json(ans);
+    })
+})
+
 // on terminating the process
 process.on('SIGINT', _ => {
     console.log('now you quit!');
