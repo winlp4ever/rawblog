@@ -100,7 +100,7 @@ export default class Bob extends Component {
             if (msg.conversationID == this.context.user.userid) {
                 let chats_ = this.state.chats.slice();
                 chats_.push(msg.chat);
-                this.setState({chats: chats_});
+                this.setState({chats: chats_, hints: []});
                 if ($(".old-chats").length > 0) {
                     $(".old-chats").animate({
                         scrollTop: $('.old-chats')[0].scrollHeight - $('.old-chats')[0].clientHeight + 50

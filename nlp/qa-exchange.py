@@ -10,7 +10,7 @@ import random
 import json
 import time 
 from datetime import datetime
-
+import requests
 
 sio = socketio.Client()
 print('1')
@@ -31,9 +31,15 @@ template = {
 sim = SimiSearch()
 print('2')
 
+# load db credentials
 f = open('db-credentials/config.json')
-
 dbconfig = json.load(f)
+f.close()
+
+# load azure credentials
+f = open('azure-credentials/config.json')
+azureConfig = json.load(f)
+f.close()
 
 @sio.event
 def connect():
@@ -51,6 +57,18 @@ def on_message(msg):
 @sio.event
 def disconnect():
     print('disconnected from server')
+
+def getRelatedQuestions(q):
+    headers = {"Ocp-Apim-Subscription-Key": azureConfig['key']}
+    params = {"q": q, "textDecorations": True, "textFormat": "HTML"}
+    try:
+        response = requests.get(azureConfig['endpoint'], headers=headers, params=params)
+        response.raise_for_status()
+        search_results = response.json()
+        return search_results['relatedSearches']['value'][:5]
+    except Exception as e:
+        print(e)
+        return []
 
 def get_answer(old_msg):
     question = old_msg['chat']['text']
@@ -101,10 +119,9 @@ def get_answer(old_msg):
         # close the database
         cur.close()
         conn.close()
-        msg['related_questions'] = qs[1:]
-    else:
-        msg['related_questions'] = qs
+    
     print('responded.')
+    msg['related_questions'] = getRelatedQuestions(question)
     msg['text'] = res['answer_text'] if res else ''
     msg['type'] = 'answer'
     msg['answer'] = res

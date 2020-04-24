@@ -65,7 +65,7 @@ const RelatedQuestions = ({qs, socket}) => {
             conversationID: user.userid
         });
     }
-    
+
     return <div className='related-questions'>
         <span className={'text' + (viewRel? ' rel': '')}
             onClick={toggleRel}
@@ -75,9 +75,11 @@ const RelatedQuestions = ({qs, socket}) => {
         </span>
         {viewRel? <div>
             {qs.map((q, id) => <div className='rel-q' key={id}>
-                <span className='text' onClick={_ => ask(q[1])}>
-                    {q[1]}
-                </span>
+                <span 
+                    className='text' 
+                    onClick={_ => ask(q.text)} 
+                    dangerouslySetInnerHTML={{__html: q.displayText}} 
+                />
             </div>)}
         </div>:null}
     </div>
@@ -182,7 +184,6 @@ const Hints = ({hints, applyHint, autoComplete}) => {
     const toggleHint = (i) => {
         setFocus(i);
     }
-
     return <div className='question-hints'>
         {hints.map((h, id) => <div 
             key={id} 
