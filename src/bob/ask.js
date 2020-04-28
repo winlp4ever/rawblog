@@ -85,7 +85,7 @@ const RelatedQuestions = ({qs, socket}) => {
     </div>
 }
 
-const AnswerInsights = ({content, setContent}) => {
+const AnswerInsights = ({content}) => {
     return <div className='answer-insights'>
         <div className='full-answer'>
             <h4><img src={require('../../imgs/bob/A.svg')} /> Full answer:</h4>
@@ -350,4 +350,4 @@ const Ask = (props) => {
 }
 
 export default Ask;
-export { NewChat };
+export { NewChat, AnswerInsights };
