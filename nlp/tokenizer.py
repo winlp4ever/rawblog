@@ -59,11 +59,9 @@ class Token:
     
 
 if __name__ == '__main__':
-    fileName = sys.argv[1]
-    sentences = []
-    with open(fileName, 'r') as fileinput:
-        for line in fileinput:
-            sentences.append(line)
+    s = sys.argv[1]
+    sentences = [s]
+    
     print('sentences: \n {}'.format(sentences))
     tk = Token()
 

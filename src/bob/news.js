@@ -29,14 +29,14 @@ const News = () => {
     return <div className='bob-news'>
         <Button onClick={fetchNews} className='refresh'><RefreshRoundedIcon/></Button>
         {news.map((n, id) => {
-            return <Button className={'new' + (n.image? ' with-img': '')} key={id} href={n.url} target='_blank'>
-                <h3>{n.name}</h3>
+            return <div className={'new' + (n.image? ' with-img': '')} key={id} >
+                <h3><a href={n.url} target='_blank'>{n.name}</a></h3>
                 <span>{n.description}</span>
                 <span className='link'>
-                    {n.url}
+                    <a href={n.url} target='_blank'>{n.url}</a>
                 </span>
                 {n.image? <img src={n.image.thumbnail.contentUrl} />:null}
-            </Button>
+            </div>
         })}
     </div>
 }

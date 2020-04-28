@@ -162,7 +162,7 @@ def get_hints(msg):
 sio.connect('http://localhost:5000')
 
 while True:
-    sleep(0.001)
+    sleep(0.0001)
     if questions_queue:
         print('responding...')
         msg = questions_queue.pop()

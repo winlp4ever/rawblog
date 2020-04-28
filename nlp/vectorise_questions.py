@@ -6,14 +6,12 @@ front user.
 '''
 import psycopg2
 import json
-from spacy.tokenizer import Tokenizer
-from spacy.lang.en import English
-from bert_serving.client import BertClient
-bc = BertClient('15.236.84.229')
+from tokenizer import Token
 
-nlp = English()
-# Create a blank Tokenizer with just the English vocab
-tokenizer = Tokenizer(nlp.vocab)
+tk = Token()
+from sentence_transformers import SentenceTransformer
+mod = SentenceTransformer('bert-base-nli-mean-tokens')
+
 
 # read db-config file
 f = open('db-credentials/config.json')
@@ -31,9 +29,9 @@ questions = cur.fetchall()
 
 # iterate over all questions
 for idx, text in questions:
-    tks = tokenizer(text).text
-    embeddings = bc.encode([tks])[0]
-    cur.execute("update question set dimensions=1024, vectorisation=%s where id=%s", [embeddings.tolist(), idx])
+    tks = tk.tokenize([text])[0]
+    embeddings = mod.encode([tks])[0]
+    cur.execute("update question set dimensions=768, vectorisation=%s where id=%s", [embeddings.tolist(), idx])
     print('done for %d' % idx)
 
 conn.commit()
