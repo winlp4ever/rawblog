@@ -11,7 +11,6 @@ class SimiSearch:
         #self.bc = BertClient('15.236.84.229')
         self.tk = Token()
         self.bc = SentenceTransformer('bert-base-nli-mean-tokens')
-        print('v')
         
     def findSimQuestions(self, q: str, topk: int, minScore=0.7, isErr=[False]):
         """
