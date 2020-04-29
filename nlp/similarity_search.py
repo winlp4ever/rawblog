@@ -1,8 +1,5 @@
 import time
-from bert_serving.client import BertClient
 from elasticsearch import Elasticsearch
-from spacy.tokenizer import Tokenizer
-from spacy.lang.en import English
 
 from tokenizer import Token 
 from sentence_transformers import SentenceTransformer
